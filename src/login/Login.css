@@ -1,0 +1,36 @@
+.joinAccountContainer {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .joinAccountContainer h3 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  .joinAccountContainer input {
+    width: 210px;
+    height: 40px;
+    margin: 7px;
+    border: 2px solid gray;
+    border-radius: 5px;
+    padding: 5px;
+    font-size: 16px;
+  }
+  
+  .joinAccountContainer button {
+    width: 225px;
+    height: 50px;
+    margin: 7px;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    font-size: 16px;
+    background: black;
+    color: #fff;
+    cursor: pointer;
+  }
+  
+  .joinAccountContainer button:hover {
+    background: gray;
+  }
