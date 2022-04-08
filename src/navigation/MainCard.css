@@ -44,21 +44,95 @@
 	color: white;
 }
 
-.content-chat {
+.content .content-chat {
 	display: flex;
-	min-height: calc(100vh - 100px);
+	flex-direction: column-reverse;
+	max-height: calc(100vh - 150px);
+	min-height: calc(100vh - 150px);
+	overflow: scroll;
+	overflow-x: hidden;
+
+}
+#you{
+	justify-content: right;
+	flex-direction: row-reverse;
+}
+#other{
+	justify-content: left;
 }
 
-.content input {
-	height: 50px;
+.content .content-chat::-webkit-scrollbar {
+	background: #2c3135;
+	border-radius: 10px
+}
+
+.content .content-chat::-webkit-scrollbar-thumb {
+	background: #23272a;
+	border-radius: 10px;
+	width: 1px;
+}
+
+.chat-footer {
+	display: flex;
+	flex-direction: row;
+	height: 45px;
+	margin-left: 10px;
+	margin-right: 10px;
+	background-color: #23272a;
+	border-radius: 10px;
+}
+
+.content .chat-footer input {
+	height: 40px;
+	margin-left: 10px;
+	flex: 70%;
 	border: none;
 	background-color: #23272a;
-	box-shadow: rgba(0, 0, 0, 0.2) 0px 8px 24px;
 	color: white;
 	outline: none;
+	font-size: 18px;
+	overflow: sc;
 }
 
-img {
+.content .chat-footer button {
+	border: 0;
+	place-items: center;
+	cursor: pointer;
+	height: 100%;
+	background: transparent;
+	outline: none;
+	font-size: 25px;
+	color: gray;
+}
+
+.content .message-card {
+	display: flex;
+	flex-direction: row;
+	color: lightgray;
+	margin-left: 20px;
+	margin-bottom: 15px;
+}
+.content .message-card .info{
+	display:flex;
+	flex-direction: column;
+}
+.content .message-card .name-date{
+	display: flex;
+	flex-direction: row;
+	/* width:150px; */
+}
+.content .message-card img{
+	border-radius: 50%;
+	width: 50px;
+	height: 50px;
+	padding: 20px;
+}
+.content .message-card .info .name-date div{
+	margin-right: 20px;
+	margin-top: 20px;
+	margin-bottom: 10px;
+}
+.sidebar img {
 	border-radius: 50%;
 	width: 150px;
 	padding: 20px;
@@ -70,4 +144,15 @@ img {
 	text-align: left;
 	font-size: 18px;
 	margin-left: 15px;
+}
+
+.content .chat-footer button:hover {
+	color: lightgray;
+}
+
+hr {
+	width: 90%;
+	border: 0;
+	border-top: 1px solid gray;
+	margin-top: 15px;
 }

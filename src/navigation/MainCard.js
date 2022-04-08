@@ -19,8 +19,35 @@ function MainCard() {
 				<div className="content-bar">
 					<h3 className="inner-html">#General</h3>
 				</div>
-				<div className="content-chat">here</div>
-				<input />
+				<div className="content-chat">
+					<div className="message-card" >
+						<img src="https://i.pinimg.com/474x/ec/e2/b0/ece2b0f541d47e4078aef33ffd22777e.jpg"></img>
+
+						<div className="info">
+							<div className="name-date">
+								<div>shikma</div>
+								<div style={{ color: "gray" }}> — Aujourd’hui à 12:44</div>
+							</div>
+							<div>this is a message from shikma</div>
+						</div>
+					</div>
+					<div className="message-card" >
+						<img src="https://i.pinimg.com/474x/ec/e2/b0/ece2b0f541d47e4078aef33ffd22777e.jpg"></img>
+
+						<div className="info">
+							<div className="name-date">
+								<div>knabouss</div>
+								<div style={{ color: "gray" }}> — Aujourd’hui à 12:44</div>
+							</div>
+							<div>this is a message from knabouss</div>
+						</div>
+
+					</div>
+				</div>
+				<div className="chat-footer">
+					<input />
+					<button>&#9658;</button>
+				</div>
 			</main>
 		</div>
 	);
