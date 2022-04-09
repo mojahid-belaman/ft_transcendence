@@ -9,7 +9,8 @@ function MessageCard(props){
 								<div>knabouss</div>
 								<div style={{ color: "gray" }}> — Aujourd’hui à 12:44</div>
 							</div>
-							<div>{props.message}</div>
+							{/* pay attention to the max width of the message */}
+							<div >{props.message}</div>
 						</div>
 
 					</div>

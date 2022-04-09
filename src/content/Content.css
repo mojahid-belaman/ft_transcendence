@@ -15,21 +15,14 @@
 }
 
 .content .content-chat {
-	display: flex;
 	justify-content: flex-end;
+	display: flex;
 	flex-direction: column;
 	max-height: calc(100vh - 150px);
 	min-height: calc(100vh - 150px);
-	overflow: scroll;
+	overflow-y: scroll;
 	overflow-x: hidden;
 
-}
-#you{
-	justify-content: right;
-	flex-direction: row-reverse;
-}
-#other{
-	justify-content: left;
 }
 
 .content .content-chat::-webkit-scrollbar {
@@ -102,7 +95,6 @@
 	margin-top: 20px;
 	margin-bottom: 10px;
 }
-
 .content .chat-footer button:hover {
 	color: lightgray;
 }

@@ -5,7 +5,8 @@ import SideBar from "../sidebar/SideBar";
 import "./MainCard.css";
 const DUMMY = ["General", "Announcements", "Music", "Random"]
 function MainCard() {
-	const [channel, setChannel] = useState("")
+	/* ask how to take the name on  the curent channel from the url */
+	const [channel, setChannel] = useState(DUMMY[1])
 	return (
 		<div className="mainContainer">
 			<SideBar channelSetter={setChannel} data={DUMMY} />
