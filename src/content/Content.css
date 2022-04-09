@@ -16,7 +16,8 @@
 
 .content .content-chat {
 	display: flex;
-	flex-direction: column-reverse;
+	justify-content: flex-end;
+	flex-direction: column;
 	max-height: calc(100vh - 150px);
 	min-height: calc(100vh - 150px);
 	overflow: scroll;

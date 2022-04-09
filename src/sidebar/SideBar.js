@@ -1,9 +1,8 @@
 import "./SideBar.css"
-
+import { Link } from "react-router-dom"
 function SideBar(props) {
-	function Setter(event){
-		console.log(event.target.value);
-		props.channelSetter(event.target.value);
+	function Setter(event) {
+		props.channelSetter(event.target.textContent);
 	}
 	return (
 		<div className="sidebar">
@@ -13,10 +12,10 @@ function SideBar(props) {
 			<div className="content-bar">
 				<h3>Channels</h3>
 			</div>
-			<button onClick={Setter}><div className="inner-html">#General</div></button>
-			<button onClick={Setter}><div className="inner-html">#Announcements</div></button>
-			<button onClick={Setter}><div className="inner-html">#Music</div></button>
-			<button onClick={Setter}><div className="inner-html">#Random</div></button>
+			<Link className="link" to={'/'} ><button onClick={Setter}>Home</button></Link>
+			{props.data.map((data) => (
+				<Link className="link" to={'/' + data} ><button onClick={Setter}>{data}</button></Link>
+			))}
 		</div>
 	)
 }
