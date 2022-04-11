@@ -1,2 +1,4 @@
 /social_platform_client/node_modules
 /social_platform_server/node_modules
+/social_platform_server/.env
+.env
