@@ -5,6 +5,8 @@ import { ChannelsController } from './channels/channels.controller';
 import { ChannelsService } from './channels/channels.service';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { Channels } from './channels/entity/channels.entity';
+import { Users } from './users/entity/users.entity';
 
 @Module({
   imports: [
@@ -16,7 +18,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       username: process.env.POSTGRES_USER,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,
-      entities: [],
+      entities: [Channels, Users],
       synchronize: true,
     })
   ],
