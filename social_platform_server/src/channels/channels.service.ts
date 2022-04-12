@@ -1,18 +1,21 @@
 import { Injectable } from '@nestjs/common';
-import { channels, users } from 'src/db';
-import { FindUserResponsDto } from 'src/users/dto/users.dto';
-import { FindChannelResponseDto } from './dto/channels.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Channels } from './entity/channels.entity';
 
 @Injectable()
 export class ChannelsService {
-	private channels = channels;
-  private users = users;
-  getchannels(): FindChannelResponseDto[] {
-    return this.channels;
+
+  constructor(
+    @InjectRepository(Channels)
+    private channelRepository: Repository<Channels>
+  ) {}
+
+  getchannels(): Promise<Channels[]> {
+    return this.channelRepository.find();
   }
-  getchannelById(channelId: string): FindChannelResponseDto{
-    return this.channels.find((channel) => {
-      return channel.id == channelId;
-    });
+
+  getchannelById(channelId): Promise<Channels> {
+    return this.channelRepository.findOne(channelId)
   }
 }

@@ -11,6 +11,11 @@ import { ConnectionsModule } from './connections/connections.module';
 import { FriendshipsModule } from './friendships/friendships.module';
 import { MessagesChannelsModule } from './messages-channels/messages-channels.module';
 import { MessagesDmsModule } from './messages-dms/messages-dms.module';
+import { Connection } from './connections/entities/connection.entity';
+import { Friendship } from './friendships/entities/friendship.entity';
+import { MessagesChannel } from './messages-channels/entities/messages-channel.entity';
+import { MessagesDM } from './messages-dms/entities/messages-dm.entity';
+import { ChannelsModule } from './channels/connections.module';
 
 @Module({
   imports: [
@@ -22,16 +27,17 @@ import { MessagesDmsModule } from './messages-dms/messages-dms.module';
       username: process.env.POSTGRES_USER,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,
-      entities: [Channels, Users],
+      entities: [Channels, Users, Connection, Friendship, MessagesChannel, MessagesDM],
       synchronize: true,
       
     }),
+    ChannelsModule,
     ConnectionsModule,
     FriendshipsModule,
     MessagesChannelsModule,
     MessagesDmsModule
   ],
-  controllers: [UsersController, ChannelsController],
-  providers: [UsersService, ChannelsService],
+  // controllers: [UsersController, ChannelsController],
+  // providers: [UsersService, ChannelsService],
 })
 export class AppModule {}

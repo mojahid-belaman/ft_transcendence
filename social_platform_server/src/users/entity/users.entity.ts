@@ -6,6 +6,6 @@ export class Users {
     id: string;
     @Column()
     username: string;
-    @Column({default: ""})
-    lastConnected: string;
+    @Column()
+    lastConnected: Date;
 }

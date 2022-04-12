@@ -20,5 +20,7 @@ export class Channels {
     })
     status: channelStatus;
     @ManyToOne(type => Users, user => user.id)
-    ownerId: Users;
+    owner: Users;
+    @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP"})
+    date: Date;
 }
