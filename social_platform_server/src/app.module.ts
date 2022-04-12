@@ -24,6 +24,7 @@ import { MessagesDmsModule } from './messages-dms/messages-dms.module';
       database: process.env.POSTGRES_DB,
       entities: [Channels, Users],
       synchronize: true,
+      
     }),
     ConnectionsModule,
     FriendshipsModule,
