@@ -1,0 +1,10 @@
+{
+    "type": "postgres",
+    "host": "192.168.99.101",
+    "port": 5432,
+    "username": "mojahid",
+    "password": "1337",
+    "database": "pingpong_db",
+    "entities": ["dist/**/*.entity{.ts,.js}"],
+    "synchronize": false
+}
