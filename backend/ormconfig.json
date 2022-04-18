@@ -6,5 +6,5 @@
     "password": "1337",
     "database": "pingpong_db",
     "entities": ["dist/**/*.entity{.ts,.js}"],
-    "synchronize": false
+    "synchronize": true
 }

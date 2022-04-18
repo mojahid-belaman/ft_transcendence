@@ -2,14 +2,20 @@ import { Controller, Get, HttpException, HttpStatus, Param } from '@nestjs/commo
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Users } from './users.entity';
+import { UsersService } from './users.service';
 
 @Controller('users')
 export class UsersController {
 
-    constructor(@InjectRepository(Users) private useRepo: Repository<Users>) {}
+    constructor(private useRepo: UsersService) {}
 
-    @Get(':id')
-    async findById(@Param() id: string) {
-        return await this.useRepo.findOne({id});
+    @Get()
+    async findAll() {
+        return await this.useRepo.findAll();
+    }
+
+    @Get(":id")
+    async findById(@Param("id") id: string) {
+        return await this.useRepo.findById(id);
     }
 }
