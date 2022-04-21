@@ -1,7 +1,4 @@
-import { Controller, Get, HttpException, HttpStatus, Param } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { Users } from './users.entity';
+import { Controller, Get, Param} from '@nestjs/common';
 import { UsersService } from './users.service';
 
 @Controller('users')
@@ -15,7 +12,7 @@ export class UsersController {
     }
 
     @Get(":id")
-    async findById(@Param("id") id: string) {
+    async findById(@Param() id: string) {
         return await this.useRepo.findById(id);
     }
 }
