@@ -1,20 +1,8 @@
-import {
-	Controller,
-	Get,
-	Post,
-	Param,
-	Query,
-	Redirect,
-	Req,
-	Res,
-	UseGuards,
-} from '@nestjs/common';
+import { Controller, Get, Query, Req, Res, UseGuards } from '@nestjs/common';
 import { AppService } from './app.service';
 import { IntraAuthGuard } from './Guards/auth.guard';
-import { query, Response } from 'express';
-import { Body, HttpService } from '@nestjs/common';
-import { Observable } from 'rxjs/internal/Observable';
-import { map } from 'rxjs/operators';
+import { HttpService } from '@nestjs/common';
+import { map } from 'rxjs';
 
 @Controller('oauth')
 export class AppController {
@@ -23,22 +11,6 @@ export class AppController {
 		private readonly httpService: HttpService,
 	) {}
 
-	// @Post()
-	// authenticate(
-	// 	@Body() authorizationRequestDto: AuthorizationRequestDto,
-	// 	@Query() query,
-	// ): Observable<any> {
-	// 	return this.httpService
-	// 		.post('https://api.intra.42.fr/oauth/token', {
-	// 			grant_type: 'authorization_code',
-	// 			client_id: process.env.FT_CLIENT_ID,
-	// 			client_secret: process.env.FT_SECRET,
-	// 			code: query.code,
-	// 			redirect_uri: 'http://localhost:3000/home',
-	// 		})
-	// 		.pipe(map((response) => response.data));
-	// }
-
 	/**
 	 * /api/ /home/login
 	 * this is the route for authentication
@@ -46,31 +18,28 @@ export class AppController {
 
 	@Get('login')
 	@UseGuards(IntraAuthGuard)
-	async login(@Req() req) {
+	async login() {
 		return;
 	}
 
-	/**
-	 * /api/ /home/redirect
-	 * this is the redirect url the oauth2 provider will call
-	 */
-
 	@Get()
-	redirect(@Query() query) {
+	async redirect(@Query() query, @Res() res) {
+		let something;
 		console.log('this is the query', query);
-		return this.httpService
+		await this.httpService
 			.post('https://api.intra.42.fr/oauth/token', {
 				grant_type: 'authorization_code',
-				client_id: process.env.FT_CLIENT_ID,
-				client_secret: process.env.FT_SECRET,
+				client_id: process.env.INTRA_CLIENT_ID,
+				client_secret: process.env.INTRA_SECRET,
 				code: query.code,
-				redirect_uri: process.env.FT_CALLBACK_URL,
+				redirect_uri: process.env.INTRA_CALLBACK_URL,
 			})
-			.pipe(
-				map((response) => {
-					return response.data;
-				}),
-			);
+			.pipe(map((response) => response.data))
+			.subscribe((data) => {
+				something = data;
+			});
+		console.log('this is the json file', something);
+		return res.sendStatus(200);
 	}
 
 	/**

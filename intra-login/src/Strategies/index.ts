@@ -11,9 +11,9 @@ config();
 export class fourtyTwoStrategy extends PassportStrategy(Strategy, '42') {
 	constructor() {
 		super({
-			clientID: process.env.FT_CLIENT_ID,
-			clientSecret: process.env.FT_SECRET,
-			callbackURL: process.env.FT_CALLBACK_URL,
+			clientID: process.env.INTRA_CLIENT_ID,
+			clientSecret: process.env.INTRA_SECRET,
+			callbackURL: process.env.INTRA_CALLBACK_URL,
 			scope: ['profile'],
 		});
 	}
