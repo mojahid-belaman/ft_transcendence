@@ -12,6 +12,7 @@ import { Friendship } from './friendships/entities/friendship.entity';
 import { MessagesChannel } from './messages-channels/entities/messages-channel.entity';
 import { MessagesDM } from './messages-dms/entities/messages-dm.entity';
 import { ChannelsModule } from './channels/connections.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -28,10 +29,12 @@ import { ChannelsModule } from './channels/connections.module';
       
     }),
     ChannelsModule,
+
     ConnectionsModule,
     FriendshipsModule,
     MessagesChannelsModule,
-    MessagesDmsModule
+    MessagesDmsModule,
+    UsersModule
   ],
 })
 export class AppModule {}
