@@ -1,26 +1,32 @@
-export class FindUserResponsDto{
-	id:string;
-	avatar:string;
-	status:boolean;
-	name:string;
-	password:string;
-}
-export class UserResponseDto{
-	id:string;
-	avatar:string;
-	status:boolean;
-	name:string;
-	password:string;
-}
+import { IsDate, IsString, ValidateIf } from "class-validator";
+
 export class CreateUserDto{
-	avatar:string;
-	status:boolean;
-	name:string;
+	@IsString()
+	username:string;
+	@IsString()
 	password:string;
-}
-export class UpdateUserDto{
+	@IsString()
+	@ValidateIf((object, value) => value !== null && value !== undefined)
 	avatar:string;
-	status:boolean;
-	name:string;
-	password:string;
 }
+
+export class UpdateUserDto {
+	@IsString()
+	username:string;
+	@IsString()
+	password:string;
+	@IsString()
+	@ValidateIf((object, value) => value !== null && value !== undefined)
+	avatar:string;	
+}
+
+export class FindUserResponsDto {
+	@IsString()
+	username:string;
+	@IsDate()
+    lastConnected: Date;
+	@IsString()
+	@ValidateIf((object, value) => value !== null && value !== undefined)
+	avatar:string;	
+}
+

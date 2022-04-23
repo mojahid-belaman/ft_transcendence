@@ -7,5 +7,9 @@ export class Users {
     @Column()
     username: string;
     @Column()
+    password: string;
+    @Column()
     lastConnected: Date;
+    @Column()
+    avatar: Date;
 }

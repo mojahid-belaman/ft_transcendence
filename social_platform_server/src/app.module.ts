@@ -1,8 +1,4 @@
 import { Module } from '@nestjs/common';
-import { UsersController } from './users/users.controller';
-import { UsersService } from './users/users.service';
-import { ChannelsController } from './channels/channels.controller';
-import { ChannelsService } from './channels/channels.service';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Channels } from './channels/entity/channels.entity';
@@ -37,7 +33,5 @@ import { ChannelsModule } from './channels/connections.module';
     MessagesChannelsModule,
     MessagesDmsModule
   ],
-  // controllers: [UsersController, ChannelsController],
-  // providers: [UsersService, ChannelsService],
 })
 export class AppModule {}

@@ -1,24 +1,24 @@
 import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
-import { CreateUserDto, FindUserResponsDto, UpdateUserDto, UserResponseDto } from './dto/users.dto';
+import { CreateUserDto, FindUserResponsDto, UpdateUserDto } from './dto/users.dto';
 import { UsersService } from './users.service';
 
 @Controller('users')
 export class UsersController {
 	constructor(private readonly usersService:UsersService){}
 	@Get()
-	getUsers():FindUserResponsDto[]{
+	getUsers(){
 		return(this.usersService.getUsers());
 	}
 	@Get("/:userId")
-	getUserById(@Param('userId')userId:string):FindUserResponsDto{
-		return(this.usersService.getUserById(userId));
+	getUserById(@Param('userId')userId:string){
+		return(this.usersService.findOne({ id: userId }));
 	}
 	@Post()
-	createUser(@Body()body:CreateUserDto):FindUserResponsDto{
+	createUser(@Body()body:CreateUserDto){
 		return(this.usersService.createUser(body));
 	}
 	@Put("/:userId")
-	updateUser(@Body() body:UpdateUserDto,@Param('userId') userId:string):FindUserResponsDto{
+	updateUser(@Body() body:UpdateUserDto,@Param('userId') userId:string){
 		return(this.usersService.updateUser(body,userId));
 	}
 }
