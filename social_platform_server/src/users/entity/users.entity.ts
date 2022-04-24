@@ -11,5 +11,5 @@ export class Users {
     @Column()
     lastConnected: Date;
     @Column()
-    avatar: Date;
+    avatar: string;
 }
