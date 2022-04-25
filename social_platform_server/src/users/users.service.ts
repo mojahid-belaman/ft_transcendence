@@ -31,10 +31,7 @@ export class UsersService {
     return this.userRepositroy.findOne({
       where: [condition]
     })
-    .then(user => {
-      delete user.password;
-      return user;
-    });
+    .then(user => user);
   }
   createUser(newUser: CreateUserDto) {
     return this.userRepositroy.save(newUser)

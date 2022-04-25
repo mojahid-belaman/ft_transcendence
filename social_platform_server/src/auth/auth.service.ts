@@ -10,16 +10,29 @@ export class AuthService {
         private jwtService: JwtService,
       ) {}
 
-    async validateUser (username: string, password: string): Promise<any> {
+    /* async validateUser (username: string, password: string): Promise<any> {
         const user = await this.userService.findOne({ username: username});
         if (!user)
             return {
                 errorMessage: "Email not found"
             };
-        console.log(user)
+        console.log(user.password)
         if (user &&!(await bcrypt.compare(password, (await user).password)))
             return null;
         return user;
+    } */
+    async validateUser (username: string, password: string): Promise<any> {
+        return this.userService.findOne({ username: username})
+        .then(async (user) => {
+            if (!user)
+                return {
+                    errorMessage: "Email not found"
+                };
+            console.log(user)
+            if (user &&!(await bcrypt.compare(password, user.password)))
+                return null;
+            return user;
+        });
     }
 
     async login(user: any) {
