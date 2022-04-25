@@ -10,22 +10,21 @@ export class AuthService {
         private jwtService: JwtService,
       ) {}
 
-    async validateUser (emailVal: string, password: string): Promise<any> {
-        const user = await this.userService.findOne({ email: emailVal});
+    async validateUser (username: string, password: string): Promise<any> {
+        const user = await this.userService.findOne({ username: username});
         if (!user)
             return {
                 errorMessage: "Email not found"
             };
+        console.log(user)
         if (user &&!(await bcrypt.compare(password, (await user).password)))
             return null;
         return user;
     }
 
     async login(user: any) {
-        // console.log(user)
         const payload = { ...user };
         delete user.id
-        // this.notificationService.create("Un nouveau utilisateur a été créé", "", "");
         return {
           access_token: this.jwtService.sign(payload),
           ...user
@@ -33,7 +32,6 @@ export class AuthService {
     }
 
     async authLogin(user: any) {
-        // console.log(user)
         const payload = { ...user };
         delete user.id
         delete user.password

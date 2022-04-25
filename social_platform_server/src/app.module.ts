@@ -14,6 +14,8 @@ import { MessagesDM } from './messages-dms/entities/messages-dm.entity';
 import { ChannelsModule } from './channels/connections.module';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
+import { JwtModule } from '@nestjs/jwt';
+import { jwtConstants } from './auth/constants';
 
 @Module({
   imports: [
@@ -30,7 +32,10 @@ import { AuthModule } from './auth/auth.module';
       
     }),
     ChannelsModule,
-
+    JwtModule.register({
+      secret: jwtConstants.secret,
+      signOptions: { expiresIn: '2 days' },
+    }),
     ConnectionsModule,
     FriendshipsModule,
     MessagesChannelsModule,
