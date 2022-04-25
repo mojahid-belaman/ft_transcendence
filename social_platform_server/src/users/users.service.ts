@@ -27,9 +27,9 @@ export class UsersService {
       })
     });
   }
-  async findOne(condition): Promise<Users> {
-    return await this.userRepositroy.findOne({
-      where: [{ id: condition.id }]
+  findOne(condition): Promise<Users> {
+    return this.userRepositroy.findOne({
+      where: [condition]
     })
     .then(user => {
       delete user.password;
