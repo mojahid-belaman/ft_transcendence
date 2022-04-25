@@ -4,7 +4,6 @@ import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
 export enum channelStatus {
     PUBLIC = "Public",
     PRIVATE = "Private",
-    CLOSED = "Closed",
 }
 
 @Entity()
@@ -19,7 +18,7 @@ export class Channels {
         default: channelStatus.PUBLIC
     })
     status: channelStatus;
-    @ManyToOne(type => Users, user => user.id)
+    @ManyToOne(type => Users, user => user.id, { onDelete: 'CASCADE', onUpdate: 'CASCADE' })
     owner: Users;
     @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP"})
     date: Date;

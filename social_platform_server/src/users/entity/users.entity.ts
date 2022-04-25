@@ -8,8 +8,8 @@ export class Users {
     username: string;
     @Column()
     password: string;
-    @Column()
+    @Column({default: null})
     lastConnected: Date;
     @Column()
-    avatar: Date;
+    avatar: string;
 }

@@ -13,6 +13,7 @@ import { MessagesChannel } from './messages-channels/entities/messages-channel.e
 import { MessagesDM } from './messages-dms/entities/messages-dm.entity';
 import { ChannelsModule } from './channels/connections.module';
 import { UsersModule } from './users/users.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -34,7 +35,7 @@ import { UsersModule } from './users/users.module';
     FriendshipsModule,
     MessagesChannelsModule,
     MessagesDmsModule,
-    UsersModule
+    AuthModule
   ],
 })
 export class AppModule {}

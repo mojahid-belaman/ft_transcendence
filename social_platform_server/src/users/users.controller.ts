@@ -11,6 +11,7 @@ export class UsersController {
 	}
 	@Get("/:userId")
 	getUserById(@Param('userId')userId:string){
+		console.log(userId)
 		return(this.usersService.findOne({ id: userId }));
 	}
 	@Post()
