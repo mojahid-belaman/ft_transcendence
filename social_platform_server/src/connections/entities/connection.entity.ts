@@ -16,8 +16,6 @@ export class Connection {
     user: Users;
     @ManyToOne(type => Channels, channel => channel.id)
     channel: Channels;
-    @Column()
-    dateCreation: string
     @Column({
         type: "enum",
         enum: connectionStatus,

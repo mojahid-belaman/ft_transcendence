@@ -1,34 +1,36 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Req } from '@nestjs/common';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { ConnectionsService } from './connections.service';
-import { CreateConnectionDto } from './dto/create-connection.dto';
-import { UpdateConnectionDto } from './dto/update-connection.dto';
 
-@Controller('connections')
+@Controller('channels/connections')
 export class ConnectionsController {
   constructor(private readonly connectionsService: ConnectionsService) {}
 
-  @Post()
-  create(@Body() createConnectionDto: CreateConnectionDto) {
-    return this.connectionsService.create(createConnectionDto);
+  @UseGuards(JwtAuthGuard)
+  @Post("/new")
+  join(@Body() createConnectionDto, @Req() req) {
+    return this.connectionsService.create({...createConnectionDto, user: req.user.userId});
   }
 
-  @Get()
-  findAll() {
-    return this.connectionsService.findAll();
+  @UseGuards(JwtAuthGuard)
+  @Get("me")
+  findAll(@Req() req) {
+    return this.connectionsService.findAll({user: req.user.userId});
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.connectionsService.findOne(+id);
+  findOne(@Param('id') id: string, @Req() req) {
+    return this.connectionsService.findOne({id: id, user: req.user.userId})
+    .then(connection => {
+      console.log(connection);
+      return connection;
+    });
   }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateConnectionDto: UpdateConnectionDto) {
-    return this.connectionsService.update(+id, updateConnectionDto);
-  }
-
+  
+  @UseGuards(JwtAuthGuard)
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.connectionsService.remove(+id);
+  delete(@Param('id') id: string, @Req() req) {
+    return this.connectionsService.delete({id: id, user: req.user.userId});
   }
 }

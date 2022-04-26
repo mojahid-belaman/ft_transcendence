@@ -18,6 +18,8 @@ export class Channels {
         default: channelStatus.PUBLIC
     })
     status: channelStatus;
+    @Column({default: null})
+    password: string;
     @ManyToOne(type => Users, user => user.id, { onDelete: 'CASCADE', onUpdate: 'CASCADE' })
     owner: Users;
     @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP"})

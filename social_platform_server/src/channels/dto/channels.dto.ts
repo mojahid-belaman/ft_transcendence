@@ -1,17 +1,15 @@
 import { Type } from 'class-transformer';
 import { IsArray, IsDate, IsEnum, IsString, IsUUID } from 'class-validator'
+import { IsNull } from 'typeorm';
 import { channelStatus } from '../entity/channels.entity';
 
-export class FindChannelResponseDto{
-	@IsUUID()
-	id: string;
+export class CreateChannelDto{
 	@IsString()
 	name: string;
+	@IsString()
+	password: string;
 	@IsEnum(channelStatus)
 	status: channelStatus;
-	@IsArray()
-	@Type(() => String)
-	usersId: string[];
 	@IsUUID()
 	owner: string;
 	@IsDate()

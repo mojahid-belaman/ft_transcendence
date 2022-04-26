@@ -1,9 +1,6 @@
 import { HttpStatus, Injectable } from '@nestjs/common';
-import { v4 as uuid } from 'uuid';
-import { users } from 'src/db';
 import {
   CreateUserDto,
-  FindUserResponsDto,
   UpdateUserDto,
 } from './dto/users.dto';
 import { InjectRepository } from '@nestjs/typeorm';

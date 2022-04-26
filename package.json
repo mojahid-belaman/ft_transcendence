@@ -1,9 +1,0 @@
-{
-  "dependencies": {
-    "@nestjs/jwt": "^8.0.0",
-    "@nestjs/passport": "^8.2.1",
-    "bcrypt": "^5.0.1",
-    "passport-jwt": "^4.0.0",
-    "passport-local": "^1.0.0"
-  }
-}

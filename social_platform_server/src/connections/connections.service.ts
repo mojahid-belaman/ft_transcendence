@@ -1,26 +1,54 @@
-import { Injectable } from '@nestjs/common';
+import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { NotFoundError } from 'rxjs';
+import { Repository } from 'typeorm';
 import { CreateConnectionDto } from './dto/create-connection.dto';
 import { UpdateConnectionDto } from './dto/update-connection.dto';
+import { Connection } from './entities/connection.entity';
 
 @Injectable()
 export class ConnectionsService {
-  create(createConnectionDto: CreateConnectionDto) {
-    return 'This action adds a new connection';
+
+  constructor(
+    @InjectRepository(Connection)
+    private connectionsRepository: Repository<Connection>    
+  ) {}
+
+  create(createConnectionDto) {
+    return this.connectionsRepository.findOne({
+      where: [createConnectionDto]
+    })
+    .then(data => {
+      if (data)
+        throw new ForbiddenException("Already Connected");
+      return this.connectionsRepository.save(createConnectionDto)
+    })
   }
 
-  findAll() {
-    return `This action returns all connections`;
+  findAll(condition) {
+    return this.connectionsRepository.find({
+      where: [condition]
+    });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} connection`;
+  findOne(condition) {
+    return this.connectionsRepository.findOne({
+      where: [condition],
+      relations: ['channels']
+    });
   }
 
-  update(id: number, updateConnectionDto: UpdateConnectionDto) {
-    return `This action updates a #${id} connection`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} connection`;
+  /* delete(condition) {
+    return this.connectionsRepository.findOne({
+      where: [condition]
+    })
+    .then(res => {
+      if (!res)
+        throw new NotFoundException("Connection Not Found");
+      return this.connectionsRepository.delete({id: condition.id})
+    });
+  } */
+  delete(condition) {
+    return this.connectionsRepository.delete(condition)
   }
 }

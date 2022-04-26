@@ -10,17 +10,6 @@ export class AuthService {
         private jwtService: JwtService,
       ) {}
 
-    /* async validateUser (username: string, password: string): Promise<any> {
-        const user = await this.userService.findOne({ username: username});
-        if (!user)
-            return {
-                errorMessage: "Email not found"
-            };
-        console.log(user.password)
-        if (user &&!(await bcrypt.compare(password, (await user).password)))
-            return null;
-        return user;
-    } */
     async validateUser (username: string, password: string): Promise<any> {
         return this.userService.findOne({ username: username})
         .then(async (user) => {

@@ -15,7 +15,17 @@ export class ChannelsService {
     return this.channelRepository.find();
   }
 
+  getchannelsByConditon(condition): Promise<Channels[]> {
+    return this.channelRepository.find({
+      where: [condition]
+    });
+  }
+
   getchannelById(channelId): Promise<Channels> {
     return this.channelRepository.findOne(channelId)
+  }
+
+  createChannel(channelObj) {
+    return this.channelRepository.save(channelObj)
   }
 }
