@@ -1,10 +1,10 @@
-import {userOne, userTwo, ball} from './Data';
+import { Data } from './data';
 import {detectCollosion} from './DetectCollision'
 
 let isOne = false;
 let isTwo = false;
 
-export function update(cWidth: number, cHeight: number) {
+export function update(data: Data) {
     ball.x += ball.dx;
     ball.y += ball.dy;
     
