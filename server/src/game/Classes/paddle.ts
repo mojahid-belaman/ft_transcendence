@@ -1,6 +1,6 @@
 import {GameVariable} from './constant'
 
-class Paddle {
+export class Paddle {
     private _paddle_X: number;
     private _paddle_Y: number;
     
@@ -17,5 +17,3 @@ class Paddle {
         return this._paddle_X;
     }
 }
-
-export default Paddle;
