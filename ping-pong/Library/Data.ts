@@ -113,6 +113,4 @@ export class Data {
         return this.trace_Height;
     }
 
-
-
 }

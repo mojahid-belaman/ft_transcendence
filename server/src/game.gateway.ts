@@ -6,7 +6,8 @@ import { Socket } from 'socket.io';
 export class GameGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect{
 
     private logger: Logger = new Logger('GameGateway');
-    
+
+
     afterInit(server: any) {
         this.logger.log('Initial');
     }
@@ -19,7 +20,7 @@ export class GameGateway implements OnGatewayInit, OnGatewayConnection, OnGatewa
 
     @SubscribeMessage('join_match')
     hundle_join_match(client: Socket, payload: any) {
-        
+        this.logger.log('Connect to server ' + `${client.id}`)
     }
 
   
