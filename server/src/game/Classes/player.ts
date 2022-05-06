@@ -12,9 +12,17 @@ export class Player {
         this._socket = socket;
         this._score = 0;
         this._isLesftSide = isLeftSide;
-        if (isLeftSide)
+        if (isLeftSide) {
+            console.log(`player one take paddle left`)
             this._paddle = new Paddle(GameVariable._left_Paddle_X);
-        else
+        }
+        else {
+            console.log(`player two take paddle right`)
             this._paddle = new Paddle(GameVariable._right_Paddle_X);
+        }
+    }
+
+    public getSocket(): Socket {
+        return this._socket;
     }
 }

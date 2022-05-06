@@ -1,5 +1,7 @@
-import { Data } from "./data";
+import {io} from 'socket.io-client';
+import { Data } from "./Data";
 
+const socket = io('localhost:5001');
 
 export function drawGame(context: object, data: Data) {
     drawRect(0, 0, data.get_Width(), data.get_Height(), '#000', context);
@@ -19,7 +21,7 @@ function drawRect(x: number, y: number, w: number, h: number, color: string, con
     context.fillRect(x, y, w, h);
   }
 
-  function DrawCircle(x: number, y: number, r: number, color: string, context: any) {
+  export function DrawCircle(x: number, y: number, r: number, color: string, context: any) {
     context.fillStyle = color;
     context.beginPath();
     context.arc(x, y, r, 0, 2 * Math.PI);

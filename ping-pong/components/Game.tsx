@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react'
 import { Data } from "../Library/Data";
-import { drawGame } from "../Library/DrawShapes";
+import { drawGame, DrawCircle } from "../Library/DrawShapes";
 import style from '../styles/Game.module.css'
 import {io} from 'socket.io-client'
 
@@ -17,8 +17,17 @@ export function Game() {
     
         const render = () => {
 
+          let check = true;
           //NOTE - Movements, Collision detection, Score Update
-          drawGame(context, data);
+          if (check) {
+            drawGame(context, data);
+            check = false;
+          }
+          socket.on('moveBall', (obj) => {
+            data.set_Ball_X(obj.x);
+            data.set_Ball_Y(obj.y);
+            drawGame(context, data);
+          })
     
           //NOTE - Call function render(); 60 times every 1000ms = 1sec
           requestAnimationFrame(render);

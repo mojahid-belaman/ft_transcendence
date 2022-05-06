@@ -112,5 +112,12 @@ export class Data {
     public get_Trace_Height(): number {
         return this.trace_Height;
     }
+    
+    public set_Ball_X(x: number): void {
+        this.ball_X = x;
+    }
+    public set_Ball_Y(y: number): void {
+        this.ball_Y = y;
+    }
 
 }

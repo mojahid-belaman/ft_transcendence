@@ -1,3 +1,4 @@
+import { Socket } from 'socket.io';
 import {GameVariable} from './constant'
 import {Paddle} from './paddle'
 
@@ -19,6 +20,8 @@ export class Ball {
     public moveBall(): void {
         this._ball_X += this._ball_DX;
         this._ball_Y += this._ball_DY;
+        console.log(this._ball_X);
+        console.log(this._ball_Y);
         
         if (this._ball_Y + GameVariable._ball_Radius > GameVariable._canvas_Height
             || this._ball_Y - GameVariable._ball_Radius < GameVariable._bounded_PaddleWidth)
@@ -27,8 +30,8 @@ export class Ball {
     }
 
     public detectCollision(): void {
-
-        this._collidePoint = this._ball_Y - (Paddle.get_PaddleY() + GameVariable._paddle_Height/2);
+        
+        // this._collidePoint = this._ball_Y - (Paddle.get_PaddleY() + GameVariable._paddle_Height/2);
 
         this._collidePoint  = this._collidePoint / (GameVariable._paddle_Height/2);
 
@@ -44,5 +47,13 @@ export class Ball {
         this._ball_X = GameVariable._canvas_Width / 2;
         this._ball_Y = GameVariable._canvas_Height / 2;
         this._collidePoint = 0;
+    }
+
+    public getBall_X(): number {
+        return this._ball_X;
+    }
+
+    public getBall_Y(): number {
+        return this._ball_Y;
     }
 }
