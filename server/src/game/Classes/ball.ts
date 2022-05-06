@@ -1,6 +1,6 @@
-import { Socket } from 'socket.io';
 import {GameVariable} from './constant'
 import {Paddle} from './paddle'
+import {Player} from './player'
 
 export class Ball {
     private _ball_X: number;
@@ -12,16 +12,14 @@ export class Ball {
     constructor() {
         this._ball_X = GameVariable._canvas_Width/2;
         this._ball_Y = GameVariable._canvas_Height/2;
-        this._ball_DX = 3;
-        this._ball_DY = 3;
+        this._ball_DX = 10;
+        this._ball_DY = 10;
         this._collidePoint = 0;
     }
 
     public moveBall(): void {
         this._ball_X += this._ball_DX;
         this._ball_Y += this._ball_DY;
-        console.log(this._ball_X);
-        console.log(this._ball_Y);
         
         if (this._ball_Y + GameVariable._ball_Radius > GameVariable._canvas_Height
             || this._ball_Y - GameVariable._ball_Radius < GameVariable._bounded_PaddleWidth)
@@ -29,9 +27,9 @@ export class Ball {
         
     }
 
-    public detectCollision(): void {
+    public detectCollision(player_One: Player): void {
         
-        // this._collidePoint = this._ball_Y - (Paddle.get_PaddleY() + GameVariable._paddle_Height/2);
+        this._collidePoint = this._ball_Y - (player_One.getPaddle().get_PaddleY() + GameVariable._paddle_Height/2);
 
         this._collidePoint  = this._collidePoint / (GameVariable._paddle_Height/2);
 

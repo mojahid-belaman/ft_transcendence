@@ -5,11 +5,11 @@ const socket = io('localhost:5001');
 
 export function drawGame(context: object, data: Data) {
     drawRect(0, 0, data.get_Width(), data.get_Height(), '#000', context);
-    drawBorder(0, 0, data.get_Width(), 0, '#d50000', context);
-    drawBorder(0, data.get_Height(), data.get_Width(), data.get_Height(), '#d50000', context); 
+    drawBorder(0, 0, data.get_Width(), 0, '#FFF', context);
+    drawBorder(0, data.get_Height(), data.get_Width(), data.get_Height(), '#FFF', context); 
     drawTextOne(data.get_Score_One(), data.get_Width() / 4, data.get_Height() / 5, '#FFF', context);
     drawTextTwo(data.get_Score_Two(), 3*data.get_Width() / 4, data.get_Height() / 5, '#FFF', context);
-    drawSeparator(data.get_Trace_X(), data.get_Trace_Y(), data.get_Trace_Width(), data.get_Trace_Height(), '#00c853', context, data.get_Height());
+    drawSeparator(data.get_Trace_X(), data.get_Trace_Y(), data.get_Trace_Width(), data.get_Trace_Height(), '#FFF', context, data.get_Height());
     drawRect(data.get_Left_Pddle_X(), data.get_Left_Pddle_Y(), data.get_Paddle_Width(), data.get_Paddle_Height(), '#FFF', context);
     drawRect(data.get_Right_Pddle_X(), data.get_Right_Pddle_Y(), data.get_Paddle_Width(), data.get_Paddle_Height(), '#FFF', context);
     DrawCircle(data.get_Ball_X(), data.get_Ball_Y(), data.get_Ball_Radius(), '#ffff00', context);

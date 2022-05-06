@@ -26,14 +26,9 @@ export class GameGateway implements OnGatewayInit, OnGatewayConnection, OnGatewa
     @SubscribeMessage('join_match')
     hundle_join_match(client: Socket, payload: any) {
         this.logger.log('Connect to server ' + `${client.id}`)
-        this.sockerArr.push(client);
-        if (this.sockerArr.length > 1)
-        { 
-            this.playerOne = new Player(this.sockerArr[this.sockerArr.length - 1], true);
-            this.playerTwo = new Player(this.sockerArr[0], false);
-            this.game = new Game(this.playerOne, this.playerTwo);
-        }
+        this.playerOne = new Player(client, true);
+        // this.playerTwo = new Player(this.sockerArr[0], false);
+        this.game = new Game(this.playerOne);
     }
-
   
 }

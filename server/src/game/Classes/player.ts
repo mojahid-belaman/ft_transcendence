@@ -25,4 +25,7 @@ export class Player {
     public getSocket(): Socket {
         return this._socket;
     }
+    public getPaddle(): Paddle {
+        return this._paddle;
+    }
 }
