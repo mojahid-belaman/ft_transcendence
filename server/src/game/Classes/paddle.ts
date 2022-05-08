@@ -16,4 +16,16 @@ export class Paddle {
     public get_PaddleX(): number {
         return this._paddle_X;
     }
+
+    public up(): void {
+        if (this._paddle_Y > GameVariable._bounded_PaddleWidth) {
+            console.log(`${this._paddle_Y}`);
+            this._paddle_Y -= 10;
+        }
+    }
+
+    public down(): void {
+        if (this._paddle_Y + GameVariable._paddle_Height < GameVariable._canvas_Height - GameVariable._bounded_PaddleWidth)
+            this._paddle_Y += 10;
+    }
 }

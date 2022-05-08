@@ -28,4 +28,7 @@ export class Player {
     public getPaddle(): Paddle {
         return this._paddle;
     }
+    public getScore(): number {
+        return this._score;
+    }
 }

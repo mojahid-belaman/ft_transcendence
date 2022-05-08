@@ -14,9 +14,8 @@ export class Data {
     private paddleHeight: number;
     private paddleWidth: number;
     private leftPaddle_X: number;
-    private leftPaddle_Y: number;
     private rightPaddle_X: number;
-    private rightPaddle_Y: number;
+    private paddle_Y: number;
     //NOTE - Details Ball
     private ballRadius: number;
     private ball_X: number;
@@ -39,9 +38,8 @@ export class Data {
         this.paddleHeight = this.cHeight / 6;
         this.paddleWidth = 10;
         this.leftPaddle_X = 0;
-        this.leftPaddle_Y = (this.cHeight/2) - (this.paddleHeight/2);
         this.rightPaddle_X = this.cWidth - this.paddleWidth;
-        this.rightPaddle_Y = (this.cHeight/2) - (this.paddleHeight/2);
+        this.paddle_Y = (this.cHeight/2) - (this.paddleHeight/2);
         this.ballRadius = 10;
         this.ball_X = this.cWidth/2;
         this.ball_Y = this.cHeight/2;
@@ -70,14 +68,11 @@ export class Data {
     public get_Left_Pddle_X(): number {
         return this.leftPaddle_X;
     }
-    public get_Left_Pddle_Y(): number {
-        return this.leftPaddle_Y;
-    }
     public get_Right_Pddle_X(): number {
         return this.rightPaddle_X;
     }
-    public get_Right_Pddle_Y(): number {
-        return this.rightPaddle_Y;
+    public get_Pddle_Y(): number {
+        return this.paddle_Y;
     }
     public get_Ball_Radius(): number {
         return this.ballRadius;
@@ -112,12 +107,4 @@ export class Data {
     public get_Trace_Height(): number {
         return this.trace_Height;
     }
-    
-    public set_Ball_X(x: number): void {
-        this.ball_X = x;
-    }
-    public set_Ball_Y(y: number): void {
-        this.ball_Y = y;
-    }
-
 }

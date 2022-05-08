@@ -1,5 +1,4 @@
 import {GameVariable} from './constant'
-import {Paddle} from './paddle'
 import {Player} from './player'
 
 export class Ball {
@@ -27,18 +26,36 @@ export class Ball {
         
     }
 
-    public detectCollision(player_One: Player): void {
+    public detect_Collision(player_One: Player): boolean {
+        let paddle_top: number = player_One.getPaddle().get_PaddleY();
+        let paddle_bottom: number = player_One.getPaddle().get_PaddleY() + GameVariable._paddle_Height;
+        let paddle_left: number = player_One.getPaddle().get_PaddleX();
+        let paddle_right: number = player_One.getPaddle().get_PaddleX() + GameVariable._paddle_Width;
+
+        let ball_top: number = this._ball_Y - GameVariable._ball_Radius;
+        let ball_bottom: number = this._ball_Y + GameVariable._ball_Radius;
+        let ball_left: number = this._ball_X - GameVariable._ball_Radius;
+        let ball_right: number = this._ball_X + GameVariable._ball_Radius;
+
+        return (ball_right > paddle_left && ball_top < paddle_bottom && 
+                ball_left < paddle_right && ball_bottom > paddle_top);
+    }
+
+    public direction_Ball(player_One: Player): void {
         
-        this._collidePoint = this._ball_Y - (player_One.getPaddle().get_PaddleY() + GameVariable._paddle_Height/2);
-
-        this._collidePoint  = this._collidePoint / (GameVariable._paddle_Height/2);
-
-        let angleRad: number = (Math.PI / 4) * this._collidePoint;
-
-        let direction: number = (this._ball_X < GameVariable._canvas_Width / 2) ? 1 : -1;
-
-        this._ball_DX = direction * GameVariable._ball_Speed * Math.cos(angleRad);
-        this._ball_DY = GameVariable._ball_Speed * Math.sin(angleRad);
+        if (this.detect_Collision(player_One)) {
+            
+            this._collidePoint = this._ball_Y - (player_One.getPaddle().get_PaddleY() + GameVariable._paddle_Height/2);
+            
+            this._collidePoint  = this._collidePoint / (GameVariable._paddle_Height/2);
+    
+            let angleRad: number = (Math.PI / 4) * this._collidePoint;
+    
+            let direction: number = (this._ball_X < GameVariable._canvas_Width / 2) ? 1 : -1;
+    
+            this._ball_DX = direction * GameVariable._ball_Speed * Math.cos(angleRad);
+            this._ball_DY = GameVariable._ball_Speed * Math.sin(angleRad);
+        }
     }
 
     public resetBall(): void {
@@ -53,5 +70,13 @@ export class Ball {
 
     public getBall_Y(): number {
         return this._ball_Y;
+    }
+    
+    public getBall_DX(): number {
+        return this._ball_DX;
+    }
+    
+    public getBall_DY(): number {
+        return this._ball_DY;
     }
 }

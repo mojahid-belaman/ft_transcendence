@@ -12,6 +12,6 @@ export class GameVariable {
     static readonly _bounded_PaddleWidth = 15;
     static readonly _max_Score = 10;
 
-    static readonly _ball_Radius = 9;
-    static readonly _ball_Speed = 5;
+    static readonly _ball_Radius = 9; 
+    static readonly _ball_Speed = 10; 
 }
