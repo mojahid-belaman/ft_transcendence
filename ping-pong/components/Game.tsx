@@ -16,8 +16,8 @@ export function Game() {
       ball_y: data.get_Ball_Y()
     },
     paddle: {
-      paddle_left: data.get_Pddle_Y(),
-      paddle_right: data.get_Pddle_Y()
+      paddle_left: data.get_PddleLeft_Y(),
+      paddle_right: data.get_PddleRight_Y()
     },
     score: {
       playerOne_Score: data.get_Score_One(),
@@ -38,7 +38,17 @@ export function Game() {
         const context = canvas.getContext('2d');
     
         //NOTE - Movements, Collision detection, Score Update
+        data.set_Ball_X(gmaeState.ball.ball_x);
+        data.set_Ball_Y(gmaeState.ball.ball_y);
+
+        data.set_PddleLeft_Y(gmaeState.paddle.paddle_left);
+        data.set_PddleRight_Y(gmaeState.paddle.paddle_right);
+
+        data.set_Score_One(gmaeState.score.playerOne_Score);
+        data.set_Score_Two(gmaeState.score.playerTwo_Score);
+
         drawGame(context, data);
+        
         //NOTE - the document is undefined. I should be able to use it inside useEffect
         document.addEventListener('keydown', (e) => {
           if (e.code === 'ArrowUp')
@@ -47,10 +57,10 @@ export function Game() {
             socket.emit('downPaddle');
         });
 
-        // window.addEventListener('load', () => {
-        //     console.log('onload');
-        //     socket.emit('join_match');
-        // })
+        window.addEventListener('load', () => {
+            console.log('onload');
+            socket.emit('join_match');
+        })
         
   }, [gmaeState]);
     

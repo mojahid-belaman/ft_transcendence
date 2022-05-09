@@ -12,7 +12,7 @@ export class GameGateway implements OnGatewayInit, OnGatewayConnection, OnGatewa
     private playerTwo: Player;
     private game: Game;
     private sockerArr: Socket[] = [];
-
+    
     afterInit(server: any) {
         this.logger.log('Initial');
     }

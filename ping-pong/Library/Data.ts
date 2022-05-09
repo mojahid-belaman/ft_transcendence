@@ -15,7 +15,8 @@ export class Data {
     private paddleWidth: number;
     private leftPaddle_X: number;
     private rightPaddle_X: number;
-    private paddle_Y: number;
+    private paddleLeft_Y: number;
+    private paddleRight_Y: number;
     //NOTE - Details Ball
     private ballRadius: number;
     private ball_X: number;
@@ -39,7 +40,8 @@ export class Data {
         this.paddleWidth = 10;
         this.leftPaddle_X = 0;
         this.rightPaddle_X = this.cWidth - this.paddleWidth;
-        this.paddle_Y = (this.cHeight/2) - (this.paddleHeight/2);
+        this.paddleLeft_Y = (this.cHeight/2) - (this.paddleHeight/2);
+        this.paddleRight_Y = (this.cHeight/2) - (this.paddleHeight/2);
         this.ballRadius = 10;
         this.ball_X = this.cWidth/2;
         this.ball_Y = this.cHeight/2;
@@ -71,8 +73,17 @@ export class Data {
     public get_Right_Pddle_X(): number {
         return this.rightPaddle_X;
     }
-    public get_Pddle_Y(): number {
-        return this.paddle_Y;
+    public get_PddleLeft_Y(): number {
+        return this.paddleLeft_Y;
+    }
+    public set_PddleLeft_Y(y: number): void {
+        this.paddleLeft_Y = y;
+    }
+    public get_PddleRight_Y(): number {
+        return this.paddleRight_Y;
+    }
+    public set_PddleRight_Y(y: number): void {
+        this.paddleRight_Y = y;
     }
     public get_Ball_Radius(): number {
         return this.ballRadius;
@@ -80,14 +91,26 @@ export class Data {
     public get_Ball_X(): number {
         return this.ball_X;
     }
+    public set_Ball_X(x: number): void {
+        this.ball_X = x;
+    }
     public get_Ball_Y(): number {
         return this.ball_Y;
+    }
+    public set_Ball_Y(y: number): void {
+        this.ball_Y = y;
     }
     public get_Score_One(): number {
         return this.score_One;
     }
+    public set_Score_One(scoreOne: number): void {
+        this.score_One = scoreOne;
+    }
     public get_Score_Two(): number {
         return this.score_Two;
+    }
+    public set_Score_Two(scoreTwo: number): void {
+        this.score_Two = scoreTwo;
     }
     public get_State(): State {
         return this.state;
