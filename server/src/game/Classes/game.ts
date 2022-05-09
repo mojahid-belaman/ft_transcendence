@@ -20,6 +20,7 @@ export class Game {
         this._ball.moveBall();
         this._ball.direction_Ball(player_One);
         this._ball.direction_Ball(player_Two);
+        this._ball.update_score(player_One, player_Two);
         this._player_One.getSocket().emit('gameState', {
             ball: {
                 ball_x: this._ball.getBall_X(),

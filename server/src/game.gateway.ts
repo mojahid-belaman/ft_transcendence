@@ -29,7 +29,7 @@ export class GameGateway implements OnGatewayInit, OnGatewayConnection, OnGatewa
     hundle_up_paddle(client: Socket, payload: any) {
         let player: Player = this.game.get_GamePlayer(client);
         player.getPaddle().up();
-
+        
     }
     
     @SubscribeMessage('downPaddle')

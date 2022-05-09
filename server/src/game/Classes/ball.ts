@@ -11,8 +11,8 @@ export class Ball {
     constructor() {
         this._ball_X = GameVariable._canvas_Width/2;
         this._ball_Y = GameVariable._canvas_Height/2;
-        this._ball_DX = 10;
-        this._ball_DY = 10;
+        this._ball_DX = 2;
+        this._ball_DY = 2;
         this._collidePoint = 0;
     }
 
@@ -55,6 +55,17 @@ export class Ball {
     
             this._ball_DX = direction * GameVariable._ball_Speed * Math.cos(angleRad);
             this._ball_DY = GameVariable._ball_Speed * Math.sin(angleRad);
+        }
+    }
+
+    public update_score(player_One: Player, player_Two: Player): void {
+        if (this._ball_X - GameVariable._ball_Radius < 0) {
+            player_One.setScore(1);
+            this.resetBall();
+        }
+        else if (this._ball_X + GameVariable._ball_Radius > GameVariable._canvas_Width) {
+            player_Two.setScore(1)
+            this.resetBall();
         }
     }
 

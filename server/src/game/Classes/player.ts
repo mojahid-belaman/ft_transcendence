@@ -31,4 +31,7 @@ export class Player {
     public getScore(): number {
         return this._score;
     }
+    public setScore(score: number): number {
+        return this._score += score;
+    }
 }
