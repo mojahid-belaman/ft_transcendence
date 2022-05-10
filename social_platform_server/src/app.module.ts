@@ -16,6 +16,7 @@ import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from './auth/constants';
+import { IntraAuthModule } from './42-auth/IntraAuth.module';
 
 @Module({
   imports: [
@@ -27,9 +28,15 @@ import { jwtConstants } from './auth/constants';
       username: process.env.POSTGRES_USER,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,
-      entities: [Channels, Users, Connection, Friendship, MessagesChannel, MessagesDM],
+      entities: [
+        Channels,
+        Users,
+        Connection,
+        Friendship,
+        MessagesChannel,
+        MessagesDM,
+      ],
       synchronize: true,
-      
     }),
     ChannelsModule,
     JwtModule.register({
@@ -40,7 +47,8 @@ import { jwtConstants } from './auth/constants';
     FriendshipsModule,
     MessagesChannelsModule,
     MessagesDmsModule,
-    AuthModule
+    AuthModule,
+    IntraAuthModule,
   ],
 })
 export class AppModule {}

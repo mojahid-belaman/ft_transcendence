@@ -29,17 +29,12 @@
     "@nestjs/passport": "^8.2.1",
     "@nestjs/platform-express": "^8.0.0",
     "@nestjs/typeorm": "^8.0.3",
-<<<<<<< HEAD
     "@types/passport": "^1.0.7",
     "bcrypt": "^5.0.1",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.13.2",
     "passport": "^0.5.2",
-=======
-    "bcrypt": "^5.0.1",
-    "class-transformer": "^0.5.1",
-    "class-validator": "^0.13.2",
->>>>>>> 8b5f9864af4c19319822599007416c5ea0b556d5
+    "passport-42": "^1.2.6",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
     "pg": "^8.7.3",
