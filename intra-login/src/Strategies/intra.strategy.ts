@@ -1,9 +1,8 @@
-import { Strategy } from 'passport-42';
+import { Strategy, verify } from 'passport-42';
 import { PassportStrategy } from '@nestjs/passport';
 import { Injectable } from '@nestjs/common';
 import { Profile } from 'passport';
 import { config } from 'dotenv';
-import verify from 'passport-42';
 
 config();
 
@@ -14,7 +13,7 @@ export class fourtyTwoStrategy extends PassportStrategy(Strategy, '42') {
 			clientID: process.env.INTRA_CLIENT_ID,
 			clientSecret: process.env.INTRA_SECRET,
 			callbackURL: process.env.INTRA_CALLBACK_URL,
-			scope: ['profile'],
+			scope: [],
 		});
 	}
 	async validate(
