@@ -4,8 +4,8 @@ import { Socket } from 'socket.io';
 import { Game } from './game/Classes/game';
 import { Player } from './game/Classes/player';
 
-@WebSocketGateway(5001, {cors: {origin: "http://localhost:3000"}})
-export class GameGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect{
+@WebSocketGateway(5001, {cors: {origin: "*"}})
+export class GameGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
 
     private logger: Logger = new Logger('GameGateway');
     private playerOne: Player;
@@ -14,7 +14,7 @@ export class GameGateway implements OnGatewayInit, OnGatewayConnection, OnGatewa
     private sockerArr: Socket[] = [];
     
     afterInit(server: any) {
-        this.logger.log('Initial');
+        this.logger.log('Initial'); 
     }
 
     handleConnection(client: Socket, ...args: any[]) {
@@ -26,14 +26,15 @@ export class GameGateway implements OnGatewayInit, OnGatewayConnection, OnGatewa
     }
 
     @SubscribeMessage('upPaddle')
-    hundle_up_paddle(client: Socket, payload: any) {
+    hundle_up_paddle(client: Socket, payload: string) {
         let player: Player = this.game.get_GamePlayer(client);
         player.getPaddle().up();
+
         
     }
     
     @SubscribeMessage('downPaddle')
-    hundle_down_paddle(client: Socket, payload: any) {
+    hundle_down_paddle(client: Socket, payload: string) {
         let player = this.game.get_GamePlayer(client);
         player.getPaddle().down();
     }

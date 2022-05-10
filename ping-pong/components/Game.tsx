@@ -4,7 +4,22 @@ import { drawGame } from "../Library/DrawShapes";
 import style from '../styles/Game.module.css'
 import {io} from 'socket.io-client'
 
-const socket = io('localhost:5001');
+const socket = io('http://10.12.8.14:5001');
+
+export interface dataGame {
+  ball: {
+    ball_x: number,
+    ball_y: number
+  },
+  paddle: {
+    paddle_left: number,
+    paddle_right: number
+  },
+  score: {
+    playerOne_Score: number,
+    playerTwo_Score: number
+  }
+}
 
 export function Game() {
   
@@ -12,7 +27,7 @@ export function Game() {
   const canvasRef: any =  useRef();
   
   
-  const initialState = {
+  const initialState: dataGame = {
     ball: {
       ball_x: data.get_Ball_X(),
       ball_y: data.get_Ball_Y()
@@ -39,7 +54,7 @@ export function Game() {
         const canvas:any = canvasRef.current;
         const context = canvas.getContext('2d');
 
-        //NOTE - Movements, Collision detection, Score Update
+        //NOTE - Movement Ball and Paddle, Score Update
         data.set_Ball_X(gmaeState.ball.ball_x);
         data.set_Ball_Y(gmaeState.ball.ball_y);
 
@@ -50,10 +65,6 @@ export function Game() {
         data.set_Score_Two(gmaeState.score.playerTwo_Score);
 
         drawGame(context, data);
-
-        window.addEventListener('load', () => {
-            socket.emit('join_match');
-        })
         
   }, [gmaeState]);
 
@@ -61,14 +72,24 @@ export function Game() {
     //NOTE - the document is undefined. I should be able to use it inside useEffect
     document.addEventListener('keydown', (e) => {
       if (e.code === 'ArrowUp') {
-        socket.emit('upPaddle');
-        console.log(data.get_PddleRight_Y());
+        socket.emit('upPaddle', 'up');
       }
       else if (e.code === 'ArrowDown') {
-        socket.emit('downPaddle');
-        console.log(data.get_PddleLeft_Y());
+        socket.emit('downPaddle', 'down');
       }
     });
+    document.addEventListener('keyup', (e) => {
+      if (e.code === 'ArrowUp') {
+        socket.emit('upPaddle', 'up');
+      }
+      else if (e.code === 'ArrowDown') {
+        socket.emit('downPaddle', 'down');
+      }
+    });
+    
+    window.addEventListener('load', () => {
+      socket.emit('join_match');
+  })
   }, []);
     
     return (
