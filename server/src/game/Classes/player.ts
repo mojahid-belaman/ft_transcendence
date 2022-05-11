@@ -7,6 +7,7 @@ export class Player {
     private _score: number;
     private _paddle: Paddle;
     private _isLesftSide: boolean;
+    private _isInterval: NodeJS.Timer;
 
     constructor(socket: Socket, isLeftSide: boolean) {
         this._socket = socket;
@@ -20,6 +21,7 @@ export class Player {
             console.log(`player two take paddle right`)
             this._paddle = new Paddle(GameVariable._right_Paddle_X);
         }
+        this._isInterval = setInterval(() => {this._paddle.movePaddle()}, 1000/60);
     }
 
     public getSocket(): Socket {

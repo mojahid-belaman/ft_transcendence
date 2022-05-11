@@ -4,7 +4,7 @@ import { drawGame } from "../Library/DrawShapes";
 import style from '../styles/Game.module.css'
 import {io} from 'socket.io-client'
 
-const socket = io('http://10.12.8.14:5001');
+const socket = io('http://localhost:5001');
 
 export interface dataGame {
   ball: {
@@ -72,7 +72,7 @@ export function Game() {
     //NOTE - the document is undefined. I should be able to use it inside useEffect
     document.addEventListener('keydown', (e) => {
       if (e.code === 'ArrowUp') {
-        socket.emit('upPaddle', 'up');
+        socket.emit('upPaddle', 'down');
       }
       else if (e.code === 'ArrowDown') {
         socket.emit('downPaddle', 'down');
@@ -83,7 +83,7 @@ export function Game() {
         socket.emit('upPaddle', 'up');
       }
       else if (e.code === 'ArrowDown') {
-        socket.emit('downPaddle', 'down');
+        socket.emit('downPaddle', 'up');
       }
     });
     

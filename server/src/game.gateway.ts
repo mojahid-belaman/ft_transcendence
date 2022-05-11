@@ -28,7 +28,13 @@ export class GameGateway implements OnGatewayInit, OnGatewayConnection, OnGatewa
     @SubscribeMessage('upPaddle')
     hundle_up_paddle(client: Socket, payload: string) {
         let player: Player = this.game.get_GamePlayer(client);
-        player.getPaddle().up();
+        if (payload === 'down') {
+            player.getPaddle().up('down');
+        }
+        else if (payload === 'up') {
+            player.getPaddle().up('up');
+            
+        }
 
         
     }
@@ -36,7 +42,10 @@ export class GameGateway implements OnGatewayInit, OnGatewayConnection, OnGatewa
     @SubscribeMessage('downPaddle')
     hundle_down_paddle(client: Socket, payload: string) {
         let player = this.game.get_GamePlayer(client);
-        player.getPaddle().down();
+        if (payload === 'down')
+            player.getPaddle().down('down');
+        else if (payload === 'up')
+            player.getPaddle().down('up');
     }
 
     @SubscribeMessage('join_match')
