@@ -26,7 +26,7 @@ export class Data {
     private score_One: number;
     private score_Two: number;
     //NOTE - Details State Game
-    private state: number;
+    private state: StateGame;
     private winner: boolean;
     //NOTE - Details Trace
     private trace_X: number;
@@ -114,7 +114,7 @@ export class Data {
     public set_Score_Two(scoreTwo: number): void {
         this.score_Two = scoreTwo;
     }
-    public get_State(): State {
+    public get_State(): StateGame {
         return this.state;
     }
     public get_Winner(): boolean {
