@@ -49,7 +49,7 @@ export class Data {
         this.ball_Y = this.cHeight/2;
         this.score_One = 0;
         this.score_Two = 0;
-        this.state = State.WAIT;
+        this.state = StateGame.WAIT;
         this.winner = false;
         this.trace_X = this.cWidth/2;
         this.trace_Y = 0;
