@@ -1,5 +1,5 @@
 
-enum State {
+export enum StateGame {
     WAIT,
     PLAY,
     OVER
