@@ -35,8 +35,6 @@ export class GameGateway implements OnGatewayInit, OnGatewayConnection, OnGatewa
             player.getPaddle().up('up');
             
         }
-
-        
     }
     
     @SubscribeMessage('downPaddle')

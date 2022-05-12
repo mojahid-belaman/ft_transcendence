@@ -21,18 +21,16 @@ export class Paddle {
 
     public movePaddle(): void {
         if (this._paddleSpeed === 0) return;
-        this._paddle_Y += this._paddleSpeed;
         console.log(`movePaddle: ${this._paddle_Y}`);
-        if (this._paddle_Y < GameVariable._bounded_PaddleWidth) {
-            console.log(`less than top canvas`);
+        this._paddle_Y += this._paddleSpeed;
+        if (this._paddle_Y < GameVariable._bounded_PaddleHeight) {
             this._paddleSpeed = 0;
-            this._paddle_Y = GameVariable._bounded_PaddleWidth;
+            this._paddle_Y = GameVariable._bounded_PaddleHeight - 5;
             return;
         }
-        if (this._paddle_Y + GameVariable._paddle_Height > GameVariable._canvas_Height) {
-            console.log(`great than bottom canvas`);
+        if (this._paddle_Y  > GameVariable._canvas_Height - GameVariable._bounded_PaddleHeight - GameVariable._paddle_Height) {
             this._paddleSpeed = 0;
-            this._paddle_Y = GameVariable._canvas_Height - GameVariable._paddle_Height;
+            this._paddle_Y = GameVariable._canvas_Height - GameVariable._bounded_PaddleHeight - GameVariable._paddle_Height;
             return;
         }
     }

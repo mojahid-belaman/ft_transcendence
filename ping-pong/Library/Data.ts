@@ -17,6 +17,7 @@ export class Data {
     private rightPaddle_X: number;
     private paddleLeft_Y: number;
     private paddleRight_Y: number;
+    private borderHeight: number;
     //NOTE - Details Ball
     private ballRadius: number;
     private ball_X: number;
@@ -42,6 +43,7 @@ export class Data {
         this.rightPaddle_X = this.cWidth - this.paddleWidth;
         this.paddleLeft_Y = (this.cHeight/2) - (this.paddleHeight/2);
         this.paddleRight_Y = (this.cHeight/2) - (this.paddleHeight/2);
+        this.borderHeight = 15;
         this.ballRadius = 10;
         this.ball_X = this.cWidth/2;
         this.ball_Y = this.cHeight/2;
@@ -129,5 +131,8 @@ export class Data {
     }
     public get_Trace_Height(): number {
         return this.trace_Height;
+    }
+    public get_borderHeight(): number {
+        return this.borderHeight;
     }
 }

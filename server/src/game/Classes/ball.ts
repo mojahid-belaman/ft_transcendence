@@ -20,8 +20,8 @@ export class Ball {
         this._ball_X += this._ball_DX;
         this._ball_Y += this._ball_DY;
         
-        if (this._ball_Y + GameVariable._ball_Radius > GameVariable._canvas_Height - GameVariable._bounded_PaddleWidth
-            || this._ball_Y - GameVariable._ball_Radius < GameVariable._bounded_PaddleWidth)
+        if (this._ball_Y + GameVariable._ball_Radius > GameVariable._canvas_Height - GameVariable._bounded_PaddleHeight
+            || this._ball_Y - GameVariable._ball_Radius < GameVariable._bounded_PaddleHeight)
             this._ball_DY *= -1;
         
     }

@@ -16,6 +16,9 @@ export class Game {
         this._myInterval = setInterval(() => {this.playGame(this._player_One, this._player_Two)}, 1000/60);
     }
 
+    
+
+
     public playGame(player_One: Player, player_Two: Player): void {
         this._ball.moveBall();
         this._ball.direction_Ball(player_One);

@@ -1,25 +1,11 @@
 import React, { useRef, useEffect, useState } from 'react'
 import { Data } from "../Library/Data";
 import { drawGame } from "../Library/DrawShapes";
+import { GameObj } from "../Library/gameObject";
 import style from '../styles/Game.module.css'
 import {io} from 'socket.io-client'
 
 const socket = io('http://localhost:5001');
-
-export interface dataGame {
-  ball: {
-    ball_x: number,
-    ball_y: number
-  },
-  paddle: {
-    paddle_left: number,
-    paddle_right: number
-  },
-  score: {
-    playerOne_Score: number,
-    playerTwo_Score: number
-  }
-}
 
 export function Game() {
   
@@ -27,7 +13,7 @@ export function Game() {
   const canvasRef: any =  useRef();
   
   
-  const initialState: dataGame = {
+  const initialState: GameObj = {
     ball: {
       ball_x: data.get_Ball_X(),
       ball_y: data.get_Ball_Y()
@@ -88,6 +74,7 @@ export function Game() {
     });
     
     window.addEventListener('load', () => {
+      console.log('dkhal');
       socket.emit('join_match');
   })
   }, []);
