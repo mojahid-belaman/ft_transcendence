@@ -1,4 +1,4 @@
-import { Data, StateGame } from "../Library/Data";
+import { Data, StateGame } from "./Data";
 
 export interface GameObj {
     ball: {

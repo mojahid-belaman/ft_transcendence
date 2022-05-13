@@ -1,8 +1,8 @@
 import React, { useRef, useEffect, useState } from 'react'
 import {GameOver} from '../components/GameOver'
-import { Data, StateGame } from "../Library/Data";
-import { drawGame } from "../Library/DrawShapes";
-import { GameObj } from "../Library/gameObject";
+import { Data, StateGame } from "../library/Data";
+import { drawGame } from "../library/DrawShapes";
+import { GameObj } from "../library/gameObject";
 import style from '../styles/Game.module.css'
 import {io} from 'socket.io-client'
 
