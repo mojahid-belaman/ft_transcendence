@@ -1,6 +1,8 @@
 import {Player} from './player'
 import {Ball} from './ball'
+import { gameSate } from "./gameState";
 import { Socket } from 'socket.io';
+import { GameVariable } from './constant';
 
 export class Game {
 
@@ -16,7 +18,18 @@ export class Game {
         this._myInterval = setInterval(() => {this.playGame(this._player_One, this._player_Two)}, 1000/60);
     }
 
-    
+    public stopGame(): void {
+        clearInterval(this._myInterval);
+        this._player_One.stopPaddle();
+        this._player_Two.stopPaddle();
+    }
+
+    public gameStateFunc(): gameSate {
+        if (this._player_One.getScore() === GameVariable._max_Score ||
+            this._player_Two.getScore() === GameVariable._max_Score)
+            return gameSate.OVER;
+        return gameSate.PLAY;
+    }
 
 
     public playGame(player_One: Player, player_Two: Player): void {
@@ -24,6 +37,9 @@ export class Game {
         this._ball.direction_Ball(player_One);
         this._ball.direction_Ball(player_Two);
         this._ball.update_score(player_One, player_Two);
+        if (this.gameStateFunc() === gameSate.OVER) {
+            this.stopGame();
+        }
         this._player_One.getSocket().emit('gameState', {
             ball: {
                 ball_x: this._ball.getBall_X(),
@@ -36,7 +52,9 @@ export class Game {
             score: {
                 playerOne_Score: this._player_One.getScore(),
                 playerTwo_Score: this._player_Two.getScore()
-            }
+            },
+            currentState: this.gameStateFunc(),
+            isWin: this._player_One.checkWin()
         });
         
         this._player_Two.getSocket().emit('gameState', {
@@ -51,7 +69,9 @@ export class Game {
             score: {
                 playerOne_Score: this._player_One.getScore(),
                 playerTwo_Score: this._player_Two.getScore()
-            }
+            },
+            currentState: this.gameStateFunc(),
+            isWin: this._player_Two.checkWin()
         });
 
     }

@@ -117,8 +117,14 @@ export class Data {
     public get_State(): StateGame {
         return this.state;
     }
+    public set_State(currentState: StateGame): void {
+        this.state = currentState;
+    }
     public get_Winner(): boolean {
         return this.winner;
+    }
+    public set_Winner(isWin: boolean): void {
+        this.winner = isWin;
     }
     public get_Trace_X(): number {
         return this.trace_X;

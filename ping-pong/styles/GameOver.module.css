@@ -1,0 +1,43 @@
+@import url("https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Kanit:wght@500&family=Outfit:wght@100;500&family=Press+Start+2P&family=Work+Sans:wght@100;200;300;400;500;600;700;800&display=swap");
+
+.splashScreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #6d1b7bc9;
+    width: 100%;
+    height: 100%;
+}
+
+.splashScreen h2 {
+    padding: 0;
+    margin: 0;
+    font-size: 5rem;
+    font-family: 'Press Start 2P', cursive;
+    font-weight: bold;
+    color: #FFF;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.loser {
+    position: absolute;
+    left: 50%;
+    top: 33%;
+    transform: translate(-50%, -50%);
+    font-size: 3rem;
+    font-family: 'Press Start 2P', cursive;
+    color: #d50000;
+}
+
+.win {
+    position: absolute;
+    left: 50%;
+    top: 33%;
+    transform: translate(-50%, -50%);
+    font-size: 3rem;
+    font-family: 'Press Start 2P', cursive;
+    color: #357a38;
+}

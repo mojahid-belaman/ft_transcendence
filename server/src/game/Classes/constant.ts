@@ -14,5 +14,5 @@ export class GameVariable {
     static readonly _max_Score = 5;
 
     static readonly _ball_Radius = 9; 
-    static readonly _ball_Speed = 2; 
+    static _ball_Speed = 5; 
 }

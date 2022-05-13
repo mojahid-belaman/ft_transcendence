@@ -24,6 +24,14 @@ export class Player {
         this._isInterval = setInterval(() => {this._paddle.movePaddle()}, 1000/60);
     }
 
+    public checkWin(): boolean {
+        if (this._score === GameVariable._max_Score)
+            return true;
+        return false;
+    }
+    public stopPaddle(): void {
+        clearInterval(this._isInterval);
+    }
     public getSocket(): Socket {
         return this._socket;
     }

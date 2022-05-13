@@ -55,6 +55,9 @@ export class Ball {
     
             this._ball_DX = direction * GameVariable._ball_Speed * Math.cos(angleRad);
             this._ball_DY = GameVariable._ball_Speed * Math.sin(angleRad);
+
+            GameVariable._ball_Speed += 1;
+
         }
     }
 
@@ -73,6 +76,9 @@ export class Ball {
         this._ball_X = GameVariable._canvas_Width / 2;
         this._ball_Y = GameVariable._canvas_Height / 2;
         this._collidePoint = 0;
+        GameVariable._ball_Speed = 5;
+        this._ball_DX = 2;
+        this._ball_DY = 2;
     }
 
     public getBall_X(): number {

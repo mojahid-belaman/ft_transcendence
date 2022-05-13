@@ -1,4 +1,4 @@
-import { Data } from "./Data";
+import { Data, StateGame } from "./Data";
 
 export function drawGame(context: object, data: Data) {
     drawRect(0, 0, data.get_Width(), data.get_Height(), '#000', context);
@@ -32,11 +32,11 @@ function drawRect(x: number, y: number, w: number, h: number, color: string, con
     context.fillText(text, x, y);
   }
   
-  // function drawTextGame(text: string, x: number, y: number, color: string, context: any) {
-  //   context.fillStyle = color;
-  //   context.font = "50px 'Press Start 2P', cursive";
-  //   context.fillText(text, x, y);
-  // }
+  function drawTextGame(text: string, x: number, y: number, color: string, context: any) {
+    context.fillStyle = color;
+    context.font = "50px 'Press Start 2P', cursive";
+    context.fillText(text, x, y);
+  }
   
   function drawBorder(x1: number, y1: number, x2: number, y2: number, color: string, borderHeight: number, context: any) {
 

@@ -1,4 +1,4 @@
-import { Data } from "../Library/Data";
+import { Data, StateGame } from "../Library/Data";
 
 export interface GameObj {
     ball: {
@@ -12,5 +12,7 @@ export interface GameObj {
     score: {
       playerOne_Score: number,
       playerTwo_Score: number
-    }
+    },
+    currentState: StateGame,
+    isWin: boolean
 }
