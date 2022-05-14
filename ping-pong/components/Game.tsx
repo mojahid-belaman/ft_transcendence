@@ -90,7 +90,10 @@ export function Game() {
     return (
       <>
         <div className={style.container}>
-            <canvas width="800" height="400" ref={canvasRef}></canvas>
+            <div className={style.info}>
+              <h1>Players: &uarr; &darr;</h1>
+            </div>
+            <canvas width="1200" height="700" ref={canvasRef}></canvas>
         </div>
         {(currentState === StateGame.OVER) && <GameOver curData={data}/>}
         

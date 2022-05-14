@@ -1,11 +1,11 @@
 
 export class GameVariable {
 
-    static readonly _canvas_Width = 800;
-    static readonly _canvas_Height = 400;
+    static readonly _canvas_Width = 1200;
+    static readonly _canvas_Height = 700;
 
     static readonly _paddle_Width = 10;
-    static readonly _paddle_Height = 60;
+    static readonly _paddle_Height = GameVariable._canvas_Height / 6;
     static readonly _left_Paddle_X = GameVariable._paddle_Width;
     static readonly _right_Paddle_X = GameVariable._canvas_Width - GameVariable._paddle_Width;
     static readonly _paddle_Speed = 10;

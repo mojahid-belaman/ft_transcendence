@@ -23,16 +23,23 @@
 }
 
 .loser {
-    display: flex;
-    justify-content: center;
+    /* display: flex;
+    justify-content: center; */
     font-size: 4rem;
     font-family: 'Press Start 2P', cursive;
     color: #d50000;
+    position: absolute;
+    left: 51%;
+    top: calc(100% - 5%);
+    transform: translate(-50%, -50%);
 }
 
 .win {
-    text-align: center;
     font-size: 4rem;
     font-family: 'Press Start 2P', cursive;
     color: #357a38;
+    position: absolute;
+    left: 50%;
+    top: calc(100% - 5%);
+    transform: translate(-50%, -50%);
 }

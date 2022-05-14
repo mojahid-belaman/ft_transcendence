@@ -2,7 +2,7 @@ const particlesWinConfig: any = {
   autoPlay: true,
   background: {
     color: {
-      value: ""
+      value: "#000"
     },
     image: "",
     position: "",
@@ -22,7 +22,7 @@ const particlesWinConfig: any = {
   },
   fullScreen: {
     enable: true,
-    zIndex: 0
+    zIndex: -1
   },
   detectRetina: true,
   duration: 0,

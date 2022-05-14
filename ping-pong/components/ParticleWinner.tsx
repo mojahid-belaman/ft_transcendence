@@ -12,7 +12,7 @@ function ParticleWinner() {
         await loadFull(main);
       };
     
-      const particlesLoaded = (container: any) => {
+      const particlesLoaded: any = (container: any) => {
         console.log(container);
       };
   return (

@@ -35,8 +35,8 @@ export class Data {
     private trace_Height: number;
 
     constructor() {
-        this.cWidth = 800;
-        this.cHeight = 400;
+        this.cWidth = 1200;
+        this.cHeight = 700;
         this.paddleHeight = this.cHeight / 6;
         this.paddleWidth = 10;
         this.leftPaddle_X = 0;
