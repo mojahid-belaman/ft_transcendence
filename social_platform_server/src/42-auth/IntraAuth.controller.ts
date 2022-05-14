@@ -38,13 +38,8 @@ export class IntraAuthController {
       .getAccessToken(query)
       .then((resolve) => resolve.data)
       .catch((error) => console.log(error));
-    this.userData = await firstValueFrom(
-      this.httpService.get('https://api.intra.42.fr/v2/me', {
-        headers: {
-          Authorization: `bearer ${this.accessToken['access_token']}`,
-        },
-      }),
-    )
+    this.userData = await this.intraAuthService
+      .getUserData(this.accessToken['access_token'])
       .then((resolve) => resolve.data)
       .catch((error) => {
         console.log(error);

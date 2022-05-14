@@ -17,4 +17,13 @@ export class IntraAuthService {
       }),
     );
   }
+  async getUserData(authCode: string): Promise<any> {
+    return firstValueFrom(
+      this.httpService.get('https://api.intra.42.fr/v2/me', {
+        headers: {
+          Authorization: `bearer ${authCode}`,
+        },
+      }),
+    );
+  }
 }
