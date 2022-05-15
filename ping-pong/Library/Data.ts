@@ -34,9 +34,9 @@ export class Data {
     private trace_Width: number;
     private trace_Height: number;
 
-    constructor() {
-        this.cWidth = 1200;
-        this.cHeight = 700;
+    constructor(width: number, height: number) {
+        this.cWidth = width;
+        this.cHeight = height;
         this.paddleHeight = this.cHeight / 6;
         this.paddleWidth = 10;
         this.leftPaddle_X = 0;
@@ -60,8 +60,14 @@ export class Data {
     public get_Width(): number {
         return this.cWidth;
     }
+    public set_Width(width: number): void {
+        this.cWidth = width;
+    }
     public get_Height(): number {
         return this.cHeight;
+    }
+    public set_Height(height: number): void {
+        this.cHeight = height;
     }
     public get_Paddle_Width(): number {
         return this.paddleWidth;
