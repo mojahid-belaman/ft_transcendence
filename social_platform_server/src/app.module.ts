@@ -17,10 +17,14 @@ import { AuthModule } from './auth/auth.module';
 import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from './auth/constants';
 import { IntraAuthModule } from './42-auth/IntraAuth.module';
+import { Conversations } from './conversations/entity/conversation.entity';
+import { ConversationsModule } from './conversations/conversations.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({
+      isGlobal: true
+    }),
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: process.env.HOST,
@@ -32,6 +36,7 @@ import { IntraAuthModule } from './42-auth/IntraAuth.module';
         Channels,
         Users,
         Connection,
+        Conversations,
         Friendship,
         MessagesChannel,
         MessagesDM,
@@ -49,6 +54,7 @@ import { IntraAuthModule } from './42-auth/IntraAuth.module';
     MessagesDmsModule,
     AuthModule,
     IntraAuthModule,
+    ConversationsModule
   ],
 })
 export class AppModule {}

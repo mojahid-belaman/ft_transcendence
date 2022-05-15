@@ -6,6 +6,7 @@ export enum connectionStatus {
     MEMBER = "member",
     ADMIN = "admin",
     BLOCKED = "blocked",
+    OWNER = "owner"
 }
 
 @Entity()

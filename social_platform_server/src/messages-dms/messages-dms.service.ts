@@ -1,23 +1,22 @@
 import { Injectable } from '@nestjs/common';
-import { CreateMessagesDmDto } from './dto/create-messages-dm.dto';
-import { UpdateMessagesDmDto } from './dto/update-messages-dm.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { MessagesDM } from './entities/messages-dm.entity';
 
 @Injectable()
 export class MessagesDmsService {
-  create(createMessagesDmDto: CreateMessagesDmDto) {
-    return 'This action adds a new messagesDm';
+
+  constructor(
+    @InjectRepository(MessagesDM)
+    private messagesDMRepository: Repository<MessagesDM>
+  ){}
+
+  sendMessage(createMessagesDmDto) {
+    return this.messagesDMRepository.save(createMessagesDmDto);
   }
 
-  findAll() {
+  findAll(conversationId: string, userId: string) {
     return `This action returns all messagesDms`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} messagesDm`;
-  }
-
-  update(id: number, updateMessagesDmDto: UpdateMessagesDmDto) {
-    return `This action updates a #${id} messagesDm`;
   }
 
   remove(id: number) {

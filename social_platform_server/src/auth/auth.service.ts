@@ -17,7 +17,6 @@ export class AuthService {
                 return {
                     errorMessage: "Email not found"
                 };
-            console.log(user)
             if (user &&!(await bcrypt.compare(password, user.password)))
                 return null;
             return user;

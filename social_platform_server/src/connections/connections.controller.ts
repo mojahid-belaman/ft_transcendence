@@ -23,7 +23,6 @@ export class ConnectionsController {
   findOne(@Param('id') id: string, @Req() req) {
     return this.connectionsService.findOne({id: id, user: req.user.userId})
     .then(connection => {
-      console.log(connection);
       return connection;
     });
   }

@@ -1,34 +1,26 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Req } from '@nestjs/common';
 import { MessagesDmsService } from './messages-dms.service';
-import { CreateMessagesDmDto } from './dto/create-messages-dm.dto';
-import { UpdateMessagesDmDto } from './dto/update-messages-dm.dto';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @Controller('messages-dms')
 export class MessagesDmsController {
   constructor(private readonly messagesDmsService: MessagesDmsService) {}
 
+  @UseGuards(JwtAuthGuard)
   @Post()
-  create(@Body() createMessagesDmDto: CreateMessagesDmDto) {
-    return this.messagesDmsService.create(createMessagesDmDto);
+  sendMessage(@Body() createMessagesDmDto) {
+    return this.messagesDmsService.sendMessage(createMessagesDmDto);
   }
 
-  @Get()
-  findAll() {
-    return this.messagesDmsService.findAll();
+  @UseGuards(JwtAuthGuard)
+  @Get(":conversationId")
+  findAll(@Req() req, @Param("conversationId") conversationId: string) {
+    return this.messagesDmsService.findAll(conversationId, req.user.userId);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.messagesDmsService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateMessagesDmDto: UpdateMessagesDmDto) {
-    return this.messagesDmsService.update(+id, updateMessagesDmDto);
-  }
-
+  @UseGuards(JwtAuthGuard)
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  unsend(@Param('id') id: string) {
     return this.messagesDmsService.remove(+id);
   }
 }

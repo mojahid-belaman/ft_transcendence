@@ -1,9 +1,18 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { CreateFriendshipDto } from './dto/create-friendship.dto';
 import { UpdateFriendshipDto } from './dto/update-friendship.dto';
+import { Friendship } from './entities/friendship.entity';
 
 @Injectable()
 export class FriendshipsService {
+
+  constructor(
+    @InjectRepository(Friendship)
+    private friendshipRepositort: Repository<Friendship>
+  ) {}
+
   create(createFriendshipDto: CreateFriendshipDto) {
     return 'This action adds a new friendship';
   }

@@ -7,28 +7,4 @@ import { UpdateFriendshipDto } from './dto/update-friendship.dto';
 export class FriendshipsController {
   constructor(private readonly friendshipsService: FriendshipsService) {}
 
-  @Post()
-  create(@Body() createFriendshipDto: CreateFriendshipDto) {
-    return this.friendshipsService.create(createFriendshipDto);
-  }
-
-  @Get()
-  findAll() {
-    return this.friendshipsService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.friendshipsService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateFriendshipDto: UpdateFriendshipDto) {
-    return this.friendshipsService.update(+id, updateFriendshipDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.friendshipsService.remove(+id);
-  }
 }
