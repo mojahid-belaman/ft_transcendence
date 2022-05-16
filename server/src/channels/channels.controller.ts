@@ -1,6 +1,7 @@
 import { Body, Controller, Get, Param, Post, Req, UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { ChannelsService } from './channels.service';
+import { CreateChannelDto } from './dto/channels.dto';
 
 @Controller('channels')
 export class ChannelsController {
@@ -20,12 +21,12 @@ export class ChannelsController {
 	}
 	@UseGuards(JwtAuthGuard)
 	@Post()
-	createChannel(@Req() req, @Body() body) {
+	createChannel(@Req() req, @Body() body: CreateChannelDto) {
 		return this.channelsService.createChannel({...body, owner: req.user.userId});
 	}
 	@UseGuards(JwtAuthGuard)
 	@Get("/owner/me")
-	getChannelsAswOwner(@Req() req, @Body() body) {
+	getChannelsAswOwner(@Req() req) {
 		return this.channelsService.getchannelsByConditon({owner: req.user.userId});
 	}
 }

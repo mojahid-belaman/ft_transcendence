@@ -4,6 +4,7 @@ import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
 export enum channelStatus {
     PUBLIC = "Public",
     PRIVATE = "Private",
+    PROTECTED = "Protected"
 }
 
 @Entity()

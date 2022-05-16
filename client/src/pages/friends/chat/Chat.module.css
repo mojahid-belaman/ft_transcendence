@@ -1,0 +1,71 @@
+.chatCard{
+    width: 90%;
+    height: 95%;
+    border-radius: 10px;
+    display: flex; 
+    flex-direction: column;
+    margin-left:10px;
+    margin-right: 10px;;
+}
+.chatCard .chatContent{
+    margin-top: 20px;
+    width: 100%;
+    height: calc(100vh - 200px);
+    background-color: white;
+    display : flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    border-radius: 10px;
+}
+.chatCard .chatContent .chatFooter{
+    display: flex;
+    flex-direction: row;
+    width:95%;
+    height: 30px;
+    border: none;
+    border-radius: 10px;
+    color:gray;
+    outline: none;
+    background-color:white;
+    margin-bottom: 20px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+}
+.chatFooter input{
+    width:95%;
+    height: 30px;
+    border: none;
+    border-radius: 10px;
+    color:gray;
+    outline: none;
+    background-color:transparent;
+    /* margin-bottom: 20px; */
+
+}
+.chatFooter button{
+    border: 0;
+	place-items: center;
+	cursor: pointer;
+	height: 100%;
+	background: transparent;
+	outline: none;
+	font-size: 25px;
+	color: gray;
+}
+
+.chatMessages{
+    overflow-y: scroll;
+    overflow-x: hidden;
+    width: 100%;
+}
+.chatContent .chatMessages::-webkit-scrollbar {
+	background: white;
+	border-radius: 10px
+}
+
+.chatContent .chatMessages::-webkit-scrollbar-thumb {
+	background: gray;
+	border-radius: 10px;
+	width: 1px;
+
+}

@@ -1,7 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { ForbiddenException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Channels } from './entity/channels.entity';
+import { Channels, channelStatus } from './entity/channels.entity';
 
 @Injectable()
 export class ChannelsService {
@@ -26,6 +26,8 @@ export class ChannelsService {
   }
 
   createChannel(channelObj) {
+    if (channelObj.status === channelStatus.PROTECTED && channelObj.password === null)
+      throw new ForbiddenException("Password not set for protected channel")
     return this.channelRepository.save(channelObj)
   }
 }

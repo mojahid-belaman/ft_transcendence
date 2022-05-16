@@ -1,0 +1,60 @@
+.mainCard{
+    height: 100%;
+    width:  100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: center;
+   
+}
+
+.mainCard .channelList{
+    width: 40%;
+    height: 95%;
+    border-radius: 10px;
+    display: flex; 
+    flex-direction: column;
+    margin-left:10px
+}
+.mainCard .channelList input{
+    width:95%;
+    height: 25px;
+    border: none;
+    border-radius: 10px;
+    color:gray;
+    outline: none;
+    padding-left:5px;
+}
+
+.createChannel{
+    display: flex;
+    flex-direction: row;
+    width:95%;
+    height: 50px;
+    text-align: left;
+    border-radius: 10px;
+    border:none;
+    background-color: lightgray;
+    margin-top: 10px;
+    color: black;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    /* justify-content: space-around; */
+}
+.createChannel:hover{
+    background-color: white;
+}
+.createChannel i{
+    color:gray;
+    opacity: 50%;
+    font-size: 16px;
+    margin-right:10px;
+    margin-left:10px;
+}
+
+.createChannel .text{
+color: gray;
+font-weight: 500;
+}
