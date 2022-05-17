@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState, useLayoutEffect } from 'react'
+import React, { useRef, useEffect, useState } from 'react'
 import {GameOver} from '../components/GameOver'
 import { Data, StateGame } from "../library/Data";
 import { drawGame } from "../library/DrawShapes";
@@ -32,51 +32,71 @@ export function Game() {
     currentState: data.get_State(),
     isWin: data.get_Winner()
   }
+
   
   const [gameState, setGameState] = useState(initialState);
   const [currentState, setCurrentState] = useState(data.get_State());
-  const [size, setSize] = useState(data);
+  const [size, setSize] = useState([data.get_Width(), data.get_Height()]);
   
 
   socket.on('gameState', (newState: any) => {
     setGameState(newState);
   })
 
+  function responseGame() {
+
+    if (window.innerWidth > 1200) {
+      console.log('great than 1200')
+      data = new Data(1200, 600);
+      socket.emit('resize', data);
+    }
+    else if (window.innerWidth > 800 && window.innerWidth < 1200) {
+      console.log('between 1200 and 800')
+      data = new Data(800, 400);
+      socket.emit('resize', data);
+    }
+    else if (window.innerWidth > 600 && window.innerWidth < 992) {
+      console.log('between 992 and 600')
+      data = new Data(600, 400);
+      socket.emit('resize', data);
+    }
+    else if (window.innerWidth < 576) {
+      console.log('less than 576')
+      data = new Data(450, 400);
+      socket.emit('resize', data);
+    }
+
+    setSize([data.get_Width(), data.get_Height()]);
+  }
   useEffect(() => {
     
-    console.log('dkhal');
+    console.log('useEffect dependencie Injection Size');
     //NOTE - Declare Variable "canvas" and Assign Reference from JSX
     const canvas:any = canvasRef.current;
     
     //NOTE - To get the canvas' 2D rendering context
     const context = canvas.getContext('2d');
 
+    data.set_PddleLeft_Y(gameState.paddle.paddle_left);
+    data.set_PddleRight_Y(gameState.paddle.paddle_right);
+      
+    data.set_Score_One(gameState.score.playerOne_Score);
+    data.set_Score_Two(gameState.score.playerTwo_Score);
+
+    // data.set_Winner(gameState.isWin);
+
     drawGame(context, data);
 
-    window.addEventListener('resize', () => {
-
-      if (window.innerWidth === 1200) {
-        console.log('1200px');
-        data = new Data(1200, 600);
-        setSize(data);
-      }
-      if (window.innerWidth === 992) {
-        console.log('1096px');
-        data = new Data(800, 400);
-        setSize(data);
-      }
-      if (window.innerWidth === 576) {
-        console.log('1096px');
-        data = new Data(500, 300);
-        setSize(data);
-      }
-
-    })
-
+   
   }, [size])
+  
+  useEffect(()=>{
+    window.addEventListener('resize', responseGame)
+  },[])
   
   useEffect(() => {
 
+        console.log('useEffect dependencie Injection gameState');
         //NOTE - Declare Variable "canvas" and Assign Reference from JSX
         const canvas:any = canvasRef.current;
         
@@ -130,6 +150,7 @@ export function Game() {
     });
     
     window.addEventListener('load', () => {
+      responseGame();
       socket.emit('join_match');
   })
   }, []);

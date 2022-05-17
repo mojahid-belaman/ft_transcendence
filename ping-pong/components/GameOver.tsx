@@ -5,13 +5,13 @@ import style from '../styles/GameOver.module.css'
 export function GameOver({curData}: any) {
     let myVar = (curData.get_Winner() ? 
                 <div className={style.loser}>
-                    You Lose
+                    <h2>You Lose</h2>
                     <div>
                         <ParticleBackground />
                     </div>
                 </div> : 
                 <div className={style.win}>
-                    You Win
+                    <h2>You Win</h2>
                     <div>
                         <ParticleWinner />
                     </div>

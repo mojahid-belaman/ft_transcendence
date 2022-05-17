@@ -1,6 +1,7 @@
 import { Logger } from '@nestjs/common';
 import { OnGatewayConnection, OnGatewayDisconnect, OnGatewayInit, SubscribeMessage, WebSocketGateway } from '@nestjs/websockets';
 import { Socket } from 'socket.io';
+import { GameVariable } from './game/Classes/constant';
 import { Game } from './game/Classes/game';
 import { Player } from './game/Classes/player';
 
@@ -23,6 +24,15 @@ export class GameGateway implements OnGatewayInit, OnGatewayConnection, OnGatewa
 
     handleDisconnect(client: Socket) {
         this.logger.log('Disconnected ' + `${client.id}`);
+    }
+
+    @SubscribeMessage('resize')
+    hundle_responsiveGame(client: Socket, payload: any) {
+        console.log(payload);
+        GameVariable._canvas_Width = payload.cWidth;
+        GameVariable._canvas_Height = payload.cHeight;
+        GameVariable._paddle_Height = GameVariable._canvas_Height / 6;
+        GameVariable._right_Paddle_X = GameVariable._canvas_Width - GameVariable._paddle_Width;
     }
 
     @SubscribeMessage('upPaddle')

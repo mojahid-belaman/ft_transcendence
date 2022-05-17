@@ -4,10 +4,10 @@ import ParticleBackground from '../../components/ParticleBackground'
 
 export function PingPong() {
   return (
-    <div>
+    <>
       <ParticleBackground />
       <Game />
-    </div>
+    </>
   )
 }
 

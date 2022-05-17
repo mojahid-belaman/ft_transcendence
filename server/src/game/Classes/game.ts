@@ -83,4 +83,16 @@ export class Game {
             return this._player_Two;
         return null;
     }
+
+    public get_Ball(): Ball {
+        return this._ball;
+    }
+
+    public get_PlayerOne(): Player {
+        return this._player_One;
+    }
+    
+    public get_PlayerTwo(): Player {
+        return this._player_Two;
+    }
 }
