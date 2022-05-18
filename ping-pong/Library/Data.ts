@@ -75,11 +75,17 @@ export class Data {
     public get_Paddle_Height(): number {
         return this.paddleHeight;
     }
+    public set_Paddle_Height(height: number): void {
+        this.paddleHeight = height / 6;
+    }
     public get_Left_Pddle_X(): number {
         return this.leftPaddle_X;
     }
     public get_Right_Pddle_X(): number {
         return this.rightPaddle_X;
+    }
+    public set_Right_Pddle_X(width: number): void {
+        this.rightPaddle_X = width - this.paddleWidth;
     }
     public get_PddleLeft_Y(): number {
         return this.paddleLeft_Y;
@@ -134,6 +140,9 @@ export class Data {
     }
     public get_Trace_X(): number {
         return this.trace_X;
+    }
+    public set_Trace_X(x: number): void {
+        this.trace_X = x / 2;
     }
     public get_Trace_Y(): number {
         return this.trace_Y;

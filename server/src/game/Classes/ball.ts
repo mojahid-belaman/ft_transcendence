@@ -12,7 +12,7 @@ export class Ball {
         this._ball_X = GameVariable._canvas_Width/2;
         this._ball_Y = GameVariable._canvas_Height/2;
         this._ball_DX = 2;
-        this._ball_DY = 2;
+        this._ball_DY = 2; 
         this._collidePoint = 0;
     }
 

@@ -14,6 +14,10 @@ export class Paddle {
     public get_PaddleY(): number {
         return this._paddle_Y;
     }
+    
+    public set_PaddleY(y: number): void {
+        this._paddle_Y = y;
+    }
 
     public get_PaddleX(): number {
         return this._paddle_X;

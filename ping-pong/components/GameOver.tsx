@@ -16,7 +16,6 @@ export function GameOver({curData}: any) {
                         <ParticleWinner />
                     </div>
                 </div>)
-    console.log(myVar);
     return (
         <div className={style.splashScreen}>
             <h2>Game Over</h2>

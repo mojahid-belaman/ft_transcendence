@@ -4,7 +4,6 @@ import { loadFull } from "tsparticles";
 
 function ParticleBackground() {
     const particlesInit = async (main: any) => {
-        console.log('init');
         console.log(main);
         
         // you can initialize the tsParticles instance (main) here, adding custom shapes or presets
@@ -14,7 +13,6 @@ function ParticleBackground() {
       };
       
       const particlesLoaded: any = (container: any) => {
-        console.log('Particles Loaded');
         console.log(container);
       };
   return (

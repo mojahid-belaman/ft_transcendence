@@ -5,14 +5,19 @@ import { GameVariable } from './game/Classes/constant';
 import { Game } from './game/Classes/game';
 import { Player } from './game/Classes/player';
 
+// interface cosSocket{
+//     client: Socket;
+//     payload: any;
+// }
+
 @WebSocketGateway(5001, {cors: {origin: "*"}})
 export class GameGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
 
-    private logger: Logger = new Logger('GameGateway');
-    private playerOne: Player;
-    private playerTwo: Player;
-    private game: Game;
-    private sockerArr: Socket[] = [];
+    constructor(private logger: Logger = new Logger('GameGateway'),
+    private playerOne: Player,
+    private playerTwo: Player,
+    private game: Game,
+    private sockerArr: Socket[] = []){}
     
     afterInit(server: any) {
         this.logger.log('Initial'); 
@@ -28,7 +33,7 @@ export class GameGateway implements OnGatewayInit, OnGatewayConnection, OnGatewa
 
     @SubscribeMessage('resize')
     hundle_responsiveGame(client: Socket, payload: any) {
-        console.log(payload);
+        // console.log(payload);
         GameVariable._canvas_Width = payload.cWidth;
         GameVariable._canvas_Height = payload.cHeight;
         GameVariable._paddle_Height = GameVariable._canvas_Height / 6;
@@ -46,7 +51,7 @@ export class GameGateway implements OnGatewayInit, OnGatewayConnection, OnGatewa
             
         }
     }
-    
+
     @SubscribeMessage('downPaddle')
     hundle_down_paddle(client: Socket, payload: string) {
         let player = this.game.get_GamePlayer(client);
@@ -58,7 +63,7 @@ export class GameGateway implements OnGatewayInit, OnGatewayConnection, OnGatewa
 
     @SubscribeMessage('join_match')
     hundle_join_match(client: Socket, payload: any) {
-        this.logger.log('Join Match ' + `${client.id}`)
+        this.logger.log('Join Match ' + `${client.id} ` , payload)
         this.sockerArr.push(client);
         if (this.sockerArr.length > 1) {
             this.playerOne = new Player(this.sockerArr[0], true);
