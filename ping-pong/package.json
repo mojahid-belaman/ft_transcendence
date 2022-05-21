@@ -14,7 +14,8 @@
     "react-dom": "18.0.0",
     "react-tsparticles": "^2.0.6",
     "socket.io-client": "^4.5.0",
-    "tsparticles": "^2.0.6"
+    "tsparticles": "^2.0.6",
+    "uuidv4": "^6.2.13"
   },
   "devDependencies": {
     "@types/node": "17.0.23",

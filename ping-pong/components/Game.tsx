@@ -3,9 +3,9 @@ import { GameOver } from "../components/GameOver";
 import { Data, StateGame } from "../library/Data";
 import { drawGame } from "../library/DrawShapes";
 import { GameObj } from "../library/gameObject";
-import { responseGame } from "../library/ResponsiveGame";
 import style from "../styles/Game.module.css";
-import { io, Socket } from "socket.io-client";
+import { io } from "socket.io-client";
+import { uuid } from "uuidv4";
 
 const socket = io("http://10.12.8.14:5001");
 
@@ -34,14 +34,100 @@ export function Game() {
 
   const [gameState, setGameState] = useState(initialState);
   const [currentState, setCurrentState] = useState(data.get_State());
-  const [dataGame, setDataGame] = useState(data);
+  // const [size, setSize] = useState([data.get_Width(), data.get_Height()]);
+  const [size, setSize] = useState([data.get_Width(), data.get_Height()]);
 
   socket.on("gameState", (newState: any) => {
     setGameState(newState);
   });
 
+  function responseGame() {
+    if (
+      data.get_State() === StateGame.WAIT ||
+      data.get_State() === StateGame.PLAY
+    ) {
+      console.log("WAIT");
+      if (window.innerWidth > 1200) {
+        console.log("great than 1200");
+        data = new Data(1200, 600);
+        socket.emit("resize", data);
+      } else if (window.innerWidth > 800 && window.innerWidth <= 1200) {
+        console.log("between 1200 and 800");
+        data = new Data(800, 400);
+        socket.emit("resize", data);
+      } else if (window.innerWidth > 576 && window.innerWidth <= 800) {
+        console.log("between 992 and 600");
+        data = new Data(550, 400);
+        socket.emit("resize", data);
+      } else if (window.innerWidth <= 576) {
+        console.log("less than 576");
+        data = new Data(450, 350);
+        socket.emit("resize", data);
+      }
+    } else if (data.get_State() === StateGame.OVER) {
+      console.log("OVER");
+      if (window.innerWidth > 1200) {
+        data.set_Width(1200);
+        data.set_Height(600);
+        data.set_Trace_X(data.get_Width());
+        data.set_Paddle_Height(data.get_Height());
+        data.set_Right_Pddle_X(data.get_Width());
+        data.set_PddleLeft_Y(
+          data.get_Height() / 2 - data.get_Paddle_Height() / 2
+        );
+        data.set_PddleRight_Y(
+          data.get_Height() / 2 - data.get_Paddle_Height() / 2
+        );
+        data.set_Ball_X(data.get_Width() / 2);
+        data.set_Ball_Y(data.get_Height() / 2);
+      } else if (window.innerWidth > 800 && window.innerWidth <= 1200) {
+        data.set_Width(800);
+        data.set_Height(400);
+        data.set_Trace_X(data.get_Width());
+        data.set_Paddle_Height(data.get_Height());
+        data.set_Right_Pddle_X(data.get_Width());
+        data.set_PddleLeft_Y(
+          data.get_Height() / 2 - data.get_Paddle_Height() / 2
+        );
+        data.set_PddleRight_Y(
+          data.get_Height() / 2 - data.get_Paddle_Height() / 2
+        );
+        data.set_Ball_X(data.get_Width() / 2);
+        data.set_Ball_Y(data.get_Height() / 2);
+      } else if (window.innerWidth > 576 && window.innerWidth <= 800) {
+        data.set_Width(600);
+        data.set_Height(400);
+        data.set_Trace_X(data.get_Width());
+        data.set_Paddle_Height(data.get_Height());
+        data.set_Right_Pddle_X(data.get_Width());
+        data.set_PddleLeft_Y(
+          data.get_Height() / 2 - data.get_Paddle_Height() / 2
+        );
+        data.set_PddleRight_Y(
+          data.get_Height() / 2 - data.get_Paddle_Height() / 2
+        );
+        data.set_Ball_X(data.get_Width() / 2);
+        data.set_Ball_Y(data.get_Height() / 2);
+      } else if (window.innerWidth <= 576) {
+        data.set_Width(450);
+        data.set_Height(350);
+        data.set_Trace_X(data.get_Width());
+        data.set_Paddle_Height(data.get_Height());
+        data.set_Right_Pddle_X(data.get_Width());
+        data.set_PddleLeft_Y(
+          data.get_Height() / 2 - data.get_Paddle_Height() / 2
+        );
+        data.set_PddleRight_Y(
+          data.get_Height() / 2 - data.get_Paddle_Height() / 2
+        );
+        data.set_Ball_X(data.get_Width() / 2);
+        data.set_Ball_Y(data.get_Height() / 2);
+      }
+    }
+    setSize([data.get_Width(), data.get_Height()]);
+  }
   useEffect(() => {
-    console.log("useEffect dependencie Injection Data Game");
+    console.log("useEffect dependencie Injection Size");
     //NOTE - Declare Variable "canvas" and Assign Reference from JSX
     const canvas: any = canvasRef.current;
 
@@ -49,13 +135,11 @@ export function Game() {
     const context = canvas.getContext("2d");
 
     drawGame(context, data);
-  }, [dataGame]);
+  }, [size]);
 
   useEffect(() => {
     console.log("useEffect run one time about ressize");
-    window.addEventListener("resize", () => {
-      responseGame(data, socket, setDataGame)
-    });
+    window.addEventListener("resize", responseGame);
   }, []);
 
   useEffect(() => {
@@ -110,7 +194,7 @@ export function Game() {
     });
 
     window.addEventListener("load", () => {
-      responseGame(data, socket, setDataGame);
+      responseGame();
     });
   }, []);
 
