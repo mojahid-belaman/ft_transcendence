@@ -12,3 +12,26 @@
     color: #FFF;
     font-family: 'Press Start 2P', cursive;
 }
+
+.container .btn {
+    text-align: center;
+    display: inline-block;
+    margin: 5px;
+    font-weight: bold;
+    font-family: 'Press Start 2p';
+    font-size: 30px;
+    padding: 15px 10px 15px 10px;
+    background-color: lightgray;
+    text-shadow: -1px -1px black, 1px 1px white;
+    color: gray;
+    border-radius: 7px;
+    box-shadow: 0 0.2em grey;
+    cursor: pointer;
+}
+
+.container .btn:active {
+    user-select: none;
+	box-shadow: none;
+	position: relative;
+	top: .2em;
+}

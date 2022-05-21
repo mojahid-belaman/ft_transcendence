@@ -5,7 +5,7 @@ import { Socket } from 'socket.io';
 import { GameVariable } from './constant';
 
 export class Game {
-
+    
     private _player_One: Player;
     private _player_Two: Player;
     private _ball: Ball;

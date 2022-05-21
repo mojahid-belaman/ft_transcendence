@@ -8,15 +8,13 @@ export class Player {
     private _paddle: Paddle;
     private _isLesftSide: boolean;
     private _isInterval: NodeJS.Timer;
-    public _canvaWidth: number;
-    public _canvaHieght: number;
+    public  _width: number;
+    public  _height: number;
 
     constructor(socket: Socket, isLeftSide: boolean) {
         this._socket = socket;
         this._score = 0;
         this._isLesftSide = isLeftSide;
-        // this._canvaHieght = payload.cHeight;
-        // this._canvaWidth = payload.cWidth;
         if (isLeftSide) {
             console.log(`player one take paddle left`)
             this._paddle = new Paddle(GameVariable._left_Paddle_X);
