@@ -7,9 +7,10 @@ import {
   WebSocketGateway,
 } from '@nestjs/websockets';
 import { Socket } from 'socket.io';
-import { GameVariable } from './game/Classes/constant';
-import { Game } from './game/Classes/game';
-import { Player } from './game/Classes/player';
+import { GameVariable } from './Classes/constant';
+import { Game } from './Classes/game';
+import { Player } from './Classes/player';
+import { GameService } from './game.service';
 
 @WebSocketGateway(5001, { cors: { origin: '*' } })
 export class GameGateway
@@ -20,6 +21,7 @@ export class GameGateway
   private playerTwo: Player;
   private game: Game;
   private sockerArr: Socket[] = [];
+  private gameService: GameService;
 
   afterInit(server: any) {
     this.logger.log('Initial');
@@ -40,6 +42,7 @@ export class GameGateway
     GameVariable._paddle_Height = GameVariable._canvas_Height / 6;
     GameVariable._right_Paddle_X =
       GameVariable._canvas_Width - GameVariable._paddle_Width;
+    // this.gameService.
   }
 
   @SubscribeMessage('upPaddle')
