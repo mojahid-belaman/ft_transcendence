@@ -10,7 +10,7 @@ import { uuid } from "uuidv4";
 const socket = io("http://10.12.8.14:5001");
 
 //NOTE - Initiale data and Information about all Game like (ball, paddle, score, width, height, canvas)
-let data = new Data(1200, 600, uuid());
+let data = new Data(1200, 600);
 
 export function Game() {
   const canvasRef: any = useRef();
@@ -34,12 +34,10 @@ export function Game() {
 
   const [gameState, setGameState] = useState(initialState);
   const [currentState, setCurrentState] = useState(data.get_State());
-  // const [size, setSize] = useState([data.get_Width(), data.get_Height()]);
-  const [size, setSize] = useState({
-    width: data.get_Width(),
-    height: data.get_Height(),
-    userId: data.getUserId(),
-  });
+  const [sizeCanvas, setSizeCanvas] = useState([
+    data.get_Width(),
+    data.get_Height(),
+  ]);
 
   socket.on("gameState", (newState: any) => {
     setGameState(newState);
@@ -53,19 +51,19 @@ export function Game() {
       console.log("WAIT");
       if (window.innerWidth > 1200) {
         console.log("great than 1200");
-        data = new Data(1200, 600, size.userId);
+        data = new Data(1200, 600);
         socket.emit("resize", data);
       } else if (window.innerWidth > 800 && window.innerWidth <= 1200) {
         console.log("between 1200 and 800");
-        data = new Data(800, 400, size.userId);
+        data = new Data(800, 400);
         socket.emit("resize", data);
       } else if (window.innerWidth > 576 && window.innerWidth <= 800) {
         console.log("between 992 and 600");
-        data = new Data(550, 400, size.userId);
+        data = new Data(550, 400);
         socket.emit("resize", data);
       } else if (window.innerWidth <= 576) {
         console.log("less than 576");
-        data = new Data(450, 350, size.userId);
+        data = new Data(450, 350);
         socket.emit("resize", data);
       }
     } else if (data.get_State() === StateGame.OVER) {
@@ -128,8 +126,7 @@ export function Game() {
         data.set_Ball_Y(data.get_Height() / 2);
       }
     }
-    // setSize([data.get_Width(), data.get_Height()]);
-    setSize({ ...size, width: data.get_Width(), height: data.get_Height() });
+    setSizeCanvas([data.get_Width(), data.get_Height()]);
   }
   useEffect(() => {
     console.log("useEffect dependencie Injection Size");
@@ -140,7 +137,7 @@ export function Game() {
     const context = canvas.getContext("2d");
 
     drawGame(context, data);
-  }, [size]);
+  }, [sizeCanvas]);
 
   useEffect(() => {
     console.log("useEffect run one time about ressize");
@@ -203,15 +200,16 @@ export function Game() {
     });
   }, []);
 
-  function hundleJoinGame() {
+  function hundleJoinGame(e: any) {
     socket.emit("join_match", data);
+    e.stopPropagation();
   }
   return (
     <>
       <div className={style.container}>
-        <span onClick={hundleJoinGame} className={style.btn}>
+        <button onClick={hundleJoinGame} className={style.btn}>
           Join Game
-        </span>
+        </button>
         <div className={style.info}>
           <h1>Players: &uarr; &darr;</h1>
         </div>

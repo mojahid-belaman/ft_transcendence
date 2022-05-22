@@ -8,8 +8,6 @@ export class Player {
     private _paddle: Paddle;
     private _isLesftSide: boolean;
     private _isInterval: NodeJS.Timer;
-    public  _width: number;
-    public  _height: number;
 
     constructor(socket: Socket, isLeftSide: boolean) {
         this._socket = socket;
@@ -45,6 +43,6 @@ export class Player {
         return this._score;
     }
     public setScore(score: number): number {
-        return this._score += score;
+        return this._score = score;
     }
 }

@@ -7,8 +7,7 @@ import { Games } from './enitites/game.entity';
 export class GameService {
   constructor(
     @InjectRepository(Games)
-    private gameRepository: Repository<Games>,
+    private readonly gameRepository: Repository<Games>,
   ) {}
-
   
 }

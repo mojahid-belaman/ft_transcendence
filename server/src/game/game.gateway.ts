@@ -35,6 +35,16 @@ export class GameGateway
 
   handleDisconnect(client: Socket) {
     this.logger.log('Disconnected ' + `${client.id}`);
+    let gameFound = this.game.find((gm) => {
+      return (
+        gm.get_PlayerOne().getSocket() === client ||
+        gm.get_PlayerTwo().getSocket() === client
+      );
+    });
+    if (gameFound) {
+      gameFound.playerOutGame(client);
+      gameFound.stopGame();
+    }
   }
 
   @SubscribeMessage('resize')
@@ -44,7 +54,6 @@ export class GameGateway
     GameVariable._paddle_Height = GameVariable._canvas_Height / 6;
     GameVariable._right_Paddle_X =
       GameVariable._canvas_Width - GameVariable._paddle_Width;
-    // this.gameService.
   }
 
   @SubscribeMessage('upPaddle')
@@ -77,23 +86,25 @@ export class GameGateway
     });
     if (gameFound) {
       let player = gameFound.get_GamePlayer(client);
-      if (payload === 'down')
-        player.getPaddle().down('down');
-      else if (payload === 'up')
-        player.getPaddle().down('up');
-
+      if (payload === 'down') player.getPaddle().down('down');
+      else if (payload === 'up') player.getPaddle().down('up');
     }
   }
 
   @SubscribeMessage('join_match')
   hundle_join_match(client: Socket, payload: any) {
     this.logger.log('Join Match ' + `${client.id} `);
+    //NOTE - Check If the same client not add in Set of socket
     if (this.socketArr.has(client)) return;
+    //NOTE - Add Client Socket In Set
     this.socketArr.add(client);
+    //NOTE - Check if Set Of Socket (i means player) to stock is 2
     if (this.socketArr.size > 1) {
-      this.playerOne = new Player(this.socketArr[0], true);
-      this.playerTwo = new Player(this.socketArr[1], false);
+      const it = this.socketArr.values();
+      this.playerOne = new Player(it.next().value, true);
+      this.playerTwo = new Player(it.next().value, false);
       this.socketArr.clear();
+      //NOTE - Create new instance of game and game is start in constructor
       const newGame = new Game(this.playerOne, this.playerTwo);
       this.game.push(newGame);
     }

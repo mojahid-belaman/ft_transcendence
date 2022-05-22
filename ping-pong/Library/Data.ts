@@ -31,9 +31,8 @@ export class Data {
   private trace_Y: number;
   private trace_Width: number;
   private trace_Height: number;
-  private userId: string;
 
-  constructor(width: number, height: number, userId: string) {
+  constructor(width: number, height: number) {
     this.cWidth = width;
     this.cHeight = height;
     this.paddleHeight = this.cHeight / 6;
@@ -54,15 +53,6 @@ export class Data {
     this.trace_Y = 0;
     this.trace_Width = 2;
     this.trace_Height = 10;
-    this.userId = userId;
-  }
-
-  public getUserId(): string {
-    return this.userId;
-  }
-
-  public setUserId(id: string): void {
-    this.userId = id;
   }
 
   public get_Width(): number {
