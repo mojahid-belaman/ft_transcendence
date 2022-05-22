@@ -17,11 +17,13 @@ export class GameGateway
   implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect
 {
   private logger: Logger = new Logger('GameGateway');
+  //NOTE - Create Object Of Player
   private playerOne: Player;
   private playerTwo: Player;
-  private game: Game;
-  private sockerArr: Socket[] = [];
-  private gameService: GameService;
+  //NOTE - Array Of Game and every Game has two Players
+  private game: Game[] = [];
+  //NOTE - Players In Array Of Set (client.Id not repeat)
+  private socketArr: Set<Socket> = new Set<Socket>();
 
   afterInit(server: any) {
     this.logger.log('Initial');
@@ -47,29 +49,53 @@ export class GameGateway
 
   @SubscribeMessage('upPaddle')
   hundle_up_paddle(client: Socket, payload: string) {
-    let player: Player = this.game.get_GamePlayer(client);
-    if (payload === 'down') {
-      player.getPaddle().up('down');
-    } else if (payload === 'up') {
-      player.getPaddle().up('up');
+    let gameFound = this.game.find((gm) => {
+      console.log(gm);
+      return (
+        gm.get_PlayerOne().getSocket() === client ||
+        gm.get_PlayerTwo().getSocket() === client
+      );
+    });
+    if (gameFound) {
+      let player: Player = gameFound.get_GamePlayer(client);
+      if (payload === 'down') {
+        player.getPaddle().up('down');
+      } else if (payload === 'up') {
+        player.getPaddle().up('up');
+      }
     }
   }
 
   @SubscribeMessage('downPaddle')
   hundle_down_paddle(client: Socket, payload: string) {
-    let player = this.game.get_GamePlayer(client);
-    if (payload === 'down') player.getPaddle().down('down');
-    else if (payload === 'up') player.getPaddle().down('up');
+    let gameFound = this.game.find((gm) => {
+      console.log(gm);
+      return (
+        gm.get_PlayerOne().getSocket() === client ||
+        gm.get_PlayerTwo().getSocket() === client
+      );
+    });
+    if (gameFound) {
+      let player = gameFound.get_GamePlayer(client);
+      if (payload === 'down')
+        player.getPaddle().down('down');
+      else if (payload === 'up')
+        player.getPaddle().down('up');
+
+    }
   }
 
   @SubscribeMessage('join_match')
   hundle_join_match(client: Socket, payload: any) {
     this.logger.log('Join Match ' + `${client.id} `);
-    this.sockerArr.push(client);
-    if (this.sockerArr.length > 1) {
-      this.playerOne = new Player(this.sockerArr[0], true);
-      this.playerTwo = new Player(this.sockerArr[1], false);
-      this.game = new Game(this.playerOne, this.playerTwo);
+    if (this.socketArr.has(client)) return;
+    this.socketArr.add(client);
+    if (this.socketArr.size > 1) {
+      this.playerOne = new Player(this.socketArr[0], true);
+      this.playerTwo = new Player(this.socketArr[1], false);
+      this.socketArr.clear();
+      const newGame = new Game(this.playerOne, this.playerTwo);
+      this.game.push(newGame);
     }
   }
 }
