@@ -3,12 +3,15 @@ import { Ball } from './ball';
 import { gameSate } from './gameState';
 import { Socket } from 'socket.io';
 import { GameVariable } from './constant';
+import { GameService } from '../game.service';
+import { AddGameDto } from '../dto/add-game.dto';
 
 export class Game {
   private _player_One: Player;
   private _player_Two: Player;
   private _ball: Ball;
   private _myInterval: NodeJS.Timer;
+  private gameService:  GameService
 
   constructor(player_One: Player, player_Two: Player) {
     this._player_One = player_One;
@@ -23,6 +26,11 @@ export class Game {
     clearInterval(this._myInterval);
     this._player_One.stopPaddle();
     this._player_Two.stopPaddle();
+    const gameDta = new AddGameDto();
+    gameDta.firstPlayer = '1234';
+    gameDta.secondPlayer = '1235';
+    gameDta.score = 5;
+    this.gameService.insertGame(gameDta);
   }
 
   public gameStateFunc(): gameSate {

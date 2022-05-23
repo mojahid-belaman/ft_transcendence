@@ -1,4 +1,4 @@
-import { Logger } from '@nestjs/common';
+import { Inject, Logger } from '@nestjs/common';
 import {
   OnGatewayConnection,
   OnGatewayDisconnect,
@@ -9,6 +9,7 @@ import {
 import { Socket } from 'socket.io';
 import { GameVariable } from './Classes/constant';
 import { Game } from './Classes/game';
+import { gameSate } from './Classes/gameState';
 import { Player } from './Classes/player';
 import { GameService } from './game.service';
 
@@ -24,6 +25,9 @@ export class GameGateway
   private game: Game[] = [];
   //NOTE - Players In Array Of Set (client.Id not repeat)
   private socketArr: Set<Socket> = new Set<Socket>();
+
+  @Inject()
+  private gameService:  GameService
 
   afterInit(server: any) {
     this.logger.log('Initial');
@@ -94,6 +98,16 @@ export class GameGateway
   @SubscribeMessage('join_match')
   hundle_join_match(client: Socket, payload: any) {
     this.logger.log('Join Match ' + `${client.id} `);
+    let gameFound = this.game.find((gm) => {
+      return (
+        gm.get_PlayerOne().getSocket() === client ||
+        gm.get_PlayerTwo().getSocket() === client
+      );
+    });
+    if (gameFound && gameFound.get_GamePlayer(client) != null && gameFound.gameStateFunc() === gameSate.OVER) {
+      this.socketArr.delete(client);
+      this.game.splice(this.game.indexOf(gameFound), 1);
+    }
     //NOTE - Check If the same client not add in Set of socket
     if (this.socketArr.has(client)) return;
     //NOTE - Add Client Socket In Set
@@ -103,10 +117,11 @@ export class GameGateway
       const it = this.socketArr.values();
       this.playerOne = new Player(it.next().value, true);
       this.playerTwo = new Player(it.next().value, false);
-      this.socketArr.clear();
       //NOTE - Create new instance of game and game is start in constructor
       const newGame = new Game(this.playerOne, this.playerTwo);
       this.game.push(newGame);
+      this.socketArr.delete(newGame.get_PlayerOne().getSocket());
+      this.socketArr.delete(newGame.get_PlayerTwo().getSocket());
     }
   }
 }
