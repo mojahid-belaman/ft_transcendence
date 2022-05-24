@@ -12,8 +12,8 @@ export class GameService {
     private readonly gameRepository: Repository<Games>,
   ) {}
 
-  async insertGame(data: AddGameDto) : Promise<Games> {
-    return await this.gameRepository.save(data);
+  insertGame(data: AddGameDto) : Promise<Games> {
+    return this.gameRepository.save(data);
   }
   
 }

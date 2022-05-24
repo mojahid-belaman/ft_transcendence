@@ -11,12 +11,17 @@ export class Game {
   private _player_Two: Player;
   private _ball: Ball;
   private _myInterval: NodeJS.Timer;
-  private gameService:  GameService
+  private _gameService: GameService;
 
-  constructor(player_One: Player, player_Two: Player) {
+  constructor(
+    player_One: Player,
+    player_Two: Player,
+    gameService: GameService,
+  ) {
     this._player_One = player_One;
     this._player_Two = player_Two;
     this._ball = new Ball();
+    this._gameService = gameService;
     this._myInterval = setInterval(() => {
       this.playGame(this._player_One, this._player_Two);
     }, 1000 / 60);
@@ -27,10 +32,11 @@ export class Game {
     this._player_One.stopPaddle();
     this._player_Two.stopPaddle();
     const gameDta = new AddGameDto();
-    gameDta.firstPlayer = '1234';
-    gameDta.secondPlayer = '1235';
-    gameDta.score = 5;
-    this.gameService.insertGame(gameDta);
+    gameDta.firstPlayer = "1234";
+    gameDta.secondPlayer = "1235";
+    gameDta.scoreFirst = 5;
+    gameDta.scoreSecond = 0;
+    this._gameService.insertGame(gameDta);
   }
 
   public gameStateFunc(): gameSate {
@@ -49,7 +55,6 @@ export class Game {
     this._ball.update_score(player_One, player_Two);
     if (this.gameStateFunc() === gameSate.OVER) {
       this.stopGame();
-      
     }
     this._player_One.getSocket().emit('gameState', {
       ball: {

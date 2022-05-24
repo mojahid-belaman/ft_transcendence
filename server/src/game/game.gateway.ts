@@ -11,6 +11,7 @@ import { GameVariable } from './Classes/constant';
 import { Game } from './Classes/game';
 import { gameSate } from './Classes/gameState';
 import { Player } from './Classes/player';
+import { AddGameDto } from './dto/add-game.dto';
 import { GameService } from './game.service';
 
 @WebSocketGateway(5001, { cors: { origin: '*' } })
@@ -27,7 +28,7 @@ export class GameGateway
   private socketArr: Set<Socket> = new Set<Socket>();
 
   @Inject()
-  private gameService:  GameService
+  private gameService: GameService;
 
   afterInit(server: any) {
     this.logger.log('Initial');
@@ -98,27 +99,24 @@ export class GameGateway
   @SubscribeMessage('join_match')
   hundle_join_match(client: Socket, payload: any) {
     this.logger.log('Join Match ' + `${client.id} `);
-    let gameFound = this.game.find((gm) => {
-      return (
-        gm.get_PlayerOne().getSocket() === client ||
-        gm.get_PlayerTwo().getSocket() === client
-      );
-    });
-    if (gameFound && gameFound.get_GamePlayer(client) != null && gameFound.gameStateFunc() === gameSate.OVER) {
-      this.socketArr.delete(client);
-      this.game.splice(this.game.indexOf(gameFound), 1);
-    }
     //NOTE - Check If the same client not add in Set of socket
     if (this.socketArr.has(client)) return;
+
     //NOTE - Add Client Socket In Set
     this.socketArr.add(client);
+
     //NOTE - Check if Set Of Socket (i means player) to stock is 2
     if (this.socketArr.size > 1) {
       const it = this.socketArr.values();
       this.playerOne = new Player(it.next().value, true);
       this.playerTwo = new Player(it.next().value, false);
+
       //NOTE - Create new instance of game and game is start in constructor
-      const newGame = new Game(this.playerOne, this.playerTwo);
+      const newGame = new Game(
+        this.playerOne,
+        this.playerTwo,
+        this.gameService,
+      );
       this.game.push(newGame);
       this.socketArr.delete(newGame.get_PlayerOne().getSocket());
       this.socketArr.delete(newGame.get_PlayerTwo().getSocket());
