@@ -33,10 +33,10 @@ export class Game {
     this._player_Two.stopPaddle();
 
     const gameDta = new AddGameDto();
-    gameDta.firstPlayer = "1234";
-    gameDta.secondPlayer = "1235";
-    gameDta.scoreFirst = 5;
-    gameDta.scoreSecond = 0;
+    gameDta.firstPlayer = this._player_One.getUserId();
+    gameDta.secondPlayer = this._player_Two.getUserId();
+    gameDta.scoreFirst = this._player_One.getScore();
+    gameDta.scoreSecond = this._player_Two.getScore();
     this._gameService.insertGame(gameDta);
   }
 

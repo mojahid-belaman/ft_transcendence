@@ -5,6 +5,7 @@ import { drawGame } from "../Library/DrawShapes";
 import { GameObj } from "../Library/gameObject";
 import { io } from "socket.io-client";
 import style from "../styles/Game.module.css";
+import Cookies from "js-cookie";
 
 const socket = io("http://10.12.8.14:5001");
 
@@ -199,11 +200,14 @@ export function Game() {
     });
   }, []);
 
-  const btnRef:any = useRef();
+  const btnRef: any = useRef();
 
   function hundleJoinGame(e: any) {
-    socket.emit("join_match", data);
-    btnRef.current.style.display = 'none';
+    const token = Cookies.get("access_token");
+    socket.emit("join_match", {
+      access_token: token,
+    });
+    btnRef.current.style.display = "none";
     e.stopPropagation();
   }
   return (

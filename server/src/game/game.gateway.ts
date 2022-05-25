@@ -1,4 +1,5 @@
 import { Inject, Logger } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
 import {
   OnGatewayConnection,
   OnGatewayDisconnect,
@@ -11,7 +12,6 @@ import { GameVariable } from './Classes/constant';
 import { Game } from './Classes/game';
 import { gameSate } from './Classes/gameState';
 import { Player } from './Classes/player';
-import { AddGameDto } from './dto/add-game.dto';
 import { GameService } from './game.service';
 
 @WebSocketGateway(5001, { cors: { origin: '*' } })
@@ -26,6 +26,10 @@ export class GameGateway
   private game: Game[] = [];
   //NOTE - Declare Array (Set) of Players (client.Id not repeat)
   private socketArr: Set<Socket> = new Set<Socket>();
+  private firstUser: any;
+
+  @Inject()
+  private jwtService: JwtService;
 
   @Inject()
   private gameService: GameService;
@@ -102,6 +106,7 @@ export class GameGateway
   hundle_join_match(client: Socket, payload: any) {
     this.logger.log('Join Match ' + `${client.id} `);
     //NOTE - Check If the same client not add in Set of socket
+    const user: any = this.jwtService.decode(payload.access_token);
     if (this.socketArr.has(client)) {
       return;
     }
@@ -110,10 +115,24 @@ export class GameGateway
     this.socketArr.add(client);
 
     //NOTE - Check if Set Of Socket (i means player) to stock is 2
-    if (this.socketArr.size > 1) {
+    if (this.socketArr.size === 1) {
+      // console.log(user);
+      this.firstUser = { ...user };
+    } else if (this.socketArr.size > 1) {
       const it = this.socketArr.values();
-      this.playerOne = new Player(it.next().value, true);
-      this.playerTwo = new Player(it.next().value, false);
+      this.playerOne = new Player(
+        it.next().value,
+        true,
+        this.firstUser.id,
+        this.firstUser.username,
+      );
+      // console.log(user);
+      this.playerTwo = new Player(
+        it.next().value,
+        false,
+        user.id,
+        user.username,
+      );
 
       //NOTE - Create new instance of game and game is start in constructor
       const newGame = new Game(
