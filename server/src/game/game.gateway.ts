@@ -19,12 +19,12 @@ export class GameGateway
   implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect
 {
   private logger: Logger = new Logger('GameGateway');
-  //NOTE - Create Object Of Player
+  //NOTE - Declare Objects Of Players
   private playerOne: Player;
   private playerTwo: Player;
-  //NOTE - Array Of Game and every Game has two Players
+  //NOTE - Declare Array Of Game and every Game has two Players
   private game: Game[] = [];
-  //NOTE - Players In Array Of Set (client.Id not repeat)
+  //NOTE - Declare Array (Set) of Players (client.Id not repeat)
   private socketArr: Set<Socket> = new Set<Socket>();
 
   @Inject()
@@ -47,9 +47,11 @@ export class GameGateway
       );
     });
     if (gameFound) {
-      gameFound.playerOutGame(client);
+      if (gameFound.gameStateFunc() !== gameSate.OVER)
+        gameFound.playerOutGame(client);
       gameFound.stopGame();
     }
+    this.game.splice(this.game.indexOf(gameFound), 1);
   }
 
   @SubscribeMessage('resize')
@@ -100,7 +102,9 @@ export class GameGateway
   hundle_join_match(client: Socket, payload: any) {
     this.logger.log('Join Match ' + `${client.id} `);
     //NOTE - Check If the same client not add in Set of socket
-    if (this.socketArr.has(client)) return;
+    if (this.socketArr.has(client)) {
+      return;
+    }
 
     //NOTE - Add Client Socket In Set
     this.socketArr.add(client);
@@ -120,6 +124,8 @@ export class GameGateway
       this.game.push(newGame);
       this.socketArr.delete(newGame.get_PlayerOne().getSocket());
       this.socketArr.delete(newGame.get_PlayerTwo().getSocket());
+      console.log('Game length: ' + this.game.length);
+      console.log('Socket size: ' + this.socketArr.size);
     }
   }
 }

@@ -31,6 +31,7 @@ export class Game {
     clearInterval(this._myInterval);
     this._player_One.stopPaddle();
     this._player_Two.stopPaddle();
+
     const gameDta = new AddGameDto();
     gameDta.firstPlayer = "1234";
     gameDta.secondPlayer = "1235";

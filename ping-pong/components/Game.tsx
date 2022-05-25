@@ -1,11 +1,10 @@
 import React, { useRef, useEffect, useState } from "react";
 import { GameOver } from "../components/GameOver";
-import { Data, StateGame } from "../library/Data";
-import { drawGame } from "../library/DrawShapes";
-import { GameObj } from "../library/gameObject";
-import style from "../styles/Game.module.css";
+import { Data, StateGame } from "../Library/Data";
+import { drawGame } from "../Library/DrawShapes";
+import { GameObj } from "../Library/gameObject";
 import { io } from "socket.io-client";
-import { uuid } from "uuidv4";
+import style from "../styles/Game.module.css";
 
 const socket = io("http://10.12.8.14:5001");
 
@@ -200,14 +199,17 @@ export function Game() {
     });
   }, []);
 
+  const btnRef:any = useRef();
+
   function hundleJoinGame(e: any) {
     socket.emit("join_match", data);
+    btnRef.current.style.display = 'none';
     e.stopPropagation();
   }
   return (
     <>
       <div className={style.container}>
-        <button onClick={hundleJoinGame} className={style.btn}>
+        <button onClick={hundleJoinGame} className={style.btn} ref={btnRef}>
           Join Game
         </button>
         <div className={style.info}>
