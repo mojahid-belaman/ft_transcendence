@@ -1,11 +1,12 @@
 import React, { useRef, useEffect, useState } from "react";
-import { GameOver } from "../components/GameOver";
+import { GameOver } from "./GameOver";
 import { Data, StateGame } from "../Library/Data";
 import { drawGame } from "../Library/DrawShapes";
 import { GameObj } from "../Library/gameObject";
 import { io } from "socket.io-client";
 import style from "../styles/Game.module.css";
 import Cookies from "js-cookie";
+import { decode } from "punycode";
 
 const socket = io("http://10.12.8.14:5001");
 
@@ -202,6 +203,7 @@ export function Game() {
 
   const btnRef: any = useRef();
 
+  
   function hundleJoinGame(e: any) {
     const token = Cookies.get("access_token");
     socket.emit("join_match", {

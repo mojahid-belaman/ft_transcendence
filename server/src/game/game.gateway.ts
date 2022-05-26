@@ -26,6 +26,7 @@ export class GameGateway
   private game: Game[] = [];
   //NOTE - Declare Array (Set) of Players (client.Id not repeat)
   private socketArr: Set<Socket> = new Set<Socket>();
+  private userArr: any[] = [];
   private firstUser: any;
 
   @Inject()
@@ -51,9 +52,10 @@ export class GameGateway
       );
     });
     if (gameFound) {
-      if (gameFound.gameStateFunc() !== gameSate.OVER)
+      if (gameFound.gameStateFunc() === gameSate.PLAY) {
         gameFound.playerOutGame(client);
-      gameFound.stopGame();
+        gameFound.stopGame();
+      }
     }
     this.game.splice(this.game.indexOf(gameFound), 1);
   }
@@ -89,7 +91,6 @@ export class GameGateway
   @SubscribeMessage('downPaddle')
   hundle_down_paddle(client: Socket, payload: string) {
     let gameFound = this.game.find((gm) => {
-      console.log(gm);
       return (
         gm.get_PlayerOne().getSocket() === client ||
         gm.get_PlayerTwo().getSocket() === client
@@ -105,8 +106,9 @@ export class GameGateway
   @SubscribeMessage('join_match')
   hundle_join_match(client: Socket, payload: any) {
     this.logger.log('Join Match ' + `${client.id} `);
-    //NOTE - Check If the same client not add in Set of socket
     const user: any = this.jwtService.decode(payload.access_token);
+
+    //NOTE - Check If the same client not add in Set of socket
     if (this.socketArr.has(client)) {
       return;
     }
@@ -114,24 +116,25 @@ export class GameGateway
     //NOTE - Add Client Socket In Set
     this.socketArr.add(client);
 
+    //NOTE - Add User In Array
+    this.userArr.push(user);
+    console.log(this.userArr);
+
     //NOTE - Check if Set Of Socket (i means player) to stock is 2
-    if (this.socketArr.size === 1) {
-      // console.log(user);
-      this.firstUser = { ...user };
-    } else if (this.socketArr.size > 1) {
-      const it = this.socketArr.values();
+    if (this.socketArr.size > 1) {
+      const itSock = this.socketArr.values();
+
       this.playerOne = new Player(
-        it.next().value,
+        itSock.next().value,
         true,
-        this.firstUser.id,
-        this.firstUser.username,
+        this.userArr[0].id,
+        this.userArr[0].username,
       );
-      // console.log(user);
       this.playerTwo = new Player(
-        it.next().value,
+        itSock.next().value,
         false,
-        user.id,
-        user.username,
+        this.userArr[1].id,
+        this.userArr[1].username,
       );
 
       //NOTE - Create new instance of game and game is start in constructor
@@ -143,8 +146,12 @@ export class GameGateway
       this.game.push(newGame);
       this.socketArr.delete(newGame.get_PlayerOne().getSocket());
       this.socketArr.delete(newGame.get_PlayerTwo().getSocket());
+      while (this.userArr.length) {
+        this.userArr.pop();
+      }
       console.log('Game length: ' + this.game.length);
       console.log('Socket size: ' + this.socketArr.size);
+      console.log('user size: ' + this.userArr.length);
     }
   }
 }

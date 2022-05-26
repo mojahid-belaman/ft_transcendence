@@ -1,0 +1,19 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+    color: #FFF;
+
+}
+
+.game {
+    width: 50%;
+}
+
+.about {
+    width: 50%;
+}
+
+.btn {
+    background-color: #EEE;
+}
