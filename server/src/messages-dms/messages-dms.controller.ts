@@ -2,7 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Req } fro
 import { MessagesDmsService } from './messages-dms.service';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
-@Controller('messages-dms')
+@Controller('conversations/messages')
 export class MessagesDmsController {
   constructor(private readonly messagesDmsService: MessagesDmsService) {}
 

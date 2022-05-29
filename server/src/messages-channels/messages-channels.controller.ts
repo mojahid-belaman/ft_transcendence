@@ -3,7 +3,7 @@ import { MessagesChannelsService } from './messages-channels.service';
 import { CreateMessagesChannelDto } from './dto/create-messages-channel.dto';
 import { UpdateMessagesChannelDto } from './dto/update-messages-channel.dto';
 
-@Controller('messages-channels')
+@Controller('channels/messages')
 export class MessagesChannelsController {
   constructor(private readonly messagesChannelsService: MessagesChannelsService) {}
 

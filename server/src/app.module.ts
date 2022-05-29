@@ -4,21 +4,19 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Channels } from './channels/entity/channels.entity';
 import { Users } from './users/entity/users.entity';
 import { ConnectionsModule } from './connections/connections.module';
-import { FriendshipsModule } from './friendships/friendships.module';
 import { MessagesChannelsModule } from './messages-channels/messages-channels.module';
 import { MessagesDmsModule } from './messages-dms/messages-dms.module';
 import { Connection } from './connections/entities/connection.entity';
-import { Friendship } from './friendships/entities/friendship.entity';
 import { MessagesChannel } from './messages-channels/entities/messages-channel.entity';
 import { MessagesDM } from './messages-dms/entities/messages-dm.entity';
 import { ChannelsModule } from './channels/connections.module';
-import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from './auth/constants';
 import { IntraAuthModule } from './42-auth/IntraAuth.module';
 import { Conversations } from './conversations/entity/conversation.entity';
 import { ConversationsModule } from './conversations/conversations.module';
+import { FriendshipsModule } from './friendships/friendships.module';
 
 @Module({
   imports: [
@@ -37,7 +35,7 @@ import { ConversationsModule } from './conversations/conversations.module';
         Users,
         Connection,
         Conversations,
-        Friendship,
+        // Friendship,
         MessagesChannel,
         MessagesDM,
       ],
@@ -54,7 +52,7 @@ import { ConversationsModule } from './conversations/conversations.module';
     MessagesDmsModule,
     AuthModule,
     IntraAuthModule,
-    ConversationsModule
-  ],
+    ConversationsModule,
+  ]
 })
 export class AppModule {}

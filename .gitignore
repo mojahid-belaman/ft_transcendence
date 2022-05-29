@@ -1,5 +1,4 @@
-/social_platform_client/node_modules
-/social_platform_server/node_modules
-/social_platform_server/dist
-./social_platform_server/.env
+/server/node_modules
+/server/dist
+./server/.env
 .env
