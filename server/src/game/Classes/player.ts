@@ -24,9 +24,11 @@ export class Player {
     this.username = username;
     if (isLeftSide) {
       console.log(`player one take paddle left`);
+      console.log(this.username);
       this._paddle = new Paddle(GameVariable._left_Paddle_X);
     } else {
       console.log(`player two take paddle right`);
+      console.log(this.username);
       this._paddle = new Paddle(GameVariable._right_Paddle_X);
     }
     this._isInterval = setInterval(() => {
