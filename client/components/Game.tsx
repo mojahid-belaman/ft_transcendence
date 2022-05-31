@@ -3,17 +3,14 @@ import { GameOver } from "./GameOver";
 import { Data, StateGame } from "../Library/Data";
 import { drawGame } from "../Library/DrawShapes";
 import { GameObj } from "../Library/gameObject";
-import { io } from "socket.io-client";
 import style from "../styles/Game.module.css";
 import Cookies from "js-cookie";
-import { decode } from "punycode";
 
-const socket = io("http://10.12.8.14:5001");
 
 //NOTE - Initiale data and Information about all Game like (ball, paddle, score, width, height, canvas)
 let data = new Data(1200, 600);
 
-export function Game() {
+export function Game(props: any) {
   const canvasRef: any = useRef();
 
   const initialState: GameObj = {
@@ -40,7 +37,7 @@ export function Game() {
     data.get_Height(),
   ]);
 
-  socket.on("gameState", (newState: any) => {
+  props.socket.on("gameState", (newState: any) => {
     setGameState(newState);
   });
 
@@ -53,19 +50,19 @@ export function Game() {
       if (window.innerWidth > 1200) {
         console.log("great than 1200");
         data = new Data(1200, 600);
-        socket.emit("resize", data);
+        props.socket.emit("resize", data);
       } else if (window.innerWidth > 800 && window.innerWidth <= 1200) {
         console.log("between 1200 and 800");
         data = new Data(800, 400);
-        socket.emit("resize", data);
+        props.socket.emit("resize", data);
       } else if (window.innerWidth > 576 && window.innerWidth <= 800) {
         console.log("between 992 and 600");
         data = new Data(550, 400);
-        socket.emit("resize", data);
+        props.socket.emit("resize", data);
       } else if (window.innerWidth <= 576) {
         console.log("less than 576");
         data = new Data(450, 350);
-        socket.emit("resize", data);
+        props.socket.emit("resize", data);
       }
     } else if (data.get_State() === StateGame.OVER) {
       console.log("OVER");
@@ -183,41 +180,31 @@ export function Game() {
     //NOTE - the document is undefined. I should be able to use it inside useEffect
     document.addEventListener("keydown", (e) => {
       if (e.code === "ArrowUp") {
-        socket.emit("upPaddle", "down");
+        props.socket.emit("upPaddle", "down");
       } else if (e.code === "ArrowDown") {
-        socket.emit("downPaddle", "down");
+        props.socket.emit("downPaddle", "down");
       }
     });
     document.addEventListener("keyup", (e) => {
       if (e.code === "ArrowUp") {
-        socket.emit("upPaddle", "up");
+        props.socket.emit("upPaddle", "up");
       } else if (e.code === "ArrowDown") {
-        socket.emit("downPaddle", "up");
+        props.socket.emit("downPaddle", "up");
       }
     });
 
-    window.addEventListener("load", () => {
-      responseGame();
-    });
+    responseGame();
   }, []);
 
-  const btnRef: any = useRef();
-
-  
   function hundleJoinGame(e: any) {
     const token = Cookies.get("access_token");
-    socket.emit("join_match", {
+    props.socket.emit("join_match", {
       access_token: token,
     });
-    btnRef.current.style.display = "none";
-    e.stopPropagation();
   }
   return (
     <>
       <div className={style.container}>
-        <button onClick={hundleJoinGame} className={style.btn} ref={btnRef}>
-          Join Game
-        </button>
         <div className={style.info}>
           <h1>Players: &uarr; &darr;</h1>
         </div>

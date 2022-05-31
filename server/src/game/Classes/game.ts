@@ -16,13 +16,14 @@ export class Game {
   constructor(
     player_One: Player,
     player_Two: Player,
-    gameService: GameService,
+    gameService: GameService
   ) {
     this._player_One = player_One;
     this._player_Two = player_Two;
     this._ball = new Ball();
     this._gameService = gameService;
     this._myInterval = setInterval(() => {
+
       this.playGame(this._player_One, this._player_Two);
     }, 1000 / 60);
   }

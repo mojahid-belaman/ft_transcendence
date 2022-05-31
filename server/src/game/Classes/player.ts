@@ -51,11 +51,11 @@ export class Player {
   }
 
   public getUserId(): string {
-      return this.userId;
+    return this.userId;
   }
 
   public getUsername(): string {
-      return this.username;
+    return this.username;
   }
 
   public getPaddle(): Paddle {
