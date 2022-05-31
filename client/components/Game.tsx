@@ -6,7 +6,6 @@ import { GameObj } from "../Library/gameObject";
 import { io } from "socket.io-client";
 import style from "../styles/Game.module.css";
 import Cookies from "js-cookie";
-import { decode } from "punycode";
 
 const socket = io("http://10.12.8.14:5001");
 
@@ -196,28 +195,19 @@ export function Game() {
       }
     });
 
-    window.addEventListener("load", () => {
-      responseGame();
-    });
+    responseGame();
   }, []);
 
-  const btnRef: any = useRef();
-
   
-  function hundleJoinGame(e: any) {
-    const token = Cookies.get("access_token");
-    socket.emit("join_match", {
-      access_token: token,
-    });
-    btnRef.current.style.display = "none";
-    e.stopPropagation();
-  }
+  // function hundleJoinGame(e: any) {
+  //   const token = Cookies.get("access_token");
+  //   socket.emit("join_match", {
+  //     access_token: token,
+  //   });
+  // }
   return (
     <>
       <div className={style.container}>
-        <button onClick={hundleJoinGame} className={style.btn} ref={btnRef}>
-          Join Game
-        </button>
         <div className={style.info}>
           <h1>Players: &uarr; &darr;</h1>
         </div>
