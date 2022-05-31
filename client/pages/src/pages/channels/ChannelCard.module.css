@@ -1,0 +1,32 @@
+.channelButton{
+    width:95%;
+    height: 50px;
+    text-align: left;
+    border-radius: 10px;
+    border:none;
+    background-color: white;
+    margin-top: 10px;
+    color: black;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+}
+.channelButton .channelImg{
+    border-radius: 50%;
+    width:40px;
+    height: 40px;
+    border:3px solid rgb(223, 221, 221);
+}
+.channelButton .channelInfo{
+    display:flex;
+    flex-direction: column;
+    margin-left:5px;
+    margin-top: 5px;
+}
+
+.channelButton:hover{
+    align-items: center;
+    width:100%;
+    height: 60px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}

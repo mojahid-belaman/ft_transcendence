@@ -22,6 +22,7 @@ export class ChannelsController {
 	@UseGuards(JwtAuthGuard)
 	@Post()
 	createChannel(@Req() req, @Body() body: CreateChannelDto) {
+		console.log(body);
 		return this.channelsService.createChannel({...body, owner: req.user.userId});
 	}
 	@UseGuards(JwtAuthGuard)

@@ -26,6 +26,7 @@ export class ChannelsService {
   }
 
   createChannel(channelObj) {
+    console.log(channelObj);
     if (channelObj.status === channelStatus.PROTECTED && channelObj.password === null)
       throw new ForbiddenException("Password not set for protected channel")
     return this.channelRepository.save(channelObj)
