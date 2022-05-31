@@ -72,7 +72,6 @@ export class GameGateway
   @SubscribeMessage('upPaddle')
   hundle_up_paddle(client: Socket, payload: string) {
     let gameFound = this.game.find((gm) => {
-      console.log(gm);
       return (
         gm.get_PlayerOne().getSocket() === client ||
         gm.get_PlayerTwo().getSocket() === client
@@ -106,6 +105,7 @@ export class GameGateway
   @SubscribeMessage('join_match')
   hundle_join_match(client: Socket, payload: any) {
     this.logger.log('Join Match ' + `${client.id} `);
+
     const user: any = this.jwtService.decode(payload.access_token);
 
     //NOTE - Check If the same client not add in Set of socket
@@ -116,7 +116,7 @@ export class GameGateway
     //NOTE - Add Client Socket In Set
     this.socketArr.add(client);
 
-    if (payload === 'default') {
+    if (payload.type === 'default') {
       //NOTE - Add User In Array
       this.userArrDef.push(user);
 
@@ -126,8 +126,8 @@ export class GameGateway
         const [first, second] = this.userArrDef;
 
         if (first.id === second.id) {
-          this.userArrDef.splice(this.userArrDef.indexOf(first), 1)
-          return ;
+          this.userArrDef.splice(this.userArrDef.indexOf(first), 1);
+          return;
         }
 
         this.playerOne = new Player(
@@ -149,9 +149,9 @@ export class GameGateway
           this.playerTwo,
           this.gameService,
         );
-        
+
         this.game.push(newGame);
-        
+
         this.socketArr.delete(newGame.get_PlayerOne().getSocket());
         this.socketArr.delete(newGame.get_PlayerTwo().getSocket());
         this.userArrDef.splice(0, this.userArrDef.length);
@@ -160,8 +160,7 @@ export class GameGateway
         console.log('Socket size: ' + this.socketArr.size);
         console.log('user size: ' + this.userArrDef.length);
       }
-    }
-    else if (payload === 'obstacle') {
+    } else if (payload.type === 'obstacle') {
       //NOTE - Add User In Array
       this.userArrObs.push(user);
 
@@ -171,8 +170,8 @@ export class GameGateway
         const [first, second] = this.userArrObs;
 
         if (first.id === second.id) {
-          this.userArrObs.splice(this.userArrObs.indexOf(first), 1)
-          return ;
+          this.userArrObs.splice(this.userArrObs.indexOf(first), 1);
+          return;
         }
 
         this.playerOne = new Player(
@@ -194,9 +193,9 @@ export class GameGateway
           this.playerTwo,
           this.gameService,
         );
-        
+
         this.game.push(newGame);
-        
+
         this.socketArr.delete(newGame.get_PlayerOne().getSocket());
         this.socketArr.delete(newGame.get_PlayerTwo().getSocket());
         this.userArrObs.splice(0, this.userArrObs.length);

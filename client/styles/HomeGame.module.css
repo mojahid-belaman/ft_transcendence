@@ -71,7 +71,7 @@
 	top: .2em;
 }
 
-@media (max-width: 990px) {
+@media (max-width: 1400px) {
     .container {
       flex-direction: column;
       justify-content: center;
