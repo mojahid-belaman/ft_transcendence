@@ -28,13 +28,10 @@ import { MulterModule } from '@nestjs/platform-express';
     }),
     MulterModule.register({
       dest: './files',
-    }),/* 
-    MulterModule.register({
-      dest: './upload'
     }),
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, './', `${process.env.UPLOAD_DEST}`),
-    }), */
+      rootPath: join(__dirname, '..', 'files'),
+    }),
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: process.env.HOST,

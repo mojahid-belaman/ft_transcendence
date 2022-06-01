@@ -38,7 +38,7 @@ export class UsersController {
   @UseGuards(JwtAuthGuard)
   @UseInterceptors(FileInterceptor('avatar', {
     storage: diskStorage({
-      destination: "./files/avatars",
+      destination: "files",
       filename: editfilename
     })
   }))
