@@ -6,16 +6,26 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
 import { AuthModule } from './auth/auth.module';
+import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from './auth/constants';
-import { Games } from './game/enitites/game.entity';
-import { GameModule } from './game/game.module';
-import { Users } from './users/entity/users.entity';
-import { UsersModule } from './users/users.module';
+import { IntraAuthModule } from './42-auth/IntraAuth.module';
+import { Conversations } from './conversations/entity/conversation.entity';
+import { ConversationsModule } from './conversations/conversations.module';
+import { FriendshipsModule } from './friendships/friendships.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
+import { MulterModule } from '@nestjs/platform-express';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
-      isGlobal: true,
+      isGlobal: true
+    }),
+    MulterModule.register({
+      dest: './files',
+    }),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'files'),
     }),
     MulterModule.register({
       dest: './files',
@@ -26,7 +36,7 @@ import { UsersModule } from './users/users.module';
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: process.env.HOST,
-      port: parseInt(process.env.PORT),
+      port: +process.env.PORT,
       username: process.env.POSTGRES_USER,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,
@@ -34,15 +44,18 @@ import { UsersModule } from './users/users.module';
       autoLoadEntities: true,
       synchronize: true,
     }),
+    ChannelsModule,
     JwtModule.register({
       secret: jwtConstants.secret,
       signOptions: { expiresIn: '2 days' },
     }),
-    GameModule,
-    UsersModule,
+    ConnectionsModule,
+    FriendshipsModule,
+    MessagesChannelsModule,
+    MessagesDmsModule,
     AuthModule,
-  ],
-  controllers: [],
-  providers: [],
+    IntraAuthModule,
+    ConversationsModule,
+  ]
 })
-export class AppModule {}
+export class AppModule { }

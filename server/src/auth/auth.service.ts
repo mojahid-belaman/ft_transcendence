@@ -8,15 +8,14 @@ export class AuthService {
   constructor(
     private userService: UsersService,
     private jwtService: JwtService,
-  ) {}
+  ) { }
 
   async validateUser(username: string, password: string): Promise<any> {
-    return this.userService
-      .findOne({ username: username })
+    return this.userService.findOne({ username: username })
       .then(async (user) => {
         if (!user)
           return {
-            errorMessage: 'Email not found',
+            errorMessage: "Email not found"
           };
         if (user && !(await bcrypt.compare(password, user.password)))
           return null;
@@ -26,21 +25,22 @@ export class AuthService {
 
   async login(user: any) {
     const payload = { ...user };
-    delete user.id;
+    delete user.id
     return {
       access_token: this.jwtService.sign(payload),
-      ...user,
+      ...user
     };
   }
 
   async authLogin(user: any) {
     const payload = { ...user };
-    delete user.id;
-    delete user.password;
-    if (payload.role != 'admin') throw new ForbiddenException();
+    delete user.id
+    delete user.password
+    if (payload.role != 'admin')
+      throw new ForbiddenException();
     return {
       access_token: this.jwtService.sign(payload),
-      ...user,
+      ...user
     };
   }
 }

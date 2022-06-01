@@ -1,0 +1,61 @@
+.whiteCard {
+    width: 457px;
+    /* height: 457px; */
+    padding: 40px;
+    background-color: white;
+    border-radius: 42px;
+    margin: auto;
+    margin-top: 100px;
+}
+
+.whiteCard .title {
+    color: #495577;
+    padding: 50px;
+    padding-bottom: 20px;
+    letter-spacing: 0px;
+    font-size: 30px;
+}
+
+.whiteCard .errorMessage {
+    color: #893125;
+    padding: 20px;
+    padding-bottom: 10px;
+    letter-spacing: 0px;
+    font-size: 15px;
+}
+
+.whiteCard input {
+    width: 80%;
+    height: 40px;
+    border-radius: 5px;
+    margin: 20px;
+    border: 1px solid #E0E0E0;
+    /* border: 2px solid #495577; */
+}
+
+.whiteCard input:focus {
+    border: 3px solid #495577;
+    outline: 0;
+}
+
+.whiteCard .button {
+    background-color: #495577;
+    border-radius: 5px;
+    border: none;
+    color: white;
+    font-size: 14px;
+    padding: 5px 20px;
+}
+
+.inputFileds {
+    margin-bottom: 40px;
+}
+
+.redirection {
+    color: #495577;
+    font-size: 12px;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    margin-top: 10px;
+}
