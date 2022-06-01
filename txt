@@ -1,0 +1,3 @@
+docker-machine start/create
+docker-compose up
+docker-machine ip

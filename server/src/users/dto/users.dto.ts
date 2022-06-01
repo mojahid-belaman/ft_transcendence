@@ -1,32 +1,38 @@
 import { IsDate, IsString, ValidateIf } from "class-validator";
 
-export class CreateUserDto{
+export class CreateUserDto {
 	@IsString()
-	username:string;
+	username: string;
 	@IsString()
-	password:string;
+	username42: string;
+	@IsString()
+	password: string;
 	@IsString()
 	@ValidateIf((object, value) => value !== null && value !== undefined)
-	avatar:string;
+	avatar: string;
 }
 
 export class UpdateUserDto {
 	@IsString()
-	username:string;
+	username: string;
 	@IsString()
-	password:string;
+	username42: string;
+	@IsString()
+	password: string;
 	@IsString()
 	@ValidateIf((object, value) => value !== null && value !== undefined)
-	avatar:string;	
+	avatar: string;
 }
 
 export class FindUserResponsDto {
 	@IsString()
-	username:string;
+	username: string;
+	@IsString()
+	username42: string;
 	@IsDate()
-    lastConnected: Date;
+	lastConnected: Date;
 	@IsString()
 	@ValidateIf((object, value) => value !== null && value !== undefined)
-	avatar:string;	
+	avatar: string;
 }
 
