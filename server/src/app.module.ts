@@ -25,6 +25,9 @@ import { MulterModule } from '@nestjs/platform-express';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true
+    }),
+    MulterModule.register({
+      dest: './files',
     }),/* 
     MulterModule.register({
       dest: './upload'
