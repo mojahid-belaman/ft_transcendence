@@ -3,27 +3,38 @@
 .container {
     display: flex;
     flex-direction: row;
+    align-items: center;
     color: #FFF;
-
 }
 
 .game {
-    flex: 50%;
+    flex-basis: 50%;
 }
 
 .game img {
     width: 100%;
 }
 .about {
-    flex: 50%;
+    flex-basis: 50%;
 }
 .about h1 {
     font-size: 5vw;
     font-family: 'Press Start 2P', cursive;
-    margin-top: 40%;
     text-align: center;
 }
-.about span {
+.about h1 img {
+    -webkit-animation: mover 2s infinite  alternate;
+    animation: mover 2s infinite  alternate;
+}
+@-webkit-keyframes mover {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-90px); }
+}
+@keyframes mover {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-90px); }
+}
+.about .title {
     display: inline-block;
     background-color: #FFF;
     color: #000;
@@ -32,18 +43,19 @@
     font-family: 'Press Start 2P', cursive;
 
 }
-.about span:hover {
+.about .title:hover {
     background-color: #000;
     color: #FFF;
 }
+.about .emoji {
+    font-size: 40px;
+}
 .about p {
-    margin: 0;
-    padding: 0;
     line-height: 3;
     font-family: 'Press Start 2P', cursive;
-    margin-bottom: 50px;
+    font-size: 20px;
 }
-.about .center {
+.about .centerbtn {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -56,13 +68,15 @@
     font-family: 'Press Start 2p';
     font-size: 2vw;
     padding: 20px 10px 20px 10px;
-    background-color: #43a047;
-    text-shadow: -1px -1px black, 1px 1px white;
-    color: #FFF;
+    background-color: #FFF;
+    text-shadow: -4px -1px #ff9100, 1px 1px #ff9100;
+    color: #000;
     border-radius: 7px;
     border-color: #FFF;
-    box-shadow: 0 0.2em #1b5e20;
+    box-shadow: 0 0.2em #e0e0e0;
     cursor: pointer;
+    margin-bottom: 20px;
+    letter-spacing: 15px;
 }
 .about .btnDef:active, .about .btnObs:active {
     user-select: none;
@@ -70,15 +84,132 @@
 	position: relative;
 	top: .2em;
 }
+.about .btnDef:hover, .about .btnObs:hover {
+    background-color: #eeeeee;
+}
 
+@media (max-width: 1900px) {
+    .about h1 img {
+        -webkit-animation: mover 2s infinite  alternate;
+        animation: mover 2s infinite  alternate;
+    }
+    @-webkit-keyframes mover {
+        0% { transform: translateY(0); }
+        100% { transform: translateY(-60px); }
+    }
+    @keyframes mover {
+        0% { transform: translateY(0); }
+        100% { transform: translateY(-60px); }
+    }
+    .about .btnDef, .about .btnObs{
+        padding: 10px 10px 10px 10px;
+    }
+    .about .btnDef img, .about .btnObs img {
+        width: 50px;
+        height: 50px;
+    }
+}
+@media (max-width: 1800px) {
+    .about h1 img {
+        -webkit-animation: mover 2s infinite  alternate;
+        animation: mover 2s infinite  alternate;
+    }
+    @-webkit-keyframes mover {
+        0% { transform: translateY(0); }
+        100% { transform: translateY(-60px); }
+    }
+    @keyframes mover {
+        0% { transform: translateY(0); }
+        100% { transform: translateY(-60px); }
+    }
+    .about .btnDef, .about .btnObs{
+        padding: 10px 10px 10px 10px;
+    }
+    .about .btnDef img, .about .btnObs img {
+        width: 40px;
+        height: 40px;
+    }
+}
 @media (max-width: 1400px) {
     .container {
       flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      align-self: center;
     }
-    .about h1 {
-        margin-top: -20%;
+    .about h1 img {
+        -webkit-animation: mover 2s infinite  alternate;
+        animation: mover 2s infinite  alternate;
     }
+    @-webkit-keyframes mover {
+        0% { transform: translateY(0); }
+        100% { transform: translateY(-50px); }
+    }
+    @keyframes mover {
+        0% { transform: translateY(0); }
+        100% { transform: translateY(-50px); }
+    }
+    .about .btnDef, .about .btnObs{
+        padding: 10px 10px 10px 10px;
+    }
+    .about .btnDef img, .about .btnObs img {
+        width: 40px;
+        height: 40px;
+    }
+}
+@media (max-width: 1200px) {
+
+    .about .btnDef, .about .btnObs{
+        padding: 10px 10px 10px 10px;
+    }
+    .about .btnDef img, .about .btnObs img {
+        width: 30px;
+        height: 30px;
+    }
+}
+@media (max-width: 900px) {
+
+    .about h1 img {
+        width: 50px;
+        height: 50px;
+        -webkit-animation: mover 2s infinite  alternate;
+        animation: mover 2s infinite  alternate;
+    }
+    @-webkit-keyframes mover {
+        0% { transform: translateY(0); }
+        100% { transform: translateY(-30px); }
+    }
+    @keyframes mover {
+        0% { transform: translateY(0); }
+        100% { transform: translateY(-30px); }
+    }
+    .about .btnDef, .about .btnObs{
+        padding: 10px 10px 10px 10px;
+    }
+    .about .btnDef img, .about .btnObs img {
+        width: 20px;
+        height: 20px;
+    }
+}
+@media (max-width: 600px) {
+    
+    .about h1 img {
+        width: 40px;
+        height: 40px;
+        -webkit-animation: mover 2s infinite  alternate;
+        animation: mover 2s infinite  alternate;
+    }
+    @-webkit-keyframes mover {
+        0% { transform: translateY(0); }
+        100% { transform: translateY(-20px); }
+    }
+    @keyframes mover {
+        0% { transform: translateY(0); }
+        100% { transform: translateY(-20px); }
+    }
+    .about .btnDef, .about .btnObs{
+        padding: 10px 10px 10px 10px;
+    }
+    .about .btnDef img, .about .btnObs img {
+        width: 10px;
+        height: 10px;
+    }
+    
 }

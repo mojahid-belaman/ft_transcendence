@@ -75,22 +75,27 @@ export class Ball {
   public update_score(player_One: Player, player_Two: Player): void {
     if (this._ball_X - GameVariable._ball_Radius < 0) {
       player_One.setScore(player_One.getScore() + 1);
-      this.resetBall();
+      this.resetBall(true);
     } else if (
       this._ball_X + GameVariable._ball_Radius >
       GameVariable._canvas_Width
     ) {
       player_Two.setScore(player_Two.getScore() + 1);
-      this.resetBall();
+      this.resetBall(false);
     }
   }
 
-  public resetBall(): void {
+  public resetBall(check: boolean): void {
     this._ball_X = GameVariable._canvas_Width / 2;
     this._ball_Y = GameVariable._canvas_Height / 2;
     this._collidePoint = 0;
     GameVariable._ball_Speed = 5;
-    this._ball_DX = 2;
+    if (check)
+      this._ball_DX = 2;
+    else
+      this._ball_DX = -2;
+
+    
   }
 
   public getBall_X(): number {

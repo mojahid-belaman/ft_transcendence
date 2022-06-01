@@ -148,6 +148,7 @@ export class GameGateway
           this.playerOne,
           this.playerTwo,
           this.gameService,
+          payload.type,
         );
 
         this.game.push(newGame);
@@ -192,6 +193,7 @@ export class GameGateway
           this.playerOne,
           this.playerTwo,
           this.gameService,
+          payload.type,
         );
 
         this.game.push(newGame);

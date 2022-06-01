@@ -10,20 +10,24 @@ export class Game {
   private _player_One: Player;
   private _player_Two: Player;
   private _ball: Ball;
+  private _ballTwo?: Ball;
   private _myInterval: NodeJS.Timer;
   private _gameService: GameService;
+  private _typeGame: string;
 
   constructor(
     player_One: Player,
     player_Two: Player,
-    gameService: GameService
+    gameService: GameService,
+    typeGame: string,
   ) {
     this._player_One = player_One;
     this._player_Two = player_Two;
     this._ball = new Ball();
     this._gameService = gameService;
+    this._typeGame = typeGame;
+    if (this._typeGame === 'obstacle') this._ballTwo = new Ball();
     this._myInterval = setInterval(() => {
-
       this.playGame(this._player_One, this._player_Two);
     }, 1000 / 60);
   }
@@ -51,6 +55,12 @@ export class Game {
   }
 
   public playGame(player_One: Player, player_Two: Player): void {
+    if (this._typeGame === 'obstacle') {
+      this._ballTwo.moveBall();
+      this._ballTwo.direction_Ball(player_One);
+      this._ballTwo.direction_Ball(player_Two);
+      this._ballTwo.update_score(player_One, player_Two);
+    }
     this._ball.moveBall();
     this._ball.direction_Ball(player_One);
     this._ball.direction_Ball(player_Two);
@@ -62,6 +72,8 @@ export class Game {
       ball: {
         ball_x: this._ball.getBall_X(),
         ball_y: this._ball.getBall_Y(),
+        ballT_x: this._ballTwo?.getBall_X(),
+        ballT_y: this._ballTwo?.getBall_Y(),
       },
       paddle: {
         paddle_left: this._player_One.getPaddle().get_PaddleY(),
@@ -79,6 +91,8 @@ export class Game {
       ball: {
         ball_x: this._ball.getBall_X(),
         ball_y: this._ball.getBall_Y(),
+        ballT_x: this._ballTwo?.getBall_X(),
+        ballT_y: this._ballTwo?.getBall_Y(),
       },
       paddle: {
         paddle_left: this._player_One.getPaddle().get_PaddleY(),

@@ -26,7 +26,6 @@ export class Paddle {
     public movePaddle(): void {
         if (this._paddleSpeed === 0) return;
         this._paddle_Y += this._paddleSpeed;
-        console.log(`movePaddle: ${this._paddle_Y}`);
         if (this._paddle_Y < GameVariable._bounded_PaddleHeight) {
             this._paddleSpeed = 0;
             this._paddle_Y = GameVariable._bounded_PaddleHeight - 5;

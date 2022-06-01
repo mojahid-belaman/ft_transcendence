@@ -1,4 +1,4 @@
-import { Data, StateGame } from "./Data";
+import { Data } from "./Data";
 
 export function drawGame(context: object, data: Data) {
     drawRect(0, 0, data.get_Width(), data.get_Height(), '#000', context);
@@ -10,6 +10,7 @@ export function drawGame(context: object, data: Data) {
     drawRect(data.get_Left_Pddle_X(), data.get_PddleLeft_Y(), data.get_Paddle_Width(), data.get_Paddle_Height(), '#FFF', context);
     drawRect(data.get_Right_Pddle_X(), data.get_PddleRight_Y(), data.get_Paddle_Width(), data.get_Paddle_Height(), '#FFF', context);
     DrawCircle(data.get_Ball_X(), data.get_Ball_Y(), data.get_Ball_Radius(), '#ffff00', context);
+    DrawCircle(data.get_BallT_X(), data.get_BallT_Y(), data.get_Ball_Radius(), '#ffff00', context);
 }
 
 function drawRect(x: number, y: number, w: number, h: number, color: string, context:any) {
