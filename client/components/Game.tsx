@@ -39,10 +39,6 @@ export function Game(props: any) {
     data.get_Height(),
   ]);
 
-  socket.on("gameState", (newState: any) => {
-    setGameState(newState);
-  });
-
   function responseGame() {
     if (
       data.get_State() === StateGame.WAIT ||
@@ -177,6 +173,14 @@ export function Game(props: any) {
 
     //NOTE - Check State Game if true Display "Game Over"
     if (data.get_State() === StateGame.OVER) setCurrentState(StateGame.OVER);
+
+    socket.on("gameState", (newState: any) => {
+      setGameState(newState);
+    });
+
+    return () => {
+      socket.off("gameState")
+    }
   }, [gameState]);
 
   useEffect(() => {

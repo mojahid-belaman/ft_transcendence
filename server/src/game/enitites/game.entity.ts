@@ -1,12 +1,13 @@
 import { Users } from 'src/users/entity/users.entity';
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  PrimaryColumn,
+} from 'typeorm';
 
-/* export enum GameStatus {
-  PENDING = 'Pending',
-  STARTED = 'Started',
-  ENDED = 'Ended',
-}
- */
+
 @Entity()
 export class Games {
   @PrimaryGeneratedColumn('uuid')
@@ -29,10 +30,4 @@ export class Games {
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   date: Date;
 
-  /*  @Column({
-    type: 'enum',
-    enum: GameStatus,
-    default: GameStatus.PENDING,
-  })
-  gameStatus: GameStatus; */
 }

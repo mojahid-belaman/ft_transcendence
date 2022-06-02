@@ -1,215 +1,276 @@
 @import url("https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Kanit:wght@500&family=Outfit:wght@100;500&family=Press+Start+2P&family=Work+Sans:wght@100;200;300;400;500;600;700;800&display=swap");
 
 .container {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    color: #FFF;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: #fff;
+  height: calc(100vh - 30%);
 }
 
 .game {
-    flex-basis: 50%;
+  flex-basis: 50%;
 }
 
 .game img {
-    width: 100%;
+  width: 79%;
 }
 .about {
-    flex-basis: 50%;
+  flex-basis: 50%;
 }
 .about h1 {
-    font-size: 5vw;
-    font-family: 'Press Start 2P', cursive;
-    text-align: center;
+  font-size: 5vw;
+  font-family: "Press Start 2P", cursive;
 }
 .about h1 img {
-    -webkit-animation: mover 2s infinite  alternate;
-    animation: mover 2s infinite  alternate;
+  -webkit-animation: mover 2s infinite alternate;
+  animation: mover 2s infinite alternate;
 }
 @-webkit-keyframes mover {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(-90px); }
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-90px);
+  }
 }
 @keyframes mover {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(-90px); }
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-90px);
+  }
 }
 .about .title {
-    display: inline-block;
-    background-color: #FFF;
-    color: #000;
-    border-radius: 8px;
-    padding: 0 5px 0 5px;
-    font-family: 'Press Start 2P', cursive;
-
+  display: inline-block;
+  background-color: #fff;
+  color: #000;
+  border-radius: 8px;
+  padding: 0 5px 0 5px;
+  font-family: "Press Start 2P", cursive;
 }
 .about .title:hover {
-    background-color: #000;
-    color: #FFF;
+  background-color: #000;
+  color: #fff;
 }
 .about .emoji {
-    font-size: 40px;
+  font-size: 40px;
 }
 .about p {
-    line-height: 3;
-    font-family: 'Press Start 2P', cursive;
-    font-size: 20px;
+  line-height: 3;
+  font-family: "Press Start 2P", cursive;
+  font-size: 20px;
 }
 .about .centerbtn {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.about .btnDef, .about .btnObs{
-    text-align: center;
-    display: inline-block;
-    margin-right: 40px;
-    font-weight: bold;
-    font-family: 'Press Start 2p';
-    font-size: 2vw;
-    padding: 20px 10px 20px 10px;
-    background-color: #FFF;
-    text-shadow: -4px -1px #ff9100, 1px 1px #ff9100;
-    color: #000;
-    border-radius: 7px;
-    border-color: #FFF;
-    box-shadow: 0 0.2em #e0e0e0;
-    cursor: pointer;
-    margin-bottom: 20px;
-    letter-spacing: 15px;
+.about .btnDef,
+.about .btnObs {
+  text-align: center;
+  display: inline-block;
+  margin-right: 40px;
+  font-weight: bold;
+  font-family: "Press Start 2p";
+  font-size: 2vw;
+  padding: 20px 10px 20px 10px;
+  background-color: #1b5e20;
+  text-shadow: -4px -1px #ff9100, 1px 1px #ff9100;
+  color: #FFF;
+  border-radius: 7px;
+  border-color: #8bc34a;
+  box-shadow: 0 0.2em #FFF;
+  cursor: pointer;
+  margin-bottom: 20px;
+  letter-spacing: 15px;
 }
-.about .btnDef:active, .about .btnObs:active {
-    user-select: none;
-	box-shadow: none;
-	position: relative;
-	top: .2em;
+.about .btnDef:active,
+.about .btnObs:active {
+  user-select: none;
+  box-shadow: none;
+  position: relative;
+  top: 0.2em;
 }
-.about .btnDef:hover, .about .btnObs:hover {
-    background-color: #eeeeee;
+.about .btnDef:hover,
+.about .btnObs:hover {
+  background-color: #2e7d32;
 }
 
 @media (max-width: 1900px) {
-    .about h1 img {
-        -webkit-animation: mover 2s infinite  alternate;
-        animation: mover 2s infinite  alternate;
+  .about h1 img {
+    -webkit-animation: mover 2s infinite alternate;
+    animation: mover 2s infinite alternate;
+  }
+  @-webkit-keyframes mover {
+    0% {
+      transform: translateY(0);
     }
-    @-webkit-keyframes mover {
-        0% { transform: translateY(0); }
-        100% { transform: translateY(-60px); }
+    100% {
+      transform: translateY(-60px);
     }
-    @keyframes mover {
-        0% { transform: translateY(0); }
-        100% { transform: translateY(-60px); }
+  }
+  @keyframes mover {
+    0% {
+      transform: translateY(0);
     }
-    .about .btnDef, .about .btnObs{
-        padding: 10px 10px 10px 10px;
+    100% {
+      transform: translateY(-60px);
     }
-    .about .btnDef img, .about .btnObs img {
-        width: 50px;
-        height: 50px;
-    }
+  }
+  .about .btnDef,
+  .about .btnObs {
+    padding: 10px 10px 10px 10px;
+  }
+  .about .btnDef img,
+  .about .btnObs img {
+    width: 50px;
+    height: 50px;
+  }
 }
 @media (max-width: 1800px) {
-    .about h1 img {
-        -webkit-animation: mover 2s infinite  alternate;
-        animation: mover 2s infinite  alternate;
+  .about h1 img {
+    -webkit-animation: mover 2s infinite alternate;
+    animation: mover 2s infinite alternate;
+  }
+  @-webkit-keyframes mover {
+    0% {
+      transform: translateY(0);
     }
-    @-webkit-keyframes mover {
-        0% { transform: translateY(0); }
-        100% { transform: translateY(-60px); }
+    100% {
+      transform: translateY(-60px);
     }
-    @keyframes mover {
-        0% { transform: translateY(0); }
-        100% { transform: translateY(-60px); }
+  }
+  @keyframes mover {
+    0% {
+      transform: translateY(0);
     }
-    .about .btnDef, .about .btnObs{
-        padding: 10px 10px 10px 10px;
+    100% {
+      transform: translateY(-60px);
     }
-    .about .btnDef img, .about .btnObs img {
-        width: 40px;
-        height: 40px;
-    }
+  }
+  .about .btnDef,
+  .about .btnObs {
+    padding: 10px 10px 10px 10px;
+  }
+  .about .btnDef img,
+  .about .btnObs img {
+    width: 40px;
+    height: 40px;
+  }
 }
 @media (max-width: 1400px) {
-    .container {
-      flex-direction: column;
+  .container {
+    flex-direction: column;
+  }
+  .about h1, .about p {
+      text-align: center;
+  }
+  .about h1 img {
+    -webkit-animation: mover 2s infinite alternate;
+    animation: mover 2s infinite alternate;
+  }
+  @-webkit-keyframes mover {
+    0% {
+      transform: translateY(0);
     }
-    .about h1 img {
-        -webkit-animation: mover 2s infinite  alternate;
-        animation: mover 2s infinite  alternate;
+    100% {
+      transform: translateY(-50px);
     }
-    @-webkit-keyframes mover {
-        0% { transform: translateY(0); }
-        100% { transform: translateY(-50px); }
+  }
+  @keyframes mover {
+    0% {
+      transform: translateY(0);
     }
-    @keyframes mover {
-        0% { transform: translateY(0); }
-        100% { transform: translateY(-50px); }
+    100% {
+      transform: translateY(-50px);
     }
-    .about .btnDef, .about .btnObs{
-        padding: 10px 10px 10px 10px;
-    }
-    .about .btnDef img, .about .btnObs img {
-        width: 40px;
-        height: 40px;
-    }
+  }
+  .about .btnDef,
+  .about .btnObs {
+    padding: 10px 10px 10px 10px;
+  }
+  .about .btnDef img,
+  .about .btnObs img {
+    width: 40px;
+    height: 40px;
+  }
 }
 @media (max-width: 1200px) {
-
-    .about .btnDef, .about .btnObs{
-        padding: 10px 10px 10px 10px;
-    }
-    .about .btnDef img, .about .btnObs img {
-        width: 30px;
-        height: 30px;
-    }
+  .about .btnDef,
+  .about .btnObs {
+    padding: 10px 10px 10px 10px;
+  }
+  .about .btnDef img,
+  .about .btnObs img {
+    width: 30px;
+    height: 30px;
+  }
 }
 @media (max-width: 900px) {
-
-    .about h1 img {
-        width: 50px;
-        height: 50px;
-        -webkit-animation: mover 2s infinite  alternate;
-        animation: mover 2s infinite  alternate;
+  .about h1 img {
+    width: 50px;
+    height: 50px;
+    -webkit-animation: mover 2s infinite alternate;
+    animation: mover 2s infinite alternate;
+  }
+  @-webkit-keyframes mover {
+    0% {
+      transform: translateY(0);
     }
-    @-webkit-keyframes mover {
-        0% { transform: translateY(0); }
-        100% { transform: translateY(-30px); }
+    100% {
+      transform: translateY(-30px);
     }
-    @keyframes mover {
-        0% { transform: translateY(0); }
-        100% { transform: translateY(-30px); }
+  }
+  @keyframes mover {
+    0% {
+      transform: translateY(0);
     }
-    .about .btnDef, .about .btnObs{
-        padding: 10px 10px 10px 10px;
+    100% {
+      transform: translateY(-30px);
     }
-    .about .btnDef img, .about .btnObs img {
-        width: 20px;
-        height: 20px;
-    }
+  }
+  .about .btnDef,
+  .about .btnObs {
+    padding: 10px 10px 10px 10px;
+  }
+  .about .btnDef img,
+  .about .btnObs img {
+    width: 20px;
+    height: 20px;
+  }
 }
 @media (max-width: 600px) {
-    
-    .about h1 img {
-        width: 40px;
-        height: 40px;
-        -webkit-animation: mover 2s infinite  alternate;
-        animation: mover 2s infinite  alternate;
+  .about h1 img {
+    width: 40px;
+    height: 40px;
+    -webkit-animation: mover 2s infinite alternate;
+    animation: mover 2s infinite alternate;
+  }
+  @-webkit-keyframes mover {
+    0% {
+      transform: translateY(0);
     }
-    @-webkit-keyframes mover {
-        0% { transform: translateY(0); }
-        100% { transform: translateY(-20px); }
+    100% {
+      transform: translateY(-20px);
     }
-    @keyframes mover {
-        0% { transform: translateY(0); }
-        100% { transform: translateY(-20px); }
+  }
+  @keyframes mover {
+    0% {
+      transform: translateY(0);
     }
-    .about .btnDef, .about .btnObs{
-        padding: 10px 10px 10px 10px;
+    100% {
+      transform: translateY(-20px);
     }
-    .about .btnDef img, .about .btnObs img {
-        width: 10px;
-        height: 10px;
-    }
-    
+  }
+  .about .btnDef,
+  .about .btnObs {
+    padding: 10px 10px 10px 10px;
+  }
+  .about .btnDef img,
+  .about .btnObs img {
+    width: 10px;
+    height: 10px;
+  }
 }

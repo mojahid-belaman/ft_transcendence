@@ -4,7 +4,6 @@ import Game from "./Game";
 import Cookies from "js-cookie";
 import socket from "../Library/Socket";
 
-
 export function HomeGame() {
   const [isGame, setIsGame] = useState(false);
   const gameDefHandler = () => {
@@ -24,6 +23,16 @@ export function HomeGame() {
     setIsGame(!isGame);
   };
 
+  const gameWatcherHandler = () => {
+    const token = Cookies.get("access_token");
+    socket.emit("join_match", {
+      access_token: token,
+      type: "watcher",
+      gameId: "",
+    });
+    setIsGame(!isGame);
+  };
+
   return (
     <>
       {!isGame ? (
@@ -32,7 +41,11 @@ export function HomeGame() {
             <img src="/pingpong.png" alt="Ping Pong Game" />
           </div>
           <div className={styles.about}>
-            <h1>Ping<img src="/racket.png" alt="racket" width="80px" height="60px"/>Pong</h1>
+            <h1>
+              Ping
+              <img src="/racket.png" alt="racket" width="80px" height="60px" />
+              Pong
+            </h1>
             <p>
               <span className={styles.title}>PING PONG</span> is a table tennis
               game where you can enjoy a real match experience.
@@ -46,13 +59,13 @@ export function HomeGame() {
             </p>
             <div className={styles.centerbtn}>
               <button className={styles.btnDef} onClick={gameDefHandler}>
-                MEDIUM 
-                <img src="/ball.png" alt="racket" width="60px" height="60px"/>
+                MEDIUM
+                <img src="/ball.png" alt="racket" width="60px" height="60px" />
               </button>
               <button className={styles.btnObs} onClick={gameObsHandler}>
-                HARD 
-                <img src="/ball.png" alt="racket" width="60px" height="60px"/>
-                <img src="/ball.png" alt="racket" width="60px" height="60px"/>
+                HARD
+                <img src="/ball.png" alt="racket" width="60px" height="60px" />
+                <img src="/ball.png" alt="racket" width="60px" height="60px" />
               </button>
             </div>
           </div>

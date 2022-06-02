@@ -40,6 +40,9 @@ export class GameGateway
   }
 
   handleConnection(client: Socket, ...args: any[]) {
+    /* 
+    if the user has watcher stat: emit "send_games" with this.game array to be rendered in the frontend
+     */
     this.logger.log('Connect Success ' + `${client.id}`);
   }
 
@@ -119,6 +122,7 @@ export class GameGateway
     if (payload.type === 'default') {
       //NOTE - Add User In Array
       this.userArrDef.push(user);
+      console.log(this.userArrDef);
 
       //NOTE - Check if Set Of Socket (i means player) to stock is 2
       if (this.userArrDef.length > 1) {

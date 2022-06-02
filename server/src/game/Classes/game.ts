@@ -5,6 +5,7 @@ import { Socket } from 'socket.io';
 import { GameVariable } from './constant';
 import { GameService } from '../game.service';
 import { AddGameDto } from '../dto/add-game.dto';
+import { uuid } from 'uuidv4';
 
 export class Game {
   private _player_One: Player;
