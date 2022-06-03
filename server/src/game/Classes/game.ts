@@ -15,6 +15,7 @@ export class Game {
   private _myInterval: NodeJS.Timer;
   private _gameService: GameService;
   private _typeGame: string;
+  private _watchers: Socket[];
 
   constructor(
     player_One: Player,
@@ -63,8 +64,8 @@ export class Game {
       this._ballTwo.update_score(player_One, player_Two);
     }
     this._ball.moveBall();
-    this._ball.direction_Ball(player_One);
     this._ball.direction_Ball(player_Two);
+    this._ball.direction_Ball(player_One);
     this._ball.update_score(player_One, player_Two);
     if (this.gameStateFunc() === gameSate.OVER) {
       this.stopGame();
@@ -171,5 +172,9 @@ export class Game {
       currentState: this.gameStateFunc(),
       isWin: this._player_Two.checkWin(),
     });
+  }
+
+  public addWatcher(watcher: Socket): void {
+    this._watchers.push(watcher);
   }
 }

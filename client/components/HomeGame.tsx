@@ -23,16 +23,6 @@ export function HomeGame() {
     setIsGame(!isGame);
   };
 
-  const gameWatcherHandler = () => {
-    const token = Cookies.get("access_token");
-    socket.emit("join_match", {
-      access_token: token,
-      type: "watcher",
-      gameId: "",
-    });
-    setIsGame(!isGame);
-  };
-
   return (
     <>
       {!isGame ? (

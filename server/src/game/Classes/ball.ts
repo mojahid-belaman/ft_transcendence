@@ -90,12 +90,7 @@ export class Ball {
     this._ball_Y = GameVariable._canvas_Height / 2;
     this._collidePoint = 0;
     GameVariable._ball_Speed = 5;
-    if (check)
-      this._ball_DX = 2;
-    else
-      this._ball_DX = -2;
-
-    
+    this._ball_DX = 2;
   }
 
   public getBall_X(): number {
