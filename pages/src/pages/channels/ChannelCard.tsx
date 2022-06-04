@@ -5,6 +5,7 @@ function ChannelCard(props:any) {
     const dataChannelVar = useContext(DataChannel);
     function setConversation_(){
         dataChannelVar.setConversation(props.channel.conversationId)
+        props.setStatus(props.channel.status);
     }
     return (
         <button className={classes.channelButton} onClick={setConversation_}>

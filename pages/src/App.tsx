@@ -1,7 +1,7 @@
 import classes from './App.module.css'
 import MainApp from './main/MainApp';
 import Auth from './Auth'
-import { Route, Switch, useHistory } from 'react-router-dom';
+import { Redirect, Route, Switch, useHistory } from 'react-router-dom';
 import { useEffect } from 'react';
 function App() {
   const history = useHistory();
