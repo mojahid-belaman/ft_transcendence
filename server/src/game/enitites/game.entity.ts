@@ -10,7 +10,7 @@ import {
 
 @Entity()
 export class Games {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryColumn('uuid')
   id: string;
 
   // @ManyToOne((type) => Users, (user) => user.id, { onUpdate: 'CASCADE' })

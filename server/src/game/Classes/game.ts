@@ -8,6 +8,7 @@ import { AddGameDto } from '../dto/add-game.dto';
 import { uuid } from 'uuidv4';
 
 export class Game {
+  private _id: string;
   private _player_One: Player;
   private _player_Two: Player;
   private _ball: Ball;
@@ -16,13 +17,17 @@ export class Game {
   private _gameService: GameService;
   private _typeGame: string;
   private _watchers: Socket[];
+  private sendGames: Function;
 
   constructor(
     player_One: Player,
     player_Two: Player,
     gameService: GameService,
     typeGame: string,
+    sendGames: Function,
   ) {
+    this._id = uuid();
+    this.sendGames = sendGames;
     this._player_One = player_One;
     this._player_Two = player_Two;
     this._ball = new Ball();
@@ -40,6 +45,7 @@ export class Game {
     this._player_Two.stopPaddle();
 
     const gameDta = new AddGameDto();
+    gameDta.id = this._id;
     gameDta.firstPlayer = this._player_One.getUserId();
     gameDta.secondPlayer = this._player_Two.getUserId();
     gameDta.scoreFirst = this._player_One.getScore();
@@ -172,6 +178,20 @@ export class Game {
       currentState: this.gameStateFunc(),
       isWin: this._player_Two.checkWin(),
     });
+  }
+
+  public getSubGame(): any {
+    return {
+      player_1: {
+        id: this._player_One.getUserId(),
+        username: this._player_One.getUsername(),
+      },
+      player_2: {
+        id: this._player_Two.getUserId(),
+        username: this._player_Two.getUsername(),
+      },
+      gameId: this._id,
+    };
   }
 
   public addWatcher(watcher: Socket): void {

@@ -6,6 +6,7 @@ import {
   OnGatewayInit,
   SubscribeMessage,
   WebSocketGateway,
+  WebSocketServer,
 } from '@nestjs/websockets';
 import { Socket } from 'socket.io';
 import { GameVariable } from './Classes/constant';
@@ -28,6 +29,8 @@ export class GameGateway
   private socketArr: Set<Socket> = new Set<Socket>();
   private userArrDef: any[] = [];
   private userArrObs: any[] = [];
+
+  @WebSocketServer() server;
 
   @Inject()
   private jwtService: JwtService;
@@ -105,6 +108,14 @@ export class GameGateway
     }
   }
 
+  sendGames() {
+    if (this.game.length !== 0) {
+      const gameObj = { games: this.game.map((g) => g.getSubGame()) };
+      console.log(gameObj);
+      this.server.emit('receive_games', JSON.stringify(gameObj, null, 2));
+    }
+  }
+
   @SubscribeMessage('join_match')
   hundle_join_match(client: Socket, payload: any) {
     this.logger.log('Join Match ' + `${client.id} `);
@@ -153,9 +164,11 @@ export class GameGateway
           this.playerTwo,
           this.gameService,
           payload.type,
+          this.sendGames,
         );
 
         this.game.push(newGame);
+        this.sendGames();
 
         this.socketArr.delete(newGame.get_PlayerOne().getSocket());
         this.socketArr.delete(newGame.get_PlayerTwo().getSocket());
@@ -165,51 +178,59 @@ export class GameGateway
         console.log('Socket size: ' + this.socketArr.size);
         console.log('user size: ' + this.userArrDef.length);
       }
-    } else if (payload.type === 'obstacle') {
-      //NOTE - Add User In Array
-      this.userArrObs.push(user);
+    }
+    // else if (payload.type === 'obstacle') {
+    //   //NOTE - Add User In Array
+    //   this.userArrObs.push(user);
 
-      //NOTE - Check if Set Of Socket (i means player) to stock is 2
-      if (this.userArrObs.length > 1) {
-        const itSock = this.socketArr.values();
-        const [first, second] = this.userArrObs;
+    //   //NOTE - Check if Set Of Socket (i means player) to stock is 2
+    //   if (this.userArrObs.length > 1) {
+    //     const itSock = this.socketArr.values();
+    //     const [first, second] = this.userArrObs;
 
-        if (first.id === second.id) {
-          this.userArrObs.splice(this.userArrObs.indexOf(first), 1);
-          return;
-        }
+    //     if (first.id === second.id) {
+    //       this.userArrObs.splice(this.userArrObs.indexOf(first), 1);
+    //       return;
+    //     }
 
-        this.playerOne = new Player(
-          itSock.next().value,
-          true,
-          first.id,
-          first.username,
-        );
-        this.playerTwo = new Player(
-          itSock.next().value,
-          false,
-          second.id,
-          second.username,
-        );
+    //     this.playerOne = new Player(
+    //       itSock.next().value,
+    //       true,
+    //       first.id,
+    //       first.username,
+    //     );
+    //     this.playerTwo = new Player(
+    //       itSock.next().value,
+    //       false,
+    //       second.id,
+    //       second.username,
+    //     );
 
-        //NOTE - Create new instance of game and game is start in constructor
-        const newGame = new Game(
-          this.playerOne,
-          this.playerTwo,
-          this.gameService,
-          payload.type,
-        );
+    //     //NOTE - Create new instance of game and game is start in constructor
+    //     const newGame = new Game(
+    //       this.playerOne,
+    //       this.playerTwo,
+    //       this.gameService,
+    //       payload.type,
+    //     );
 
-        this.game.push(newGame);
+    //     this.game.push(newGame);
+    //     this.socketArr.delete(newGame.get_PlayerOne().getSocket());
+    //     this.socketArr.delete(newGame.get_PlayerTwo().getSocket());
+    //     this.userArrObs.splice(0, this.userArrObs.length);
 
-        this.socketArr.delete(newGame.get_PlayerOne().getSocket());
-        this.socketArr.delete(newGame.get_PlayerTwo().getSocket());
-        this.userArrObs.splice(0, this.userArrObs.length);
-
-        console.log('Game length: ' + this.game.length);
-        console.log('Socket size: ' + this.socketArr.size);
-        console.log('user size: ' + this.userArrObs.length);
-      }
+    //     console.log('Game length: ' + this.game.length);
+    //     console.log('Socket size: ' + this.socketArr.size);
+    //     console.log('user size: ' + this.userArrObs.length);
+    //   }
+    // }
+  }
+  @SubscribeMessage('send_games')
+  hundle_receiveGame(client: Socket, payload: any) {
+    if (this.game.length !== 0) {
+      const gameObj = { games: this.game.map((g) => g.getSubGame()) };
+      console.log(gameObj);
+      client.emit('receive_games', JSON.stringify(gameObj, null, 2));
     }
   }
 }
