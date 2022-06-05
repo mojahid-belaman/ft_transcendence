@@ -4,7 +4,6 @@ import { Data, StateGame } from "../Library/Data";
 import { drawGame } from "../Library/DrawShapes";
 import { GameObj } from "../Library/gameObject";
 import style from "../styles/Game.module.css";
-import Cookies from "js-cookie";
 import socket from "../Library/Socket";
 
 //NOTE - Initiale data and Information about all Game like (ball, paddle, score, width, height, canvas)
@@ -204,12 +203,6 @@ export function Game(props: any) {
     responseGame();
   }, []);
 
-  function hundleJoinGame(e: any) {
-    const token = Cookies.get("access_token");
-    socket.emit("join_match", {
-      access_token: token,
-    });
-  }
   return (
     <>
       <div className={style.container}>

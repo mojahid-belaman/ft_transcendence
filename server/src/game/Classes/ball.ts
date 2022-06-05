@@ -1,3 +1,4 @@
+import { GameGateway } from '../game.gateway';
 import { GameVariable } from './constant';
 import { Player } from './player';
 
@@ -7,8 +8,12 @@ export class Ball {
   private _ball_DX: number;
   private _ball_DY: number;
   private _collidePoint: number;
+  private sendGame: Function;
+  private server: any;
 
-  constructor() {
+  constructor(sendGame: Function, server: any) {
+    this.server = server;
+    this.sendGame = sendGame;
     this._ball_X = GameVariable._canvas_Width / 2;
     this._ball_Y = GameVariable._canvas_Height / 2;
     this._ball_DX = 2;
@@ -76,11 +81,13 @@ export class Ball {
     if (this._ball_X - GameVariable._ball_Radius < 0) {
       player_One.setScore(player_One.getScore() + 1);
       this.resetBall(true);
+      this.sendGame(this.server);
     } else if (
       this._ball_X + GameVariable._ball_Radius >
       GameVariable._canvas_Width
     ) {
       player_Two.setScore(player_Two.getScore() + 1);
+      this.sendGame(this.server);
       this.resetBall(false);
     }
   }

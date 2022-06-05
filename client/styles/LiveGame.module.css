@@ -12,45 +12,48 @@
 }
 .box .dataOne {
   flex: 30vw;
-}
-.box .dataTwo {
-  flex: 30vw;
-  text-align: right;
-}
-.box .dataOne img {
-  width: 8vw;
-  margin-right: 5vw;
-}
-.box .dataOne span {
-  position: relative;
-  top: -50%;
-}
-.box .dataOne .score {
-  position: relative;
-  left: 20%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
 .box .dataOne {
   border-left: 5px dashed #fff;
   border-right: 5px dashed #fff;
   border-bottom: 5px dashed #fff;
 }
-.box .dataTwo img {
-  width: 8vw;
-  margin-left: 5vw;
-}
-.box .dataTwo span {
-  position: relative;
-  top: -50%;
-}
-.box .dataTwo .score {
-  position: relative;
-  right: 45%;
-}
+
 .box .dataTwo {
+  flex: 30vw;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+  justify-content: space-around;
+  align-items: center;
   border-right: 5px dashed #fff;
   border-bottom: 5px dashed #fff;
 }
+.box .watch {
+  position: relative;
+  left: -50%;
+}
 .box .watch button {
   position: relative;
-  top: 40%;
+  top: 25%;
+  left: 5%;
+  border-radius: 15px;
+  cursor: pointer;
+  border: 2px solid green;
+  user-select: none;
+}
+.box .watch button:active {
+  background-color: #EEE;
+  border: 3px solid #EEE;
+
+}
+.box .watch button:hover {
+  background-color: #EEE;
+
+}
+.box .watch button img {
+  width: 100%;
 }

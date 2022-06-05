@@ -16,8 +16,9 @@ export class Game {
   private _myInterval: NodeJS.Timer;
   private _gameService: GameService;
   private _typeGame: string;
-  private _watchers: Socket[];
+  private _watchers: Socket[] = [];
   private sendGames: Function;
+  private server: any;
 
   constructor(
     player_One: Player,
@@ -25,18 +26,25 @@ export class Game {
     gameService: GameService,
     typeGame: string,
     sendGames: Function,
+    server: any,
   ) {
     this._id = uuid();
+    this.server = server;
     this.sendGames = sendGames;
     this._player_One = player_One;
     this._player_Two = player_Two;
-    this._ball = new Ball();
+    this._ball = new Ball(this.sendGames, this.server);
     this._gameService = gameService;
     this._typeGame = typeGame;
-    if (this._typeGame === 'obstacle') this._ballTwo = new Ball();
+    if (this._typeGame === 'obstacle')
+      this._ballTwo = new Ball(this.sendGames, this.server);
     this._myInterval = setInterval(() => {
       this.playGame(this._player_One, this._player_Two);
     }, 1000 / 60);
+  }
+
+  public getId(): string {
+    return this._id;
   }
 
   public stopGame(): void {
@@ -94,7 +102,6 @@ export class Game {
       currentState: this.gameStateFunc(),
       isWin: this._player_One.checkWin(),
     });
-
     this._player_Two.getSocket().emit('gameState', {
       ball: {
         ball_x: this._ball.getBall_X(),
@@ -185,10 +192,12 @@ export class Game {
       player_1: {
         id: this._player_One.getUserId(),
         username: this._player_One.getUsername(),
+        score: this._player_One.getScore(),
       },
       player_2: {
         id: this._player_Two.getUserId(),
         username: this._player_Two.getUsername(),
+        score: this._player_Two.getScore(),
       },
       gameId: this._id,
     };

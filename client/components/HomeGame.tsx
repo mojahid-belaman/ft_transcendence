@@ -50,12 +50,9 @@ export function HomeGame() {
             <div className={styles.centerbtn}>
               <button className={styles.btnDef} onClick={gameDefHandler}>
                 MEDIUM
-                <img src="/ball.png" alt="racket" width="60px" height="60px" />
               </button>
               <button className={styles.btnObs} onClick={gameObsHandler}>
                 HARD
-                <img src="/ball.png" alt="racket" width="60px" height="60px" />
-                <img src="/ball.png" alt="racket" width="60px" height="60px" />
               </button>
             </div>
           </div>

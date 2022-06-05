@@ -24,7 +24,7 @@ export class GameGateway
   private playerOne: Player;
   private playerTwo: Player;
   //NOTE - Declare Array Of Game and every Game has two Players
-  private game: Game[] = [];
+  static game: Game[] = [];
   //NOTE - Declare Array (Set) of Players (client.Id not repeat)
   private socketArr: Set<Socket> = new Set<Socket>();
   private userArrDef: any[] = [];
@@ -44,14 +44,14 @@ export class GameGateway
 
   handleConnection(client: Socket, ...args: any[]) {
     /* 
-    if the user has watcher stat: emit "send_games" with this.game array to be rendered in the frontend
+    if the user has watcher stat: emit "send_games" with GameGateway.game array to be rendered in the frontend
      */
     this.logger.log('Connect Success ' + `${client.id}`);
   }
 
   handleDisconnect(client: Socket) {
     this.logger.log('Disconnected ' + `${client.id}`);
-    let gameFound = this.game.find((gm) => {
+    let gameFound = GameGateway.game.find((gm) => {
       return (
         gm.get_PlayerOne().getSocket() === client ||
         gm.get_PlayerTwo().getSocket() === client
@@ -63,7 +63,7 @@ export class GameGateway
         gameFound.stopGame();
       }
     }
-    this.game.splice(this.game.indexOf(gameFound), 1);
+    GameGateway.game.splice(GameGateway.game.indexOf(gameFound), 1);
   }
 
   @SubscribeMessage('resize')
@@ -77,7 +77,7 @@ export class GameGateway
 
   @SubscribeMessage('upPaddle')
   hundle_up_paddle(client: Socket, payload: string) {
-    let gameFound = this.game.find((gm) => {
+    let gameFound = GameGateway.game.find((gm) => {
       return (
         gm.get_PlayerOne().getSocket() === client ||
         gm.get_PlayerTwo().getSocket() === client
@@ -95,7 +95,7 @@ export class GameGateway
 
   @SubscribeMessage('downPaddle')
   hundle_down_paddle(client: Socket, payload: string) {
-    let gameFound = this.game.find((gm) => {
+    let gameFound = GameGateway.game.find((gm) => {
       return (
         gm.get_PlayerOne().getSocket() === client ||
         gm.get_PlayerTwo().getSocket() === client
@@ -108,12 +108,10 @@ export class GameGateway
     }
   }
 
-  sendGames() {
-    if (this.game.length !== 0) {
-      const gameObj = { games: this.game.map((g) => g.getSubGame()) };
-      console.log(gameObj);
-      this.server.emit('receive_games', JSON.stringify(gameObj, null, 2));
-    }
+  sendGames(_server: any) {
+    const gameObj = { games: GameGateway.game.map((g) => g.getSubGame()) };
+    console.log(gameObj);
+    _server.emit('receive_games', JSON.stringify(gameObj, null, 2));
   }
 
   @SubscribeMessage('join_match')
@@ -165,16 +163,17 @@ export class GameGateway
           this.gameService,
           payload.type,
           this.sendGames,
+          this.server,
         );
 
-        this.game.push(newGame);
-        this.sendGames();
+        GameGateway.game.push(newGame);
+        this.sendGames(this.server);
 
         this.socketArr.delete(newGame.get_PlayerOne().getSocket());
         this.socketArr.delete(newGame.get_PlayerTwo().getSocket());
         this.userArrDef.splice(0, this.userArrDef.length);
 
-        console.log('Game length: ' + this.game.length);
+        console.log('Game length: ' + GameGateway.game.length);
         console.log('Socket size: ' + this.socketArr.size);
         console.log('user size: ' + this.userArrDef.length);
       }
@@ -210,16 +209,16 @@ export class GameGateway
     //     const newGame = new Game(
     //       this.playerOne,
     //       this.playerTwo,
-    //       this.gameService,
+    //       GameGateway.gameService,
     //       payload.type,
     //     );
 
-    //     this.game.push(newGame);
+    //     GameGateway.game.push(newGame);
     //     this.socketArr.delete(newGame.get_PlayerOne().getSocket());
     //     this.socketArr.delete(newGame.get_PlayerTwo().getSocket());
     //     this.userArrObs.splice(0, this.userArrObs.length);
 
-    //     console.log('Game length: ' + this.game.length);
+    //     console.log('Game length: ' + GameGateway.game.length);
     //     console.log('Socket size: ' + this.socketArr.size);
     //     console.log('user size: ' + this.userArrObs.length);
     //   }
@@ -227,10 +226,18 @@ export class GameGateway
   }
   @SubscribeMessage('send_games')
   hundle_receiveGame(client: Socket, payload: any) {
-    if (this.game.length !== 0) {
-      const gameObj = { games: this.game.map((g) => g.getSubGame()) };
+    if (GameGateway.game.length !== 0) {
+      const gameObj = { games: GameGateway.game.map((g) => g.getSubGame()) };
       console.log(gameObj);
       client.emit('receive_games', JSON.stringify(gameObj, null, 2));
     }
+  }
+  @SubscribeMessage('watchers')
+  hundel_watchers(client: Socket, payload: any) {
+    console.log(payload);
+    const gameFound = GameGateway.game.find((gm) => {
+      return gm.getId() === payload.gameId;
+    });
+    if (gameFound) gameFound.addWatcher(client);
   }
 }
