@@ -8,14 +8,16 @@
 }
 .home input{
     width:95%;
-    height: 35px;
+    height: 40px;
     border: none;
-    border-radius: 10px;
-    color:gray;
+    background-color: lightgray;
+    color:black;
     outline: none;
     padding-left:5px;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
 }
+.home input::-webkit-input-placeholder {
+    color: black;
+  }
 .home .navBar{
     display: flex;
     flex-direction: row;
@@ -23,18 +25,22 @@
     width:100%;
 }
 .home .navBar button{
+    font-family:  Impact, fantasy;
+    letter-spacing: 3px;
+    font-size: 18px;
     margin:10px;
     margin-top:30px;
     border: none;
-    border-radius: 10px;
-    background-color:#5c63b3 ;
+    background-color: rgb(46, 46, 46); 
+    border: 3px solid lightgray;
     width:90%;
     height: 40px;
     color :white;
     cursor: pointer;
 }
 .home .navBar button:hover{
-    background-color: #878bb4;
+    background-color: lightgray;
+    color :black;
 }
 .home .list{
     display:flex;

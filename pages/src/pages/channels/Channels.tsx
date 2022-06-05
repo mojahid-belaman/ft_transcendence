@@ -8,7 +8,7 @@ import NewChannel from './newChannel/NewChannel';
 function PrivateCard() {
     return (
         <div className={classes.privateDiv}>
-            <div className={classes.privateCard}>this Chat Room is Private !</div>
+            <div className={classes.privateCard}>This Chat Room is Private !</div>
 
         </div>)
 }
@@ -35,7 +35,7 @@ function Channels() {
 
     return <div className={classes.mainCard}>
         <div className={classes.channelList}>
-            <input type="text" /* value="" */ placeholder="  Search..." />
+            <input type="text" placeholder="  Search..." />
             <button onClick={OpenCloseModal} className={classes.createChannel}>
                 <i className="fa-solid fa-circle-plus"></i>
                 <div className={classes.text}>Create Channel</div>

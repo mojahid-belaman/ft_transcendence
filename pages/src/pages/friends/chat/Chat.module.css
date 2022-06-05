@@ -22,29 +22,33 @@
     height: 40px;
     border: none;
     outline: none;
-    background-color:black;
+    background-color:gray;
     margin-bottom: 20px;
     box-shadow: rgba(255, 255, 255, 0.25) 0px 13px 27px -5px, rgba(255, 255, 255, 0.3) 0px 8px 16px -8px;
 }
 .chatFooter input{
     width:95%;
-    height: 30px;
+    height: 40px;
     border: none;
     border-radius: 10px;
-    color:gray;
+    color:black;
+    font-size: 18px;
     outline: none;
     background-color:transparent;
 
 }
 .chatFooter button{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
     border: 0;
-	place-items: center;
 	cursor: pointer;
 	height: 100%;
+    width: 5%;
 	background: transparent;
 	outline: none;
 	font-size: 25px;
-	color: gray;
+	color: black;
 }
 
 .chatMessages{
@@ -63,3 +67,7 @@
 	width: 1px;
 
 }
+
+.chatFooter input::-webkit-input-placeholder {
+    color: black;
+  }

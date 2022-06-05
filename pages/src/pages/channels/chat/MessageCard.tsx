@@ -6,11 +6,11 @@ function MessageCard(props:any){
 
 						<div className={classes.info}>
 							<div className={classes.nameDate}>
-								<div>knabouss</div>
-								<div style={{ color: "gray" }}> — Aujourd’hui à 12:44</div>
+								<div>Soukaina</div>
+								<div > — Aujourd’hui à 12:44</div>
 							</div>
 							{/* pay attention to the max width of the message */}
-							<div >{props.message}</div>
+							<div className={classes.msgContent} >{props.message}</div>
 						</div>
 
 					</div>

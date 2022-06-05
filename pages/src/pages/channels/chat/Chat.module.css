@@ -1,7 +1,6 @@
 .chatCard{
     width: 90%;
     height: 95%;
-    border-radius: 10px;
     display: flex; 
     flex-direction: column;
     margin-left:10px;
@@ -11,46 +10,45 @@
     margin-top: 20px;
     width: 100%;
     height: calc(100vh - 200px);
-    background-color: white;
     display : flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-end;
-    border-radius: 10px;
 }
 .chatCard .chatContent .chatFooter{
     display: flex;
     flex-direction: row;
     width:95%;
-    height: 30px;
+    height: 40px;
     border: none;
-    border-radius: 10px;
-    color:gray;
     outline: none;
-    background-color:white;
+    background-color:gray;
     margin-bottom: 20px;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+    box-shadow: rgba(255, 255, 255, 0.25) 0px 13px 27px -5px, rgba(255, 255, 255, 0.3) 0px 8px 16px -8px;
 }
 .chatFooter input{
     width:95%;
-    height: 30px;
+    height: 40px;
     border: none;
     border-radius: 10px;
-    color:gray;
+    color:black;
+    font-size: 18px;
     outline: none;
     background-color:transparent;
-    /* margin-bottom: 20px; */
 
 }
 .chatFooter button{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
     border: 0;
-	place-items: center;
 	cursor: pointer;
 	height: 100%;
+    width: 5%;
 	background: transparent;
 	outline: none;
 	font-size: 25px;
-	color: gray;
+	color: black;
 }
 
 .chatMessages{
@@ -69,3 +67,7 @@
 	width: 1px;
 
 }
+
+.chatFooter input::-webkit-input-placeholder {
+    color: black;
+  }
