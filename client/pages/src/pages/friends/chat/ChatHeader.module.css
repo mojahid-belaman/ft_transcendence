@@ -1,9 +1,11 @@
 .chatHeader{
+    font-family:  Impact, fantasy;
+    letter-spacing: 3px;
     width: 100%;
     height: 70px;
     display : flex;
     flex-direction: row;
-    background-color: white;
+    background-color: gray;
     align-items: center;
     border:none;
     cursor: pointer;
@@ -140,35 +142,18 @@
     opacity: 80%;
 }
 
-.buttonInvitation{
+.button{
+    font-family:  Impact, fantasy;
     min-height: 50px;
     width: 100%;
     border:none;
-    background-color: green;
-    color :white;
+    background-color:dimgray;
+    border: 2px  solid black;
+    color :black;
     cursor: pointer;
     font-weight: 600;
     font-size: 20px;
 }
-.buttonUnfriend{
-    min-height: 50px;
-    width: 100%;
-    border:none;
-    background-color:darkblue;
-    color :white;
-    cursor: pointer;
-    font-weight: 600;
-    font-size: 20px;
-}
-
-.buttonBlock{
-    min-height: 50px;
-    width: 100%;
-    border:none;
-    background-color:darkred;
-    color :white;
-    cursor: pointer;
-    font-weight: 600;
-    font-size: 20px;
-
+.button:hover{
+    background-color: gray;
 }

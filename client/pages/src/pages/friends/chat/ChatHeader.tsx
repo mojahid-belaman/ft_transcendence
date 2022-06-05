@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import classes from './ChatHeader.module.css'
-
+import { BiDotsVertical } from "react-icons/bi";
 function GameInvitation(props:any) {
     return <div>
         <div className={classes.backdrop}></div>
@@ -38,12 +38,12 @@ function ChatHeader(props:any) {
                 <div>Online </div>
             </div>
         </button>
-        <button onClick={OpenCloseModal1} className={classes.buttonSetting}><i className="fa-solid fa-ellipsis-vertical"></i></button>
+        <button onClick={OpenCloseModal1} className={classes.buttonSetting}><BiDotsVertical/></button>
         {backdrop1 ?                                                                                                                                                                                                                                                          
         <div className={classes.userHandler}>
-             <button onClick={()=>{OpenCloseModal2(); OpenCloseModal1()}} className={classes.buttonInvitation}>Game Invitation</button>
-             <button  onClick={OpenCloseModal1} className={classes.buttonUnfriend}>Unfriend</button>
-             <button  onClick={OpenCloseModal1} className={classes.buttonBlock}>Block</button>
+             <button onClick={()=>{OpenCloseModal2(); OpenCloseModal1()}} className={classes.button}>Game Invitation</button>
+             <button  onClick={OpenCloseModal1} className={classes.button}>Unfriend</button>
+             <button  onClick={OpenCloseModal1} className={classes.button}>Block</button>
         </div>:null
     }
     {backdrop2 ? <GameInvitation OpenClose={OpenCloseModal2}  /> : null}

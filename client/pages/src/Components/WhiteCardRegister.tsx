@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import classes from './WhiteCard.module.css'
-import Cookies from 'js-cookie';
 // import PropTypes from 'prop-types'
 
 const WhiteCardRegister = () => {
@@ -40,7 +39,7 @@ const WhiteCardRegister = () => {
       .then(r => {
         console.log(r)
         if (r.hasOwnProperty("access_token")) {
-          Cookies.set('access_token', r.access_token);
+          document.cookie = `access_token=${r.access_token}`;
           history.push("/")
         }
       })

@@ -13,13 +13,11 @@ function Home() {
             <button onClick={()=>setButton(2)}> All Friends</button>
             <button onClick={()=>setButton(3)}> Pending</button>
             <button onClick={()=>setButton(4)}> Blocked</button>
-            <button onClick={()=>setButton(5)}> People</button>
         </div>
         {buttons === 1 ?<OnlineList /> : null}
         {buttons === 2 ? <AllFriends/> : null}
         {buttons === 3 ? <div>Pending</div> : null}
         {buttons === 4 ? <div>Blocked</div> : null}
-        {buttons === 5 ? <PeopleList/> : null}
 
     </div>
 }

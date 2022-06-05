@@ -1,13 +1,15 @@
 .friendButton{
-    width:95%;
+    font-family:  Impact, fantasy;
+    letter-spacing: 3px;
+    width:60%;
     height: 50px;
     text-align: left;
-    border-radius: 10px;
+    /* border-radius: 10px; */
     border:none;
-    background-color: white;
+    background-color: lightgray;
     margin-top: 10px;
     color: black;
-    cursor: pointer;
+    /* cursor: pointer; */
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -26,6 +28,6 @@
 }
 
 .friendButton:hover{
-    height: 55px;
-    box-shadow: rgba(138, 138, 138, 0.25) 0px 54px 55px, rgba(88, 88, 88, 0.12) 0px -12px 30px, rgba(212, 212, 212, 0.12) 0px 4px 6px, rgba(117, 117, 117, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    width:95%;
+    box-shadow: rgba(255, 253, 253, 0.25) 0px 54px 55px, rgba(197, 193, 193, 0.12) 0px -12px 30px, rgba(212, 212, 212, 0.12) 0px 4px 6px, rgba(117, 117, 117, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 }

@@ -1,5 +1,5 @@
 import Particles from "react-tsparticles"
-import particleConfig from "../config/particleConfig"
+import particleConfig from "../Library/configBackground"
 import { loadFull } from "tsparticles";
 
 function ParticleBackground() {

@@ -1,39 +1,24 @@
 import classes from './NewChannel.module.css'
 import Password from './Password';
 import { useRef, useState } from "react"
-import Cookies from 'js-cookie';
-import axios from 'axios';
 
 function NewChannel(props:any) {
-    const STATUS = ['Public', 'Private', 'Protected'];
-    const [status, setStatus] = useState('Public')
+    const [choice, setChoice] = useState(false)
     const nameInputRef:any = useRef();
     const descriptionInputRef :any= useRef();
     const statusInputRef :any= useRef();
-    const SubmitHandler = async (event:any) => {
+    function SubmitHandler(event:any) {
         event.preventDefault();
         const enteredName =nameInputRef.current.value;
         const enteredDescription =descriptionInputRef.current.value;
+        const enteredStatus =statusInputRef;
+
         const data={
             name: enteredName,
-            status:status,
-            description: enteredDescription
+            descrition: enteredDescription,
+            status:enteredStatus
         }
-
-        const token = Cookies.get('access_token')
-        console.log(data);
-        await axios.post(`http://localhost:5000/channels`,
-        data, {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            }
-        })
-        .then(res => {
-            console.log(res.data);
-        })
-        .catch(err => {
-        
-        });
+        console.log(enteredStatus);
     }
     return (
         <div>
@@ -53,18 +38,18 @@ function NewChannel(props:any) {
                     <div className={classes.info}>
                         <label > Status </label>
                         <div ref={statusInputRef} >
-                            {
-                                STATUS.map((stat, index) => {
-                                    return (
-                                    <div key={index} className={classes.status}><input type="radio" name="status" onClick={() => setStatus(stat)} />
-                                        {stat}
-                                    </div>
-                                    )
-                                })
-                            }
+                            <div className={classes.status}><input type="radio" name="status" onChange={() => setChoice(false)} /* ref={statusInputRef} */ />
+                                <label>public</label>
+                            </div>
+                            <div className={classes.status}><input type="radio" name="status" onChange={() => setChoice(false)} /* ref={statusInputRef} */ />
+                                <label>private</label>
+                            </div>
+                            <div className={classes.status}><input type="radio" name="status" onChange={() => setChoice(true)} /* ref={statusInputRef} */ />
+                                <label>protected</label>
+                            </div>
                         </div>
                     </div>
-                    {status === 'protected' ? <Password /> : null}
+                    {choice ? <Password /> : null}
                     <div className={classes.info}>
                         <label> Add people <span>(You can skip this step for now) </span></label>
                         <input type="text" name="name" className={classes.inputs} />
