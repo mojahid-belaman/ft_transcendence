@@ -1,10 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { JwtModule } from '@nestjs/jwt';
-import { MulterModule } from '@nestjs/platform-express';
-import { ServeStaticModule } from '@nestjs/serve-static';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { join } from 'path';
 import { AuthModule } from './auth/auth.module';
 import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from './auth/constants';
@@ -15,6 +11,11 @@ import { FriendshipsModule } from './friendships/friendships.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { MulterModule } from '@nestjs/platform-express';
+import { ChannelsModule } from './channels/connections.module';
+import { ConnectionsModule } from './connections/connections.module';
+import { MessagesChannelsModule } from './messages-channels/messages-channels.module';
+import { MessagesDmsModule } from './messages-dms/messages-dms.module';
+
 
 @Module({
   imports: [
