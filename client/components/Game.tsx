@@ -40,8 +40,7 @@ export function Game(props: any) {
 
   function responseGame() {
     if (
-      data.get_State() === StateGame.WAIT ||
-      data.get_State() === StateGame.PLAY
+      data.get_State() === StateGame.WAIT
     ) {
       console.log("WAIT");
       if (window.innerWidth > 1200) {
