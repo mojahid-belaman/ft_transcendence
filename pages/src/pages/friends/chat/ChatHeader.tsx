@@ -39,7 +39,7 @@ function ChatHeader(props:any) {
             </div>
         </button>
         <button onClick={OpenCloseModal1} className={classes.buttonSetting}><BiDotsVertical/></button>
-        {backdrop1 ?                                                                                                                                                                                                                                                          
+        {backdrop1 ?                                    
         <div className={classes.userHandler}>
              <button onClick={()=>{OpenCloseModal2(); OpenCloseModal1()}} className={classes.button}>Game Invitation</button>
              <button  onClick={OpenCloseModal1} className={classes.button}>Unfriend</button>
