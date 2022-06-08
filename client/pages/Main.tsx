@@ -7,7 +7,6 @@ import socket from "../Library/Socket";
 export default function Main() {
   useEffect(() => {
     socket.emit("send_games");
-    return () => {};
   }, [socket]);
 
   return (

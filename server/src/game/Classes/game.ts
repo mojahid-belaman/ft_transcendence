@@ -120,6 +120,24 @@ export class Game {
       currentState: this.gameStateFunc(),
       isWin: this._player_Two.checkWin(),
     });
+    this._watchers.forEach((w) => {
+      w.emit('gameState', {
+        ball: {
+          ball_x: this._ball.getBall_X(),
+          ball_y: this._ball.getBall_Y(),
+          ballT_x: this._ballTwo?.getBall_X(),
+          ballT_y: this._ballTwo?.getBall_Y(),
+        },
+        paddle: {
+          paddle_left: this._player_One.getPaddle().get_PaddleY(),
+          paddle_right: this._player_Two.getPaddle().get_PaddleY(),
+        },
+        score: {
+          playerOne_Score: this._player_One.getScore(),
+          playerTwo_Score: this._player_Two.getScore(),
+        },
+      })
+    })
   }
 
   public get_GamePlayer(player: Socket): Player {
@@ -203,7 +221,18 @@ export class Game {
     };
   }
 
+  public getWatchers(): Socket[] {
+    return this._watchers;
+  }
+
   public addWatcher(watcher: Socket): void {
-    this._watchers.push(watcher);
+    const findWtcher = this._watchers.find((w) => {
+      return (
+        w === watcher
+      )
+    })
+    if (!findWtcher)
+      this._watchers.push(watcher);
+    console.log(this._watchers.length);
   }
 }

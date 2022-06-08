@@ -2,7 +2,6 @@ import ParticleBackground from "../../components/ParticleBackground";
 import LiveGame from "../../components/LiveGame";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Data } from "../../Library/Data";
 import styles from "../../styles/LiveHome.module.css";
 
 export function LiveHome(props: any) {

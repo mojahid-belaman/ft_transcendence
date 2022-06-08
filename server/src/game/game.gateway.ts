@@ -108,9 +108,9 @@ export class GameGateway
     }
   }
 
-  sendGames(_server: any) {
+  private sendGames(_server: any) {
     const gameObj = { games: GameGateway.game.map((g) => g.getSubGame()) };
-    console.log(gameObj);
+    // console.log(gameObj);
     _server.emit('receive_games', JSON.stringify(gameObj, null, 2));
   }
 
@@ -234,10 +234,11 @@ export class GameGateway
   }
   @SubscribeMessage('watchers')
   hundel_watchers(client: Socket, payload: any) {
-    console.log(payload);
+    // console.log(payload);
     const gameFound = GameGateway.game.find((gm) => {
       return gm.getId() === payload.gameId;
     });
+
     if (gameFound) gameFound.addWatcher(client);
   }
 }
