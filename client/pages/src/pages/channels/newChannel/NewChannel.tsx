@@ -29,7 +29,7 @@ function NewChannel(props:any) {
         }
         console.log(status);
         const token = Cookies.get('access_token');        
-        await axios.post('http://localhost:5000/channels', data, {
+        await axios.post(`${process.env.API}/channels`, data, {
             headers: {
                 Authorization: `Bearer ${token}`,
             }
