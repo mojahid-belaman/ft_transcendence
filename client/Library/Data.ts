@@ -4,6 +4,14 @@ export enum StateGame {
   OVER,
 }
 
+export enum TypeRes {
+  "NOTHING",
+  "LARGE",
+  "MEDIUM",
+  "SMALL",
+  "VERYSMALL"
+}
+
 export class Data {
   //NOTE - Details Canvas
   private cWidth: number;
@@ -33,6 +41,8 @@ export class Data {
   private trace_Y: number;
   private trace_Width: number;
   private trace_Height: number;
+  //NOTE - Details Resolution
+  private typeRes: TypeRes;
 
   constructor(width: number, height: number) {
     this.cWidth = width;
@@ -52,6 +62,7 @@ export class Data {
     this.score_One = 0;
     this.score_Two = 0;
     this.state = StateGame.WAIT;
+    this.typeRes = TypeRes.NOTHING;
     this.winner = false;
     this.trace_X = this.cWidth / 2;
     this.trace_Y = 0;
@@ -145,6 +156,12 @@ export class Data {
   }
   public set_State(currentState: StateGame): void {
     this.state = currentState;
+  }
+  public get_TypeRes(): TypeRes {
+    return this.typeRes;
+  }
+  public set_TypeRes(currTypeRes: TypeRes): void {
+    this.typeRes = currTypeRes;
   }
   public get_Winner(): boolean {
     return this.winner;

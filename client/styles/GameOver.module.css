@@ -87,7 +87,7 @@
     font-size: 4rem;
     font-family: 'Press Start 2P', cursive;
     position: absolute;
-    left: 50%;
+    left: 51%;
     top: calc(100% - 15%);
     transform: translate(-50%, -50%);
     width: 100%;

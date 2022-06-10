@@ -39,30 +39,45 @@ export function Game(props: any) {
   ]);
 
   function responseGame() {
-    if (
-      data.get_State() === StateGame.WAIT
-    ) {
+    if (data.get_State() === StateGame.WAIT) {
       console.log("WAIT");
-      if (window.innerWidth > 1200) {
+      if (
+        data.get_TypeRes() !== 1 &&
+        window.innerWidth > 1200 &&
+        window.innerHeight > 750
+      ) {
         console.log("great than 1200");
         data = new Data(1200, 600);
         socket.emit("resize", data);
-      } else if (window.innerWidth > 800 && window.innerWidth <= 1200) {
-        console.log("between 1200 and 800");
+        data.set_TypeRes(1);
+      } else if (
+        data.get_TypeRes() !== 2 &&
+        window.innerWidth > 800 &&
+        window.innerWidth <= 1200
+      ) {
+        console.log("between 800 and 1200");
         data = new Data(800, 400);
         socket.emit("resize", data);
-      } else if (window.innerWidth > 576 && window.innerWidth <= 800) {
-        console.log("between 992 and 600");
+        data.set_TypeRes(2);
+      } else if (
+        data.get_TypeRes() !== 3 &&
+        window.innerWidth > 576 &&
+        window.innerWidth <= 800
+      ) {
+        console.log("between 576 and 600");
         data = new Data(550, 400);
         socket.emit("resize", data);
-      } else if (window.innerWidth <= 576) {
+        data.set_TypeRes(3);
+      } else if (data.get_TypeRes() !== 4 && window.innerWidth <= 576) {
         console.log("less than 576");
         data = new Data(450, 350);
         socket.emit("resize", data);
+        data.set_TypeRes(0);
       }
     } else if (data.get_State() === StateGame.OVER) {
       console.log("OVER");
-      if (window.innerWidth > 1200) {
+      if (data.get_TypeRes() !== 1 && window.innerWidth > 1200) {
+        console.log("great than 1200");
         data.set_Width(1200);
         data.set_Height(600);
         data.set_Trace_X(data.get_Width());
@@ -76,7 +91,13 @@ export function Game(props: any) {
         );
         data.set_Ball_X(data.get_Width() / 2);
         data.set_Ball_Y(data.get_Height() / 2);
-      } else if (window.innerWidth > 800 && window.innerWidth <= 1200) {
+        data.set_TypeRes(1);
+      } else if (
+        data.get_TypeRes() !== 2 &&
+        window.innerWidth > 800 &&
+        window.innerWidth <= 1200
+      ) {
+        console.log("between 800 and 1200");
         data.set_Width(800);
         data.set_Height(400);
         data.set_Trace_X(data.get_Width());
@@ -90,7 +111,13 @@ export function Game(props: any) {
         );
         data.set_Ball_X(data.get_Width() / 2);
         data.set_Ball_Y(data.get_Height() / 2);
-      } else if (window.innerWidth > 576 && window.innerWidth <= 800) {
+        data.set_TypeRes(2);
+      } else if (
+        data.get_TypeRes() !== 3 &&
+        window.innerWidth > 576 &&
+        window.innerWidth <= 800
+      ) {
+        console.log("between 576 and 800");
         data.set_Width(600);
         data.set_Height(400);
         data.set_Trace_X(data.get_Width());
@@ -104,7 +131,9 @@ export function Game(props: any) {
         );
         data.set_Ball_X(data.get_Width() / 2);
         data.set_Ball_Y(data.get_Height() / 2);
+        data.set_TypeRes(3);
       } else if (window.innerWidth <= 576) {
+        console.log(data.get_TypeRes() !== 4 && "less than 576");
         data.set_Width(450);
         data.set_Height(350);
         data.set_Trace_X(data.get_Width());
@@ -118,7 +147,10 @@ export function Game(props: any) {
         );
         data.set_Ball_X(data.get_Width() / 2);
         data.set_Ball_Y(data.get_Height() / 2);
+        data.set_TypeRes(0);
       }
+    } else if (data.get_State() === StateGame.PLAY) {
+      console.log("PLAY");
     }
     setSizeCanvas([data.get_Width(), data.get_Height()]);
   }
@@ -177,8 +209,8 @@ export function Game(props: any) {
     });
 
     return () => {
-      socket.off("gameState")
-    }
+      socket.off("gameState");
+    };
   }, [gameState]);
 
   useEffect(() => {
