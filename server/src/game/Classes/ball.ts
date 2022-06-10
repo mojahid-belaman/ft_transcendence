@@ -98,6 +98,7 @@ export class Ball {
     this._collidePoint = 0;
     GameVariable._ball_Speed = 5;
     this._ball_DX = 2;
+    this._ball_DY = 2;
   }
 
   public getBall_X(): number {

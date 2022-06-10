@@ -137,6 +137,7 @@ export class GameGateway
       if (this.userArrDef.length > 1) {
         const itSock = this.socketArr.values();
         const [first, second] = this.userArrDef;
+        client.emit('dataUsers', JSON.stringify([first, second], null, 2));
 
         if (first.id === second.id) {
           this.userArrDef.splice(this.userArrDef.indexOf(first), 1);

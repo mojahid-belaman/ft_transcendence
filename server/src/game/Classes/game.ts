@@ -136,8 +136,8 @@ export class Game {
           playerOne_Score: this._player_One.getScore(),
           playerTwo_Score: this._player_Two.getScore(),
         },
-      })
-    })
+      });
+    });
   }
 
   public get_GamePlayer(player: Socket): Player {
@@ -227,12 +227,9 @@ export class Game {
 
   public addWatcher(watcher: Socket): void {
     const findWtcher = this._watchers.find((w) => {
-      return (
-        w === watcher
-      )
-    })
-    if (!findWtcher)
-      this._watchers.push(watcher);
+      return w === watcher;
+    });
+    if (!findWtcher) this._watchers.push(watcher);
     console.log(this._watchers.length);
   }
 }
