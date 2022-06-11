@@ -10,7 +10,7 @@ export function LiveHome(props: any) {
     props.socket.on("receive_games", (data: any) => {
       const tmp = JSON.parse(data);
       if (tmp.hasOwnProperty("games")) {
-        console.log(tmp);
+        // console.log(tmp);
         setGames(tmp.games);
       }
     });

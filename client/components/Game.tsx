@@ -5,7 +5,6 @@ import { drawGame } from "../Library/DrawShapes";
 import { GameObj } from "../Library/gameObject";
 import style from "../styles/Game.module.css";
 import socket from "../Library/Socket";
-import { info } from "console";
 
 //NOTE - Initiale data and Information about all Game like (ball, paddle, score, width, height, canvas)
 let data = new Data(1200, 600);
@@ -213,17 +212,6 @@ export function Game(props: any) {
     responseGame();
   }, []);
 
-  useEffect(() => {
-    socket.on('dataUsers', (data: any) => {
-      console.log(JSON.parse(data))
-  })
-
-  return () => {
-    socket.off('dataUsers');
-  }
-}, [])
-
-
 return (
     <>
       <div className={style.container}>
@@ -235,6 +223,9 @@ return (
           height={data.get_Height()}
           ref={canvasRef}
         ></canvas>
+        <div className={style.map}>
+          {props}
+        </div>
       </div>
       {currentState === StateGame.OVER && <GameOver curData={data} />}
     </>
