@@ -18,3 +18,10 @@ export interface GameObj {
     currentState: StateGame,
     isWin: boolean
 }
+
+export interface userObj {
+  infoUser: {
+    userOne: string,
+    userTwo: string
+  }
+}

@@ -28,6 +28,18 @@ export class Game {
     sendGames: Function,
     server: any,
   ) {
+    player_One.getSocket().emit('userState', {
+      infoUser: {
+        userOne: player_One.getUsername(),
+        userTwo: player_Two.getUsername(),
+      },
+    });
+    player_Two.getSocket().emit('userState', {
+      infoUser: {
+        userOne: player_One.getUsername(),
+        userTwo: player_Two.getUsername(),
+      },
+    });
     this._id = uuid();
     this.server = server;
     this.sendGames = sendGames;

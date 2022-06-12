@@ -43,10 +43,18 @@ export class Data {
   private trace_Height: number;
   //NOTE - Details Resolution
   private typeRes: TypeRes;
+  //NOTE - Details Canvas users
+  private watchers: number;
+  private cnvasUserHeight: number;
+  private imgOne: string;
+  private imgTwo: string;
+  private userOne: string;
+  private userTwo: string;
 
   constructor(width: number, height: number) {
     this.cWidth = width;
     this.cHeight = height;
+    this.cnvasUserHeight = 100;
     this.paddleHeight = this.cHeight / 6;
     this.paddleWidth = 10;
     this.leftPaddle_X = 0;
@@ -61,6 +69,7 @@ export class Data {
     this.ballT_Y = this.cHeight / 2;
     this.score_One = 0;
     this.score_Two = 0;
+    this.watchers = 0;
     this.state = StateGame.WAIT;
     this.typeRes = TypeRes.NOTHING;
     this.winner = false;
@@ -68,8 +77,16 @@ export class Data {
     this.trace_Y = 0;
     this.trace_Width = 2;
     this.trace_Height = 10;
+    this.imgOne = '../public/ball.png';
+    this.imgTwo = '../public/ball.png';
+    this.userOne = "";
+    this.userTwo = "";
+
   }
 
+  public get_CanvasUserH(): number {
+    return this.cnvasUserHeight;
+  }
   public get_Width(): number {
     return this.cWidth;
   }
@@ -186,5 +203,26 @@ export class Data {
   }
   public get_borderHeight(): number {
     return this.borderHeight;
+  }
+  public get_Watchers(): number {
+    return this.watchers;
+  }
+  public get_ImageOne(): string {
+    return this.imgOne
+  }
+  public get_ImageTwo(): string {
+    return this.imgTwo
+  }
+  public get_UserOne(): string {
+    return this.userOne;
+  }
+  public set_UserOne(name: string): void {
+    this.userOne = name;
+  }
+  public get_UserTwo(): string {
+    return this.userTwo;
+  }
+  public set_UserTwo(name: string): void {
+    this.userTwo = name;
   }
 }

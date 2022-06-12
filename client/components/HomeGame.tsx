@@ -6,20 +6,7 @@ import socket from "../Library/Socket";
 
 export function HomeGame() {
 
-  const [data, setData] = useState([]);
   const [isGame, setIsGame] = useState(false);
-  
-  useEffect(() => {
-    socket.on('dataUsers', (data: any) => {
-      // console.log(JSON.parse(data))
-      const users: any = JSON.parse(data);
-      setData(users)
-  })
-
-  return () => {
-    socket.off('dataUsers');
-  }
-}, [])
 
   const gameDefHandler = () => {
     const token = Cookies.get("access_token");
@@ -27,7 +14,7 @@ export function HomeGame() {
       access_token: token,
       type: "default",
     });
-    // setIsGame(!isGame);
+    setIsGame(true);
   };
   
   const gameObsHandler = () => {
@@ -36,13 +23,13 @@ export function HomeGame() {
       access_token: token,
       type: "obstacle",
     });
-    // setIsGame(!isGame);
+    setIsGame(true);
   };
 
   return (
     <>
         {
-          data.length === 0 ? (<div className={styles.container}>
+          !isGame ? (<div className={styles.container}>
             <div className={styles.game}>
               <img src="/pingpong.png" alt="Ping Pong Game" />
             </div>
@@ -72,7 +59,7 @@ export function HomeGame() {
                 </button>
               </div>
             </div>
-          </div>) : <Game data={data} />
+          </div>) : <Game />
         }
         
     </>

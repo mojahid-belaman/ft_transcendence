@@ -119,25 +119,25 @@ export class GameGateway
     this.logger.log('Join Match ' + `${client.id} `);
 
     const user: any = this.jwtService.decode(payload.access_token);
-    
+
     //NOTE - Check If the same client not add in Set of socket
     if (this.socketArr.has(client)) {
       return;
     }
-    
+
     //NOTE - Add Client Socket In Set
     this.socketArr.add(client);
-    
+
     if (payload.type === 'default') {
       //NOTE - Add User In Array
       this.userArrDef.push(user);
       console.log(this.userArrDef);
-      
+
       //NOTE - Check if Set Of Socket (i means player) to stock is 2
       if (this.userArrDef.length > 1) {
         const itSock = this.socketArr.values();
         const [first, second] = this.userArrDef;
-        client.emit('dataUsers', JSON.stringify([first, second], null, 2));
+        client.emit('dataUsers', JSON.stringify(this.userArrDef, null, 2));
 
         if (first.id === second.id) {
           this.userArrDef.splice(this.userArrDef.indexOf(first), 1);
