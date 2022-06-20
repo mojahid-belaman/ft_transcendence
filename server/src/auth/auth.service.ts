@@ -25,6 +25,7 @@ export class AuthService {
 
   async login(user: any) {
     const payload = { ...user };
+    this.userService.setAUserAsOnline(user.id);
     delete user.id
     return {
       access_token: this.jwtService.sign(payload),
