@@ -4,7 +4,7 @@
     background-color: black;
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: left;
 }
 .nav .barContent{
     display: flex;

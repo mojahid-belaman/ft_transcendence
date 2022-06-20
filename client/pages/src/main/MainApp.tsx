@@ -1,8 +1,8 @@
 import ContentCard from "./content/ContentCard";
 import classes from "./MainApp.module.css"
 import NavigationBar from "./navigationbar/NavigationBar";
-import Particles from "react-tsparticles";
-import ParticleBackground from "../../../Components/ParticleBackground";
+import ParticleBackground from "../../../components/ParticleBackground";
+
 
 function MainApp(){
     return (
