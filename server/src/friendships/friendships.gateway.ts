@@ -1,7 +1,11 @@
 import { WebSocketGateway } from '@nestjs/websockets';
 import { FriendshipsService } from './friendships.service';
 
-@WebSocketGateway()
+@WebSocketGateway({
+  cors: {
+    origin: '*',
+  },
+})
 export class FriendshipsGateway {
   constructor(private readonly friendshipsService: FriendshipsService) {}
   
