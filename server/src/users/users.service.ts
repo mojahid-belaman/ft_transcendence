@@ -15,6 +15,25 @@ export class UsersService {
     private userRepositroy: Repository<Users>
   ) { }
 
+  private onlineUsers = [];
+  private inGameUsers = [];
+  
+  getOnlineUsers() {
+    return this.onlineUsers;
+  }
+
+  setAUserAsOnline(user) {
+    this.onlineUsers.push(user);
+  }
+
+  getInGameUsers() {
+    return this.inGameUsers;
+  }
+
+  setAUserAsInGame(user) {
+    this.inGameUsers.push(user);
+  }
+
   getUsers(): Promise<Users[]> {
     return this.userRepositroy.find()
       .then(data => {
