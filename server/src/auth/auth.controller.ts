@@ -6,6 +6,8 @@ import * as bcrypt from 'bcrypt';
 import { UsersService } from 'src/users/users.service';
 import { JwtService } from '@nestjs/jwt'
 import { CreateUserDto } from 'src/users/dto/users.dto';
+import { ApiBearerAuth, ApiBody } from '@nestjs/swagger';
+import { UserLoginDto } from './dto/user-login.dto';
 
 
 @Controller('auth')
@@ -18,11 +20,12 @@ export class AuthController {
 
   @UseGuards(LocalAuthGuard)
   @Post('login')
+  @ApiBody({type: UserLoginDto})
   async login(@Request() req) {
-    // console.log(" Login => " + JSON.stringify(req.user))
     return this.authService.login(req.user);
   }
 
+  @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @Get('profile')
   getProfile(@Request() req) {
@@ -30,6 +33,7 @@ export class AuthController {
     return { ...req.user };
   }
 
+  @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @Get('check')
   Check(@Request() req) {

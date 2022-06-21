@@ -10,9 +10,9 @@ export enum FriendshipStatus {
 export class Friendships {
     @PrimaryGeneratedColumn('uuid')
     id: string;
-    @Column()
+    @Column({type: "uuid"})
     firstId: string;
-    @Column()
+    @Column({type: "uuid"})
     secondId: string;
     @Column({
         type: 'enum',

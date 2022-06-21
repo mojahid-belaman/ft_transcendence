@@ -11,22 +11,22 @@ export class ConnectionsService {
     private connectionsRepository: Repository<Connection>    
   ) {}
 
-  create(createConnectionDto) {
-    return this.connectionsRepository.findOne({
+  async create(createConnectionDto) {
+    return await this.connectionsRepository.findOne({
       where: [createConnectionDto]
     })
-    .then(data => {
+    .then(async data => {
       if (data)
         throw new ForbiddenException("Already Connected");
-      return this.connectionsRepository.save(createConnectionDto)
+      return await this.connectionsRepository.save(createConnectionDto)
     })
   }
 
-  findAll(condition) {
+  async findAll(condition) {
     // return this.connectionsRepository.find({
     //   where: [condition]
     // }); connection."channelId"
-    return this.connectionsRepository.query(`
+    return await this.connectionsRepository.query(`
       SELECT
         connection.id as "connectionId",
         connection.status,
@@ -40,12 +40,12 @@ export class ConnectionsService {
     `);
   }
 
-  findOne(condition) {
+  async findOne(condition) {
     // return this.connectionsRepository.findOne({
     //   where: [condition]
     // });
     // {id: id, user: req.user.userId}    
-    return this.connectionsRepository.query(`
+    return await this.connectionsRepository.query(`
       SELECT
         connection.id as "connectionId",
         connection.status,
@@ -59,7 +59,7 @@ export class ConnectionsService {
     `);
   }
 
-  delete(condition) {
-    return this.connectionsRepository.delete(condition)
+  async delete(condition) {
+    return await this.connectionsRepository.delete(condition)
   }
 }

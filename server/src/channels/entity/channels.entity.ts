@@ -21,7 +21,7 @@ export class Channels {
     status: channelStatus;
     @Column({default: null})
     password: string;
-    @ManyToOne(type => Users, user => user.id, { onDelete: 'CASCADE', onUpdate: 'CASCADE' })
+    @ManyToOne(type => Users, user => user.id/* , {onUpdate: 'CASCADE' } */)
     owner: Users;
     @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP"})
     date: Date;

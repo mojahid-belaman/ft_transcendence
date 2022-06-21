@@ -10,19 +10,19 @@ export class ConversationsService {
         private conversationsRepository: Repository<Conversations>
     ){}
 
-    create(body) {
-       return this.conversationsRepository.save(body); 
+    async create(body) {
+       return await this.conversationsRepository.save(body); 
     }
 
-    getConversations(userId: string) {
-        return this.conversationsRepository.query(`
+    async getConversations(userId: string) {
+        return await this.conversationsRepository.query(`
             SELECT * FROM conversations
             WHERE "firstId"::text='${userId}' OR "secondId"::text='${userId}';
         `);
     }
 
-    getSingleConversation(id:string, userId: string) {
-        return this.conversationsRepository.query(`
+    async getSingleConversation(id:string, userId: string) {
+        return await this.conversationsRepository.query(`
             SELECT * FROM conversations
             WHERE id::text='${id}' AND ("firstId"::text='${userId}' OR "secondId"::text='${userId}');
         `).then(data => {

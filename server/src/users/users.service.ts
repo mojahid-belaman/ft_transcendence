@@ -34,8 +34,8 @@ export class UsersService {
     this.inGameUsers.push(user);
   }
 
-  getUsers(): Promise<Users[]> {
-    return this.userRepositroy.find()
+  async getUsers(): Promise<Users[]> {
+    return await this.userRepositroy.find()
       .then(data => {
         return data.map(user => {
           delete user.password
@@ -43,14 +43,21 @@ export class UsersService {
         })
       });
   }
-  findOne(condition): Promise<Users> {
-    return this.userRepositroy.findOne({
+
+  async getMultipleUsers(userIds: string[]) {
+    return await this.userRepositroy.find({
+      where: userIds.map(userId => ({id: userId}))
+    })
+  }
+
+  async findOne(condition): Promise<Users> {
+    return await this.userRepositroy.findOne({
       where: [condition]
     })
       .then(user => user);
   }
-  createUser(newUser: CreateUserDto) {
-    return this.userRepositroy.save(newUser)
+  async createUser(newUser: CreateUserDto) {
+    return await this.userRepositroy.save(newUser)
       .then((user) => {
         return ({
           ...user,
@@ -59,8 +66,8 @@ export class UsersService {
         })
       });
   }
-  updateUser(info: UpdateUserDto, userId: string) {
-    return this.userRepositroy.save({ id: userId, ...info })
+  async updateUser(info: UpdateUserDto, userId: string) {
+    return await this.userRepositroy.save({ id: userId, ...info })
       .then(user => {
         return ({
           ...user,

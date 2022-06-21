@@ -45,11 +45,11 @@ import { MessagesDmsModule } from './messages-dms/messages-dms.module';
       autoLoadEntities: true,
       synchronize: true,
     }),
-    ChannelsModule,
     JwtModule.register({
       secret: jwtConstants.secret,
       signOptions: { expiresIn: '2 days' },
     }),
+    ChannelsModule,
     ConnectionsModule,
     FriendshipsModule,
     MessagesChannelsModule,

@@ -17,6 +17,9 @@ import { diskStorage } from 'multer';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { CreateUserDto, UpdateUserDto } from './dto/users.dto';
 import { UsersService } from './users.service';
+import { ApiBearerAuth } from '@nestjs/swagger';
+
+
 
 const editfilename = (req, file, callback) => {
   if (!file.mimetype.match(/\/(jpg|jpeg|png|gif)$/))
@@ -37,25 +40,29 @@ export class UsersController {
   
   constructor(private readonly usersService: UsersService) { }
 
+  @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @Get()
-  getUsers() {
-    return (this.usersService.getUsers());
+  async getUsers() {
+    return await (this.usersService.getUsers());
   }
   @Get("/:userId")
-  getUserById(@Param('userId') userId: string) {
-    return (this.usersService.findOne({ id: userId }));
+  async getUserById(@Param('userId') userId: string) {
+    return await (this.usersService.findOne({ id: userId }));
   }
   @Post()
-  createUser(@Body() body: CreateUserDto) {
-    return (this.usersService.createUser(body));
-  }
-  @UseGuards(JwtAuthGuard)
-  @Put("/")
-  updateUser(@Body() body: UpdateUserDto, @Req() req) {
-    return (this.usersService.updateUser(body, req.user.userId));
+  async createUser(@Body() body: CreateUserDto) {
+    return await (this.usersService.createUser(body));
   }
 
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
+  @Put("/")
+  async updateUser(@Body() body: UpdateUserDto, @Req() req) {
+    return await (this.usersService.updateUser(body, req.user.userId));
+  }
+
+  @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @UseInterceptors(
     FileInterceptor('avatar', {
@@ -71,9 +78,9 @@ export class UsersController {
       originalname: file.originalname,
       filename: file.filename,
     };
-    return this.usersService.findOne({ id: req.user.userId }).then((data) => {
+    return this.usersService.findOne({ id: req.user.userId }).then(async (data) => {
       if (!data) throw new HttpException('No user found', HttpStatus.NOT_FOUND);
-      return this.usersService.updateUser(
+      return await this.usersService.updateUser(
         { ...data, avatar: file.filename },
         req.userId,
       );
