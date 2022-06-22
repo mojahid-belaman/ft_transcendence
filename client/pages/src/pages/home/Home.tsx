@@ -6,6 +6,7 @@ import PeopleList from './people/PeopleList';
 
 function Home() {
     const [buttons, setButton] = useState(1);
+    
     return <div className={classes.home}>
         <input type="text" placeholder="  Search..." />
         <div className={classes.navBar}>

@@ -3,19 +3,18 @@ import { JwtService } from '@nestjs/jwt';
 import { ConnectedSocket, MessageBody, SubscribeMessage, WebSocketGateway, WebSocketServer } from '@nestjs/websockets';
 import { Socket } from 'socket.io';
 import { jwtConstants } from 'src/auth/constants';
+import { BlockedFriendshipsDtoBody } from './dto/blocked-friendship.dto';
 import { CreateFriendshipsDtoBody } from './dto/create-friendships.dto';
 import { FriendshipStatus } from './entity/friendships.entity';
 import { FriendshipsService } from './friendships.service';
 
-// const pendingFriends = [];
-// const blockedFriends = [];
-
 @WebSocketGateway({
   cors: {
     origin: "*"
-  },
+  }
 })
 export class FriendshipsGateway {
+
   @Inject()
   private jwtService: JwtService;
 
@@ -32,7 +31,6 @@ export class FriendshipsGateway {
         secret: jwtConstants.secret
       });
       if (user) {
-        // client.emit("getAllFriends", users)
         await this.friendshipsService.getAllFriendships(user.id)
         .then(users => client.emit("getAllFriends", users));
       }
@@ -55,16 +53,30 @@ export class FriendshipsGateway {
   }
 
   @SubscribeMessage("acceptFriend")
-  async acceptFriend(@MessageBody() body: CreateFriendshipsDtoBody) {
+  async acceptFriend(@MessageBody() body: CreateFriendshipsDtoBody, @ConnectedSocket() client: Socket) {
     if (body.hasOwnProperty('token')) {
       const user: any = await this.jwtService.verify(body.token, {
         secret: jwtConstants.secret
       });
       if (user) {
-        const newFriendShip = this.friendshipsService.addFriend({firstId: user.id, secondId: body.userId, status: FriendshipStatus.PENDING});
-        if (newFriendShip)
+        this.friendshipsService.addFriend({firstId: user.id, secondId: body.userId, status: FriendshipStatus.PENDING})
+        .then(newFriendShip => {
           this.server.emit("addedNewFriendship", newFriendShip);
+          if (this.friendshipsService.checkIfUserOnline(user.id))
+            client.emit("addOnlineFriends", {...user});
+        })
       }
+    }
+  }
+
+  @SubscribeMessage("refuseFriend")
+  async refuseFriend(@MessageBody() body: CreateFriendshipsDtoBody) {
+    if (body.hasOwnProperty('token')) {
+      const user: any = await this.jwtService.verify(body.token, {
+        secret: jwtConstants.secret
+      });
+      if (user)
+        this.server.emit("rejectFriendship", {firstId: body.userId, secondId: user.id});
     }
   }
 
@@ -83,13 +95,13 @@ export class FriendshipsGateway {
   }
 
   @SubscribeMessage("setOnlineStatus")
-  async setOnlineStatus (@MessageBody() body: CreateFriendshipsDtoBody) {
+  async setOnlineStatus (@MessageBody() body: CreateFriendshipsDtoBody, @ConnectedSocket() client: Socket) {
     if (body.hasOwnProperty('token')) {
       const user: any = await this.jwtService.verify(body.token, {
         secret: jwtConstants.secret
       });
       if (user) {
-        this.friendshipsService.setOnlineStatus(user.id)
+        this.friendshipsService.setOnlineStatus(user.id, client)
         delete user.password;
         delete user.lastConnected;
         this.server.emit("addedNewOnlineFriendsList", {...user});
@@ -109,5 +121,19 @@ export class FriendshipsGateway {
       }
     }
   }
-  
+
+  @SubscribeMessage("blockFriend")
+  async setBlockedStatus (@MessageBody() body: BlockedFriendshipsDtoBody) {
+    if (body.hasOwnProperty('token')) {
+      const user: any = await this.jwtService.verify(body.token, {
+        secret: jwtConstants.secret
+      });
+      if (user) {
+        await this.friendshipsService.setBlockedFriendshipStatus(user.id, body.blockedUserId)
+        .then(friendship => {
+          this.server.emit("AddToBlockedFriendsList", {...friendship});
+        })
+      }
+    }
+  }
 }

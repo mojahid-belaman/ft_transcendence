@@ -1,4 +1,4 @@
-import { Conversations } from "src/conversations/entity/conversation.entity";
+import { Friendships } from "src/friendships/entity/friendships.entity";
 import { Users } from "src/users/entity/users.entity";
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
@@ -8,8 +8,8 @@ export class MessagesDM{
     id: string;
     @ManyToOne(type => Users, user => user.id)
     user: Users;
-    @ManyToOne(type => Conversations, conversations => conversations.id)
-    conversation: Conversations;
+    @ManyToOne(type => Friendships, friendship => friendship.id)
+    conversation: Friendships;
     @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP"})
     info: Date;
     @Column()

@@ -5,8 +5,6 @@ import { AuthModule } from './auth/auth.module';
 import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from './auth/constants';
 import { IntraAuthModule } from './42-auth/IntraAuth.module';
-import { Conversations } from './conversations/entity/conversation.entity';
-import { ConversationsModule } from './conversations/conversations.module';
 import { FriendshipsModule } from './friendships/friendships.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
@@ -56,7 +54,6 @@ import { MessagesDmsModule } from './messages-dms/messages-dms.module';
     MessagesDmsModule,
     AuthModule,
     IntraAuthModule,
-    ConversationsModule,
   ]
 })
 export class AppModule { }

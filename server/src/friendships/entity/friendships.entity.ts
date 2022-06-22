@@ -3,7 +3,8 @@ import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 export enum FriendshipStatus {
     PENDING = "pending",
     ACCEPTED = "accepted",
-    REFUSED = "refused"
+    REFUSED = "refused",
+    BLOCKED = "blocked"
 };
 
 @Entity()

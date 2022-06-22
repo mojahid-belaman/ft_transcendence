@@ -1,11 +1,33 @@
+import axios from 'axios';
+import { useEffect, useState } from 'react'
 import PeopleCard from './PeopleCard'
 import classes from './PeopleList.module.css'
+import Cookies from 'js-cookie';
+
 function PeopleList() {
+    const [people, setPeople] = useState([]);
+
+    useEffect(() => {
+    const token = Cookies.get('access_token');  
+      axios.get(`http://localhost:5000/users`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        }
+      }).then(data => {
+          console.log(data.data);
+          setPeople(data.data);
+        });
+    }, [])
+    
     return (<div className={classes.list}>
         <div>
-            <PeopleCard />
-            <PeopleCard />
-            <PeopleCard />
+        {
+            people.length !== 0 && people.map((user, index) => {
+                return (
+                    <PeopleCard key={index} {...user} />
+                )
+            })
+        }
         </div>
     </div>)
 }

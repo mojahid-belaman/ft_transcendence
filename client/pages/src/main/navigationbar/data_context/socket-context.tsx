@@ -1,27 +1,28 @@
 import { createContext, useState } from "react";
 
-import { io } from "socket.io-client";
+import io from 'socket.io-client'
+import Cookies from 'js-cookie';
 
 
-
-
+// const token = Cookies.get('access_token');
+// const socketOptions = {
+//     transportOptions: {
+//       polling: {
+//         extraHeaders: {
+//           Authorization: 'token', //'Bearer h93t4293t49jt34j9rferek...'
+//         }
+//       }
+//     }
+//  };
+ 
+const socket = io.connect("http://localhost:5000");
 const SocketContext = createContext({
-    data: [],
+    socket: socket
 });
+export const SocketContexProvider = (props:any) => {
 
-export function SocketContexProvider(props:any) {
-
-    const socket = io("ws://example.com/my-namespace", {
-        reconnectionDelayMax: 10000,
-        auth: {
-            token: "123"
-        },
-        query: {
-            "my-key": "my-value"
-        }
-    });
     const context = {
-        data: [],
+        socket: socket
     }
     return (
         <SocketContext.Provider value={context}>
@@ -29,4 +30,4 @@ export function SocketContexProvider(props:any) {
         </SocketContext.Provider>
     )
 }
-export default SocketContexProvider;
+export default SocketContext;
