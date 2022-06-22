@@ -1,11 +1,11 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react'
-import PeopleCard from './PeopleCard'
-import classes from './PeopleList.module.css'
+import BlockedCard from './BlockedCard'
+import classes from './BlockedList.module.css'
 import Cookies from 'js-cookie';
 
-function PeopleList() {
-    const [people, setPeople] = useState([]);
+function BlockedList() {
+    const [Blocked, setBlocked] = useState([]);
 
     useEffect(() => {
     const token = Cookies.get('access_token');  
@@ -15,22 +15,22 @@ function PeopleList() {
         }
       }).then(data => {
           console.log(data.data);
-          setPeople(data.data);
+          setBlocked(data.data);
         });
     }, [])
     
     return (<div className={classes.list}>
         <div>
-            <PeopleCard/>
-            <PeopleCard/>
+            <BlockedCard/>
+            <BlockedCard/>
         {/* {
-            people.length !== 0 && people.map((user, index) => {
+            Blocked.length !== 0 && Blocked.map((user, index) => {
                 return (
-                    <PeopleCard key={index} {...user} />
+                    <BlockedCard key={index} {...user} />
                 )
             })
         } */}
         </div>
     </div>)
 }
-export default PeopleList
+export default BlockedList
