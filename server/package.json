@@ -49,7 +49,8 @@
     "socket.io": "^4.5.1",
     "swagger-ui-express": "^4.4.0",
     "typeorm": "^0.2.34",
-    "uuid": "^8.3.2"
+    "uuid": "^8.3.2",
+    "uuidv4": "^6.2.13"
   },
   "devDependencies": {
     "@nestjs/cli": "^8.0.0",

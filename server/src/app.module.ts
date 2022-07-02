@@ -16,6 +16,7 @@ import { MessagesDmsModule } from './messages-dms/messages-dms.module';
 import { AppGateway } from './app.gateway';
 import { FriendshipsService } from './friendships/friendships.service';
 import { Friendships } from './friendships/entity/friendships.entity';
+import { GameModule } from './game/game.module';
 
 
 @Module({
@@ -58,6 +59,7 @@ import { Friendships } from './friendships/entity/friendships.entity';
     MessagesDmsModule,
     AuthModule,
     IntraAuthModule,
+    GameModule
   ],
   providers: [AppGateway, JwtService, FriendshipsService]
 })
