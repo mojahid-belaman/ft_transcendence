@@ -21,15 +21,13 @@ function PeopleList() {
     
     return (<div className={classes.list}>
         <div>
-            <PeopleCard/>
-            <PeopleCard/>
-        {/* {
+        {
             people.length !== 0 && people.map((user, index) => {
                 return (
-                    <PeopleCard key={index} {...user} />
+                    <PeopleCard key={index} user={user} />
                 )
             })
-        } */}
+        }
         </div>
     </div>)
 }

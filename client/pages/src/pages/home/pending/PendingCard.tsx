@@ -5,19 +5,20 @@ import classes from './PendingCard.module.css';
 import Cookies from 'js-cookie';
 
 const PendingCard = (props: any) => {
-    const token = Cookies.get('access_token');
     const socketContext = useContext(SocketContext);
-    const addFriend = () => {
+    const acceptFriend = () => {
         console.log("Client Socket");
-        socketContext.socket.emit("addFriend", {token: token});
+        socketContext.socket.emit("acceptFriend", {userId: props.id});
+    }
+    const denyFriend = () => {
+        socketContext.socket.emit("refuseFriend", {userId: props.id});
     }
     return(<div className={classes.pendingCard}>
         <img src="https://i.pinimg.com/474x/ec/e2/b0/ece2b0f541d47e4078aef33ffd22777e.jpg"></img>
-            <div>shikma</div>
-        {/* <div> { props.username }</div> */}
+        <div> { props.username }</div>
         <div className={classes.buttons}>
-            <button onClick={addFriend}>accept</button>
-            <button onClick={addFriend}>deny</button>
+            <button onClick={acceptFriend}>accept</button>
+            <button onClick={acceptFriend}>deny</button>
         </div>
     </div>)
 }

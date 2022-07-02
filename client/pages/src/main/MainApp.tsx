@@ -7,13 +7,11 @@ import { SocketContexProvider } from "./navigationbar/data_context/socket-contex
 
 function MainApp(){
     return (
-    <SocketContexProvider>
         <div className={classes.mainCard}>
             <NavigationBar/>
             <ParticleBackground />
             <ContentCard/>    
         </div>
-    </SocketContexProvider>
     );
 }
 

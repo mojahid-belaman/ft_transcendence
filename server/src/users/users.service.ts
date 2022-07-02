@@ -5,7 +5,8 @@ import {
 } from './dto/users.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Users } from './entity/users.entity';
-import { Repository } from 'typeorm';
+import { Not, Repository } from 'typeorm';
+import { Socket } from 'socket.io';
 
 @Injectable()
 export class UsersService {
@@ -34,8 +35,10 @@ export class UsersService {
     this.inGameUsers.push(user);
   }
 
-  async getUsers(): Promise<Users[]> {
-    return await this.userRepositroy.find()
+  async getUsers(userId: string): Promise<Users[]> {
+    return await this.userRepositroy.find({
+      where: {id: Not(userId)}
+    })
       .then(data => {
         return data.map(user => {
           delete user.password

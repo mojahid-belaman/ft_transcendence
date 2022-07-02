@@ -1,36 +1,36 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import BlockedCard from './BlockedCard'
 import classes from './BlockedList.module.css'
 import Cookies from 'js-cookie';
+import SocketContext from '../../../main/navigationbar/data_context/socket-context';
 
 function BlockedList() {
-    const [Blocked, setBlocked] = useState([]);
+    const [blocked, setBlocked] = useState<any[]>([]);
+
+    const socketContext = useContext(SocketContext);
 
     useEffect(() => {
-    const token = Cookies.get('access_token');  
-      axios.get(`http://localhost:5000/users`, {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        }
-      }).then(data => {
-          console.log(data.data);
-          setBlocked(data.data);
-        });
+        socketContext.socket.emit("blockedFriends");
+        socketContext.socket.addEventListener("blockedFriendsList", (data: any) => {
+            console.log(data);
+            setBlocked(data)
+        })
+        socketContext.socket.addEventListener("RemoveBlockedFriend", (data: any) => {
+            console.log(data);
+            setBlocked(blocked.filter(user => user.id !== data.id))
+        })
     }, [])
     
     return (<div className={classes.list}>
-        <div>
-            <BlockedCard/>
-            <BlockedCard/>
-        {/* {
-            Blocked.length !== 0 && Blocked.map((user, index) => {
+        {/* <BlockedCard key={index} {...user} /> */}
+        {
+            blocked.length !== 0 && blocked.map((user, index) => {
                 return (
                     <BlockedCard key={index} {...user} />
                 )
             })
-        } */}
-        </div>
+        }
     </div>)
 }
 export default BlockedList

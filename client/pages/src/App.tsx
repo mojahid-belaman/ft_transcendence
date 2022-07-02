@@ -2,16 +2,33 @@ import classes from './App.module.css'
 import MainApp from './main/MainApp';
 import Auth from './Auth'
 import { Redirect, Route, Switch, useHistory } from 'react-router-dom';
-import { useEffect } from 'react';
+import { SocketContexProvider } from './main/navigationbar/data_context/socket-context';
+import { useEffect, useState } from 'react';
+import Cookies from 'js-cookie';
+import axios from 'axios';
+
 
 function App() {
   const history = useHistory();
+
+  const [token, setToken] = useState("")
+
   useEffect(() => {
-    if (document.cookie)
-      history.replace('/')
+    const token = Cookies.get('access_token');
+    if (token) {
+      axios.get(`http://localhost:5000/auth/check`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        }
+      }).then(() => {
+          history.replace('/')
+          setToken(token)
+        })
+        .catch(() => history.push('/auth'));
+    }
     else 
       history.replace('/auth')
-  },);
+  },[]);
 
   return (
     <div className={classes.App}>
@@ -20,7 +37,9 @@ function App() {
           <Auth />
         </Route>
         <Route path="/">
-          <MainApp />
+          <SocketContexProvider token={token}>
+            <MainApp />
+          </SocketContexProvider>
         </Route>
       </Switch>
       {/* <MainApp /> */}

@@ -6,12 +6,6 @@ import { useEffect } from 'react';
 
 const Auth = () => {
 
-  const history = useHistory();
-  useEffect(() => {
-    if (document.cookie)
-      history.replace('/')
-  },);
-
 
   return (
     <div className={classes.Auth}>

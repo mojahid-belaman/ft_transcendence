@@ -19,3 +19,10 @@ export class CreateFriendshipsDtoBody {
     @IsNotEmpty()
     userId: string;
 }
+
+export class AcceptFriendship {
+    @IsUUID()
+    firstId: string;
+    @IsUUID()
+    secondId: string;
+}

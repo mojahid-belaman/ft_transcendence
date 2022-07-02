@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
-import { JwtModule } from '@nestjs/jwt';
+import { JwtModule, JwtService } from '@nestjs/jwt';
 import { jwtConstants } from './auth/constants';
 import { IntraAuthModule } from './42-auth/IntraAuth.module';
 import { FriendshipsModule } from './friendships/friendships.module';
@@ -13,6 +13,9 @@ import { ChannelsModule } from './channels/connections.module';
 import { ConnectionsModule } from './connections/connections.module';
 import { MessagesChannelsModule } from './messages-channels/messages-channels.module';
 import { MessagesDmsModule } from './messages-dms/messages-dms.module';
+import { AppGateway } from './app.gateway';
+import { FriendshipsService } from './friendships/friendships.service';
+import { Friendships } from './friendships/entity/friendships.entity';
 
 
 @Module({
@@ -43,6 +46,7 @@ import { MessagesDmsModule } from './messages-dms/messages-dms.module';
       autoLoadEntities: true,
       synchronize: true,
     }),
+    TypeOrmModule.forFeature([Friendships]),
     JwtModule.register({
       secret: jwtConstants.secret,
       signOptions: { expiresIn: '2 days' },
@@ -54,6 +58,7 @@ import { MessagesDmsModule } from './messages-dms/messages-dms.module';
     MessagesDmsModule,
     AuthModule,
     IntraAuthModule,
-  ]
+  ],
+  providers: [AppGateway, JwtService, FriendshipsService]
 })
 export class AppModule { }

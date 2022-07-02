@@ -19,8 +19,6 @@ import { CreateUserDto, UpdateUserDto } from './dto/users.dto';
 import { UsersService } from './users.service';
 import { ApiBearerAuth } from '@nestjs/swagger';
 
-
-
 const editfilename = (req, file, callback) => {
   if (!file.mimetype.match(/\/(jpg|jpeg|png|gif)$/))
     callback(
@@ -36,16 +34,16 @@ const editfilename = (req, file, callback) => {
 
 @Controller('users')
 export class UsersController {
-  
-  
+
   constructor(private readonly usersService: UsersService) { }
 
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @Get()
-  async getUsers() {
-    return await (this.usersService.getUsers());
+  async getUsers(@Req() req) {
+    return await (this.usersService.getUsers(req.user.userId));
   }
+
   @Get("/:userId")
   async getUserById(@Param('userId') userId: string) {
     return await (this.usersService.findOne({ id: userId }));

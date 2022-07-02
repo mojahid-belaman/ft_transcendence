@@ -7,6 +7,8 @@ export enum FriendshipStatus {
     BLOCKED = "blocked"
 };
 
+export const noneUser = "00000000-0000-0000-0000-000000000000";
+
 @Entity()
 export class Friendships {
     @PrimaryGeneratedColumn('uuid')
@@ -23,4 +25,6 @@ export class Friendships {
     status: FriendshipStatus;
     @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP"})
     date: Date;
+    @Column({type: "uuid", default: noneUser})
+    blockedBy: string;
 }

@@ -6,14 +6,6 @@ import classes from "./Authentication.module.css"
 
 
 const Login = (props:any) => {
-
-  const history = useHistory();
-
-  useEffect(() => {
-    if (document.cookie) {
-      history.replace('/')
-    }
-  }, [])
   return (
     <div className={classes.loginBackground}>
       <WhiteCardLogin />

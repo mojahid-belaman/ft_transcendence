@@ -6,12 +6,7 @@ import classes from "./Authentication.module.css"
 
 
 const Register = () => {
-  const history = useHistory();
-  useEffect(() => {
-    if (document.cookie) {
-      history.replace('/')
-    }
-  }, [])
+
   return (
     <div className={classes.loginBackground}>
       <WhiteCardRegister />
