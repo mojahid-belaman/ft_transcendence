@@ -18,7 +18,7 @@ function Home() {
             <button onClick={()=>setButton(4)}> Blocked </button>
             <button onClick={()=>setButton(5)}> People </button>
         </div>
-        {buttons === 1 ?<OnlineList /> : null}
+        {buttons === 1 ?<OnlineList /> : null} {/* online user is returning a boolean instead of a component */}
         {buttons === 2 ? <AllFriends/> : null}
         {buttons === 3 ? <PendingList/> : null}
         {buttons === 4 ? <BlockedList/> : null}

@@ -1,6 +1,6 @@
 import Particles from "react-tsparticles"
 import { loadFull } from "tsparticles";
-import particlesConfig from "../config/particleConfig";
+import particlesConfig from "../../../config/particleConfig";
 
 function ParticleBackground() {
     const particlesInit = async (main: any) => {

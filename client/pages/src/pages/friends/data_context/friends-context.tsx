@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import SocketContext from '../../../main/navigationbar/data_context/socket-context';
+// import SocketContext from '../../../main/navigationbar/data_context/socket-context';
+import socket from "../../../../../Library/Socket";
 import Cookies from 'js-cookie';
 
 
@@ -17,7 +18,7 @@ const FriendsContex = createContext({
 
 export function FriendsContexProvider(props:any) {
 
-    const socketContext = useContext(SocketContext)
+    // const socketContext = useContext(SocketContext)
     const [userData, SetUserData]:any = useState<any[]>([]);
 
     function addUserHandler(userData:any) {
@@ -27,11 +28,11 @@ export function FriendsContexProvider(props:any) {
     }
     
     useEffect(() => {
-        socketContext.socket.emit("allFriends");
-        socketContext.socket.addEventListener("getAllFriends", (data: any) => {
+        socket.emit("allFriends");
+        socket.on("getAllFriends", (data: any) => {
             SetUserData(data)
         })
-        socketContext.socket.addEventListener("addedNewFriendship", (data: any) => {
+        socket.on("addedNewFriendship", (data: any) => {
             console.log(data);
             // SetUserData([...userData, data])
         })

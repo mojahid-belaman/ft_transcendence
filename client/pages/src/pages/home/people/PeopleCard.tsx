@@ -1,21 +1,22 @@
 import { useContext, useEffect, useState } from 'react'
-import SocketContext from '../../../main/navigationbar/data_context/socket-context';
+// import SocketContext from '../../../main/navigationbar/data_context/socket-context';
 import SocketContexProvider from '../../../main/navigationbar/data_context/socket-context'
 import classes from './PeopleCard.module.css';
 import Cookies from 'js-cookie';
+import socket from '../../../../../Library/Socket';
 
 const PeopleCard = (props: any) => {
-    const socketContext = useContext(SocketContext);
+    // const socketContext = useContext(SocketContext);
     const [isSent, setIsSent] = useState(false)
     useEffect(() => {
-        socketContext.socket.addEventListener("addedNewPendingFriendship", (data: any) => {
+        socket.on("addedNewPendingFriendship", (data: any) => {
             console.log(data);
         });
     }, [])
     
     const addFriend = () => {
         setIsSent(true)
-        socketContext.socket.emit("addFriend", { userId: props.user.id});
+        socket.emit("addFriend", { userId: props.user.id});
     }
     
     return(<div className={classes.peopleCard}>

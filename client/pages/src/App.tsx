@@ -37,9 +37,9 @@ function App() {
           <Auth />
         </Route>
         <Route path="/">
-          <SocketContexProvider token={token}>
+          {/* <SocketContexProvider token={token}> */}
             <MainApp />
-          </SocketContexProvider>
+          {/* </SocketContexProvider> */}
         </Route>
       </Switch>
       {/* <MainApp /> */}

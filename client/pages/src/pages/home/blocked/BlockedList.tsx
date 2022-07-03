@@ -3,20 +3,21 @@ import { useContext, useEffect, useState } from 'react'
 import BlockedCard from './BlockedCard'
 import classes from './BlockedList.module.css'
 import Cookies from 'js-cookie';
-import SocketContext from '../../../main/navigationbar/data_context/socket-context';
+import socket from '../../../../../Library/Socket';
+// import SocketContext from '../../../main/navigationbar/data_context/socket-context';
 
 function BlockedList() {
     const [blocked, setBlocked] = useState<any[]>([]);
 
-    const socketContext = useContext(SocketContext);
+    // const socketContext = useContext(SocketContext);
 
     useEffect(() => {
-        socketContext.socket.emit("blockedFriends");
-        socketContext.socket.addEventListener("blockedFriendsList", (data: any) => {
+        socket.emit("blockedFriends");
+        socket.on("blockedFriendsList", (data: any) => {
             console.log(data);
             setBlocked(data)
         })
-        socketContext.socket.addEventListener("RemoveBlockedFriend", (data: any) => {
+        socket.on("RemoveBlockedFriend", (data: any) => {
             console.log(data);
             setBlocked(blocked.filter(user => user.id !== data.id))
         })

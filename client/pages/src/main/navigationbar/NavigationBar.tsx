@@ -16,6 +16,7 @@ function NavigationBar() {
                 <Link className={classes.link} to="/chat"><button><i><BsFillChatTextFill className={classes.icons} /></i>Chat </button></Link>
                 <Link className={classes.link} to="/channels"><button><RiTeamFill className={classes.icons} /> Channels</button></Link>
                 <Link className={classes.link} to="/game"><button><GiPingPongBat className={classes.icons} /> Game</button></Link>
+                <Link className={classes.link} to="/liveGame"><button><GiPingPongBat className={classes.icons} /> Live Games</button></Link>
                 <Link className={classes.link} to="/settings"><button><AiFillSetting className={classes.icons} /> Settings</button></Link>
                 {/* <div className={classes.logout}> <div className={classes.button}><RiLogoutBoxFill className={classes.icons} />logout</div></div> */}
             </div>

@@ -16,7 +16,7 @@ export const SocketContexProvider = (props:any) => {
     const token = props.token;
     if (token)
     {
-        const socket = io.connect("http://localhost:5000", {
+        const socket = io("http://localhost:5000", {
             query: {token}
         });
         

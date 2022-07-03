@@ -1,33 +1,34 @@
 import axios from 'axios';
 import { useEffect, useState, useContext } from 'react'
+import socket from '../../../../../Library/Socket';
 import PendingCard from './PendingCard'
 import classes from './PendingList.module.css'
-import SocketContext from '../../../main/navigationbar/data_context/socket-context';
+// import SocketContext from '../../../main/navigationbar/data_context/socket-context';
 
 const PendingList = () => {
-    const socketContext = useContext(SocketContext);
+    // const socketContext = useContext(SocketContext);
     const [pendingFriendships, setPendingFriendships] = useState<any[]>([])
     
-    socketContext.socket.addEventListener("addedNewPendingFriendship", (data: any) => {
+    socket.on("addedNewPendingFriendship", (data: any) => {
         console.log("addedNewPendingFriendship");
         setPendingFriendships([...pendingFriendships, data]);
     });
 
-    socketContext.socket.addEventListener("pendingFriendsList", (data: any) => {
+    socket.on("pendingFriendsList", (data: any) => {
         setPendingFriendships([...data]);
     });
 
-    socketContext.socket.addEventListener("RemovependingFriends", (data: any) => {
+    socket.on("RemovependingFriends", (data: any) => {
         setPendingFriendships(pendingFriendships.filter(user => (user.id !== data.firstId && user.id !== data.secondId)));
     });
 
-    socketContext.socket.addEventListener("rejectFriendship", (data: any) => {
+    socket.on("rejectFriendship", (data: any) => {
         console.log(data);
         setPendingFriendships(pendingFriendships.filter(user => user.id !== data.id))
     })
 
     useEffect(() => {
-        socketContext.socket.emit("pendingFriends");
+        socket.emit("pendingFriends");
         return () => {
             setPendingFriendships([])
         }

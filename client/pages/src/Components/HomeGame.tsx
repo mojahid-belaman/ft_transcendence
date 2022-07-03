@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
-import styles from "../../styles/HomeGame.module.css";
+import { useContext, useEffect, useState } from "react";
+import styles from "../../../styles/HomeGame.module.css";
 import Game from "./Game";
 import Cookies from "js-cookie";
-import socket from "../Library/Socket";
+import socket from "../../../Library/Socket";
+// import SocketContext from "../main/navigationbar/data_context/socket-context";
 
 export function HomeGame() {
 
