@@ -35,7 +35,7 @@ function ChatHeader(props:any) {
             <img src="https://i.pinimg.com/474x/ec/e2/b0/ece2b0f541d47e4078aef33ffd22777e.jpg"></img>
             <div className={classes.info}>
                 <div>{props.user.name}</div>
-                <div>Online </div>
+                <div>{props.user.isOnline ? "Online": `Last time connected: ${props.user.lastConnected}`} </div>
             </div>
         </button>
         <button onClick={OpenCloseModal1} className={classes.buttonSetting}><BiDotsVertical/></button>

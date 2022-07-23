@@ -7,16 +7,21 @@ import Cookies from 'js-cookie';
 function PeopleList() {
     const [people, setPeople] = useState([]);
 
+    const getAllPeople = async (token: any) => {
+        return await axios.get(`http://localhost:5000/users`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            }
+          }).then(data => {
+              console.log(data.data);
+              setPeople(data.data);
+            });
+    } 
+
     useEffect(() => {
-    const token = Cookies.get('access_token');  
-      axios.get(`http://localhost:5000/users`, {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        }
-      }).then(data => {
-          console.log(data.data);
-          setPeople(data.data);
-        });
+        const token = Cookies.get('access_token');
+        if (token)
+            getAllPeople(token);
     }, [])
     
     return (<div className={classes.list}>

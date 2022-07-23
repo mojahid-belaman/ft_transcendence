@@ -196,6 +196,10 @@ export class FriendshipsService {
         return onlineFriends.find(user => user.id === userId);
     }
 
+    checkIfUserOnlineWithout(userId: string) {
+        return onlineFriends.find(user => user.id === userId).sockets;
+    }
+
     getOnlineFriends(userId: string) {
         return this.getAllFriendships(userId, FriendshipStatus.ACCEPTED)
         .then(users => users.filter(user => {

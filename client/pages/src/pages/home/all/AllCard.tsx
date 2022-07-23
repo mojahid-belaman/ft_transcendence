@@ -1,12 +1,14 @@
 import { useContext } from 'react'
+import { useHistory } from 'react-router-dom';
 import SocketContext from '../../../main/navigationbar/data_context/socket-context'
 import classes from './AllCard.module.css'
 
 const AllCard = (props: any) => {
 
     const socketContext = useContext(SocketContext);
+    const history = useHistory();
 
-    const msgHandler = () => {}
+    const msgHandler = () => history.push(`/chat?username=${props.username}`)
     const unfriendHandler = () => socketContext.socket.emit("RemoveFriendship", {friendId: props.id})
     const blockdHandler = () => socketContext.socket.emit("blockFriend", {blockedUserId: props.id})
 

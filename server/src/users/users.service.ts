@@ -35,7 +35,7 @@ export class UsersService {
     this.inGameUsers.push(user);
   }
 
-  async getUsers(userId: string): Promise<Users[]> {
+  /* async getUsers(userId: string): Promise<Users[]> {
     return await this.userRepositroy.find({
       where: {id: Not(userId)}
     })
@@ -44,6 +44,28 @@ export class UsersService {
           delete user.password
           return user;
         })
+      });
+  } */
+
+  async getUsers(userId: string): Promise<Users[]> {
+    return await this.userRepositroy.query(`
+      SELECT
+        *
+      FROM USERS
+      WHERE 
+        id::text != '${userId}'
+      AND
+        id::text NOT IN (SELECT "firstId"::text FROM friendships WHERE "secondId"::text = '${userId}')
+      AND
+        id::text NOT IN (SELECT "secondId"::text FROM friendships WHERE "firstId"::text = '${userId}')
+    `)
+      .then(data => {
+        if (data && data.length !== 0)
+          return data.map(user => {
+            delete user.password
+            return user;
+          })
+        return [];
       });
   }
 
@@ -76,6 +98,18 @@ export class UsersService {
           ...user,
           status: HttpStatus.CREATED,
           message: "success"
+        })
+      });
+  }
+
+  async updateLastTimeConnected(info: Date, userId: string) {
+    return await this.userRepositroy.findOne({ id: userId })
+      .then(async (user) => {
+        console.log(user);
+        return await this.userRepositroy.save({...user, lastConnected: info})
+        .then(res => {
+          console.log(res);
+          return res;
         })
       });
   }

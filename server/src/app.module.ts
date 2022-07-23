@@ -16,6 +16,8 @@ import { MessagesDmsModule } from './messages-dms/messages-dms.module';
 import { AppGateway } from './app.gateway';
 import { FriendshipsService } from './friendships/friendships.service';
 import { Friendships } from './friendships/entity/friendships.entity';
+import { Users } from './users/entity/users.entity';
+import { UsersService } from './users/users.service';
 
 
 @Module({
@@ -46,7 +48,7 @@ import { Friendships } from './friendships/entity/friendships.entity';
       autoLoadEntities: true,
       synchronize: true,
     }),
-    TypeOrmModule.forFeature([Friendships]),
+    TypeOrmModule.forFeature([Friendships, Users]),
     JwtModule.register({
       secret: jwtConstants.secret,
       signOptions: { expiresIn: '2 days' },
@@ -59,6 +61,6 @@ import { Friendships } from './friendships/entity/friendships.entity';
     AuthModule,
     IntraAuthModule,
   ],
-  providers: [AppGateway, JwtService, FriendshipsService]
+  providers: [AppGateway, JwtService, FriendshipsService, UsersService]
 })
 export class AppModule { }

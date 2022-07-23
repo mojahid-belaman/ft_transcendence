@@ -1,24 +1,32 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ProfileModal from './profileModal/ProfileModal';
 import classes from './Chat.module.css'
 import ChatHeader from './ChatHeader';
 import MessageCard from './MessageCard';
-function Chat(props:any) {
+
+
+const Chat = (props:any) => {
     const [backdrop, setBackdrop] = useState(false);
-    function OpenCloseModal() {
+    const [messagelist, setMessageList]:any = useState([]);
+    const [CurentMessage, setCurentMessage] = useState("");
+
+    const OpenCloseModal = () => {
         if (backdrop === false)
             setBackdrop(true);
         else
             setBackdrop(false);
     }
-    const [messagelist, setMessageList]:any = useState([]);
-    const [CurentMessage, setCurentMessage] = useState("");
-    function Message() {
+    
+    const Message = () => {
         if (CurentMessage !== "") {
             setMessageList((list:any) => [...list, CurentMessage])
             setCurentMessage("")
         }
     }
+    useEffect(() => {
+        console.log(props.user);
+    })
+    
     return <div className={classes.chatCard}>
         <ChatHeader user={props.user} toggle={OpenCloseModal} />
         <div className={classes.chatContent} >

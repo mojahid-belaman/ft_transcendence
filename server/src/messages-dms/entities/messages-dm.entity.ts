@@ -6,10 +6,14 @@ import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 export class MessagesDM{
     @PrimaryGeneratedColumn('uuid')
     id: string;
+    /* @ManyToOne(type => Users, user => user.id)
+    first: Users;
     @ManyToOne(type => Users, user => user.id)
-    user: Users;
-    @ManyToOne(type => Friendships, friendship => friendship.id)
-    conversation: Friendships;
+    second: Users; */
+    @Column()
+    firstId: string;
+    @Column()
+    secondId: string;
     @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP"})
     info: Date;
     @Column()

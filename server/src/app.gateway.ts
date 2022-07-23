@@ -29,6 +29,8 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
     private jwtService: JwtService;
     @Inject()
     private friendshipsService: FriendshipsService;
+    @Inject()
+    private usersService: UsersService;
     private logger: Logger = new Logger('AppGateway');
 
     afterInit(server: Server) {
@@ -53,8 +55,10 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
             const user: any = await this.jwtService.verify(String(client.handshake.query.token), {
                 secret: jwtConstants.secret
             });
-            if (user) 
+            if (user) {
                 this.friendshipsService.setOffLineStatus(user.id, client.id);
+                this.usersService.updateLastTimeConnected(new Date(), user.id);
+            }
         }
     }
 }

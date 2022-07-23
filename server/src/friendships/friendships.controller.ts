@@ -12,7 +12,7 @@ export class FriendshipsController {
     
     @UseGuards(JwtAuthGuard)
     @Get("online")
-    getAllOnlineFriends(@Req() req) {
+    getAll(@Req() req) {
         return this.friendshipsService.getOnlineFriends(req.user.userId);
     }
 }
