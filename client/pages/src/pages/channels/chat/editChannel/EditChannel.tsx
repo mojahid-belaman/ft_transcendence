@@ -1,10 +1,10 @@
-import classes from './NewChannel.module.css'
+import classes from './EditChannel.module.css'
 import Password from './Password';
 import { useRef, useState } from "react"
 import axios from 'axios';
 import Cookies from 'js-cookie'
 
-function NewChannel(props:any) {
+function EditChannel(props:any) {
     const [choice, setChoice] = useState(false)
     const [status, setStatus] = useState('Public');
     const CHANNEL_STATUS = ["Public", "Private", "Protected"];
@@ -40,9 +40,8 @@ function NewChannel(props:any) {
         <div>
             <div onClick={props.OpenClose} className={classes.backdrop}></div>
             <div className={classes.card}>
-                <form className={classes.createForm} onSubmit={SubmitHandler} >
-                    <div className={classes.text}>Create new channel</div>
-                    <h5>Channels are where your team communicate, They're best when organized around a topic </h5>
+                <form className={classes.editForm} onSubmit={SubmitHandler} >
+                    <div className={classes.text}>Edit channel</div>
                     <div className={classes.info}>
                         <label> Channel name </label>
                         <input type="text" name="name" className={classes.inputs} required ref={nameInputRef} />
@@ -62,17 +61,12 @@ function NewChannel(props:any) {
                         </div>
                     </div>
                     {choice ? <Password /> : null}
-                    <div className={classes.info}>
-                        <label> Add people <span>(You can skip this step for now) </span></label>
-                        <input type="text" name="name" className={classes.inputs} />
-
-                    </div>
                     <div className={classes.buttons}>
                         <button onClick={props.OpenClose} id={classes.cancel}>Cancel</button>
-                        <button id={classes.create}>Create</button>
+                        <button id={classes.edit}>Save</button>
                     </div>
                 </form>
             </div>
         </div>)
 }
-export default NewChannel;
+export default EditChannel;   

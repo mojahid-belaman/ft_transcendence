@@ -30,3 +30,21 @@
     border-radius: 50%;
     background-color: green;
 }
+.chatWrapper{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: right;
+    background-color:white;
+    /* color :white; */
+}
+.buttonEdit{
+    min-width: 70px;
+    min-height: 70px;
+    border:none;
+    background-color: white;
+    color :black;
+    cursor: pointer;
+    font-weight: 900;
+    font-size: 20px;
+}
