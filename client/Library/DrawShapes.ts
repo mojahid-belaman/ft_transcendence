@@ -67,13 +67,6 @@ export function drawGame(context: object, data: Data) {
     "#ffff00",
     context
   );
-  DrawCircle(
-    data.get_BallT_X(),
-    data.get_BallT_Y(),
-    data.get_Ball_Radius(),
-    "#ffff00",
-    context
-  );
 }
 
 export function drawUsers(context: object, data: Data) {

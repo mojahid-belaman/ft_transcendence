@@ -1,18 +1,23 @@
 @import url("https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Kanit:wght@500&family=Outfit:wght@100;500&family=Press+Start+2P&family=Work+Sans:wght@100;200;300;400;500;600;700;800&display=swap");
 
+.load {
+  display: flex;
+  justify-content: center;
+  width: 50%;
+}
 .container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 98vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 98vh;
 }
 
 .container .info {
-    color: #FFF;
-    font-family: 'Press Start 2P', cursive;
+  color: #fff;
+  font-family: "Press Start 2P", cursive;
 }
 
 .container .myCanvas {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }

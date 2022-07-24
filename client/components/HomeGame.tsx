@@ -18,12 +18,12 @@ export function HomeGame() {
   };
   
   const gameObsHandler = () => {
-    const token = Cookies.get("access_token");
-    socket.emit("join_match", {
-      access_token: token,
-      type: "obstacle",
-    });
-    setIsGame(true);
+    // const token = Cookies.get("access_token");
+    // socket.emit("join_match", {
+    //   access_token: token,
+    //   type: "obstacle",
+    // });
+    // setIsGame(true);
   };
 
   return (

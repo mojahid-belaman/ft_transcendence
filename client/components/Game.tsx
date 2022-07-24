@@ -5,11 +5,12 @@ import { drawGame, drawUsers } from "../Library/DrawShapes";
 import { GameObj, userObj } from "../Library/gameObject";
 import style from "../styles/Game.module.css";
 import socket from "../Library/Socket";
+import { Loading } from "@nextui-org/react";
 
 //NOTE - Initiale data and Information about all Game like (ball, paddle, score, width, height, canvas)
 let data = new Data(1200, 600);
 
-export function Game(props: any) {
+export function Game() {
   const canvasRef: any = useRef();
   const canvasUser: any = useRef();
 
@@ -17,8 +18,6 @@ export function Game(props: any) {
     ball: {
       ball_x: data.get_Ball_X(),
       ball_y: data.get_Ball_Y(),
-      ballT_x: data.get_BallT_X(),
-      ballT_y: data.get_BallT_Y(),
     },
     paddle: {
       paddle_left: data.get_PddleLeft_Y(),
@@ -35,9 +34,9 @@ export function Game(props: any) {
   const initialUser: userObj = {
     infoUser: {
       userOne: data.get_UserOne(),
-      userTwo: data.get_UserTwo()
-    }
-  }
+      userTwo: data.get_UserTwo(),
+    },
+  };
 
   const [gameState, setGameState] = useState(initialState);
   const [userState, setUserState] = useState(initialUser);
@@ -147,14 +146,16 @@ export function Game(props: any) {
     console.log("useEffect dependencie Injection Size");
     //NOTE - Declare Variable "canvas" and Assign Reference from JSX
     const canvas: any = canvasRef.current;
-    const canvasTwo: any = canvasUser.current;
+    if (canvas !== undefined) {
+      const canvasTwo: any = canvasUser.current;
 
-    //NOTE - To get the canvas' 2D rendering context
-    const context = canvas.getContext("2d");
-    const contextTwo = canvasTwo.getContext("2d");
+      //NOTE - To get the canvas' 2D rendering context
+      const context = canvas.getContext("2d");
+      const contextTwo = canvasTwo.getContext("2d");
 
-    drawGame(context, data);
-    drawUsers(contextTwo, data);
+      drawGame(context, data);
+      drawUsers(contextTwo, data);
+    }
   }, [changeData]);
 
   useEffect(() => {
@@ -166,40 +167,38 @@ export function Game(props: any) {
     console.log("useEffect dependencie Injection gameState");
     //NOTE - Declare Variable "canvas" and Assign Reference from JSX
     const canvas: any = canvasRef.current;
-    
+    if (canvas !== undefined) {
+      //NOTE - To get the canvas' 2D rendering context
+      const context = canvas.getContext("2d");
 
-    //NOTE - To get the canvas' 2D rendering context
-    const context = canvas.getContext("2d");
+      //NOTE - Movement Ball
+      data.set_Ball_X(gameState.ball.ball_x);
+      data.set_Ball_Y(gameState.ball.ball_y);
 
-    //NOTE - Movement Ball
-    data.set_Ball_X(gameState.ball.ball_x);
-    data.set_Ball_Y(gameState.ball.ball_y);
-    data.set_BallT_X(gameState.ball.ballT_x);
-    data.set_BallT_Y(gameState.ball.ballT_y);
-    
-    //NOTE - Movement Paddles
-    data.set_PddleLeft_Y(gameState.paddle.paddle_left);
-    data.set_PddleRight_Y(gameState.paddle.paddle_right);
-    
-    //NOTE - Update Scores
-    data.set_Score_One(gameState.score.playerOne_Score);
-    data.set_Score_Two(gameState.score.playerTwo_Score);
-    
-    //NOTE - Update State Game if Wait OR Play OR Over
-    data.set_State(gameState.currentState);
-    
-    //NOTE - Update Win OR Lose
-    data.set_Winner(gameState.isWin);
-    
-    //NOTE - Display Game
-    drawGame(context, data);
+      //NOTE - Movement Paddles
+      data.set_PddleLeft_Y(gameState.paddle.paddle_left);
+      data.set_PddleRight_Y(gameState.paddle.paddle_right);
 
-    //NOTE - Check State Game if true Display "Game Over"
-    if (data.get_State() === StateGame.OVER) setCurrentState(StateGame.OVER);
+      //NOTE - Update Scores
+      data.set_Score_One(gameState.score.playerOne_Score);
+      data.set_Score_Two(gameState.score.playerTwo_Score);
 
-    socket.on("gameState", (newState: any) => {
-      setGameState(newState);
-    });
+      //NOTE - Update State Game if Wait OR Play OR Over
+      data.set_State(gameState.currentState);
+
+      //NOTE - Update Win OR Lose
+      data.set_Winner(gameState.isWin);
+
+      //NOTE - Display Game
+      drawGame(context, data);
+
+      //NOTE - Check State Game if true Display "Game Over"
+      if (data.get_State() === StateGame.OVER) setCurrentState(StateGame.OVER);
+
+      socket.on("gameState", (newState: any) => {
+        setGameState(newState);
+      });
+    }
 
     return () => {
       socket.off("gameState");
@@ -207,25 +206,27 @@ export function Game(props: any) {
   }, [gameState]);
 
   useEffect(() => {
-    console.log("useEffect dependency userState")
+    console.log("useEffect dependency userState");
     const canvas: any = canvasUser.current;
-    const contextData = canvas.getContext("2d");
+    if (canvas !== undefined) {
+      const contextData = canvas.getContext("2d");
 
-    data.set_UserOne(userState.infoUser.userOne);
-    data.set_UserTwo(userState.infoUser.userTwo);
+      data.set_UserOne(userState.infoUser.userOne);
+      data.set_UserTwo(userState.infoUser.userTwo);
 
-    //NOTE - Display Users
-    drawUsers(contextData, data);
-    
-    socket.on("userState", (newState: any) => {
-      console.log(newState);
-      setUserState(newState);
-    })
+      //NOTE - Display Users
+      drawUsers(contextData, data);
 
-    return () => {
-      socket.off("userState");
+      socket.on("userState", (newState: any) => {
+        console.log(newState);
+        setUserState(newState);
+      });
+
+      return () => {
+        socket.off("userState");
+      };
     }
-  }, [userState])
+  }, [userState]);
 
   useEffect(() => {
     console.log("useEffect run one time about keys and load");
@@ -250,18 +251,34 @@ export function Game(props: any) {
 
   return (
     <>
-      <div className={style.container}>
-        <div className={style.info}>
-          <h1>Players: &uarr; &darr;</h1>
+      {currentState === StateGame.WAIT ? (
+        <div className={style.container}>
+          <Loading
+            className={style.load}
+            color="warning"
+            type="spinner"
+            size="xl"
+          />
         </div>
-        <canvas
-          className={style.myCanvas}
-          width={data.get_Width()}
-          height={data.get_Height()}
-          ref={canvasRef}
-        ></canvas>
-        <canvas className={style.myCanvas} width={data.get_Width()} height={data.get_CanvasUserH()} ref={canvasUser}></canvas>
-      </div>
+      ) : (
+        <div className={style.container}>
+          <div className={style.info}>
+            <h1>Players: &uarr; &darr;</h1>
+          </div>
+          <canvas
+            className={style.myCanvas}
+            width={data.get_Width()}
+            height={data.get_Height()}
+            ref={canvasRef}
+          ></canvas>
+          <canvas
+            className={style.myCanvas}
+            width={data.get_Width()}
+            height={data.get_CanvasUserH()}
+            ref={canvasUser}
+          ></canvas>
+        </div>
+      )}
       {currentState === StateGame.OVER && <GameOver curData={data} />}
     </>
   );

@@ -179,51 +179,6 @@ export class GameGateway
         console.log('user size: ' + this.userArrDef.length);
       }
     }
-    // else if (payload.type === 'obstacle') {
-    //   //NOTE - Add User In Array
-    //   this.userArrObs.push(user);
-
-    //   //NOTE - Check if Set Of Socket (i means player) to stock is 2
-    //   if (this.userArrObs.length > 1) {
-    //     const itSock = this.socketArr.values();
-    //     const [first, second] = this.userArrObs;
-
-    //     if (first.id === second.id) {
-    //       this.userArrObs.splice(this.userArrObs.indexOf(first), 1);
-    //       return;
-    //     }
-
-    //     this.playerOne = new Player(
-    //       itSock.next().value,
-    //       true,
-    //       first.id,
-    //       first.username,
-    //     );
-    //     this.playerTwo = new Player(
-    //       itSock.next().value,
-    //       false,
-    //       second.id,
-    //       second.username,
-    //     );
-
-    //     //NOTE - Create new instance of game and game is start in constructor
-    //     const newGame = new Game(
-    //       this.playerOne,
-    //       this.playerTwo,
-    //       GameGateway.gameService,
-    //       payload.type,
-    //     );
-
-    //     GameGateway.game.push(newGame);
-    //     this.socketArr.delete(newGame.get_PlayerOne().getSocket());
-    //     this.socketArr.delete(newGame.get_PlayerTwo().getSocket());
-    //     this.userArrObs.splice(0, this.userArrObs.length);
-
-    //     console.log('Game length: ' + GameGateway.game.length);
-    //     console.log('Socket size: ' + this.socketArr.size);
-    //     console.log('user size: ' + this.userArrObs.length);
-    //   }
-    // }
   }
   @SubscribeMessage('send_games')
   hundle_receiveGame(client: Socket, payload: any) {
