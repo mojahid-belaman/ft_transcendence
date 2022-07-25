@@ -28,18 +28,6 @@ export class Game {
     sendGames: Function,
     server: any,
   ) {
-    player_One.getSocket().emit('userState', {
-      infoUser: {
-        userOne: player_One.getUsername(),
-        userTwo: player_Two.getUsername(),
-      },
-    });
-    player_Two.getSocket().emit('userState', {
-      infoUser: {
-        userOne: player_One.getUsername(),
-        userTwo: player_Two.getUsername(),
-      },
-    });
     this._id = uuid();
     this.server = server;
     this.sendGames = sendGames;
@@ -48,8 +36,6 @@ export class Game {
     this._ball = new Ball(this.sendGames, this.server);
     this._gameService = gameService;
     this._typeGame = typeGame;
-    if (this._typeGame === 'obstacle')
-      this._ballTwo = new Ball(this.sendGames, this.server);
     this._myInterval = setInterval(() => {
       this.playGame(this._player_One, this._player_Two);
     }, 1000 / 60);
@@ -83,12 +69,6 @@ export class Game {
   }
 
   public playGame(player_One: Player, player_Two: Player): void {
-    if (this._typeGame === 'obstacle') {
-      this._ballTwo.moveBall();
-      this._ballTwo.direction_Ball(player_One);
-      this._ballTwo.direction_Ball(player_Two);
-      this._ballTwo.update_score(player_One, player_Two);
-    }
     this._ball.moveBall();
     this._ball.direction_Ball(player_Two);
     this._ball.direction_Ball(player_One);

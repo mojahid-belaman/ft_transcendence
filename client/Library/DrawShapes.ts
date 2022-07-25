@@ -71,10 +71,6 @@ export function drawGame(context: object, data: Data) {
 
 export function drawUsers(context: object, data: Data) {
   drawRect(0, 0, data.get_Width(), data.get_CanvasUserH(), "#FFF", context);
-  drawImg("http://placehold.jp/80x80.png", 10, 10, context);
-  drawTextComplet(data.get_UserOne(), 100, data.get_CanvasUserH()/2 + 10, "#000", context)
-  drawImg("http://placehold.jp/80x80.png", data.get_Width() - 90, 10, context);
-  drawTextComplet(data.get_UserTwo(), data.get_Width() - 200, data.get_CanvasUserH()/2 + 10, "#000", context)
   drawTextComplet(
     "WATCHERS",
     data.get_Width() / 2 - 80,
@@ -188,10 +184,4 @@ function drawTextTwo(
   context.fillStyle = color;
   context.font = "40px 'Press Start 2P', cursive";
   context.fillText(text, x, y);
-}
-
-function drawImg(path: string, x: number, y: number, context: any) {
-  const img = new Image(30, 30);
-  img.src = path;
-  context.drawImage(img, x, y);
 }

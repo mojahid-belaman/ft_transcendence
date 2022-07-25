@@ -46,10 +46,6 @@ export class Data {
   //NOTE - Details Canvas users
   private watchers: number;
   private cnvasUserHeight: number;
-  private imgOne: string;
-  private imgTwo: string;
-  private userOne: string;
-  private userTwo: string;
 
   constructor(width: number, height: number) {
     this.cWidth = width;
@@ -77,11 +73,6 @@ export class Data {
     this.trace_Y = 0;
     this.trace_Width = 2;
     this.trace_Height = 10;
-    this.imgOne = '../public/ball.png';
-    this.imgTwo = '../public/ball.png';
-    this.userOne = "";
-    this.userTwo = "";
-
   }
 
   public get_CanvasUserH(): number {
@@ -206,23 +197,5 @@ export class Data {
   }
   public get_Watchers(): number {
     return this.watchers;
-  }
-  public get_ImageOne(): string {
-    return this.imgOne
-  }
-  public get_ImageTwo(): string {
-    return this.imgTwo
-  }
-  public get_UserOne(): string {
-    return this.userOne;
-  }
-  public set_UserOne(name: string): void {
-    this.userOne = name;
-  }
-  public get_UserTwo(): string {
-    return this.userTwo;
-  }
-  public set_UserTwo(name: string): void {
-    this.userTwo = name;
   }
 }

@@ -1,8 +1,8 @@
 import React, { useRef, useEffect, useState } from "react";
 import { GameOver } from "./GameOver";
 import { Data, StateGame } from "../Library/Data";
-import { drawGame, drawUsers } from "../Library/DrawShapes";
-import { GameObj, userObj } from "../Library/gameObject";
+import { drawGame } from "../Library/DrawShapes";
+import { GameObj } from "../Library/gameObject";
 import style from "../styles/Game.module.css";
 import socket from "../Library/Socket";
 import { Loading } from "@nextui-org/react";
@@ -12,7 +12,6 @@ let data = new Data(1200, 600);
 
 export function Game() {
   const canvasRef: any = useRef();
-  const canvasUser: any = useRef();
 
   const initialState: GameObj = {
     ball: {
@@ -31,15 +30,7 @@ export function Game() {
     isWin: data.get_Winner(),
   };
 
-  const initialUser: userObj = {
-    infoUser: {
-      userOne: data.get_UserOne(),
-      userTwo: data.get_UserTwo(),
-    },
-  };
-
   const [gameState, setGameState] = useState(initialState);
-  const [userState, setUserState] = useState(initialUser);
   const [currentState, setCurrentState] = useState(data.get_State());
   const [changeData, setChangeData] = useState([
     data.get_Width(),
@@ -51,9 +42,7 @@ export function Game() {
       data.get_State() === StateGame.WAIT ||
       data.get_State() === StateGame.OVER
     ) {
-      console.log("WAIT");
       if (data.get_TypeRes() !== 1 && window.innerWidth > 1200) {
-        console.log("great than 1200");
         data.set_Width(1200);
         data.set_Height(600);
         data.set_Trace_X(data.get_Width());
@@ -76,7 +65,6 @@ export function Game() {
         window.innerWidth > 800 &&
         window.innerWidth <= 1200
       ) {
-        console.log("between 800 and 1200");
         data.set_Width(800);
         data.set_Height(400);
         data.set_Trace_X(data.get_Width());
@@ -99,7 +87,6 @@ export function Game() {
         window.innerWidth > 576 &&
         window.innerWidth <= 800
       ) {
-        console.log("between 576 and 600");
         data.set_Width(600);
         data.set_Height(400);
         data.set_Trace_X(data.get_Width());
@@ -118,7 +105,6 @@ export function Game() {
         data.set_TypeRes(3);
         socket.emit("resize", data);
       } else if (data.get_TypeRes() !== 4 && window.innerWidth <= 576) {
-        console.log("less than 576");
         data.set_Width(450);
         data.set_Height(350);
         data.set_Trace_X(data.get_Width());
@@ -143,28 +129,23 @@ export function Game() {
     setChangeData([data.get_Width(), data.get_Height()]);
   }
   useEffect(() => {
-    console.log("useEffect dependencie Injection Size");
     //NOTE - Declare Variable "canvas" and Assign Reference from JSX
     const canvas: any = canvasRef.current;
-    if (canvas !== undefined) {
-      const canvasTwo: any = canvasUser.current;
 
-      //NOTE - To get the canvas' 2D rendering context
+    //NOTE - To get the canvas' 2D rendering context
+    if (canvas !== undefined) {
       const context = canvas.getContext("2d");
-      const contextTwo = canvasTwo.getContext("2d");
 
       drawGame(context, data);
-      drawUsers(contextTwo, data);
     }
   }, [changeData]);
 
   useEffect(() => {
-    console.log("useEffect run one time about ressize");
     window.addEventListener("resize", responseGame);
   }, []);
 
   useEffect(() => {
-    console.log("useEffect dependencie Injection gameState");
+    
     //NOTE - Declare Variable "canvas" and Assign Reference from JSX
     const canvas: any = canvasRef.current;
     if (canvas !== undefined) {
@@ -206,30 +187,6 @@ export function Game() {
   }, [gameState]);
 
   useEffect(() => {
-    console.log("useEffect dependency userState");
-    const canvas: any = canvasUser.current;
-    if (canvas !== undefined) {
-      const contextData = canvas.getContext("2d");
-
-      data.set_UserOne(userState.infoUser.userOne);
-      data.set_UserTwo(userState.infoUser.userTwo);
-
-      //NOTE - Display Users
-      drawUsers(contextData, data);
-
-      socket.on("userState", (newState: any) => {
-        console.log(newState);
-        setUserState(newState);
-      });
-
-      return () => {
-        socket.off("userState");
-      };
-    }
-  }, [userState]);
-
-  useEffect(() => {
-    console.log("useEffect run one time about keys and load");
     //NOTE - the document is undefined. I should be able to use it inside useEffect
     document.addEventListener("keydown", (e) => {
       if (e.code === "ArrowUp") {
@@ -270,12 +227,6 @@ export function Game() {
             width={data.get_Width()}
             height={data.get_Height()}
             ref={canvasRef}
-          ></canvas>
-          <canvas
-            className={style.myCanvas}
-            width={data.get_Width()}
-            height={data.get_CanvasUserH()}
-            ref={canvasUser}
           ></canvas>
         </div>
       )}
