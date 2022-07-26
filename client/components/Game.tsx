@@ -200,21 +200,17 @@ export function Game(props: GameProps) {
           ></canvas>
           <div className={style.users}>
             <div>
-              {/* <Image
+              <img
                 src={data.get_userOne().avatar}
                 alt="Picture of the author"
-                width={500}
-                height={500}
-              /> */}
+              />
               {data.get_userOne().username}
             </div>
             <div>
-              {/* <Image
+              <img
                 src={data.get_userTwo().avatar}
                 alt="Picture of the author"
-                width={500}
-                height={500}
-              /> */}
+              />
               {data.get_userTwo().username}
             </div>
           </div>

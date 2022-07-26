@@ -119,6 +119,7 @@ export class GameGateway
     this.logger.log('Join Match ' + `${client.id} `);
 
     const user: any = this.jwtService.decode(payload.access_token);
+    console.log(user);
 
     //NOTE - Check If the same client not add in Set of socket
     if (this.socketArr.has(client)) {

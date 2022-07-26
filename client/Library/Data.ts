@@ -80,8 +80,8 @@ export class Data {
     this.trace_Y = 0;
     this.trace_Width = 2;
     this.trace_Height = 10;
-    this.userOne = {username: "", avatar: ""};
-    this.userTwo = {username: "", avatar: ""};
+    this.userOne = { username: "", avatar: "" };
+    this.userTwo = { username: "", avatar: "" };
   }
 
   public get_userOne(): UserInGame {
@@ -90,6 +90,7 @@ export class Data {
 
   public set_userOne(userOne: UserInGame): void {
     this.userOne = userOne;
+    this.userOne.avatar = "http://localhost:5000/images.png";
   }
 
   public get_userTwo(): UserInGame {
@@ -98,6 +99,7 @@ export class Data {
 
   public set_userTwo(userTwo: UserInGame): void {
     this.userTwo = userTwo;
+    this.userTwo.avatar = "http://localhost:5000/images.png";
   }
 
   public get_CanvasUserH(): number {
