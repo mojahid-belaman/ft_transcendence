@@ -9,7 +9,12 @@ export enum TypeRes {
   "LARGE",
   "MEDIUM",
   "SMALL",
-  "VERYSMALL"
+  "VERYSMALL",
+}
+
+export interface UserInGame {
+  username: string;
+  avatar: string;
 }
 
 export class Data {
@@ -46,6 +51,8 @@ export class Data {
   //NOTE - Details Canvas users
   private watchers: number;
   private cnvasUserHeight: number;
+  private userOne: UserInGame;
+  private userTwo: UserInGame;
 
   constructor(width: number, height: number) {
     this.cWidth = width;
@@ -73,6 +80,24 @@ export class Data {
     this.trace_Y = 0;
     this.trace_Width = 2;
     this.trace_Height = 10;
+    this.userOne = {username: "", avatar: ""};
+    this.userTwo = {username: "", avatar: ""};
+  }
+
+  public get_userOne(): UserInGame {
+    return this.userOne;
+  }
+
+  public set_userOne(userOne: UserInGame): void {
+    this.userOne = userOne;
+  }
+
+  public get_userTwo(): UserInGame {
+    return this.userTwo;
+  }
+
+  public set_userTwo(userTwo: UserInGame): void {
+    this.userTwo = userTwo;
   }
 
   public get_CanvasUserH(): number {

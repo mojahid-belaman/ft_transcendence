@@ -13,6 +13,12 @@
   height: 98vh;
 }
 
+.container h1 {
+  color: #fff;
+  font-family: "Press Start 2P", cursive;
+  letter-spacing: 10px;
+}
+
 .container .info {
   color: #fff;
   font-family: "Press Start 2P", cursive;
@@ -20,4 +26,12 @@
 
 .container .myCanvas {
   margin-bottom: 20px;
+}
+
+.container .users {
+  color: #fff;
+  display: flex;
+  justify-content: space-around;
+  width: 50%;
+  font-family: "Press Start 2P", cursive;
 }

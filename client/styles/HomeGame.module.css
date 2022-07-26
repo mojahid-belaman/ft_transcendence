@@ -9,17 +9,23 @@
 
 .game {
   flex-basis: 50%;
+  display: flex;
+  justify-content: center;
 }
 
 .game img {
-  width: 79%;
+  width: 80%;
 }
 .about {
+  display: flex;
+  align-items: center;
+  text-align: center;
   background-color: #000;
   flex-basis: 50%;
+  height: 100vh;
 }
 .about h1 {
-  font-size: 5vw;
+  font-size: 4vw;
   font-family: "Press Start 2P", cursive;
 }
 .about h1 img {
@@ -42,18 +48,6 @@
     transform: translateY(-90px);
   }
 }
-.about .title {
-  display: inline-block;
-  background-color: #fff;
-  color: #000;
-  border-radius: 8px;
-  padding: 0 5px 0 5px;
-  font-family: "Press Start 2P", cursive;
-}
-.about .title:hover {
-  background-color: #000;
-  color: #fff;
-}
 .about .emoji {
   font-size: 40px;
 }
@@ -62,7 +56,7 @@
   font-family: "Press Start 2P", cursive;
   font-size: 20px;
 }
-.about .centerbtn {
+.about .btn {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -71,12 +65,12 @@
 .about .btnObs {
   position: relative;
   top: 0;
-  width: 15vw;
+  width: 12vw;
   cursor: pointer;
   text-decoration: none !important;
   outline: none !important;
   font-family: "Press Start 2P", cursive;
-  font-size: 2vw;
+  font-size: 1vw;
   line-height: 1.5em;
   letter-spacing: 0.1em;
   text-shadow: 2px 2px 1px #348628, -2px 2px 1px #348628, 2px -2px 1px #348628,

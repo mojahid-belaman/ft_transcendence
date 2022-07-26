@@ -128,55 +128,57 @@ export class GameGateway
     //NOTE - Add Client Socket In Set
     this.socketArr.add(client);
 
-    if (payload.type === 'default') {
-      //NOTE - Add User In Array
-      this.userArrDef.push(user);
-      console.log(this.userArrDef);
+    //NOTE - Add User In Array
+    this.userArrDef.push(user);
 
-      //NOTE - Check if Set Of Socket (i means player) to stock is 2
-      if (this.userArrDef.length > 1) {
-        const itSock = this.socketArr.values();
-        const [first, second] = this.userArrDef;
+    //NOTE - Check if Set Of Socket (i means player) to stock is 2
+    const itSock = this.socketArr.values();
+    const [first, second] = this.userArrDef;
 
-        if (first.id === second.id) {
-          this.userArrDef.splice(this.userArrDef.indexOf(first), 1);
-          return;
-        }
-
-        this.playerOne = new Player(
-          itSock.next().value,
-          true,
-          first.id,
-          first.username,
-        );
-        this.playerTwo = new Player(
-          itSock.next().value,
-          false,
-          second.id,
-          second.username,
-        );
-
-        //NOTE - Create new instance of game and game is start in constructor
-        const newGame = new Game(
-          this.playerOne,
-          this.playerTwo,
-          this.gameService,
-          payload.type,
-          this.sendGames,
-          this.server,
-        );
-
-        GameGateway.game.push(newGame);
-        this.sendGames(this.server);
-
-        this.socketArr.delete(newGame.get_PlayerOne().getSocket());
-        this.socketArr.delete(newGame.get_PlayerTwo().getSocket());
-        this.userArrDef.splice(0, this.userArrDef.length);
-
-        console.log('Game length: ' + GameGateway.game.length);
-        console.log('Socket size: ' + this.socketArr.size);
-        console.log('user size: ' + this.userArrDef.length);
+    if (this.userArrDef.length > 1) {
+      if (first.id === second.id) {
+        this.userArrDef.splice(this.userArrDef.indexOf(first), 1);
+        return;
       }
+
+      this.server.emit('Playing', {
+        playing: true,
+        first: { username: first.username, avatar: first.avatar },
+        second: { username: second.username, avatar: second.avatar },
+      });
+      this.playerOne = new Player(
+        itSock.next().value,
+        true,
+        first.id,
+        first.username,
+      );
+      this.playerTwo = new Player(
+        itSock.next().value,
+        false,
+        second.id,
+        second.username,
+      );
+
+      //NOTE - Create new instance of game and game is start in constructor
+      const newGame = new Game(
+        this.playerOne,
+        this.playerTwo,
+        this.gameService,
+        payload.type,
+        this.sendGames,
+        this.server,
+      );
+
+      GameGateway.game.push(newGame);
+      this.sendGames(this.server);
+
+      this.socketArr.delete(newGame.get_PlayerOne().getSocket());
+      this.socketArr.delete(newGame.get_PlayerTwo().getSocket());
+      this.userArrDef.splice(0, this.userArrDef.length);
+
+      console.log('Game length: ' + GameGateway.game.length);
+      console.log('Socket size: ' + this.socketArr.size);
+      console.log('user size: ' + this.userArrDef.length);
     }
   }
   @SubscribeMessage('send_games')

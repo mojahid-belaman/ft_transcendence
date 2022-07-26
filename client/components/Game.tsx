@@ -1,18 +1,23 @@
 import React, { useRef, useEffect, useState } from "react";
 import { GameOver } from "./GameOver";
-import { Data, StateGame } from "../Library/Data";
+import { Data, StateGame, UserInGame } from "../Library/Data";
 import { drawGame } from "../Library/DrawShapes";
 import { GameObj } from "../Library/gameObject";
 import style from "../styles/Game.module.css";
 import socket from "../Library/Socket";
 import { Loading } from "@nextui-org/react";
+import Image from "next/image";
 
-//NOTE - Initiale data and Information about all Game like (ball, paddle, score, width, height, canvas)
-let data = new Data(1200, 600);
+interface GameProps {
+  data: Data;
+  currentState?: StateGame;
+  setCurrentState: (state: StateGame) => void;
+}
 
-export function Game() {
+export function Game(props: GameProps) {
+  const { data, currentState, setCurrentState } = props;
+
   const canvasRef: any = useRef();
-
   const initialState: GameObj = {
     ball: {
       ball_x: data.get_Ball_X(),
@@ -31,17 +36,13 @@ export function Game() {
   };
 
   const [gameState, setGameState] = useState(initialState);
-  const [currentState, setCurrentState] = useState(data.get_State());
+
   const [changeData, setChangeData] = useState([
     data.get_Width(),
     data.get_Height(),
   ]);
 
   function responseGame() {
-    if (
-      data.get_State() === StateGame.WAIT ||
-      data.get_State() === StateGame.OVER
-    ) {
       if (data.get_TypeRes() !== 1 && window.innerWidth > 1200) {
         data.set_Width(1200);
         data.set_Height(600);
@@ -56,8 +57,6 @@ export function Game() {
         );
         data.set_Ball_X(data.get_Width() / 2);
         data.set_Ball_Y(data.get_Height() / 2);
-        data.set_BallT_X(data.get_Width() / 2);
-        data.set_BallT_Y(data.get_Height() / 2);
         data.set_TypeRes(1);
         socket.emit("resize", data);
       } else if (
@@ -65,8 +64,8 @@ export function Game() {
         window.innerWidth > 800 &&
         window.innerWidth <= 1200
       ) {
-        data.set_Width(800);
-        data.set_Height(400);
+        data.set_Width(900);
+        data.set_Height(450);
         data.set_Trace_X(data.get_Width());
         data.set_Paddle_Height(data.get_Height());
         data.set_Right_Pddle_X(data.get_Width());
@@ -76,37 +75,13 @@ export function Game() {
         data.set_PddleRight_Y(
           data.get_Height() / 2 - data.get_Paddle_Height() / 2
         );
-        data.set_Ball_X(data.get_Width() / 2);
-        data.set_Ball_Y(data.get_Height() / 2);
-        data.set_BallT_X(data.get_Width() / 2);
-        data.set_BallT_Y(data.get_Height() / 2);
+        data.set_Ball_X(data.get_Width() / 2 / 1.5);
+        data.set_Ball_Y(data.get_Height() / 2 / 1.5);
         data.set_TypeRes(2);
-        socket.emit("resize", data);
-      } else if (
-        data.get_TypeRes() !== 3 &&
-        window.innerWidth > 576 &&
-        window.innerWidth <= 800
-      ) {
-        data.set_Width(600);
-        data.set_Height(400);
-        data.set_Trace_X(data.get_Width());
-        data.set_Paddle_Height(data.get_Height());
-        data.set_Right_Pddle_X(data.get_Width());
-        data.set_PddleLeft_Y(
-          data.get_Height() / 2 - data.get_Paddle_Height() / 2
-        );
-        data.set_PddleRight_Y(
-          data.get_Height() / 2 - data.get_Paddle_Height() / 2
-        );
-        data.set_Ball_X(data.get_Width() / 2);
-        data.set_Ball_Y(data.get_Height() / 2);
-        data.set_BallT_X(data.get_Width() / 2);
-        data.set_BallT_Y(data.get_Height() / 2);
-        data.set_TypeRes(3);
-        socket.emit("resize", data);
-      } else if (data.get_TypeRes() !== 4 && window.innerWidth <= 576) {
+        // socket.emit("resize", data);
+      } else if (data.get_TypeRes() !== 4 && window.innerWidth <= 900) {
         data.set_Width(450);
-        data.set_Height(350);
+        data.set_Height(225);
         data.set_Trace_X(data.get_Width());
         data.set_Paddle_Height(data.get_Height());
         data.set_Right_Pddle_X(data.get_Width());
@@ -118,13 +93,8 @@ export function Game() {
         );
         data.set_Ball_X(data.get_Width() / 2);
         data.set_Ball_Y(data.get_Height() / 2);
-        data.set_BallT_X(data.get_Width() / 2);
-        data.set_BallT_Y(data.get_Height() / 2);
         data.set_TypeRes(0);
-        socket.emit("resize", data);
-      }
-    } else if (data.get_State() === StateGame.PLAY) {
-      console.log("PLAY");
+        // socket.emit("resize", data);
     }
     setChangeData([data.get_Width(), data.get_Height()]);
   }
@@ -145,7 +115,6 @@ export function Game() {
   }, []);
 
   useEffect(() => {
-    
     //NOTE - Declare Variable "canvas" and Assign Reference from JSX
     const canvas: any = canvasRef.current;
     if (canvas !== undefined) {
@@ -184,7 +153,7 @@ export function Game() {
     return () => {
       socket.off("gameState");
     };
-  }, [gameState]);
+  }, [gameState, currentState]);
 
   useEffect(() => {
     //NOTE - the document is undefined. I should be able to use it inside useEffect
@@ -210,9 +179,10 @@ export function Game() {
     <>
       {currentState === StateGame.WAIT ? (
         <div className={style.container}>
+          <h1>LOADING</h1>
           <Loading
             className={style.load}
-            color="warning"
+            color="white"
             type="spinner"
             size="xl"
           />
@@ -228,6 +198,26 @@ export function Game() {
             height={data.get_Height()}
             ref={canvasRef}
           ></canvas>
+          <div className={style.users}>
+            <div>
+              {/* <Image
+                src={data.get_userOne().avatar}
+                alt="Picture of the author"
+                width={500}
+                height={500}
+              /> */}
+              {data.get_userOne().username}
+            </div>
+            <div>
+              {/* <Image
+                src={data.get_userTwo().avatar}
+                alt="Picture of the author"
+                width={500}
+                height={500}
+              /> */}
+              {data.get_userTwo().username}
+            </div>
+          </div>
         </div>
       )}
       {currentState === StateGame.OVER && <GameOver curData={data} />}
