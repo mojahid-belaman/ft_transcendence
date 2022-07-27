@@ -24,14 +24,33 @@
   font-family: "Press Start 2P", cursive;
 }
 
+@media screen and (min-width: 450px) {
+  .container .info {
+    font-size: 15px;
+  }
+}
+
 .container .myCanvas {
   margin-bottom: 20px;
 }
 
 .container .users {
   color: #fff;
+  width: 50vw;
+  font-family: "Press Start 2P", cursive;
   display: flex;
   justify-content: space-around;
-  width: 50%;
-  font-family: "Press Start 2P", cursive;
+}
+
+.container .users div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container .users img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin-right: 15px;
 }

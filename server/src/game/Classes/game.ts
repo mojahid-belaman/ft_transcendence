@@ -70,8 +70,8 @@ export class Game {
 
   public playGame(player_One: Player, player_Two: Player): void {
     this._ball.moveBall();
-    this._ball.direction_Ball(player_Two);
     this._ball.direction_Ball(player_One);
+    this._ball.direction_Ball(player_Two);
     this._ball.update_score(player_One, player_Two);
     if (this.gameStateFunc() === gameSate.OVER) {
       this.stopGame();

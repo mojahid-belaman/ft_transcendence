@@ -204,7 +204,7 @@ export function Game(props: GameProps) {
                 src={data.get_userOne().avatar}
                 alt="Picture of the author"
               />
-              {data.get_userOne().username}
+              <span>{data.get_userOne().username}</span>
             </div>
             <div>
               <img

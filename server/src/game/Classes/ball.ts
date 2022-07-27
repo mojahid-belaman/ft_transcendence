@@ -23,7 +23,7 @@ export class Ball {
 
   public moveBall(): void {
     this._ball_X += this._ball_DX;
-    this._ball_Y += this._ball_DY;
+    // this._ball_Y += this._ball_DY;
 
     if (
       this._ball_Y + GameVariable._ball_Radius >
@@ -55,11 +55,11 @@ export class Ball {
     );
   }
 
-  public direction_Ball(player_One: Player): void {
-    if (this.detect_Collision(player_One)) {
+  public direction_Ball(player: Player): void {
+    if (this.detect_Collision(player)) {
       this._collidePoint =
         this._ball_Y -
-        (player_One.getPaddle().get_PaddleY() +
+        (player.getPaddle().get_PaddleY() +
           GameVariable._paddle_Height / 2);
 
       this._collidePoint =
@@ -75,7 +75,7 @@ export class Ball {
 
       GameVariable._ball_Speed += 1;
     }
-  }
+  }ß
 
   public update_score(player_One: Player, player_Two: Player): void {
     if (this._ball_X - GameVariable._ball_Radius < 0) {
