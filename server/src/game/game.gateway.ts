@@ -30,7 +30,7 @@ export class GameGateway
   private userArrDef: any[] = [];
   private userArrObs: any[] = [];
 
-  @WebSocketServer() server;
+  @WebSocketServer() server: { emit: (arg0: string, arg1: { playing: boolean; first: { username: any; avatar: any; }; second: { username: any; avatar: any; }; }) => void; };
 
   @Inject()
   private jwtService: JwtService;
@@ -66,14 +66,14 @@ export class GameGateway
     GameGateway.game.splice(GameGateway.game.indexOf(gameFound), 1);
   }
 
-  @SubscribeMessage('resize')
-  hundle_responsiveGame(client: Socket, payload: any) {
-    GameVariable._canvas_Width = payload.cWidth;
-    GameVariable._canvas_Height = payload.cHeight;
-    GameVariable._paddle_Height = GameVariable._canvas_Height / 6;
-    GameVariable._right_Paddle_X =
-      GameVariable._canvas_Width - GameVariable._paddle_Width;
-  }
+  // @SubscribeMessage('resize')
+  // hundle_responsiveGame(client: Socket, payload: any) {
+  //   GameVariable._canvas_Width = payload.cWidth;
+  //   GameVariable._canvas_Height = payload.cHeight;
+  //   GameVariable._paddle_Height = GameVariable._canvas_Height / 6;
+  //   GameVariable._right_Paddle_X =
+  //     GameVariable._canvas_Width - GameVariable._paddle_Width;
+  // }
 
   @SubscribeMessage('upPaddle')
   hundle_up_paddle(client: Socket, payload: string) {
@@ -165,7 +165,6 @@ export class GameGateway
         this.playerOne,
         this.playerTwo,
         this.gameService,
-        payload.type,
         this.sendGames,
         this.server,
       );

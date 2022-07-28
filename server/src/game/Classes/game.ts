@@ -12,21 +12,18 @@ export class Game {
   private _player_One: Player;
   private _player_Two: Player;
   private _ball: Ball;
-  private _ballTwo?: Ball;
   private _myInterval: NodeJS.Timer;
   private _gameService: GameService;
-  private _typeGame: string;
   private _watchers: Socket[] = [];
   private sendGames: Function;
-  private server: any;
+  private server: { emit: (arg0: string, arg1: { playing: boolean; first: { username: any; avatar: any; }; second: { username: any; avatar: any; }; }) => void; };
 
   constructor(
     player_One: Player,
     player_Two: Player,
     gameService: GameService,
-    typeGame: string,
     sendGames: Function,
-    server: any,
+    server: { emit: (arg0: string, arg1: { playing: boolean; first: { username: any; avatar: any; }; second: { username: any; avatar: any; }; }) => void; },
   ) {
     this._id = uuid();
     this.server = server;
@@ -35,7 +32,6 @@ export class Game {
     this._player_Two = player_Two;
     this._ball = new Ball(this.sendGames, this.server);
     this._gameService = gameService;
-    this._typeGame = typeGame;
     this._myInterval = setInterval(() => {
       this.playGame(this._player_One, this._player_Two);
     }, 1000 / 60);
@@ -69,10 +65,14 @@ export class Game {
   }
 
   public playGame(player_One: Player, player_Two: Player): void {
-    this._ball.moveBall();
-    this._ball.direction_Ball(player_One);
-    this._ball.direction_Ball(player_Two);
+    if ( this._ball.detect_Collision(player_One.getPaddle())) {
+      this._ball.handleCollision(player_One);
+    }
+    if ( this._ball.detect_Collision(player_Two.getPaddle())) {
+      this._ball.handleCollision(player_Two);
+    }
     this._ball.update_score(player_One, player_Two);
+    this._ball.moveBall();
     if (this.gameStateFunc() === gameSate.OVER) {
       this.stopGame();
     }
@@ -80,10 +80,9 @@ export class Game {
       ball: {
         ball_x: this._ball.getBall_X(),
         ball_y: this._ball.getBall_Y(),
-        ballT_x: this._ballTwo?.getBall_X(),
-        ballT_y: this._ballTwo?.getBall_Y(),
       },
       paddle: {
+        
         paddle_left: this._player_One.getPaddle().get_PaddleY(),
         paddle_right: this._player_Two.getPaddle().get_PaddleY(),
       },
@@ -98,8 +97,6 @@ export class Game {
       ball: {
         ball_x: this._ball.getBall_X(),
         ball_y: this._ball.getBall_Y(),
-        ballT_x: this._ballTwo?.getBall_X(),
-        ballT_y: this._ballTwo?.getBall_Y(),
       },
       paddle: {
         paddle_left: this._player_One.getPaddle().get_PaddleY(),
@@ -117,8 +114,6 @@ export class Game {
         ball: {
           ball_x: this._ball.getBall_X(),
           ball_y: this._ball.getBall_Y(),
-          ballT_x: this._ballTwo?.getBall_X(),
-          ballT_y: this._ballTwo?.getBall_Y(),
         },
         paddle: {
           paddle_left: this._player_One.getPaddle().get_PaddleY(),

@@ -33,8 +33,6 @@ export class Data {
   private ballRadius: number;
   private ball_X: number;
   private ball_Y: number;
-  private ballT_X: number;
-  private ballT_Y: number;
   //NOTE - Details Score
   private score_One: number;
   private score_Two: number;
@@ -68,8 +66,6 @@ export class Data {
     this.ballRadius = 10;
     this.ball_X = this.cWidth / 2;
     this.ball_Y = this.cHeight / 2;
-    this.ballT_X = this.cWidth / 2;
-    this.ballT_Y = this.cHeight / 2;
     this.score_One = 0;
     this.score_Two = 0;
     this.watchers = 0;
@@ -162,18 +158,6 @@ export class Data {
   public set_Ball_Y(y: number): void {
     this.ball_Y = y;
   }
-  public get_BallT_X(): number {
-    return this.ballT_X;
-  }
-  public set_BallT_X(x: number): void {
-    this.ballT_X = x;
-  }
-  public get_BallT_Y(): number {
-    return this.ballT_Y;
-  }
-  public set_BallT_Y(y: number): void {
-    this.ballT_Y = y;
-  }
   public get_Score_One(): number {
     return this.score_One;
   }
@@ -224,5 +208,11 @@ export class Data {
   }
   public get_Watchers(): number {
     return this.watchers;
+  }
+  public set_ball_Radius(radius: number): void {
+    this.ballRadius = radius;
+  }
+  public set_Paddle_width(width: number): void {
+    this.paddleWidth = width;
   }
 }

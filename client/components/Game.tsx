@@ -6,7 +6,6 @@ import { GameObj } from "../Library/gameObject";
 import style from "../styles/Game.module.css";
 import socket from "../Library/Socket";
 import { Loading } from "@nextui-org/react";
-import Image from "next/image";
 
 interface GameProps {
   data: Data;
@@ -48,17 +47,14 @@ export function Game(props: GameProps) {
         data.set_Height(600);
         data.set_Trace_X(data.get_Width());
         data.set_Paddle_Height(data.get_Height());
+        data.set_Paddle_width(10);
         data.set_Right_Pddle_X(data.get_Width());
-        data.set_PddleLeft_Y(
-          data.get_Height() / 2 - data.get_Paddle_Height() / 2
-        );
-        data.set_PddleRight_Y(
-          data.get_Height() / 2 - data.get_Paddle_Height() / 2
-        );
+        data.set_PddleLeft_Y(data.get_Height() / 2 - data.get_Paddle_Height() / 2);
+        data.set_PddleRight_Y(data.get_Height() / 2 - data.get_Paddle_Height() / 2);
         data.set_Ball_X(data.get_Width() / 2);
         data.set_Ball_Y(data.get_Height() / 2);
+        data.set_ball_Radius(10);
         data.set_TypeRes(1);
-        socket.emit("resize", data);
       } else if (
         data.get_TypeRes() !== 2 &&
         window.innerWidth > 800 &&
@@ -68,33 +64,27 @@ export function Game(props: GameProps) {
         data.set_Height(450);
         data.set_Trace_X(data.get_Width());
         data.set_Paddle_Height(data.get_Height());
+        data.set_Paddle_width(8);
         data.set_Right_Pddle_X(data.get_Width());
-        data.set_PddleLeft_Y(
-          data.get_Height() / 2 - data.get_Paddle_Height() / 2
-        );
-        data.set_PddleRight_Y(
-          data.get_Height() / 2 - data.get_Paddle_Height() / 2
-        );
-        data.set_Ball_X(data.get_Width() / 2 / 1.5);
-        data.set_Ball_Y(data.get_Height() / 2 / 1.5);
+        data.set_PddleLeft_Y(data.get_Height() / 2 - data.get_Paddle_Height() / 2);
+        data.set_PddleRight_Y(data.get_Height() / 2 - data.get_Paddle_Height() / 2);
+        data.set_Ball_X(data.get_Width() / 2);
+        data.set_Ball_Y(data.get_Height() / 2);
+        data.set_ball_Radius(8);
         data.set_TypeRes(2);
-        // socket.emit("resize", data);
       } else if (data.get_TypeRes() !== 4 && window.innerWidth <= 900) {
         data.set_Width(450);
         data.set_Height(225);
         data.set_Trace_X(data.get_Width());
         data.set_Paddle_Height(data.get_Height());
+        data.set_Paddle_width(6);
         data.set_Right_Pddle_X(data.get_Width());
-        data.set_PddleLeft_Y(
-          data.get_Height() / 2 - data.get_Paddle_Height() / 2
-        );
-        data.set_PddleRight_Y(
-          data.get_Height() / 2 - data.get_Paddle_Height() / 2
-        );
+        data.set_PddleLeft_Y(data.get_Height() / 2 - data.get_Paddle_Height() / 2);
+        data.set_PddleRight_Y(data.get_Height() / 2 - data.get_Paddle_Height() / 2);
         data.set_Ball_X(data.get_Width() / 2);
         data.set_Ball_Y(data.get_Height() / 2);
+        data.set_ball_Radius(6);
         data.set_TypeRes(0);
-        // socket.emit("resize", data);
     }
     setChangeData([data.get_Width(), data.get_Height()]);
   }
@@ -122,12 +112,49 @@ export function Game(props: GameProps) {
       const context = canvas.getContext("2d");
 
       //NOTE - Movement Ball
-      data.set_Ball_X(gameState.ball.ball_x);
-      data.set_Ball_Y(gameState.ball.ball_y);
+      if (data.get_Width() <= 450)
+      {
+        // new_x 😦 old_x / old_width ) * new_width;
+        const new_x = (gameState.ball.ball_x / 1200 ) * 450;
+        const new_y = (gameState.ball.ball_y / 600 ) * 225;
+        data.set_Ball_X(new_x);
+        data.set_Ball_Y(new_y);
+        data.set_ball_Radius(6);
+        data.set_Paddle_width(6);
+        const new_paddle_leftY = (225 * gameState.paddle.paddle_left / 600);
+        const new_paddle_rightY = (225 * gameState.paddle.paddle_right / 600);
+        data.set_PddleLeft_Y(new_paddle_leftY);
+        data.set_PddleRight_Y(new_paddle_rightY);
+
+      }
+      else if (data.get_Width() <= 900)
+      {
+        const new_x = (gameState.ball.ball_x / 1200 ) * 900;
+        const new_y = (gameState.ball.ball_y / 600 ) * 450;
+        data.set_Ball_X(new_x);
+        data.set_Ball_Y(new_y);
+        data.set_ball_Radius(8);
+        data.set_Paddle_width(8);
+        const new_paddle_leftY = (450 * gameState.paddle.paddle_left / 600);
+        const new_paddle_rightY = (450 * gameState.paddle.paddle_right / 600);
+        data.set_PddleLeft_Y(new_paddle_leftY);
+        data.set_PddleRight_Y(new_paddle_rightY);
+        
+      }
+      else
+      {
+        data.set_Ball_X(gameState.ball.ball_x);
+        data.set_Ball_Y(gameState.ball.ball_y);
+        data.set_ball_Radius(10);
+        data.set_Paddle_width(10);
+        data.set_PddleLeft_Y(gameState.paddle.paddle_left);
+        data.set_PddleRight_Y(gameState.paddle.paddle_right);
+      }
 
       //NOTE - Movement Paddles
-      data.set_PddleLeft_Y(gameState.paddle.paddle_left);
-      data.set_PddleRight_Y(gameState.paddle.paddle_right);
+      
+      // data.set_PddleLeft_Y(gameState.paddle.paddle_left);
+      // data.set_PddleRight_Y(gameState.paddle.paddle_right);
 
       //NOTE - Update Scores
       data.set_Score_One(gameState.score.playerOne_Score);
