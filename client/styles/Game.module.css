@@ -24,12 +24,11 @@
   font-family: "Press Start 2P", cursive;
 }
 
-@media screen and (min-width: 450px) {
+@media screen and (max-width: 768px) {
   .container .info {
-    font-size: 15px;
+    font-size: 50%;
   }
 }
-
 .container .myCanvas {
   margin-bottom: 20px;
 }

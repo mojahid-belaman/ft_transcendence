@@ -69,24 +69,6 @@ export function drawGame(context: object, data: Data) {
   );
 }
 
-export function drawUsers(context: object, data: Data) {
-  drawRect(0, 0, data.get_Width(), data.get_CanvasUserH(), "#FFF", context);
-  drawTextComplet(
-    "WATCHERS",
-    data.get_Width() / 2 - 80,
-    data.get_CanvasUserH() / 4,
-    "#000",
-    context
-  );
-  drawTextOne(
-    data.get_Watchers(),
-    data.get_Width() / 2 - 10,
-    data.get_CanvasUserH(),
-    "#000",
-    context
-  );
-}
-
 function drawRect(
   x: number,
   y: number,

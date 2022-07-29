@@ -22,6 +22,7 @@
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
+    letter-spacing: 10px;
 }
 
 @media (max-width: 1200px) {
@@ -39,7 +40,11 @@
         font-size: 3rem;
     }
 }
-
+@media (max-width: 700px) {
+    .splashScreen h2 {
+        font-size: 2.5rem;
+    }
+}
 
 .loser {
     font-size: 4rem;
@@ -78,12 +83,16 @@
         font-size: 4rem;
     }
 }
-@media (max-width: 600px) {
+@media (max-width: 700px) {
     .loser h2 {
-        font-size: 3rem;
+        font-size: 2.5rem;
     }
 }
-
+@media (max-width: 515px) {
+    .loser h2 {
+        font-size: 1.5rem;
+    }
+}
 .win {
     font-size: 4rem;
     font-family: 'Press Start 2P', cursive;
@@ -121,8 +130,32 @@
         font-size: 4rem;
     }
 }
-@media (max-width: 600px) {
+@media (max-width: 700px) {
     .win h2 {
-        font-size: 3rem;
+        font-size: 2.5rem;
+    }
+}
+@media (max-width: 515px) {
+    .win h2 {
+        font-size: 1.5rem;
+    }
+}@media (max-width: 1200px) {
+    .win h2 {
+        font-size: 5rem;
+    }
+}
+@media (max-width: 800px) {
+    .win h2 {
+        font-size: 4rem;
+    }
+}
+@media (max-width: 700px) {
+    .win h2 {
+        font-size: 2.5rem;
+    }
+}
+@media (max-width: 515px) {
+    .win h2 {
+        font-size: 1.5rem;
     }
 }

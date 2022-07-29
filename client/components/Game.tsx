@@ -229,14 +229,14 @@ export function Game(props: GameProps) {
             <div>
               <img
                 src={data.get_userOne().avatar}
-                alt="Picture of the author"
+                alt="User_One"
               />
               <span>{data.get_userOne().username}</span>
             </div>
             <div>
               <img
                 src={data.get_userTwo().avatar}
-                alt="Picture of the author"
+                alt="User_Two"
               />
               {data.get_userTwo().username}
             </div>

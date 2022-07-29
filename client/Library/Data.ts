@@ -48,14 +48,12 @@ export class Data {
   private typeRes: TypeRes;
   //NOTE - Details Canvas users
   private watchers: number;
-  private cnvasUserHeight: number;
   private userOne: UserInGame;
   private userTwo: UserInGame;
 
   constructor(width: number, height: number) {
     this.cWidth = width;
     this.cHeight = height;
-    this.cnvasUserHeight = 100;
     this.paddleHeight = this.cHeight / 6;
     this.paddleWidth = 10;
     this.leftPaddle_X = 0;
@@ -96,10 +94,6 @@ export class Data {
   public set_userTwo(userTwo: UserInGame): void {
     this.userTwo = userTwo;
     this.userTwo.avatar = "http://localhost:5000/images.png";
-  }
-
-  public get_CanvasUserH(): number {
-    return this.cnvasUserHeight;
   }
   public get_Width(): number {
     return this.cWidth;
