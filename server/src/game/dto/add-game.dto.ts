@@ -1,7 +1,10 @@
-import { IsNotEmpty, IsNumber, IsString } from "class-validator";
+import { IsNotEmpty, IsNumber, IsString, IsUUID } from "class-validator";
 
 export class  AddGameDto {
 
+    @IsUUID()
+    @IsNotEmpty()
+    id: string;
     @IsNotEmpty()
     @IsString()
     firstPlayer: string;
