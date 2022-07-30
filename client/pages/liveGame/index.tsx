@@ -1,13 +1,14 @@
 import ParticleBackground from "../../components/ParticleBackground";
 import LiveGame from "../../components/LiveGame";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import styles from "../../styles/LiveHome.module.css";
+import Link from "next/link";
+import socket from "../../Library/Socket";
 
 export function LiveHome(props: any) {
   const [games, setGames] = useState([]);
   useEffect(() => {
-    props.socket.on("receive_games", (data: any) => {
+    socket.on("receive_games", (data: any) => {
       const tmp = JSON.parse(data);
       if (tmp.hasOwnProperty("games")) {
         // console.log(tmp);
@@ -15,9 +16,9 @@ export function LiveHome(props: any) {
       }
     });
     return () => {
-      props.socket.off("receive_games");
+      socket.off("receive_games");
     };
-  }, [props.socket]);
+  }, [socket]);
 
   return (
     <>
@@ -33,8 +34,10 @@ export function LiveHome(props: any) {
       )}
       <div className={styles.divBtn}>
         <button className={styles.btn}>
-          <Link to="/game" style={{ color: "#FFF", textDecoration: "none" }}>
-            Play a Game
+          <Link href="/game">
+            <span style={{ color: "#FFF", textDecoration: "none" }}>
+              Play a Game
+            </span>
           </Link>
         </button>
       </div>

@@ -25,14 +25,12 @@ export function Game(props: GameProps) {
     paddle: {
       paddle_left: data.get_PddleLeft_Y(),
       paddle_right: data.get_PddleRight_Y(),
-      paddle_middle: data.get_paddleMiddle_Y(),
     },
     score: {
       playerOne_Score: data.get_Score_One(),
       playerTwo_Score: data.get_Score_Two(),
     },
     currentState: data.get_State(),
-    isMiddle: data.get_isMidlle(),
     isWin: data.get_Winner(),
   };
 

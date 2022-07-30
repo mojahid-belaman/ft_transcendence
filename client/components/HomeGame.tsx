@@ -70,10 +70,10 @@ export function HomeGame() {
               </p>
               <div className={styles.btn}>
                 <button className={styles.btnDef} onClick={gameDefHandler}>
-                  DUAL
+                  PLAY
                 </button>
                 <button className={styles.btnObs} onClick={gameObsHandler}>
-                  TRIPPLE
+                  SETTING
                 </button>
               </div>
             </div>

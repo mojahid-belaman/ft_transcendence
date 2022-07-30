@@ -29,7 +29,6 @@ export class Data {
   private paddleLeft_Y: number;
   private paddleRight_Y: number;
   private paddleMiddle_X: number;
-  private paddleMiddle_Y: number;
   private isMidlle: boolean;
   private borderHeight: number;
   private traceHeight: number;
@@ -65,7 +64,6 @@ export class Data {
     this.paddleLeft_Y = this.cHeight / 2 - this.paddleHeight / 2;
     this.paddleRight_Y = this.cHeight / 2 - this.paddleHeight / 2;
     this.paddleMiddle_X = this.cWidth / 2 - this.paddleWidth / 2;
-    this.paddleMiddle_Y = this.cHeight - this.paddleHeight - this.paddleWidth / 2;
     this.isMidlle = false;
     this.borderHeight = 15;
     this.traceHeight = 15;
@@ -226,17 +224,8 @@ export class Data {
   public set_Paddle_width(width: number): void {
     this.paddleWidth = width;
   }
-  public get_paddleMiddle_Y(): number {
-    return this.paddleMiddle_Y;
-  }
   public get_paddleMiddle_X(): number {
     return this.paddleMiddle_X;
-  }
-  public set_paddleMiddle_X(x: number): void {
-    this.paddleMiddle_X = x;
-  }
-  public set_paddleMiddle_Y(y: number): void {
-    this.paddleMiddle_Y = y;
   }
   public get_isMidlle(): boolean {
     return this.isMidlle;

@@ -8,14 +8,12 @@ export interface GameObj {
     paddle: {
       paddle_left: number,
       paddle_right: number,
-      paddle_middle: number,
     },
     score: {
       playerOne_Score: number,
       playerTwo_Score: number
     },
     currentState: StateGame,
-    isMiddle: boolean,
     isWin: boolean
 }
 

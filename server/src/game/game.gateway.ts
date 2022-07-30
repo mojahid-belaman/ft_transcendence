@@ -9,7 +9,6 @@ import {
   WebSocketServer,
 } from '@nestjs/websockets';
 import { Socket } from 'socket.io';
-import { GameVariable } from './Classes/constant';
 import { Game } from './Classes/game';
 import { gameSate } from './Classes/gameState';
 import { Player } from './Classes/player';
