@@ -25,12 +25,14 @@ export function Game(props: GameProps) {
     paddle: {
       paddle_left: data.get_PddleLeft_Y(),
       paddle_right: data.get_PddleRight_Y(),
+      paddle_middle: data.get_paddleMiddle_Y(),
     },
     score: {
       playerOne_Score: data.get_Score_One(),
       playerTwo_Score: data.get_Score_Two(),
     },
     currentState: data.get_State(),
+    isMiddle: data.get_isMidlle(),
     isWin: data.get_Winner(),
   };
 
@@ -55,6 +57,7 @@ export function Game(props: GameProps) {
         data.set_Ball_Y(data.get_Height() / 2);
         data.set_ball_Radius(10);
         data.set_TypeRes(1);
+        data.set_borderHeight(15);
       } else if (
         data.get_TypeRes() !== 2 &&
         window.innerWidth > 800 &&
@@ -72,6 +75,7 @@ export function Game(props: GameProps) {
         data.set_Ball_Y(data.get_Height() / 2);
         data.set_ball_Radius(8);
         data.set_TypeRes(2);
+        data.set_borderHeight(10);
       } else if (data.get_TypeRes() !== 4 && window.innerWidth <= 900) {
         data.set_Width(450);
         data.set_Height(225);
@@ -85,6 +89,7 @@ export function Game(props: GameProps) {
         data.set_Ball_Y(data.get_Height() / 2);
         data.set_ball_Radius(6);
         data.set_TypeRes(0);
+        data.set_borderHeight(5);
     }
     setChangeData([data.get_Width(), data.get_Height()]);
   }
@@ -121,10 +126,12 @@ export function Game(props: GameProps) {
         data.set_Ball_Y(new_y);
         data.set_ball_Radius(6);
         data.set_Paddle_width(6);
+        //NOTE - Movement Paddles
         const new_paddle_leftY = (225 * gameState.paddle.paddle_left / 600);
         const new_paddle_rightY = (225 * gameState.paddle.paddle_right / 600);
         data.set_PddleLeft_Y(new_paddle_leftY);
         data.set_PddleRight_Y(new_paddle_rightY);
+        data.set_borderHeight(5);
 
       }
       else if (data.get_Width() <= 900)
@@ -135,10 +142,12 @@ export function Game(props: GameProps) {
         data.set_Ball_Y(new_y);
         data.set_ball_Radius(8);
         data.set_Paddle_width(8);
+        //NOTE - Movement Paddles
         const new_paddle_leftY = (450 * gameState.paddle.paddle_left / 600);
         const new_paddle_rightY = (450 * gameState.paddle.paddle_right / 600);
         data.set_PddleLeft_Y(new_paddle_leftY);
         data.set_PddleRight_Y(new_paddle_rightY);
+        data.set_borderHeight(10);
         
       }
       else
@@ -147,14 +156,11 @@ export function Game(props: GameProps) {
         data.set_Ball_Y(gameState.ball.ball_y);
         data.set_ball_Radius(10);
         data.set_Paddle_width(10);
+        //NOTE - Movement Paddles
         data.set_PddleLeft_Y(gameState.paddle.paddle_left);
         data.set_PddleRight_Y(gameState.paddle.paddle_right);
+        data.set_borderHeight(15);
       }
-
-      //NOTE - Movement Paddles
-      
-      // data.set_PddleLeft_Y(gameState.paddle.paddle_left);
-      // data.set_PddleRight_Y(gameState.paddle.paddle_right);
 
       //NOTE - Update Scores
       data.set_Score_One(gameState.score.playerOne_Score);

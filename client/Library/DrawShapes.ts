@@ -39,7 +39,7 @@ export function drawGame(context: object, data: Data) {
     data.get_Trace_Y(),
     data.get_Trace_Width(),
     data.get_Trace_Height(),
-    data.get_borderHeight(),
+    data.get_traceHeight(),
     "#FFF",
     context,
     data.get_Height()
@@ -52,6 +52,16 @@ export function drawGame(context: object, data: Data) {
     "#FFF",
     context
   );
+  // if (data.get_isMidlle()) {
+  //   drawRect(
+  //     data.get_paddleMiddle_X(),
+  //     data.get_paddleMiddle_Y(),
+  //     data.get_Paddle_Width(),
+  //     data.get_Paddle_Height(),
+  //     "#FFF",
+  //     context
+  //   );
+  // }
   drawRect(
     data.get_Right_Pddle_X(),
     data.get_PddleRight_Y(),
