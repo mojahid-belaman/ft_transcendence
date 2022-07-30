@@ -5,8 +5,7 @@ import {
 } from './dto/users.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Users } from './entity/users.entity';
-import { Not, Repository } from 'typeorm';
-import { Socket } from 'socket.io';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class UsersService {
@@ -35,7 +34,7 @@ export class UsersService {
     this.inGameUsers.push(user);
   }
 
-  async getUsers(userId: string): Promise<Users[]> {
+  /* async getUsers(userId: string): Promise<Users[]> {
     return await this.userRepositroy.find({
       where: {id: Not(userId)}
     })
@@ -45,6 +44,28 @@ export class UsersService {
           return user;
         })
       });
+  } */
+
+  async getUsers(userId: string): Promise<Users[]> {
+    return await this.userRepositroy.query(`
+      SELECT
+        *
+      FROM USERS
+      WHERE 
+        id::text != '${userId}'
+      AND
+        id::text NOT IN (SELECT "firstId"::text FROM friendships WHERE "secondId"::text = '${userId}')
+      AND
+        id::text NOT IN (SELECT "secondId"::text FROM friendships WHERE "firstId"::text = '${userId}')
+    `)
+      .then(data => {
+        if (data && data.length !== 0)
+          return data.map(user => {
+            delete user.password
+            return user;
+          })
+        return [];
+      });
   }
 
   async getMultipleUsers(userIds: string[]) {
@@ -53,11 +74,32 @@ export class UsersService {
     })
   }
 
+  async getUserBylogin(login: string): Promise<Users> {
+    const userCreated = new Users();
+    userCreated.login = login;
+    const usrFound = await this.userRepositroy.findOne(userCreated);
+    return usrFound;
+  }
+
+  async addUser(user: CreateUserDto) {
+    const userCreated = new Users();
+    userCreated.login = user.login;
+    userCreated.username = user.login;
+    userCreated.avatar = user.avatar;
+    userCreated.removedAvatar = user.removedAvatar || false;
+    userCreated.twoFactorAuth = user.twoFactorAuth || false;
+    const newUser = this.userRepositroy.create(userCreated);
+    return this.userRepositroy.insert(newUser);
+  }
+
+
   async findOne(condition): Promise<Users> {
     return await this.userRepositroy.findOne({
       where: [condition]
     })
-      .then(user => user);
+      .then(user => {
+        return user
+      });
   }
   async createUser(newUser: CreateUserDto) {
     return await this.userRepositroy.save(newUser)
@@ -79,4 +121,23 @@ export class UsersService {
         })
       });
   }
+
+  async updateLastTimeConnected(info: Date, userId: string) {
+    return await this.userRepositroy.findOne({ id: userId })
+      .then(async (user) => {
+        console.log(user);
+        return await this.userRepositroy.save({...user, lastConnected: info})
+        .then(res => {
+          console.log(res);
+          return res;
+        })
+      });
+  }
+
+  async updateAvatarUrl(updatedUser: Users, avatar: string): Promise<Users> {
+    if (avatar) updatedUser.avatar = avatar;
+    return this.userRepositroy.save(updatedUser);
+  }
+
+
 }

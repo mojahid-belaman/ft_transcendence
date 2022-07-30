@@ -1,38 +1,44 @@
-import { IsDate, IsString, ValidateIf } from "class-validator";
+import { IsBoolean, IsDate, IsString, ValidateIf } from "class-validator";
 
 export class CreateUserDto {
 	@IsString()
-	username: string;
-	@IsString()
-	username42: string;
-	@IsString()
-	password: string;
+	login: string;
 	@IsString()
 	@ValidateIf((object, value) => value !== null && value !== undefined)
 	avatar: string;
+	@IsBoolean()
+	removedAvatar: boolean;
+	@IsBoolean()
+	twoFactorAuth: boolean;
 }
 
 export class UpdateUserDto {
 	@IsString()
 	username: string;
 	@IsString()
-	username42: string;
-	@IsString()
-	password: string;
+	login: string;
 	@IsString()
 	@ValidateIf((object, value) => value !== null && value !== undefined)
 	avatar: string;
+	@IsBoolean()
+	removedAvatar: boolean;
+	@IsBoolean()
+	twoFactorAuth: boolean;
 }
 
 export class FindUserResponsDto {
 	@IsString()
 	username: string;
 	@IsString()
-	username42: string;
+	login: string;
 	@IsDate()
 	lastConnected: Date;
 	@IsString()
 	@ValidateIf((object, value) => value !== null && value !== undefined)
 	avatar: string;
+	@IsBoolean()
+	removedAvatar: boolean;
+	@IsBoolean()
+	twoFactorAuth: boolean;
 }
 

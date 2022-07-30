@@ -8,16 +8,17 @@ import {
   Post,
   Put,
   Req,
+  UnauthorizedException,
   UploadedFile,
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
-import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { CreateUserDto, UpdateUserDto } from './dto/users.dto';
 import { UsersService } from './users.service';
 import { ApiBearerAuth } from '@nestjs/swagger';
+import { JwtAuthGuard } from 'src/auth/Guards/jwt-auth.guard';
 
 const editfilename = (req, file, callback) => {
   if (!file.mimetype.match(/\/(jpg|jpeg|png|gif)$/))
@@ -28,7 +29,7 @@ const editfilename = (req, file, callback) => {
   else
     callback(
       null,
-      Date.now() + '-' + req.user.username42 + '.' + file.originalname,
+      Date.now() + '-' + req.user.username+ '.' + file.originalname,
     );
 };
 
@@ -43,7 +44,7 @@ export class UsersController {
   async getUsers(@Req() req) {
     return await (this.usersService.getUsers(req.user.userId));
   }
-
+  
   @Get("/:userId")
   async getUserById(@Param('userId') userId: string) {
     return await (this.usersService.findOne({ id: userId }));
@@ -71,17 +72,18 @@ export class UsersController {
     }),
   )
   @Post('/upload-avatar')
-  async uploadAvatar(@Req() req, @UploadedFile() file: Express.Multer.File) {
-    const response = {
-      originalname: file.originalname,
-      filename: file.filename,
-    };
-    return this.usersService.findOne({ id: req.user.userId }).then(async (data) => {
-      if (!data) throw new HttpException('No user found', HttpStatus.NOT_FOUND);
-      return await this.usersService.updateUser(
-        { ...data, avatar: file.filename },
-        req.userId,
+  async uploadAvatar(@Req() req, @UploadedFile() image: Express.Multer.File) {
+    if (image) {
+      const updateUser = await this.usersService.getUserBylogin(
+        req.user['login'],
       );
-    });
+      console.log(image);
+      if (updateUser)
+        return this.usersService.updateAvatarUrl(
+          await updateUser,
+          image['filename'],
+        );
+    }
+    throw new UnauthorizedException();
   }
 }

@@ -21,7 +21,7 @@ export class FriendshipsService {
             SELECT DISTINCT 
                 id,
                 username,
-                username42,
+                login,
                 "lastConnected",
                 avatar
             FROM USERS
@@ -49,7 +49,7 @@ export class FriendshipsService {
         SELECT DISTINCT 
             users.id,
             users.username,
-            users.username42,
+            users.login,
             users."lastConnected",
             users.avatar,
             friendships."blockedBy"::text = '${userID}' AS "isBlocking"
@@ -70,39 +70,12 @@ export class FriendshipsService {
             `);
     }
 
-    /* 
-    
-    SELECT DISTINCT 
-                users.id,
-                users.username,
-                users.username42,
-                users."lastConnected",
-                users.avatar,
-                friendships."blockedBy"::text = users.id::text AS "isBlocking"
-            FROM users
-            JOIN friendships
-            ON ("firstId"::text = users.id::text OR "secondId"::text = users.id::text)
-            WHERE users.id::text IN (
-                SELECT
-                    "firstId"::text as "firstId"
-                FROM friendships
-                WHERE "secondId"::text = '${userID}' AND status = '${FriendshipStatus.BLOCKED}'
-                )
-            OR users.id::text IN (
-                SELECT
-                    "secondId"::text as "secondId"
-                FROM friendships
-                WHERE "firstId"::text = '${userID}' AND status = '${FriendshipStatus.BLOCKED}');
-    
-    */
-
-
     async getPendingFriendships(userID: string) {
         return await this.friendshipsRepository.query(`
             SELECT DISTINCT 
                 id,
                 username,
-                username42,
+                login,
                 "lastConnected",
                 avatar
             FROM USERS
@@ -130,7 +103,6 @@ export class FriendshipsService {
                 SELECT DISTINCT 
                     id,
                     username,
-                    username42,
                     "lastConnected",
                     avatar
                 FROM USERS
@@ -170,7 +142,7 @@ export class FriendshipsService {
                         return await this.friendshipsRepository.query(`
                         SELECT 
                         username,
-                        username42,
+                        login,
                         "lastConnected",
                         avatar
                         FROM USERS WHERE id::text = '${blockedUserId}'`);
@@ -196,6 +168,10 @@ export class FriendshipsService {
         return onlineFriends.find(user => user.id === userId);
     }
 
+    checkIfUserOnlineWithout(userId: string) {
+        return onlineFriends.find(user => user.id === userId).sockets;
+    }
+
     getOnlineFriends(userId: string) {
         return this.getAllFriendships(userId, FriendshipStatus.ACCEPTED)
         .then(users => users.filter(user => {
@@ -218,7 +194,6 @@ export class FriendshipsService {
                             SELECT DISTINCT 
                                 id,
                                 username,
-                                username42,
                                 "lastConnected",
                                 avatar
                             FROM USERS

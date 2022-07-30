@@ -37,6 +37,7 @@
     "bcrypt": "^5.0.1",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.13.2",
+    "cookie-parser": "^1.4.6",
     "js-cookie": "^3.0.1",
     "passport": "^0.5.2",
     "passport-42": "^1.2.6",
@@ -48,9 +49,11 @@
     "rxjs": "^7.2.0",
     "socket.io": "^4.5.1",
     "swagger-ui-express": "^4.4.0",
-    "typeorm": "^0.2.34",
     "uuid": "^8.3.2",
-    "uuidv4": "^6.2.13"
+    "cors": "^2.8.5",
+    "postgres": "^3.2.4",
+    "postgresql": "0.0.1",
+    "typeorm": "^0.2.45"
   },
   "devDependencies": {
     "@nestjs/cli": "^8.0.0",

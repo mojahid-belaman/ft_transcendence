@@ -1,47 +1,28 @@
-import { ForbiddenException, Injectable } from '@nestjs/common';
-import { UsersService } from 'src/users/users.service';
+import { Injectable, Res } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import * as bcrypt from 'bcrypt';
+import { AuthGuard } from '@nestjs/passport';
+import { UsersService } from 'src/users/users.service';
+import { UserDto } from './dto';
 
 @Injectable()
 export class AuthService {
   constructor(
-    private userService: UsersService,
     private jwtService: JwtService,
-  ) { }
+    private usersService: UsersService,
+  ) {}
 
-  async validateUser(username: string, password: string): Promise<any> {
-    return this.userService.findOne({ username: username })
-      .then(async (user) => {
-        if (!user)
-          return {
-            errorMessage: "Email not found"
-          };
-        if (user && !(await bcrypt.compare(password, user.password)))
-          return null;
-        return user;
-      });
+  async validateUser(username: string): Promise<any> {
+    const user = await this.usersService.getUserBylogin(username);
+    if (user) return user;
+    return null;
   }
 
-  async login(user: any) {
-    const payload = { ...user };
-    this.userService.setAUserAsOnline(user.id);
-    delete user.id
-    return {
-      access_token: this.jwtService.sign(payload),
-      ...user
+  async login(user: UserDto) {
+    const payload = {
+      login: user.login,
+      username: user.username,
+      avatar: user.avatar
     };
-  }
-
-  async authLogin(user: any) {
-    const payload = { ...user };
-    delete user.id
-    delete user.password
-    if (payload.role != 'admin')
-      throw new ForbiddenException();
-    return {
-      access_token: this.jwtService.sign(payload),
-      ...user
-    };
+    return await this.jwtService.sign(payload);
   }
 }

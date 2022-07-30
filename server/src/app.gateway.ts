@@ -12,12 +12,10 @@ import {
 } from '@nestjs/websockets';
 import { UsersService } from './users/users.service';
 import { JwtService } from '@nestjs/jwt';
-import { jwtConstants } from './auth/constants';
 import { FriendshipsService } from './friendships/friendships.service';
 
 @WebSocketGateway({
     cors: {
-    
         origin: '*',
         },
 })
@@ -29,6 +27,8 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
     private jwtService: JwtService;
     @Inject()
     private friendshipsService: FriendshipsService;
+    @Inject()
+    private usersService: UsersService;
     private logger: Logger = new Logger('AppGateway');
 
     afterInit(server: Server) {
@@ -39,8 +39,10 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
         this.logger.log('connection => ' + client.id)
         if (client.handshake.query && client.handshake.query.token) {
             const user: any = await this.jwtService.verify(String(client.handshake.query.token), {
-                secret: jwtConstants.secret
-            });
+                secret: process.env.JWT_SECRET
+            })
+            // console.log("User => ", user);
+            
             if (user) {
                 this.friendshipsService.setOnlineStatus(user.id, client);                
             }
@@ -51,10 +53,12 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
         this.logger.log('disconnection')
         if (client.handshake.query && client.handshake.query.token) {
             const user: any = await this.jwtService.verify(String(client.handshake.query.token), {
-                secret: jwtConstants.secret
+                secret: process.env.JWT_SECRET
             });
-            if (user) 
+            if (user) {
                 this.friendshipsService.setOffLineStatus(user.id, client.id);
+                this.usersService.updateLastTimeConnected(new Date(), user.id);
+            }
         }
     }
 }
