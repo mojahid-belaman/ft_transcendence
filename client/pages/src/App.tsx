@@ -33,9 +33,9 @@ function App() {
   return (
     <div className={classes.App}>
       <Switch>
-        <Route path="/auth">
+        {/* <Route path="/auth">
           <Auth />
-        </Route>
+        </Route> */}
         <Route path="/">
           {/* <SocketContexProvider token={token}> */}
             <MainApp />

@@ -6,6 +6,7 @@ import { DataContexProvider } from '../../pages/friends/data_context/data-contex
 import Friends from '../../pages/friends/Friends';
 import PingPong from '../../pages/game/PingPong';
 import Home from '../../pages/home/Home';
+import Profile from '../../pages/profile/Profile';
 import Settings from '../../pages/Settings/settings';
 import classes from './ContentCard.module.css'
 {/* <div className={classes.content} > */}
@@ -33,6 +34,9 @@ function ContentCard() {
                 </Route> */}
                 <Route path="/settings">
                     <Settings/>
+                </Route>
+                <Route path="/profile">
+                    <Profile/>
                 </Route>
             </Switch>
         </div>)

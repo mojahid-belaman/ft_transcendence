@@ -6,6 +6,7 @@ import { AiFillHome, AiFillSetting } from "react-icons/ai";
 import { BsFillChatTextFill } from "react-icons/bs";
 import { RiTeamFill, RiLogoutBoxFill } from "react-icons/ri";
 import { GiPingPongBat } from "react-icons/gi";
+import { FaUserAlt } from "react-icons/fa";
 
 function NavigationBar() {
     return <nav className={classes.nav}>
@@ -18,6 +19,8 @@ function NavigationBar() {
                 <Link className={classes.link} to="/game"><button><GiPingPongBat className={classes.icons} /> Game</button></Link>
                 <Link className={classes.link} to="/liveGame"><button><GiPingPongBat className={classes.icons} /> Live Games</button></Link>
                 <Link className={classes.link} to="/settings"><button><AiFillSetting className={classes.icons} /> Settings</button></Link>
+                <Link className={classes.link} to="/profile"><button><FaUserAlt className={classes.icons} /> Profile</button></Link>
+                
                 {/* <div className={classes.logout}> <div className={classes.button}><RiLogoutBoxFill className={classes.icons} />logout</div></div> */}
             </div>
         </div>

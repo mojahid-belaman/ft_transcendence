@@ -9,8 +9,8 @@ import ParticleBackground from "../Components/ParticleBackground";
 function MainApp(){
     return (
         <div className={classes.mainCard}>
-            <NavigationBar/>
             <ParticleBackground />
+            <NavigationBar/>
             <ContentCard/>    
         </div>
     );
