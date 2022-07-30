@@ -1,5 +1,6 @@
-import { Controller, Get, Inject, Req, UseGuards } from "@nestjs/common";
-import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
+import { Controller, Delete, Get, Inject, Param, Put, Req, UseGuards } from "@nestjs/common";
+import { JwtAuthGuard } from "src/auth/Guards/jwt-auth.guard";
+import { FriendshipStatus } from "./entity/friendships.entity";
 import { FriendshipsService } from "./friendships.service";
 
 
@@ -12,7 +13,19 @@ export class FriendshipsController {
     
     @UseGuards(JwtAuthGuard)
     @Get("online")
-    getAll(@Req() req) {
-        return this.friendshipsService.getOnlineFriends(req.user.userId);
+    async getAll(@Req() req) {
+        return await this.friendshipsService.getOnlineFriends(req.user.userId);
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Delete("unfriend/:id")
+    async unfriendUser (@Req() req, @Param("id") id) {
+        return await this.friendshipsService.removeFriendship(req.user.userId, id);
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Put("block/:id")
+    async blockUser (@Req() req, @Param("id") id) {
+        return await this.friendshipsService.setFriendshipStatus(req.user.userId, id, FriendshipStatus.BLOCKED);
     }
 }

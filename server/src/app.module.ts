@@ -1,10 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AuthModule } from './auth/auth.module';
 import { JwtModule, JwtService } from '@nestjs/jwt';
-import { jwtConstants } from './auth/constants';
-import { IntraAuthModule } from './42-auth/IntraAuth.module';
 import { FriendshipsModule } from './friendships/friendships.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
@@ -18,18 +15,20 @@ import { FriendshipsService } from './friendships/friendships.service';
 import { Friendships } from './friendships/entity/friendships.entity';
 import { Users } from './users/entity/users.entity';
 import { UsersService } from './users/users.service';
+import { UsersModule } from './users/users.module';
+// import { AuthModule } from './auth/auth.module';
+import { IntraAuthModule } from './intra-auth/IntraAuth.module';
+import { AuthModule } from './auth/auth.module';
 
 
 @Module({
   imports: [
+    JwtModule.register({
+      secret: process.env.JWT_SECRET,
+      signOptions: { expiresIn: '2 days' },
+    }),
     ConfigModule.forRoot({
       isGlobal: true
-    }),
-    MulterModule.register({
-      dest: './files',
-    }),
-    ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'files'),
     }),
     MulterModule.register({
       dest: './files',
@@ -49,17 +48,14 @@ import { UsersService } from './users/users.service';
       synchronize: true,
     }),
     TypeOrmModule.forFeature([Friendships, Users]),
-    JwtModule.register({
-      secret: jwtConstants.secret,
-      signOptions: { expiresIn: '2 days' },
-    }),
     ChannelsModule,
     ConnectionsModule,
     FriendshipsModule,
     MessagesChannelsModule,
     MessagesDmsModule,
-    AuthModule,
     IntraAuthModule,
+    UsersModule,
+    AuthModule
   ],
   providers: [AppGateway, JwtService, FriendshipsService, UsersService]
 })

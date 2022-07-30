@@ -2,7 +2,6 @@ import { Body, ForbiddenException, Inject } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { ConnectedSocket, MessageBody, SubscribeMessage, WebSocketGateway, WebSocketServer } from '@nestjs/websockets';
 import { Socket } from 'socket.io';
-import { jwtConstants } from 'src/auth/constants';
 import { BlockedFriendshipsDtoBody } from './dto/blocked-friendship.dto';
 import { CreateFriendshipsDtoBody } from './dto/create-friendships.dto';
 import { FriendshipStatus } from './entity/friendships.entity';
@@ -30,7 +29,7 @@ export class FriendshipsGateway {
     if (client.handshake.query && client.handshake.query.token) {
 
       const user: any = await this.jwtService.verify(String(client.handshake.query.token), {
-        secret: jwtConstants.secret
+        secret: process.env.JWT_SECRET
       });
       if (user) {
         await this.friendshipsService.getAllFriendships(user.id, FriendshipStatus.ACCEPTED)
@@ -43,7 +42,7 @@ export class FriendshipsGateway {
   async getOnlineFriends(@MessageBody() body: CreateFriendshipsDtoBody, @ConnectedSocket() client: Socket) {
     if (client.handshake.query && client.handshake.query.token) {
       const user: any = await this.jwtService.verify(String(client.handshake.query.token), {
-        secret: jwtConstants.secret
+        secret: process.env.JWT_SECRET
       });
       if (user) {
                 this.friendshipsService.getOnlineFriends(user.id)
@@ -60,7 +59,7 @@ export class FriendshipsGateway {
     if (client.handshake.query && client.handshake.query.token) {
 
       const user: any = await this.jwtService.verify(String(client.handshake.query.token), {
-        secret: jwtConstants.secret
+        secret: process.env.JWT_SECRET
       });
       if (user) {
         this.friendshipsService.getPendingFriendships(user.id)
@@ -78,7 +77,7 @@ export class FriendshipsGateway {
     if (client.handshake.query && client.handshake.query.token) {
 
       const user: any = await this.jwtService.verify(String(client.handshake.query.token), {
-        secret: jwtConstants.secret
+        secret: process.env.JWT_SECRET
       });
       if (user) {
         this.friendshipsService.getBlockedFriendships(user.id)
@@ -98,7 +97,7 @@ export class FriendshipsGateway {
   async addFriend(@MessageBody() body: CreateFriendshipsDtoBody, @ConnectedSocket() client) {
     if (client.handshake.query && client.handshake.query.token) {
       const user: any = await this.jwtService.verify(String(client.handshake.query.token), {
-        secret: jwtConstants.secret
+        secret: process.env.JWT_SECRET
       });
       if (user) {
         this.friendshipsService.addFriend({firstId: user.id, secondId: body.userId, status: FriendshipStatus.PENDING})
@@ -114,7 +113,7 @@ export class FriendshipsGateway {
   async acceptFriend(@MessageBody() body: CreateFriendshipsDtoBody, @ConnectedSocket() client: Socket) {
     if (client.handshake.query && client.handshake.query.token) {
       const user: any = await this.jwtService.verify(String(client.handshake.query.token), {
-        secret: jwtConstants.secret
+        secret: process.env.JWT_SECRET
       });
       if (user) {
         this.friendshipsService.acceptFriend({firstId: body.userId, secondId: user.id})
@@ -136,7 +135,7 @@ export class FriendshipsGateway {
   async refuseFriend(@MessageBody() body: CreateFriendshipsDtoBody, @ConnectedSocket() client) {
     if (client.handshake.query && client.handshake.query.token) {
       const user: any = await this.jwtService.verify(String(client.handshake.query.token), {
-        secret: jwtConstants.secret
+        secret: process.env.JWT_SECRET
       });
       if (user) {
         const clientSockets = this.friendshipsService.checkIfUserOnline(user.id);
@@ -151,7 +150,7 @@ export class FriendshipsGateway {
   async removeFriendShip(@MessageBody() body, @ConnectedSocket() client: Socket) {
     if (client.handshake.query && client.handshake.query.token) {
       const user: any = await this.jwtService.verify(String(client.handshake.query.token), {
-        secret: jwtConstants.secret
+        secret: process.env.JWT_SECRET
       });
       if (user) {
         await this.friendshipsService.removeFriendship(user.id, body.friendId)
@@ -172,7 +171,7 @@ export class FriendshipsGateway {
   async setBlockedStatus (@MessageBody() body: BlockedFriendshipsDtoBody, @ConnectedSocket() client) {
     if (client.handshake.query && client.handshake.query.token) {
       const user: any = await this.jwtService.verify(String(client.handshake.query.token), {
-        secret: jwtConstants.secret
+        secret: process.env.JWT_SECRET
       });
       if (user) {
         await this.friendshipsService.setFriendshipStatus(user.id, body.blockedUserId, FriendshipStatus.BLOCKED)
@@ -190,7 +189,7 @@ export class FriendshipsGateway {
   async setUnblockedStatus (@MessageBody() body: BlockedFriendshipsDtoBody, @ConnectedSocket() client) {
     if (client.handshake.query && client.handshake.query.token) {
       const user: any = await this.jwtService.verify(String(client.handshake.query.token), {
-        secret: jwtConstants.secret
+        secret: process.env.JWT_SECRET
       });
       if (user) {
         await this.friendshipsService.setFriendshipStatus(user.id, body.blockedUserId, FriendshipStatus.ACCEPTED)
