@@ -13,6 +13,8 @@
     height: 50%;
     background-color: rgb(46, 46, 46); 
     border:5px solid white;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 .cardsBoard{
     width: 100%;   
