@@ -1,0 +1,152 @@
+.backdrop{
+    position: absolute;
+    left:0px;
+    top:0px;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    opacity: 50%;
+}
+ .card{
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    transform: translate(-50%,-50%);
+    width: 80%;
+    max-width: 800px;
+    height: 650px;
+    background-color: lightgray;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+.card .close{
+     display: flex;
+    flex-direction: column;
+    align-items: flex-end; 
+}
+.card .close i{
+    color:black;
+    opacity: 50%;
+    font-size:30px;
+    cursor: pointer;
+    
+}
+ .card .close i:hover{
+    opacity: 100%;
+}
+
+
+/* user Profile */
+.infoCard{
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+    width: 94%;
+    height: 100%;
+}
+.header{
+    display: flex;
+    flex-direction: row;
+    /* justify-content: space-evenly; */
+}
+.channelName{
+    display: flex;
+    flex-direction: column;
+    font-size: 40px;
+    font-weight: 600;
+    font-family: "Gill Sans", sans-serif;
+    height: 210px;
+    width: 70%;
+    text-align: center;
+    justify-content: space-between;
+    color:dimgrey;
+}
+.channelImage{
+    border-radius: 20%;
+    width:200px;
+    height: 200px;
+}
+
+.buttons{
+    display: flex;
+    flex-direction: row;
+    width:100%;
+    margin-left:30px;
+}
+.buttons button{
+    margin:5px;
+    font-weight: 600;
+    font-size: 17px;
+    border: none;
+    font-family: "Gill Sans", sans-serif;
+    background-color:lightgray ;
+    width:90%;
+    height: 40px;
+    color :dimgrey;
+    cursor: pointer;
+}
+.buttons button:hover{
+    background-color: white;
+}
+
+/* About User */
+
+.about{
+    display: flex;
+    flex-direction: column;
+    background-color:darkgrey;
+    height: 100%;
+    width: 97%;
+    padding: 10px;
+    border-radius: 10px;
+    color:white;
+    font-family: "Gill Sans", sans-serif;
+    margin-top: 30px;
+}
+.header{
+    font-size: 20px;
+    font-weight: 600;
+    text-decoration: underline;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+.content{
+    font-weight: 500;
+    margin-left: 20px;
+}
+
+
+/* Game */
+
+.Games{
+    display: flex;
+    flex-direction: column;
+    max-height: 310px;
+    min-height: 310px;
+    width: 97%;
+    padding: 10px;
+    border-radius: 10px;
+    color:white;
+    font-family: "Gill Sans", sans-serif;
+    margin-top: 30px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+.GamesCard{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    min-height: 50px; 
+    align-items: center;
+    border-top: 1px solid lightgray;
+    background-color:darkgrey;
+    font-family: "Gill Sans", sans-serif;
+}
+.GameImage{
+    margin-left: 10px;
+    margin-right: 10px;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+}
