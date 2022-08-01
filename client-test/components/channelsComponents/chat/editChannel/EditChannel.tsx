@@ -27,14 +27,14 @@ function EditChannel(props:any) {
             descrition: enteredDescription,
             status: status
         }
-        console.log(status);
-        const token = Cookies.get('access_token');        
-        await axios.post(`${process.env.API}/channels`, data, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            }
-        }).then(data => console.log(data))
-        .catch(err => console.log(err))
+        // console.log(status);
+    //     const token = Cookies.get('access_token');        
+    //     await axios.post(`${process.env.API}/channels`, data, {
+    //         headers: {
+    //             Authorization: `Bearer ${token}`,
+    //         }
+    //     }).then(data => console.log(data))
+    //     .catch(err => console.log(err))
     }
     return (
         <div>

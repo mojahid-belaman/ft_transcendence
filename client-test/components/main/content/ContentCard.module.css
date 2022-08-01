@@ -5,6 +5,7 @@
     align-items: center;
 }
 .card{
-    background-color:transparent;
-    height: 95%;
+    background-color:black;
+    /* width: 100vw; */
+    min-height: calc(100vh - 60px);
 }
