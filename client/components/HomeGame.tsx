@@ -4,15 +4,17 @@ import Game from "./Game";
 import Cookies from "js-cookie";
 import socket from "../Library/Socket";
 import { Data } from "../Library/Data";
+import Setting from "./Setting";
 
 //NOTE - Initiale data and Information about all Game like (ball, paddle, score, width, height, canvas)
 let data = new Data(1200, 600);
 
 export function HomeGame() {
   const [isGame, setIsGame] = useState(false);
+  const [isSetting, setSetting] = useState(true);
   const [currentState, setCurrentState] = useState(data.get_State());
 
-  const gameDefHandler = () => {
+  const handleGame = () => {
     const token = Cookies.get("access_token");
     socket.emit("join_match", {
       access_token: token,
@@ -29,17 +31,13 @@ export function HomeGame() {
     setIsGame(true);
   };
 
-  const gameObsHandler = () => {
-    // const token = Cookies.get("access_token");
-    // socket.emit("join_match", {
-    //   access_token: token,
-    //   type: "obstacle",
-    // });
-    // setIsGame(true);
+  const handleSetting = () => {
+    setSetting(false);
   };
 
   return (
     <>
+      {!isSetting && <Setting setSetting={setSetting}/>}
       {!isGame ? (
         <div className={styles.container}>
           <div className={styles.game}>
@@ -69,10 +67,10 @@ export function HomeGame() {
                 <span className={styles.emoji}>😉</span>
               </p>
               <div className={styles.btn}>
-                <button className={styles.btnDef} onClick={gameDefHandler}>
+                <button className={styles.btnDef} onClick={handleGame}>
                   PLAY
                 </button>
-                <button className={styles.btnObs} onClick={gameObsHandler}>
+                <button className={styles.btnObs} onClick={handleSetting}>
                   SETTING
                 </button>
               </div>
