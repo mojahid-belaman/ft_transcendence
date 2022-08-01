@@ -5,7 +5,7 @@
     align-items: center;
     justify-content: space-evenly;
     padding:10px;
-    height: 100%;
+    height: calc(100vh - 70px);
     width: 100%;
 }
  .cardsProfile{

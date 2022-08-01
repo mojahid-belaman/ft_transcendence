@@ -6,6 +6,6 @@
 }
 .card{
     background-color:black;
-    /* width: 100vw; */
-    min-height: calc(100vh - 60px);
+    width: 100vw;
+    height: calc(100vh - 70px);
 }
