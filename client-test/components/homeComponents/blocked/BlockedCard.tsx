@@ -12,9 +12,9 @@ const BlockedCard = (props: any) => {
     }
     return(<div className={classes.blockedCard}>
         <img src="https://i.pinimg.com/474x/ec/e2/b0/ece2b0f541d47e4078aef33ffd22777e.jpg"></img>
-        <div> { props.username }</div>
+        <div> {/* { props.username } */}</div>
         <div className={classes.buttons}>
-          {props.isBlocking && <button onClick={unblockFriend} >Unblock</button>}  
+          {/* {props.isBlocking && <button onClick={unblockFriend} >Unblock</button>}   */}
         </div>
     </div>)
 }
