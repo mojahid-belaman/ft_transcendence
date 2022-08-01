@@ -19,7 +19,6 @@ export function DataContexProvider(props:any) {
         })
     }
     function setConversation(convId:any) {
-        console.log(userData.find((user:any) => user.conversationId === convId));
         setSelectedConv(userData.find((user:any) => user.conversationId === convId));
     }
     const context = {
