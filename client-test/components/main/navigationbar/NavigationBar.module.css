@@ -3,26 +3,33 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
-    height: 70px;
+    height: 80px;
     width: 100vw;
-    background-color: black;
+    background-color: gray;
 }
 .nav  button{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    padding: 10px;
     font-family:  Impact, fantasy;
     letter-spacing: 3px;
-	height: 70px;
+	height: 100%;
 	border: none;
 	font-size: 16px;
 	color: white;
 	cursor: pointer;
     align-items: center;
-    justify-content: center;
-	background-color: transparent;
-    opacity: 70%; 
+	background-color: gray;
+    width: 100%;
+}
+.nav button div{
+    color:white;
 }
 .nav  button:hover{
-    background-color: gray;
-    opacity: 100%;
+    background-color: black;
+    color:white;
+    border: 1px solid white;
 }
 
 .nav .icons {
@@ -34,37 +41,16 @@
 	text-align: left;
 	font-size: 18px;
     text-decoration: none;
-    width: 25%;
-}
-.logout {
-    display: flex;
-    flex-direction: row;
-    height: 70px;
-    width: 180px;
-	border: none;
-	font-size: 16px;
-	color: white;
-	cursor: pointer;
-    align-items: center;
-    justify-content: flex-end;
-	background-color: transparent;
+    /* width: 25%; */
 }
 
-.logout .button{
-    border-radius: 50%;
-    width: 60px;
-	height: 60px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: firebrick;
-    color:white;
-    font-weight: 600;
-    border:none;
-    cursor: pointer;
-}
-
-.logout button:hover{
-    background-color: rgb(187, 68, 68);
+@media screen and (max-width: 700px) {
+    .nav{
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        width:25%;
+        justify-content: flex-start;
+        align-items: flex-start;
+    }
 }

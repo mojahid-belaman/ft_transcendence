@@ -1,7 +1,7 @@
 import classes from "./Profile.module.css";
 function History() {
   return (
-    <div className={classes.history}>
+    <div className={classes.boardInfo}>
       <div className={classes.historyCard}>
         <div id={classes.start}>
           <img
@@ -19,13 +19,13 @@ function History() {
           ></img>
         </div>
       </div>
-      <hr></hr>
+      <hr/>
     </div>
   );
 }
 function TopTen() {
   return (
-    <div className={classes.history}>
+    <div className={classes.boardInfo}>
       <div className={classes.historyCard}>
         <div id={classes.start}>
           <img
@@ -35,7 +35,7 @@ function TopTen() {
           <h2>name</h2>
         </div>
       </div>
-      <hr></hr>
+      <hr/>
     </div>
   );
 }
@@ -52,7 +52,7 @@ function Profile() {
     <div className={classes.mainProfile}>
       <div className={classes.cardsProfile}>
         <fieldset className={classes.profileInfo}>
-          <legend>
+          <legend className={classes.legend}>
             <img
               className={classes.image}
               src="https://i.pinimg.com/474x/ec/e2/b0/ece2b0f541d47e4078aef33ffd22777e.jpg"
@@ -66,22 +66,17 @@ function Profile() {
               </div>
               <hr/>
               <div className={classes.data}>
-                <DisplayUser first="wins:" second="10" />
-                <DisplayUser first="loses:" second="10" />
+                <DisplayUser first="Wins:" second="10" />
+                <DisplayUser first="Loses:" second="10" />
               </div>
             </div>
           </div>
         </fieldset>
       </div>
-      {/* <div className={classes.profileBoard}> */}
       <fieldset className={classes.cardsBoard}>
         <legend className={classes.legend}>
           <h1>History:</h1>
         </legend>
-        <History />
-        <History />
-        <History />
-        <History />
         <History />
       </fieldset>
       <fieldset className={classes.cardsBoard}>
@@ -89,11 +84,7 @@ function Profile() {
           <h1>Top 10:</h1>
         </legend>
         <TopTen />
-        <TopTen />
-        <TopTen />
-        <TopTen />
       </fieldset>
-      {/* </div> */}
     </div>
   );
 }

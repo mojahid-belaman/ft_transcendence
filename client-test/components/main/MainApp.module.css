@@ -1,7 +1,16 @@
 
 .mainCard{
-    width:100vw; 
-    height: 100vh;
-    /* background-color: gray; */
+    /* width:100vw;  */
+    /* height: 100vh; */
+   display: flex;
+   flex-direction: column;
+}
+@media screen and (max-width: 700px) {
+    .mainCard{
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: flex-start;
+    }
 }
 
