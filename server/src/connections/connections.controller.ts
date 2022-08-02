@@ -1,35 +1,40 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Req } from '@nestjs/common';
-import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { ConnectionsService } from './connections.service';
+import { ApiBearerAuth } from '@nestjs/swagger';
+import { JwtAuthGuard } from 'src/auth/Guards/jwt-auth.guard';
 
 @Controller('channels/connections')
 export class ConnectionsController {
   constructor(private readonly connectionsService: ConnectionsService) {}
 
+  @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @Post("/new")
-  join(@Body() createConnectionDto, @Req() req) {
-    return this.connectionsService.create({...createConnectionDto, user: req.user.userId});
+  async join(@Body() createConnectionDto, @Req() req) {
+    return await this.connectionsService.create({...createConnectionDto, user: req.user.userId});
   }
-
+  
+  @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @Get("me")
-  findAll(@Req() req) {
-    return this.connectionsService.findAll({user: req.user.userId});
+  async findAll(@Req() req) {
+    return await this.connectionsService.findAll({user: req.user.userId});
   }
-
+  
+  @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @Get(':id')
-  findOne(@Param('id') id: string, @Req() req) {
-    return this.connectionsService.findOne({id: id, user: req.user.userId})
+  async findOne(@Param('id') id: string, @Req() req) {
+    return await this.connectionsService.findOne({id: id, user: req.user.userId})
     .then(connection => {
       return connection;
     });
   }
   
+  @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @Delete(':id')
-  delete(@Param('id') id: string, @Req() req) {
-    return this.connectionsService.delete({id: id, user: req.user.userId});
+  async delete(@Param('id') id: string, @Req() req) {
+    return await this.connectionsService.delete({id: id, user: req.user.userId});
   }
 }

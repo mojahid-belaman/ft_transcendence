@@ -9,20 +9,21 @@ export enum Role {
 export class Users {
     @PrimaryGeneratedColumn('uuid')
     id: string;
-    @Column()
+    @Column({ unique: true })
+    login: string;
+
+    @Column({default: ""})
     username: string;
-    @Column({ default: "" })
-    username42: string;
-    @Column()
-    password: string;
+    
     @Column({ default: null })
     lastConnected: Date;
+    
     @Column({ default: null })
     avatar: string;
-    @Column({
-        type: 'enum',
-        enum: Role,
-        default: Role.USER
-    })
-    role: Role;
+    
+    @Column({default: false})
+    removedAvatar: boolean;
+
+    @Column({default: false})
+    twoFactorAuth: boolean;
 }

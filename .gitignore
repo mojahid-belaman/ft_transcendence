@@ -1,6 +1,9 @@
-./client/.env
-./client/node_modules
-./server/.env
-./server/node_modules
-./server/upload/
-./.env
+client-test/.env
+client/node_modules
+client/.next
+server/.env
+server/dist
+server/node_modules
+server/upload/
+.env
+.DS_Store

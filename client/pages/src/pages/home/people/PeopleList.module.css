@@ -1,9 +1,0 @@
-.list{
-    display:flex;
-    flex-direction: column;
-    width:90%;
-    height: 87vh;
-    margin-top: 30px;
-    overflow-y: scroll;
-    overflow-x: hidden;
-}

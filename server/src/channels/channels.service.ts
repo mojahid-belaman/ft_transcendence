@@ -11,24 +11,23 @@ export class ChannelsService {
     private channelRepository: Repository<Channels>
   ) {}
 
-  getchannels(): Promise<Channels[]> {
-    return this.channelRepository.find();
+  async getchannels(): Promise<Channels[]> {
+    return await this.channelRepository.find();
   }
 
-  getchannelsByConditon(condition): Promise<Channels[]> {
-    return this.channelRepository.find({
+  async getchannelsByConditon(condition): Promise<Channels[]> {
+    return await this.channelRepository.find({
       where: [condition]
     });
   }
 
-  getchannelById(channelId): Promise<Channels> {
-    return this.channelRepository.findOne(channelId)
+  async getchannelById(channelId): Promise<Channels> {
+    return await this.channelRepository.findOne(channelId)
   }
 
-  createChannel(channelObj) {
-    console.log(channelObj);
+  async createChannel(channelObj) {
     if (channelObj.status === channelStatus.PROTECTED && channelObj.password === null)
       throw new ForbiddenException("Password not set for protected channel")
-    return this.channelRepository.save(channelObj)
+    return await this.channelRepository.save(channelObj)
   }
 }
