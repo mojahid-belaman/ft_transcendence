@@ -1,16 +1,34 @@
 import React, { useEffect, useState } from 'react'
+import socket from '../Library/Socket';
 import style  from '../styles/Setting.module.css'
 
 const Setting = ({setSetting}: any) => {
-    const [isMap, setMap] = useState('')
-    const [isPaddle, setPaddle] = useState('')
-    const [isBall, setBall] = useState('')
-    const [isBorder, setBorder] = useState('')
-    const [isText, setText] = useState('')
-    const [isTrace, setTrace] = useState('')
+
+    // socket.io.opts.query.data.set_Height(700)
+    
+    const [isMap, setMap] = useState('#000000')
+    const [isPaddle, setPaddle] = useState('#FFFFFF')
+    const [isBall, setBall] = useState('#FFFF00')
+    const [isBorder, setBorder] = useState('#FFFFFF')
+    const [isText, setText] = useState('#FFFFFF')
+    const [isTrace, setTrace] = useState('#FFFFFF')
 
     const handleCancel = () => {
         setSetting(true)
+    }
+    const handleApply = () => {
+        if (socket.io.opts.query)
+        {
+            socket.io.opts.query.data.set_mapColor(isMap);
+            socket.io.opts.query.data.set_paddleColor(isPaddle);
+            socket.io.opts.query.data.set_ballColor(isBall);
+            socket.io.opts.query.data.set_borderColor(isBorder);
+            socket.io.opts.query.data.set_textColor(isText);
+            socket.io.opts.query.data.set_traceColor(isTrace);
+            console.log(socket.io.opts.query.data.get_mapColor());
+            
+        }
+        setSetting(true);
     }
     const handleMap = (e: any) => {
         setMap(e.target.value)
@@ -39,21 +57,21 @@ const Setting = ({setSetting}: any) => {
                     <div>
                         <label>Map Color :</label>
                         <select onChange={handleMap}>
-                            <option selected hidden>Choose Color The Map</option>
-                            <option value="red">Red</option>
-                            <option value="blue">Blue</option>
-                            <option value="green">Green</option>
-                            <option value="green">Green</option>
+                            <option hidden value="">Choose Color The Map</option>
+                            <option value="#000000">Black</option>
+                            <option value="#800000">Maroon</option>
+                            <option value="#800080">Purple</option>
+                            <option value="#000080">Navy</option>
                         </select>
                     </div>
                     <div>
                         <label>Paddle Color :</label>
                         <select onChange={handlePaddle}>
-                            <option selected hidden>Choose Color The Paddle</option>
-                            <option value="red">Red</option>
-                            <option value="blue">Blue</option>
-                            <option value="green">Green</option>
-                            <option value="green">Green</option>
+                            <option hidden value="">Choose Color The Paddle</option>
+                            <option value="#FFFFFF">White</option>
+                            <option value="#FFFF00">Yellow</option>
+                            <option value="#008000">Green</option>
+                            <option value="#008080">Teal</option>
                         </select>
                     </div>
                 </div>
@@ -61,21 +79,21 @@ const Setting = ({setSetting}: any) => {
                     <div>
                         <label>Ball Color :</label>
                         <select onChange={handleBall}>
-                            <option selected hidden>Choose Color The Ball</option>
-                            <option value="red">Red</option>
-                            <option value="blue">Blue</option>
-                            <option value="green">Green</option>
-                            <option value="green">Green</option>
+                            <option hidden value="">Choose Color The Ball</option>
+                            <option value="#FFFF00">Yellow</option>
+                            <option value="#FF00FF">Fuchsia</option>
+                            <option value="#808080">Gray</option>
+                            <option value="#C0C0C0">Silver</option>
                         </select>
                     </div>
                     <div>
                         <label>Border Color :</label>
                         <select onChange={handleBorder}>
-                            <option selected hidden>Choose Color The Border</option>
-                            <option value="red">Red</option>
-                            <option value="blue">Blue</option>
-                            <option value="green">Green</option>
-                            <option value="green">Green</option>
+                            <option hidden value="">Choose Color The Border</option>
+                            <option value="#FFFFFF">White</option>
+                            <option value="#800080">Purple</option>
+                            <option value="#00FFFF">Aqua</option>
+                            <option value="#00FF00">Lime</option>
                         </select>
                     </div>
                 </div>
@@ -83,26 +101,26 @@ const Setting = ({setSetting}: any) => {
                     <div>
                         <label>Text Color :</label>
                         <select onChange={handleText}>
-                            <option selected hidden>Choose Color The Ball</option>
-                            <option value="red">Red</option>
-                            <option value="blue">Blue</option>
-                            <option value="green">Green</option>
-                            <option value="green">Green</option>
+                            <option hidden value="">Choose Color The Ball</option>
+                            <option value="#FFFFFF">White</option>
+                            <option value="#00FF00">Lime</option>
+                            <option value="#FF00FF">Fuchsia</option>
+                            <option value="#FFFF00">Yellow</option>
                         </select>
                     </div>
                     <div>
                         <label>Trace Color :</label>
                         <select onChange={handleTrace}>
-                            <option selected hidden>Choose Color The Border</option>
-                            <option value="red">Red</option>
-                            <option value="blue">Blue</option>
-                            <option value="green">Green</option>
-                            <option value="green">Green</option>
+                            <option hidden value="">Choose Color The Border</option>
+                            <option value="#FFFFFF">White</option>
+                            <option value="#00FF00">Lime</option>
+                            <option value="#FF00FF">Fuchsia</option>
+                            <option value="#FFFF00">Yellow</option>
                         </select>
                     </div>
                 </div>
                 <div className={style.btns}>
-                    <button className={style.apply}>APPLY</button>
+                    <button className={style.apply} onClick={handleApply}>APPLY</button>
                     <button className={style.cancel} onClick={handleCancel}>CANCEL</button>
                 </div>
             </form>

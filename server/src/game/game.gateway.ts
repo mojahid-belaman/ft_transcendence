@@ -26,8 +26,7 @@ export class GameGateway
   static game: Game[] = [];
   //NOTE - Declare Array (Set) of Players (client.Id not repeat)
   private socketArr: Set<Socket> = new Set<Socket>();
-  private userArrDef: any[] = [];
-  private userArrObs: any[] = [];
+  private userArr: any[] = [];
 
   @WebSocketServer() server: { emit: (arg0: string, arg1: { playing: boolean; first: { username: any; avatar: any; }; second: { username: any; avatar: any; }; }) => void; };
 
@@ -129,15 +128,15 @@ export class GameGateway
     this.socketArr.add(client);
 
     //NOTE - Add User In Array
-    this.userArrDef.push(user);
+    this.userArr.push(user);
 
     //NOTE - Check if Set Of Socket (i means player) to stock is 2
     const itSock = this.socketArr.values();
-    const [first, second] = this.userArrDef;
+    const [first, second] = this.userArr;
 
-    if (this.userArrDef.length > 1) {
+    if (this.userArr.length > 1) {
       if (first.id === second.id) {
-        this.userArrDef.splice(this.userArrDef.indexOf(first), 1);
+        this.userArr.splice(this.userArr.indexOf(first), 1);
         return;
       }
 
@@ -173,11 +172,11 @@ export class GameGateway
 
       this.socketArr.delete(newGame.get_PlayerOne().getSocket());
       this.socketArr.delete(newGame.get_PlayerTwo().getSocket());
-      this.userArrDef.splice(0, this.userArrDef.length);
+      this.userArr.splice(0, this.userArr.length);
 
       console.log('Game length: ' + GameGateway.game.length);
       console.log('Socket size: ' + this.socketArr.size);
-      console.log('user size: ' + this.userArrDef.length);
+      console.log('user size: ' + this.userArr.length);
     }
   }
   @SubscribeMessage('send_games')

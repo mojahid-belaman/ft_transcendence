@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "../styles/HomeGame.module.css";
 import Game from "./Game";
 import Cookies from "js-cookie";
@@ -7,7 +7,9 @@ import { Data } from "../Library/Data";
 import Setting from "./Setting";
 
 //NOTE - Initiale data and Information about all Game like (ball, paddle, score, width, height, canvas)
-let data = new Data(1200, 600);
+let data: Data;
+if (socket.io.opts.query)
+  data = socket.io.opts.query.data;
 
 export function HomeGame() {
   const [isGame, setIsGame] = useState(false);
@@ -17,8 +19,7 @@ export function HomeGame() {
   const handleGame = () => {
     const token = Cookies.get("access_token");
     socket.emit("join_match", {
-      access_token: token,
-      type: "default",
+      access_token: token
     });
     socket.on("Playing", (payload: any) => {
       if (payload.playing) {
@@ -35,6 +36,10 @@ export function HomeGame() {
     setSetting(false);
   };
 
+  useEffect(() => {
+    console.log("HomeGame: ", data.get_mapColor());
+    
+  }, [data]);
   return (
     <>
       {!isSetting && <Setting setSetting={setSetting}/>}
