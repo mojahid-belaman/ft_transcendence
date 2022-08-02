@@ -38,6 +38,15 @@ export class UsersController {
 
   constructor(private readonly usersService: UsersService) { }
 
+
+  @Get('/me')
+  @UseGuards(JwtAuthGuard)
+  async getUser(@Req() req) {
+    const user = await this.usersService.getUserBylogin(req.user['login']);
+    if (user) return user;
+    return { error: 'user not found' };
+  }
+
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @Get()
@@ -71,7 +80,7 @@ export class UsersController {
       }),
     }),
   )
-  @Post('/upload-avatar')
+  @Post('/upload')
   async uploadAvatar(@Req() req, @UploadedFile() image: Express.Multer.File) {
     if (image) {
       const updateUser = await this.usersService.getUserBylogin(

@@ -10,10 +10,17 @@
     "core-js-pure" "^3.20.2"
     "regenerator-runtime" "^0.13.4"
 
-"@babel/runtime@^7.10.2", "@babel/runtime@^7.18.9":
+"@babel/runtime@^7.10.2", "@babel/runtime@^7.18.9", "@babel/runtime@^7.5.5", "@babel/runtime@^7.6.2", "@babel/runtime@^7.8.7":
   "integrity" "sha512-lkqXDcvlFT5rvEjiu6+QYO+1GXrEHRo2LOtS7E4GtX5ESIZOgepqsZBVIj6Pv+a6zqsya9VCgiK1KAK4BvJDAw=="
   "resolved" "https://registry.npmjs.org/@babel/runtime/-/runtime-7.18.9.tgz"
   "version" "7.18.9"
+  dependencies:
+    "regenerator-runtime" "^0.13.4"
+
+"@babel/runtime@7.9.6":
+  "integrity" "sha512-64AF1xY3OAkFHqOb9s4jpgk1Mm5vDZ4L3acHvAml+53nO1XbXLuDodsVpO4OIUsmemlUHMxNdYMNJmsvOwLrvQ=="
+  "resolved" "https://registry.npmjs.org/@babel/runtime/-/runtime-7.9.6.tgz"
+  "version" "7.9.6"
   dependencies:
     "regenerator-runtime" "^0.13.4"
 
@@ -32,6 +39,45 @@
     "minimatch" "^3.1.2"
     "strip-json-comments" "^3.1.1"
 
+"@formatjs/ecma402-abstract@1.11.8":
+  "integrity" "sha512-fgLqyWlwmTEuqV/TSLEL/t9JOmHNLFvCdgzXB0jc2w+WOItPCOJ1T0eyN6fQBQKRPfSqqNlu+kWj7ijcOVTVVQ=="
+  "resolved" "https://registry.npmjs.org/@formatjs/ecma402-abstract/-/ecma402-abstract-1.11.8.tgz"
+  "version" "1.11.8"
+  dependencies:
+    "@formatjs/intl-localematcher" "0.2.28"
+    "tslib" "2.4.0"
+
+"@formatjs/fast-memoize@1.2.4":
+  "integrity" "sha512-9ARYoLR8AEzXvj2nYrOVHY/h1dDMDWGTnKDLXSISF1uoPakSmfcZuSqjiqZX2wRkEUimPxdwTu/agyozBtZRHA=="
+  "resolved" "https://registry.npmjs.org/@formatjs/fast-memoize/-/fast-memoize-1.2.4.tgz"
+  "version" "1.2.4"
+  dependencies:
+    "tslib" "2.4.0"
+
+"@formatjs/icu-messageformat-parser@2.1.4":
+  "integrity" "sha512-3PqMvKWV1oyok0BuiXUAHIaotdhdTJw6OICqCZbfUgKT+ZRwRWO4IlCgvXJeCITaKS5p+PY0XXKjf/vUyIpWjQ=="
+  "resolved" "https://registry.npmjs.org/@formatjs/icu-messageformat-parser/-/icu-messageformat-parser-2.1.4.tgz"
+  "version" "2.1.4"
+  dependencies:
+    "@formatjs/ecma402-abstract" "1.11.8"
+    "@formatjs/icu-skeleton-parser" "1.3.10"
+    "tslib" "2.4.0"
+
+"@formatjs/icu-skeleton-parser@1.3.10":
+  "integrity" "sha512-kXJmtLDqFF5aLTf8IxdJXnhrIX1Qb4Qp3a9jqRecGDYfzOa9hMhi9U0nKyhrJJ4cXxBzptcgb+LWkyeHL6nlBQ=="
+  "resolved" "https://registry.npmjs.org/@formatjs/icu-skeleton-parser/-/icu-skeleton-parser-1.3.10.tgz"
+  "version" "1.3.10"
+  dependencies:
+    "@formatjs/ecma402-abstract" "1.11.8"
+    "tslib" "2.4.0"
+
+"@formatjs/intl-localematcher@0.2.28":
+  "integrity" "sha512-FLsc6Gifs1np/8HnCn/7Q+lHMmenrD5fuDhRT82yj0gi9O19kfaFwjQUw1gZsyILuRyT93GuzdifHj7TKRhBcw=="
+  "resolved" "https://registry.npmjs.org/@formatjs/intl-localematcher/-/intl-localematcher-0.2.28.tgz"
+  "version" "0.2.28"
+  dependencies:
+    "tslib" "2.4.0"
+
 "@humanwhocodes/config-array@^0.9.2":
   "integrity" "sha512-ObyMyWxZiCu/yTisA7uzx81s40xR2fD5Cg/2Kq7G02ajkNubJf6BopgDTmDyc3U7sXpNKM8cYOw7s7Tyr+DnCw=="
   "resolved" "https://registry.npmjs.org/@humanwhocodes/config-array/-/config-array-0.9.5.tgz"
@@ -45,6 +91,42 @@
   "integrity" "sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA=="
   "resolved" "https://registry.npmjs.org/@humanwhocodes/object-schema/-/object-schema-1.2.1.tgz"
   "version" "1.2.1"
+
+"@internationalized/date@^3.0.1":
+  "integrity" "sha512-E/3lASs4mAeJ2Z2ye6ab7eUD0bPUfTeNVTAv6IS+ne9UtMu9Uepb9A1U2Ae0hDr6WAlBuvUtrakaxEdYB9TV6Q=="
+  "resolved" "https://registry.npmjs.org/@internationalized/date/-/date-3.0.1.tgz"
+  "version" "3.0.1"
+  dependencies:
+    "@babel/runtime" "^7.6.2"
+
+"@internationalized/date@3.0.0-rc.1":
+  "integrity" "sha512-IHc1NqUTA/fo9nf0pwRXrMjrabJ/9vTw5RIFAF3qS8JsdEGnw3dIyDb/+ipjEEqZyHVHHXwnqD8hKM18gGoWTg=="
+  "resolved" "https://registry.npmjs.org/@internationalized/date/-/date-3.0.0-rc.1.tgz"
+  "version" "3.0.0-rc.1"
+  dependencies:
+    "@babel/runtime" "^7.6.2"
+
+"@internationalized/message@^3.0.7", "@internationalized/message@^3.0.9":
+  "integrity" "sha512-yHQggKWUuSvj1GznVtie4tcYq+xMrkd/lTKCFHp6gG18KbIliDw+UI7sL9+yJPGuWiR083xuLyyhzqiPbNOEww=="
+  "resolved" "https://registry.npmjs.org/@internationalized/message/-/message-3.0.9.tgz"
+  "version" "3.0.9"
+  dependencies:
+    "@babel/runtime" "^7.6.2"
+    "intl-messageformat" "^10.1.0"
+
+"@internationalized/number@^3.1.1":
+  "integrity" "sha512-dBxCQKIxvsZvW2IBt3KsqrCfaw2nV6o6a8xsloJn/hjW0ayeyhKuiiMtTwW3/WGNPP7ZRyDbtuiUEjMwif1ENQ=="
+  "resolved" "https://registry.npmjs.org/@internationalized/number/-/number-3.1.1.tgz"
+  "version" "3.1.1"
+  dependencies:
+    "@babel/runtime" "^7.6.2"
+
+"@internationalized/string@^3.0.0":
+  "integrity" "sha512-NUSr4u+mNu5BysXFeVWZW4kvjXylPkU/YYqaWzdNuz1eABfehFiZTEYhWAAMzI3U8DTxfqF9PM3zyhk5gcfz6w=="
+  "resolved" "https://registry.npmjs.org/@internationalized/string/-/string-3.0.0.tgz"
+  "version" "3.0.0"
+  dependencies:
+    "@babel/runtime" "^7.6.2"
 
 "@next/env@12.2.3":
   "integrity" "sha512-2lWKP5Xcvnor70NaaROZXBvU8z9mFReePCG8NhZw6NyNGnPvC+8s+Cre/63LAB1LKzWw/e9bZJnQUg0gYFRb2Q=="
@@ -62,6 +144,41 @@
   "integrity" "sha512-lve+lnTiddXbcT3Lh2ujOFywQSEycTYQhuf6j6JrPu9oLQGS01kjIqqSj3/KMmSoppEnXo3BxkgYu+g2+ecHkA=="
   "resolved" "https://registry.npmjs.org/@next/swc-darwin-x64/-/swc-darwin-x64-12.2.3.tgz"
   "version" "12.2.3"
+
+"@nextui-org/react@^1.0.0-beta.9":
+  "integrity" "sha512-V8SmkdcCKcPZsF2BWV2rXi2e4Q+5c8r3G1QjvIhyRdm81xicbZFMzIga0KMrccj8lshDSoa8pErxQdnzosjyTg=="
+  "resolved" "https://registry.npmjs.org/@nextui-org/react/-/react-1.0.0-beta.9.tgz"
+  "version" "1.0.0-beta.9"
+  dependencies:
+    "@babel/runtime" "7.9.6"
+    "@react-aria/button" "3.5.0"
+    "@react-aria/checkbox" "3.4.0"
+    "@react-aria/dialog" "3.2.0"
+    "@react-aria/focus" "3.6.0"
+    "@react-aria/i18n" "3.4.0"
+    "@react-aria/interactions" "3.9.0"
+    "@react-aria/label" "3.3.0"
+    "@react-aria/menu" "3.5.0"
+    "@react-aria/overlays" "3.9.0"
+    "@react-aria/radio" "3.2.0"
+    "@react-aria/ssr" "3.2.0"
+    "@react-aria/table" "3.3.0"
+    "@react-aria/utils" "3.13.0"
+    "@react-aria/visually-hidden" "3.3.0"
+    "@react-stately/checkbox" "3.1.0"
+    "@react-stately/data" "3.5.0"
+    "@react-stately/overlays" "3.3.0"
+    "@react-stately/radio" "3.4.0"
+    "@react-stately/table" "3.2.0"
+    "@react-stately/toggle" "3.3.0"
+    "@react-stately/tree" "3.3.0"
+    "@react-types/button" "^3.5.0"
+    "@react-types/checkbox" "3.3.0"
+    "@react-types/grid" "3.1.0"
+    "@react-types/menu" "3.6.0"
+    "@react-types/overlays" "3.6.0"
+    "@react-types/shared" "3.13.0"
+    "@stitches/react" "1.2.8"
 
 "@nodelib/fs.scandir@2.1.5":
   "integrity" "sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g=="
@@ -84,6 +201,546 @@
     "@nodelib/fs.scandir" "2.1.5"
     "fastq" "^1.6.0"
 
+"@react-aria/button@3.5.0":
+  "integrity" "sha512-S15W77YemT5g8jNHr8QpIHqT242TxpiBwzj3D0HsQFKoTEb5uXoNAIqZinDjhmbl4ovx2s7h/XevqDNEzvjAtw=="
+  "resolved" "https://registry.npmjs.org/@react-aria/button/-/button-3.5.0.tgz"
+  "version" "3.5.0"
+  dependencies:
+    "@babel/runtime" "^7.6.2"
+    "@react-aria/focus" "^3.6.0"
+    "@react-aria/interactions" "^3.9.0"
+    "@react-aria/utils" "^3.13.0"
+    "@react-stately/toggle" "^3.3.0"
+    "@react-types/button" "^3.5.0"
+
+"@react-aria/checkbox@3.4.0":
+  "integrity" "sha512-G1lxa7Glb0HWOjPyA4bYx8n3vAPGF7GKpZ7E4wGnMt3UQfslHavhEmtFyplt3l0f4OkhV8E/yr8SXnNb0cZDLQ=="
+  "resolved" "https://registry.npmjs.org/@react-aria/checkbox/-/checkbox-3.4.0.tgz"
+  "version" "3.4.0"
+  dependencies:
+    "@babel/runtime" "^7.6.2"
+    "@react-aria/label" "^3.3.0"
+    "@react-aria/toggle" "^3.3.0"
+    "@react-aria/utils" "^3.13.0"
+    "@react-stately/checkbox" "^3.1.0"
+    "@react-stately/toggle" "^3.3.0"
+    "@react-types/checkbox" "^3.3.0"
+
+"@react-aria/dialog@3.2.0":
+  "integrity" "sha512-ScjjfpNw9cvznuGjG+Q15U6wvLkwF++0NbE7v9PILWp1Vs3UHFyKJ7VrxUiDuG20rM3gfTYP8hi55CjwY7wbNA=="
+  "resolved" "https://registry.npmjs.org/@react-aria/dialog/-/dialog-3.2.0.tgz"
+  "version" "3.2.0"
+  dependencies:
+    "@babel/runtime" "^7.6.2"
+    "@react-aria/focus" "^3.6.0"
+    "@react-aria/utils" "^3.13.0"
+    "@react-stately/overlays" "^3.3.0"
+    "@react-types/dialog" "^3.4.0"
+
+"@react-aria/focus@^3.6.0", "@react-aria/focus@3.6.0":
+  "integrity" "sha512-1XuwDvhrmLcNnYHBFzwmZOoXuxkybRc8MUhiGLYRD1aVX1h9GarglYo9sfbGZNRO5jxMptXjtJv2rdWz1mHmQw=="
+  "resolved" "https://registry.npmjs.org/@react-aria/focus/-/focus-3.6.0.tgz"
+  "version" "3.6.0"
+  dependencies:
+    "@babel/runtime" "^7.6.2"
+    "@react-aria/interactions" "^3.9.0"
+    "@react-aria/utils" "^3.13.0"
+    "@react-types/shared" "^3.13.0"
+    "clsx" "^1.1.1"
+
+"@react-aria/focus@^3.7.0":
+  "integrity" "sha512-LydZSLBLEUklakM0Ogdk17F3f/Uwaj5Nl1mfcK8HhrroGT8A8XH0KjA9D6gM6JGHgxZemx0ufOgxhQZeBGQMQw=="
+  "resolved" "https://registry.npmjs.org/@react-aria/focus/-/focus-3.7.0.tgz"
+  "version" "3.7.0"
+  dependencies:
+    "@babel/runtime" "^7.6.2"
+    "@react-aria/interactions" "^3.10.0"
+    "@react-aria/utils" "^3.13.2"
+    "@react-types/shared" "^3.14.0"
+    "clsx" "^1.1.1"
+
+"@react-aria/grid@^3.3.0":
+  "integrity" "sha512-izIig52FV+uRzRuenRZ8CNLoivpT5yXsN6414RXKNnyCWDfBrllUvJYndll0ngrBKTjd6tmqJM8Y3kja/7+A9A=="
+  "resolved" "https://registry.npmjs.org/@react-aria/grid/-/grid-3.4.0.tgz"
+  "version" "3.4.0"
+  dependencies:
+    "@babel/runtime" "^7.6.2"
+    "@react-aria/focus" "^3.7.0"
+    "@react-aria/i18n" "^3.5.0"
+    "@react-aria/interactions" "^3.10.0"
+    "@react-aria/live-announcer" "^3.1.1"
+    "@react-aria/selection" "^3.10.0"
+    "@react-aria/utils" "^3.13.2"
+    "@react-stately/grid" "^3.3.0"
+    "@react-stately/selection" "^3.10.2"
+    "@react-stately/virtualizer" "^3.2.2"
+    "@react-types/checkbox" "^3.3.2"
+    "@react-types/grid" "^3.1.2"
+    "@react-types/shared" "^3.14.0"
+
+"@react-aria/i18n@^3.4.0", "@react-aria/i18n@3.4.0":
+  "integrity" "sha512-2pU13zT9bgD4eMlqfJ/Um2wjYRS7ORvR0jqGSfNzY9Lx+1IeSCqTkBNubT7bCV+Oc0LMUR93fGRDxfdtMyJCog=="
+  "resolved" "https://registry.npmjs.org/@react-aria/i18n/-/i18n-3.4.0.tgz"
+  "version" "3.4.0"
+  dependencies:
+    "@babel/runtime" "^7.6.2"
+    "@internationalized/date" "3.0.0-rc.1"
+    "@internationalized/message" "^3.0.7"
+    "@internationalized/number" "^3.1.1"
+    "@react-aria/ssr" "^3.2.0"
+    "@react-aria/utils" "^3.13.0"
+    "@react-types/shared" "^3.13.0"
+
+"@react-aria/i18n@^3.5.0":
+  "integrity" "sha512-PtlQ/W1PXVKzCGK86MuGuCzYBwENDBjrQ2a4ux+BBQ2Dk8ZXEARSp9JaMFuOdiloXc/p4FoxCVoB+lhu4RCScg=="
+  "resolved" "https://registry.npmjs.org/@react-aria/i18n/-/i18n-3.5.1.tgz"
+  "version" "3.5.1"
+  dependencies:
+    "@babel/runtime" "^7.6.2"
+    "@internationalized/date" "^3.0.1"
+    "@internationalized/message" "^3.0.9"
+    "@internationalized/number" "^3.1.1"
+    "@internationalized/string" "^3.0.0"
+    "@react-aria/ssr" "^3.3.0"
+    "@react-aria/utils" "^3.13.2"
+    "@react-types/shared" "^3.14.0"
+
+"@react-aria/interactions@^3.10.0":
+  "integrity" "sha512-Lp74VfF+EskT3IqK2MBMdJpJU48p60+YkMbgtoDF6LudNO8jw0nxcsvnimPriTSkZWINRpajG/9sIa0EIDcQKw=="
+  "resolved" "https://registry.npmjs.org/@react-aria/interactions/-/interactions-3.10.0.tgz"
+  "version" "3.10.0"
+  dependencies:
+    "@babel/runtime" "^7.6.2"
+    "@react-aria/utils" "^3.13.2"
+    "@react-types/shared" "^3.14.0"
+
+"@react-aria/interactions@^3.9.0", "@react-aria/interactions@3.9.0":
+  "integrity" "sha512-tf9vJtHf7DSnj4e/q19hoO5h61xb0qxNXUkOwaVwU1XlaA+eh+Qas2RF0GIMARLj+JhGX9y2nLjw3FK8F+pItQ=="
+  "resolved" "https://registry.npmjs.org/@react-aria/interactions/-/interactions-3.9.0.tgz"
+  "version" "3.9.0"
+  dependencies:
+    "@babel/runtime" "^7.6.2"
+    "@react-aria/utils" "^3.13.0"
+    "@react-types/shared" "^3.13.0"
+
+"@react-aria/label@^3.3.0", "@react-aria/label@3.3.0":
+  "integrity" "sha512-E8vOEWv04xGasDigbNtB0JOcq5ZLyPEbbOFSa5VgB7LfXu3i+82ZSAjTA1OtZwOc6MiiXRs5BuKx5HgiZn3HHA=="
+  "resolved" "https://registry.npmjs.org/@react-aria/label/-/label-3.3.0.tgz"
+  "version" "3.3.0"
+  dependencies:
+    "@babel/runtime" "^7.6.2"
+    "@react-aria/utils" "^3.13.0"
+    "@react-types/label" "^3.6.0"
+    "@react-types/shared" "^3.13.0"
+
+"@react-aria/live-announcer@^3.1.0", "@react-aria/live-announcer@^3.1.1":
+  "integrity" "sha512-e7b+dRh1SUTla42vzjdbhGYkeLD7E6wIYjYaHW9zZ37rBkSqLHUhTigh3eT3k5NxFlDD/uRxTYuwaFnWQgR+4g=="
+  "resolved" "https://registry.npmjs.org/@react-aria/live-announcer/-/live-announcer-3.1.1.tgz"
+  "version" "3.1.1"
+  dependencies:
+    "@babel/runtime" "^7.6.2"
+
+"@react-aria/menu@3.5.0":
+  "integrity" "sha512-Y5L9ESVnTG2eUOmLk33oQEl5UEK/hCw50udOEqjPBgOVv4drIr8sc4ZcoB0U6IVVKbLHEskhW/ExqlJd6GSACQ=="
+  "resolved" "https://registry.npmjs.org/@react-aria/menu/-/menu-3.5.0.tgz"
+  "version" "3.5.0"
+  dependencies:
+    "@babel/runtime" "^7.6.2"
+    "@react-aria/i18n" "^3.4.0"
+    "@react-aria/interactions" "^3.9.0"
+    "@react-aria/overlays" "^3.9.0"
+    "@react-aria/selection" "^3.9.0"
+    "@react-aria/utils" "^3.13.0"
+    "@react-stately/collections" "^3.4.0"
+    "@react-stately/menu" "^3.3.0"
+    "@react-stately/tree" "^3.3.0"
+    "@react-types/button" "^3.5.0"
+    "@react-types/menu" "^3.6.0"
+    "@react-types/shared" "^3.13.0"
+
+"@react-aria/overlays@^3.9.0", "@react-aria/overlays@3.9.0":
+  "integrity" "sha512-YeZ+/0yfBAcqhuRF/Aas5ga9rZWff3EkhisEy1yXjOrf5veedqb05CsyjRkefZzmUeUggfq/AmqX0DJBlZFbxg=="
+  "resolved" "https://registry.npmjs.org/@react-aria/overlays/-/overlays-3.9.0.tgz"
+  "version" "3.9.0"
+  dependencies:
+    "@babel/runtime" "^7.6.2"
+    "@react-aria/i18n" "^3.4.0"
+    "@react-aria/interactions" "^3.9.0"
+    "@react-aria/utils" "^3.13.0"
+    "@react-aria/visually-hidden" "^3.3.0"
+    "@react-stately/overlays" "^3.3.0"
+    "@react-types/button" "^3.5.0"
+    "@react-types/overlays" "^3.6.0"
+    "@react-types/shared" "^3.13.0"
+    "dom-helpers" "^5.2.1"
+    "react-transition-group" "^4.4.2"
+
+"@react-aria/radio@3.2.0":
+  "integrity" "sha512-siJmgPckrc29W7dt1g9P2w6wNHMIVKaBSJfP3uQ3qTJcDdTF4sTcK+cre+2peuWrHJiYOCQW1mrRYqfgARDUaA=="
+  "resolved" "https://registry.npmjs.org/@react-aria/radio/-/radio-3.2.0.tgz"
+  "version" "3.2.0"
+  dependencies:
+    "@babel/runtime" "^7.6.2"
+    "@react-aria/focus" "^3.6.0"
+    "@react-aria/i18n" "^3.4.0"
+    "@react-aria/interactions" "^3.9.0"
+    "@react-aria/label" "^3.3.0"
+    "@react-aria/utils" "^3.13.0"
+    "@react-stately/radio" "^3.4.0"
+    "@react-types/radio" "^3.2.0"
+
+"@react-aria/selection@^3.10.0", "@react-aria/selection@^3.9.0":
+  "integrity" "sha512-VvFgNRrM0kK6aqyMTeTN+pguyvYN9Wu3viftnZyk89uo2+9hfmU7DLhz5kXkdJY9UNzn033jYGwJdWEuqRq65g=="
+  "resolved" "https://registry.npmjs.org/@react-aria/selection/-/selection-3.10.0.tgz"
+  "version" "3.10.0"
+  dependencies:
+    "@babel/runtime" "^7.6.2"
+    "@react-aria/focus" "^3.7.0"
+    "@react-aria/i18n" "^3.5.0"
+    "@react-aria/interactions" "^3.10.0"
+    "@react-aria/utils" "^3.13.2"
+    "@react-stately/collections" "^3.4.2"
+    "@react-stately/selection" "^3.10.2"
+    "@react-types/shared" "^3.14.0"
+
+"@react-aria/ssr@^3.2.0", "@react-aria/ssr@3.2.0":
+  "integrity" "sha512-wwJFdkl+Q8NU5yJ4NvdAOqx5LM3QtUVoSjuK7Ey8jZ4WS4bB0EqT3Kr3IInBs257HzZ5nXCiKXKE4NGXXuIRWA=="
+  "resolved" "https://registry.npmjs.org/@react-aria/ssr/-/ssr-3.2.0.tgz"
+  "version" "3.2.0"
+  dependencies:
+    "@babel/runtime" "^7.6.2"
+
+"@react-aria/ssr@^3.3.0":
+  "integrity" "sha512-yNqUDuOVZIUGP81R87BJVi/ZUZp/nYOBXbPsRe7oltJOfErQZD+UezMpw4vM2KRz18cURffvmC8tJ6JTeyDtaQ=="
+  "resolved" "https://registry.npmjs.org/@react-aria/ssr/-/ssr-3.3.0.tgz"
+  "version" "3.3.0"
+  dependencies:
+    "@babel/runtime" "^7.6.2"
+
+"@react-aria/table@3.3.0":
+  "integrity" "sha512-OYKO0qd/oWYhtbStGByyaRxvz3MSFY+8yIhp5ibr/3fBQw6PuCXAUMJGhhHj+boFVx0Qx+LUWtDk0LOPt5aA0w=="
+  "resolved" "https://registry.npmjs.org/@react-aria/table/-/table-3.3.0.tgz"
+  "version" "3.3.0"
+  dependencies:
+    "@babel/runtime" "^7.6.2"
+    "@react-aria/focus" "^3.6.0"
+    "@react-aria/grid" "^3.3.0"
+    "@react-aria/i18n" "^3.4.0"
+    "@react-aria/interactions" "^3.9.0"
+    "@react-aria/live-announcer" "^3.1.0"
+    "@react-aria/selection" "^3.9.0"
+    "@react-aria/utils" "^3.13.0"
+    "@react-stately/table" "^3.2.0"
+    "@react-stately/virtualizer" "^3.2.0"
+    "@react-types/checkbox" "^3.3.0"
+    "@react-types/grid" "^3.1.0"
+    "@react-types/shared" "^3.13.0"
+    "@react-types/table" "^3.2.0"
+
+"@react-aria/toggle@^3.3.0":
+  "integrity" "sha512-U+npP5XtNBs+e5T1UZDw5UhG8PJwnx+p68+GTY20UMVCTHtuNyjzjmI9nI3b9oVGcJ3ZKfvQAWq2uOqBjF/W3A=="
+  "resolved" "https://registry.npmjs.org/@react-aria/toggle/-/toggle-3.3.2.tgz"
+  "version" "3.3.2"
+  dependencies:
+    "@babel/runtime" "^7.6.2"
+    "@react-aria/focus" "^3.7.0"
+    "@react-aria/interactions" "^3.10.0"
+    "@react-aria/utils" "^3.13.2"
+    "@react-stately/toggle" "^3.4.0"
+    "@react-types/checkbox" "^3.3.2"
+    "@react-types/shared" "^3.14.0"
+    "@react-types/switch" "^3.2.2"
+
+"@react-aria/utils@^3.13.0", "@react-aria/utils@3.13.0":
+  "integrity" "sha512-iF/yYkUVCc2Cgyu7o8oE6w7a67P/M8gXKDR2tp592Be6iUKQPy2kb49VvSh+Bom6Wq/To3h4UBOLFI6I0VXJYA=="
+  "resolved" "https://registry.npmjs.org/@react-aria/utils/-/utils-3.13.0.tgz"
+  "version" "3.13.0"
+  dependencies:
+    "@babel/runtime" "^7.6.2"
+    "@react-aria/ssr" "^3.2.0"
+    "@react-stately/utils" "^3.5.0"
+    "@react-types/shared" "^3.13.0"
+    "clsx" "^1.1.1"
+
+"@react-aria/utils@^3.13.2":
+  "integrity" "sha512-VTI8tv9m/BxE/lPTNCZN1fcHuY540xm+HT1vg2ZQCryudUWvzQkHi+h0z32DhiGHhvRFIGdH/enf3psip7ZLTQ=="
+  "resolved" "https://registry.npmjs.org/@react-aria/utils/-/utils-3.13.2.tgz"
+  "version" "3.13.2"
+  dependencies:
+    "@babel/runtime" "^7.6.2"
+    "@react-aria/ssr" "^3.3.0"
+    "@react-stately/utils" "^3.5.1"
+    "@react-types/shared" "^3.14.0"
+    "clsx" "^1.1.1"
+
+"@react-aria/visually-hidden@^3.3.0", "@react-aria/visually-hidden@3.3.0":
+  "integrity" "sha512-pnm4CzO/pI/2xfDMY9OcnlLqYYpaE1bIAwDdFzkXr6ldcR+4kG6N0dJprL6x+ZMgXbztfxUDSPLmexVQShmFsQ=="
+  "resolved" "https://registry.npmjs.org/@react-aria/visually-hidden/-/visually-hidden-3.3.0.tgz"
+  "version" "3.3.0"
+  dependencies:
+    "@babel/runtime" "^7.6.2"
+    "@react-aria/interactions" "^3.9.0"
+    "@react-aria/utils" "^3.13.0"
+    "clsx" "^1.1.1"
+
+"@react-stately/checkbox@^3.1.0", "@react-stately/checkbox@3.1.0":
+  "integrity" "sha512-K4c2etj5DCNjvNFP7PaKZxKlRwX/DmpcJzhCQX29jmZJtLsrjsVhLrVNr59NleHbHVsOifF1GwbPlVUKbL5Y0w=="
+  "resolved" "https://registry.npmjs.org/@react-stately/checkbox/-/checkbox-3.1.0.tgz"
+  "version" "3.1.0"
+  dependencies:
+    "@babel/runtime" "^7.6.2"
+    "@react-stately/toggle" "^3.3.0"
+    "@react-stately/utils" "^3.5.0"
+    "@react-types/checkbox" "^3.3.0"
+
+"@react-stately/collections@^3.4.0", "@react-stately/collections@^3.4.2":
+  "integrity" "sha512-CmLVWtbX4r3QaTNdI6edtrRKIZRKPuxyD7TmVIaoZBdaOXStTP4wOgyPN1ELww9bvW0MoOaQBbUn5WAPrfifFw=="
+  "resolved" "https://registry.npmjs.org/@react-stately/collections/-/collections-3.4.2.tgz"
+  "version" "3.4.2"
+  dependencies:
+    "@babel/runtime" "^7.6.2"
+    "@react-types/shared" "^3.14.0"
+
+"@react-stately/data@3.5.0":
+  "integrity" "sha512-Ww/tYEg0pOY870DJ7wTSlyCJ44jlwtmRuFsd649wD8pNKrYqkExYMO/gK9mfhR5hwaaHsubKl+XgqEgqHCr97g=="
+  "resolved" "https://registry.npmjs.org/@react-stately/data/-/data-3.5.0.tgz"
+  "version" "3.5.0"
+  dependencies:
+    "@babel/runtime" "^7.6.2"
+    "@react-types/shared" "^3.13.0"
+
+"@react-stately/grid@^3.2.0", "@react-stately/grid@^3.3.0":
+  "integrity" "sha512-30z4Kki5QWZvR22f3UrA18eMDOcXmQFzAq5pHbRs1LvxJAaqeAD2KzCT70MCgoA5XzyiOrvIPrKTBRf48du45w=="
+  "resolved" "https://registry.npmjs.org/@react-stately/grid/-/grid-3.3.0.tgz"
+  "version" "3.3.0"
+  dependencies:
+    "@babel/runtime" "^7.6.2"
+    "@react-stately/selection" "^3.10.2"
+    "@react-types/grid" "^3.1.2"
+    "@react-types/shared" "^3.14.0"
+
+"@react-stately/menu@^3.3.0":
+  "integrity" "sha512-xdNS3K0PmSjpNhH/Xnskfexxyo909Jkkfux4zhP5Ivk4Vkp0eThb6v9AIomUAo163PuOnHQFen1ZmwFEs92xMw=="
+  "resolved" "https://registry.npmjs.org/@react-stately/menu/-/menu-3.4.0.tgz"
+  "version" "3.4.0"
+  dependencies:
+    "@babel/runtime" "^7.6.2"
+    "@react-stately/overlays" "^3.4.0"
+    "@react-stately/utils" "^3.5.1"
+    "@react-types/menu" "^3.7.0"
+    "@react-types/shared" "^3.14.0"
+
+"@react-stately/overlays@^3.3.0", "@react-stately/overlays@3.3.0":
+  "integrity" "sha512-x8ASMyhib7mL4ITgZQXUaTGGkFPZz4qPJVThdx9i6q1iu0CpO7hXpPxzrUFKPV+JV/fyXlWbo3n7tWBE2yHTVw=="
+  "resolved" "https://registry.npmjs.org/@react-stately/overlays/-/overlays-3.3.0.tgz"
+  "version" "3.3.0"
+  dependencies:
+    "@babel/runtime" "^7.6.2"
+    "@react-stately/utils" "^3.5.0"
+    "@react-types/overlays" "^3.6.0"
+
+"@react-stately/overlays@^3.4.0":
+  "integrity" "sha512-jXVm1V91lWOKh73cFvE9W9JtAE8idSWEUtFlVrlBI/jh0ZOt148UlRVWgHrm7FhaUpyvOFNUyfidRmKMuB+hgw=="
+  "resolved" "https://registry.npmjs.org/@react-stately/overlays/-/overlays-3.4.0.tgz"
+  "version" "3.4.0"
+  dependencies:
+    "@babel/runtime" "^7.6.2"
+    "@react-stately/utils" "^3.5.1"
+    "@react-types/overlays" "^3.6.2"
+
+"@react-stately/radio@^3.4.0", "@react-stately/radio@3.4.0":
+  "integrity" "sha512-rdZbMzhVjFkN1BjhK4qZ61wddnFdkRzTPIXqpFo+iMD9x8VEn3lmOkOLIHUs0OyyMP0E/0Aje+F2ZT6/zqq6PA=="
+  "resolved" "https://registry.npmjs.org/@react-stately/radio/-/radio-3.4.0.tgz"
+  "version" "3.4.0"
+  dependencies:
+    "@babel/runtime" "^7.6.2"
+    "@react-stately/utils" "^3.5.0"
+    "@react-types/radio" "^3.2.0"
+
+"@react-stately/selection@^3.10.0", "@react-stately/selection@^3.10.2":
+  "integrity" "sha512-3/iw0BpShWt5ie+YpOzi4Mpa3yKOtlKQZXEc0fZt3v3m3N3fMoCr7Ovkfuz5Svy47HIIN1Pk1WkRJC+CQ4hfDw=="
+  "resolved" "https://registry.npmjs.org/@react-stately/selection/-/selection-3.10.2.tgz"
+  "version" "3.10.2"
+  dependencies:
+    "@babel/runtime" "^7.6.2"
+    "@react-stately/collections" "^3.4.2"
+    "@react-stately/utils" "^3.5.1"
+    "@react-types/shared" "^3.14.0"
+
+"@react-stately/table@^3.2.0", "@react-stately/table@3.2.0":
+  "integrity" "sha512-W4MJITIxma6PCpRX1Z9vi6F35mJiwpM+g24yVG7VK6JD9Fbiw2nIPJf5ZYo11EI2PdIJlamv/xYqYtn2kmGlWw=="
+  "resolved" "https://registry.npmjs.org/@react-stately/table/-/table-3.2.0.tgz"
+  "version" "3.2.0"
+  dependencies:
+    "@babel/runtime" "^7.6.2"
+    "@react-aria/utils" "^3.13.0"
+    "@react-stately/collections" "^3.4.0"
+    "@react-stately/grid" "^3.2.0"
+    "@react-stately/selection" "^3.10.0"
+    "@react-types/grid" "^3.1.0"
+    "@react-types/shared" "^3.13.0"
+    "@react-types/table" "^3.2.0"
+
+"@react-stately/toggle@^3.3.0", "@react-stately/toggle@3.3.0":
+  "integrity" "sha512-fiVT1yw9qBBWyfFviUwNR4AcdCnN7TPAX2VpuL7LO7zB1a+sOGiTz3nTnHI4837trvpsXHpCvYXTBMY6yxGEMg=="
+  "resolved" "https://registry.npmjs.org/@react-stately/toggle/-/toggle-3.3.0.tgz"
+  "version" "3.3.0"
+  dependencies:
+    "@babel/runtime" "^7.6.2"
+    "@react-stately/utils" "^3.5.0"
+    "@react-types/checkbox" "^3.3.0"
+    "@react-types/shared" "^3.13.0"
+
+"@react-stately/toggle@^3.4.0":
+  "integrity" "sha512-7kPxR2+Aze7NmpWWOQanRsQvmz7R+Sdlu+2xi0Wh5LPFg+lkXSiGY63uM2amxZcbFb0Mhy5ExlRpF53ReZjEOA=="
+  "resolved" "https://registry.npmjs.org/@react-stately/toggle/-/toggle-3.4.0.tgz"
+  "version" "3.4.0"
+  dependencies:
+    "@babel/runtime" "^7.6.2"
+    "@react-stately/utils" "^3.5.1"
+    "@react-types/checkbox" "^3.3.2"
+    "@react-types/shared" "^3.14.0"
+
+"@react-stately/tree@^3.3.0", "@react-stately/tree@3.3.0":
+  "integrity" "sha512-Ic3QMRlrLbbnYPEbiraJdDAcrOnaLd7nJK7qG/cq7Jg7gfruqbO4XFzy+2w7I5B2BbXqFCivtCgEQZIYsgMaSw=="
+  "resolved" "https://registry.npmjs.org/@react-stately/tree/-/tree-3.3.0.tgz"
+  "version" "3.3.0"
+  dependencies:
+    "@babel/runtime" "^7.6.2"
+    "@react-stately/collections" "^3.4.0"
+    "@react-stately/selection" "^3.10.0"
+    "@react-stately/utils" "^3.5.0"
+    "@react-types/shared" "^3.13.0"
+
+"@react-stately/utils@^3.5.0", "@react-stately/utils@^3.5.1":
+  "integrity" "sha512-INeQ5Er2Jm+db8Py4upKBtgfzp3UYgwXYmbU/XJn49Xw27ktuimH9e37qP3bgHaReb5L3g8IrGs38tJUpnGPHA=="
+  "resolved" "https://registry.npmjs.org/@react-stately/utils/-/utils-3.5.1.tgz"
+  "version" "3.5.1"
+  dependencies:
+    "@babel/runtime" "^7.6.2"
+
+"@react-stately/virtualizer@^3.2.0", "@react-stately/virtualizer@^3.2.2":
+  "integrity" "sha512-I0dbohDkG+Gm750YxlAp9qy6uE3HxWRBQjrvBdswuIscaBVp/espYqMvgVwxVnQnkcIcVdKZZ/gvT8HZwkR9lg=="
+  "resolved" "https://registry.npmjs.org/@react-stately/virtualizer/-/virtualizer-3.2.2.tgz"
+  "version" "3.2.2"
+  dependencies:
+    "@babel/runtime" "^7.6.2"
+    "@react-aria/utils" "^3.13.2"
+    "@react-types/shared" "^3.14.0"
+
+"@react-types/button@^3.5.0":
+  "integrity" "sha512-ijCi07TkLmwU3Qtn8IzKJi1nugZj8Ln0+w2OZPRJS/tRFv48qgNsOXum54W5i9W0yg/I7VQiPjm+YsQS51g7gA=="
+  "resolved" "https://registry.npmjs.org/@react-types/button/-/button-3.6.0.tgz"
+  "version" "3.6.0"
+  dependencies:
+    "@react-types/shared" "^3.14.0"
+
+"@react-types/checkbox@^3.3.0", "@react-types/checkbox@3.3.0":
+  "integrity" "sha512-aAlorLrY9mTQ01hBSXP+p5dXVLmhwYwPu+lW8rJSosyaZFtaV6GdNHaYb/NioR5YjiMInableWvIxSuTurrMmA=="
+  "resolved" "https://registry.npmjs.org/@react-types/checkbox/-/checkbox-3.3.0.tgz"
+  "version" "3.3.0"
+  dependencies:
+    "@react-types/shared" "^3.13.0"
+
+"@react-types/checkbox@^3.3.2":
+  "integrity" "sha512-s1bgqL4qfEMEasePayukZ6pzpIzfAG1OuVmpARz0kVdVaN7e+B4+dRJ0nDtiQf/TjNLg45ZlG3NTXJ1hsZPelQ=="
+  "resolved" "https://registry.npmjs.org/@react-types/checkbox/-/checkbox-3.3.2.tgz"
+  "version" "3.3.2"
+  dependencies:
+    "@react-types/shared" "^3.14.0"
+
+"@react-types/dialog@^3.4.0":
+  "integrity" "sha512-ub5KrXuN0VELqIKDKuj+ySalcliIneuVnwnX83XbW+xSs9/zFo5WwALU0YxP77rzwIyuu6ziQ8CUZ7rHhLa0hQ=="
+  "resolved" "https://registry.npmjs.org/@react-types/dialog/-/dialog-3.4.2.tgz"
+  "version" "3.4.2"
+  dependencies:
+    "@react-types/overlays" "^3.6.2"
+    "@react-types/shared" "^3.14.0"
+
+"@react-types/grid@^3.1.0", "@react-types/grid@3.1.0":
+  "integrity" "sha512-cQNHz5qHw4GDSWTgu1hUXj7aXly/WmqUMIMnpwfqOt9UYFDH/9cIXvGfwUH+7wSVEdJQrkMYtHp1lpP8INWmew=="
+  "resolved" "https://registry.npmjs.org/@react-types/grid/-/grid-3.1.0.tgz"
+  "version" "3.1.0"
+  dependencies:
+    "@react-types/shared" "^3.13.0"
+
+"@react-types/grid@^3.1.2":
+  "integrity" "sha512-9mKhtBZiGlok1APRSR+hTKYFgx8XxRBBLG20/xPI1C8xCGNZvOz7CmK57LmlwYsN1BLo3S2vLOd6+M1qrw2yVg=="
+  "resolved" "https://registry.npmjs.org/@react-types/grid/-/grid-3.1.2.tgz"
+  "version" "3.1.2"
+  dependencies:
+    "@react-types/shared" "^3.14.0"
+
+"@react-types/label@^3.6.0":
+  "integrity" "sha512-fxivJ3MKYbNhE8z/zPpmvN2R7XNGpaTQ5Rm7/ueIou5VkrZnZmDJv0+wIs9xF8l6Bq6Nx7k899OK0u38XTgwNw=="
+  "resolved" "https://registry.npmjs.org/@react-types/label/-/label-3.6.2.tgz"
+  "version" "3.6.2"
+  dependencies:
+    "@react-types/shared" "^3.14.0"
+
+"@react-types/menu@^3.6.0", "@react-types/menu@3.6.0":
+  "integrity" "sha512-GO6GjM+WH+8nOC9c1sVBPE9dYC5vKGBCNA3YxleQq9T2unFB0NOZc8hbzbFcAdwn7NnQbV9eLc0XHpUEkL9NLA=="
+  "resolved" "https://registry.npmjs.org/@react-types/menu/-/menu-3.6.0.tgz"
+  "version" "3.6.0"
+  dependencies:
+    "@react-types/overlays" "^3.6.0"
+    "@react-types/shared" "^3.13.0"
+
+"@react-types/menu@^3.7.0":
+  "integrity" "sha512-1kEyyb0tERlPdZ67lsC2fMZ2TTh0OdS1hcb01PrSkGna/S+H/Q9M65Xc+q9eu7QoC4+DN4Flh/7vNRT82kVlHg=="
+  "resolved" "https://registry.npmjs.org/@react-types/menu/-/menu-3.7.0.tgz"
+  "version" "3.7.0"
+  dependencies:
+    "@react-types/overlays" "^3.6.2"
+    "@react-types/shared" "^3.14.0"
+
+"@react-types/overlays@^3.6.0", "@react-types/overlays@3.6.0":
+  "integrity" "sha512-atoRgctzNHxWE4qhI2YLI/0Y9bicsib3EnaliV0jUQf2oJMr0S8yKVwwx+K0ENh9Ah00XBEFQxkjgP1q3xQQYw=="
+  "resolved" "https://registry.npmjs.org/@react-types/overlays/-/overlays-3.6.0.tgz"
+  "version" "3.6.0"
+  dependencies:
+    "@react-types/shared" "^3.13.0"
+
+"@react-types/overlays@^3.6.2":
+  "integrity" "sha512-ag9UCIlcNCvMHBORRksdLnQK3ef+CEbrt+TydOxBAxAf+87fXJ/0H6hP/4QTebEA2ixA0qz8CFga81S8ZGnOsQ=="
+  "resolved" "https://registry.npmjs.org/@react-types/overlays/-/overlays-3.6.2.tgz"
+  "version" "3.6.2"
+  dependencies:
+    "@react-types/shared" "^3.14.0"
+
+"@react-types/radio@^3.2.0":
+  "integrity" "sha512-JBnfEUu4T6Z+SRsALKnzmx/4AqeIbdHEOumHSlAlX5iLPUywvELn22PVvF+YHh7bOeXKcVv+4/rXnTZWcsAK1g=="
+  "resolved" "https://registry.npmjs.org/@react-types/radio/-/radio-3.2.2.tgz"
+  "version" "3.2.2"
+  dependencies:
+    "@react-types/shared" "^3.14.0"
+
+"@react-types/shared@^3.13.0", "@react-types/shared@3.13.0":
+  "integrity" "sha512-ha+Xzn6gG/aww2nl7A6kYSJdYQypTxdYgNrJvddDB7h0QuyVQTf27iVleOWrmkHQ1TM9Q/FUbMdJ93CgdtP26g=="
+  "resolved" "https://registry.npmjs.org/@react-types/shared/-/shared-3.13.0.tgz"
+  "version" "3.13.0"
+
+"@react-types/shared@^3.14.0":
+  "integrity" "sha512-K069Bh/P0qV3zUG8kqabeO8beAUlFdyVPvpcNVPjRl+0Q9NDS9mfdQbmUa0LqdVo5e6jRPdos77Ylflkrz8wcw=="
+  "resolved" "https://registry.npmjs.org/@react-types/shared/-/shared-3.14.0.tgz"
+  "version" "3.14.0"
+
+"@react-types/switch@^3.2.2":
+  "integrity" "sha512-DGJP4+3B6yQ86/WaGL9aLjWyLb9x1lAHW1+cXEl016/J2BdlU83Lw4mRr1qaniGLd+1Ft6cvVv7419voPlf3Ng=="
+  "resolved" "https://registry.npmjs.org/@react-types/switch/-/switch-3.2.2.tgz"
+  "version" "3.2.2"
+  dependencies:
+    "@react-types/checkbox" "^3.3.2"
+    "@react-types/shared" "^3.14.0"
+
+"@react-types/table@^3.2.0":
+  "integrity" "sha512-spq1h0+RuClbedH26d8SX8bGJUWO3x/MrRuoxN/XThCR+8rayp+QjCz7Pz2a5rqMniRh91O8rOOdqjbWbP4b7g=="
+  "resolved" "https://registry.npmjs.org/@react-types/table/-/table-3.3.0.tgz"
+  "version" "3.3.0"
+  dependencies:
+    "@react-types/grid" "^3.1.2"
+    "@react-types/shared" "^3.14.0"
+
 "@rushstack/eslint-patch@^1.1.3":
   "integrity" "sha512-LwzQKA4vzIct1zNZzBmRKI9QuNpLgTQMEjsQLf3BXuGYb3QPTP4Yjf6mkdX+X1mYttZ808QpOwAzZjv28kq7DA=="
   "resolved" "https://registry.npmjs.org/@rushstack/eslint-patch/-/eslint-patch-1.1.4.tgz"
@@ -93,6 +750,11 @@
   "integrity" "sha512-+9jVqKhRSpsc591z5vX+X5Yyw+he/HCB4iQ/RYxw35CEPaY1gnsNE43nf9n9AaYjAQrTiI/mOwKUKdUs9vf7Xg=="
   "resolved" "https://registry.npmjs.org/@socket.io/component-emitter/-/component-emitter-3.1.0.tgz"
   "version" "3.1.0"
+
+"@stitches/react@1.2.8":
+  "integrity" "sha512-9g9dWI4gsSVe8bNLlb+lMkBYsnIKCZTmvqvDG+Avnn69XfmHZKiaMrx7cgTaddq7aTPPmXiTsbFcUy0xgI4+wA=="
+  "resolved" "https://registry.npmjs.org/@stitches/react/-/react-1.2.8.tgz"
+  "version" "1.2.8"
 
 "@swc/helpers@0.4.3":
   "integrity" "sha512-6JrF+fdUK2zbGpJIlN7G3v966PQjyx/dPt1T9km2wj+EUBqgrxCk3uX4Kct16MIm9gGxfKRcfax2hVf5jvlTzA=="
@@ -341,6 +1003,11 @@
     "ansi-styles" "^4.1.0"
     "supports-color" "^7.1.0"
 
+"clsx@^1.1.1":
+  "integrity" "sha512-EcR6r5a8bj6pu3ycsa/E/cKVGuTgZJZdsyUYHOksG/UHIiKfjxzRxYJpyVBwYaQeOvghal9fcc4PidlgzugAQg=="
+  "resolved" "https://registry.npmjs.org/clsx/-/clsx-1.2.1.tgz"
+  "version" "1.2.1"
+
 "color-convert@^2.0.1":
   "integrity" "sha512-RRECPsj7iu/xb5oKYcsFHSppFNnsj/52OVTRKb4zP5onXwVF3zVmmToNcOfGC+CRDpfK/U584fMg38ZHCaElKQ=="
   "resolved" "https://registry.npmjs.org/color-convert/-/color-convert-2.0.1.tgz"
@@ -448,6 +1115,14 @@
   "version" "3.0.0"
   dependencies:
     "esutils" "^2.0.2"
+
+"dom-helpers@^5.0.1", "dom-helpers@^5.2.1":
+  "integrity" "sha512-nRCa7CK3VTrM2NmGkIy4cbK7IZlgBE/PYMn55rrXefr5xXDP0LdtfPnblFDoVdcAfslJ7or6iqAUnx0CCGIWQA=="
+  "resolved" "https://registry.npmjs.org/dom-helpers/-/dom-helpers-5.2.1.tgz"
+  "version" "5.2.1"
+  dependencies:
+    "@babel/runtime" "^7.8.7"
+    "csstype" "^3.0.2"
 
 "emoji-regex@^9.2.2":
   "integrity" "sha512-L18DaJsXSUk2+42pv8mLs5jJT2hqFkFE4j21wOmgbUqsZ2hL72NsUU785g9RXgo3s0ZNgVl42TiHp3ZtOv/Vyg=="
@@ -985,6 +1660,16 @@
     "has" "^1.0.3"
     "side-channel" "^1.0.4"
 
+"intl-messageformat@^10.1.0":
+  "integrity" "sha512-FeJne2oooYW6shLPbrqyjRX6hTELVrQ90Dn88z7NomLk/xZBCLxLPAkgaYaTQJBRBV78nZ933d8APHHkTQrD9Q=="
+  "resolved" "https://registry.npmjs.org/intl-messageformat/-/intl-messageformat-10.1.1.tgz"
+  "version" "10.1.1"
+  dependencies:
+    "@formatjs/ecma402-abstract" "1.11.8"
+    "@formatjs/fast-memoize" "1.2.4"
+    "@formatjs/icu-messageformat-parser" "2.1.4"
+    "tslib" "2.4.0"
+
 "is-bigint@^1.0.1":
   "integrity" "sha512-zB9CruMamjym81i2JZ3UMn54PKGsQzsJeo6xvN3HJJ4CAsQNB6iRutp2To77OfCNuoxspsIhzaPoO1zyCEhFOg=="
   "resolved" "https://registry.npmjs.org/is-bigint/-/is-bigint-1.0.4.tgz"
@@ -1415,7 +2100,7 @@
   "resolved" "https://registry.npmjs.org/prelude-ls/-/prelude-ls-1.2.1.tgz"
   "version" "1.2.1"
 
-"prop-types@^15.8.1":
+"prop-types@^15.6.2", "prop-types@^15.8.1":
   "integrity" "sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg=="
   "resolved" "https://registry.npmjs.org/prop-types/-/prop-types-15.8.1.tgz"
   "version" "15.8.1"
@@ -1434,7 +2119,7 @@
   "resolved" "https://registry.npmjs.org/queue-microtask/-/queue-microtask-1.2.3.tgz"
   "version" "1.2.3"
 
-"react-dom@^17.0.2 || ^18.0.0-0", "react-dom@18.2.0":
+"react-dom@^16.8.0 || ^17.0.0-rc.1 || ^18.0.0", "react-dom@^17.0.2 || ^18.0.0-0", "react-dom@>=16.6.0", "react-dom@>=16.8.0", "react-dom@18.2.0":
   "integrity" "sha512-6IMTriUmvsjHUjNtEDudZfuDQUoWXVxKHhlEGSk81n4YFS+r/Kl99wXiwlVXtPBtJenozv2P+hxDsw9eA7Xo6g=="
   "resolved" "https://registry.npmjs.org/react-dom/-/react-dom-18.2.0.tgz"
   "version" "18.2.0"
@@ -1452,6 +2137,16 @@
   "resolved" "https://registry.npmjs.org/react-is/-/react-is-16.13.1.tgz"
   "version" "16.13.1"
 
+"react-transition-group@^4.4.2":
+  "integrity" "sha512-pZcd1MCJoiKiBR2NRxeCRg13uCXbydPnmB4EOeRrY7480qNWO8IIgQG6zlDkm6uRMsURXPuKq0GWtiM59a5Q6g=="
+  "resolved" "https://registry.npmjs.org/react-transition-group/-/react-transition-group-4.4.5.tgz"
+  "version" "4.4.5"
+  dependencies:
+    "@babel/runtime" "^7.5.5"
+    "dom-helpers" "^5.0.1"
+    "loose-envify" "^1.4.0"
+    "prop-types" "^15.6.2"
+
 "react-tsparticles@^2.1.4":
   "integrity" "sha512-V6UJizW4e30HgzMmBte712q3xhJYhcpHxwFt2WJDS1TypqedB43/GhJdnHxRAOuqne6KzbQUOIDyy0ZySvvqiw=="
   "resolved" "https://registry.npmjs.org/react-tsparticles/-/react-tsparticles-2.1.4.tgz"
@@ -1460,7 +2155,7 @@
     "fast-deep-equal" "^3.1.3"
     "tsparticles-engine" "^2.0.6"
 
-"react@*", "react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^17.0.2 || ^18.0.0-0", "react@^18.2.0", "react@>= 16.8.0 || 17.x.x || ^18.0.0-0", "react@>=16", "react@18.2.0":
+"react@*", "react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^16.8.0 || ^17.0.0-rc.1 || ^18.0.0", "react@^17.0.2 || ^18.0.0-0", "react@^18.2.0", "react@>= 16.3.0", "react@>= 16.8.0 || 17.x.x || ^18.0.0-0", "react@>=16", "react@>=16.6.0", "react@>=16.8.0", "react@18.2.0":
   "integrity" "sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ=="
   "resolved" "https://registry.npmjs.org/react/-/react-18.2.0.tgz"
   "version" "18.2.0"
@@ -1689,7 +2384,7 @@
   "resolved" "https://registry.npmjs.org/tslib/-/tslib-1.14.1.tgz"
   "version" "1.14.1"
 
-"tslib@^2.4.0":
+"tslib@^2.4.0", "tslib@2.4.0":
   "integrity" "sha512-d6xOpEDfsi2CZVlPQzGeux8XMwLT9hssAsaPYExaQMuYskwb+x1x7J371tWlbBdWHroy99KnVB6qIkUbs5X3UQ=="
   "resolved" "https://registry.npmjs.org/tslib/-/tslib-2.4.0.tgz"
   "version" "2.4.0"

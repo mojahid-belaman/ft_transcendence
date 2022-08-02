@@ -1,7 +1,10 @@
 export interface UserDto {
   login: string;
+  email?: string;
   username?: string;
   avatar?: string;
-  removedAvatar?: boolean;
-  twoFactorAuth?: boolean;
+  changedAvatar?: boolean;
+  isTwoFactorAuthEnabled?: boolean;
+  isTwoFactorAuthenticated?: boolean;
+  twoFactorAuthenticationSecret?: string;
 }
