@@ -1,6 +1,6 @@
 client-test/.env
-client/node_modules
-client/.next
+client-test/node_modules
+client-test/.next
 server/.env
 server/dist
 server/node_modules
