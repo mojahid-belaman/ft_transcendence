@@ -19,6 +19,7 @@ import { UsersModule } from './users/users.module';
 // import { AuthModule } from './auth/auth.module';
 import { IntraAuthModule } from './intra-auth/IntraAuth.module';
 import { AuthModule } from './auth/auth.module';
+import { TwofactorauthModule } from './2fa/2fa.module';
 
 
 @Module({
@@ -55,7 +56,8 @@ import { AuthModule } from './auth/auth.module';
     MessagesDmsModule,
     IntraAuthModule,
     UsersModule,
-    AuthModule
+    AuthModule,
+    TwofactorauthModule
   ],
   providers: [AppGateway, JwtService, FriendshipsService, UsersService]
 })

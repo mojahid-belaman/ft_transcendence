@@ -1,10 +1,9 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useEffect } from 'react';
-import { ParticlesBackground } from '../particles/ParticlesBack';
 import styles from './login.module.css';
 
-const Login = () => {
+const LoginComponent = () => {
   // let mount = true;
   // useEffect(() => {
   //   if (mount) {
@@ -27,7 +26,6 @@ const Login = () => {
   // }, []);
   return (
     <>
-      <ParticlesBackground />
       <div className={styles.card}>
         <div className={styles.contributorBox}>
           <h1>PONG CLASSIC</h1>
@@ -48,4 +46,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default LoginComponent;

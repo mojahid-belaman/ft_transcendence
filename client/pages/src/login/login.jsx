@@ -4,34 +4,34 @@ import './login.css'
 import axios from 'axios';
 
 const Login = () => {
-    const adminUser = {
-        name: 'admin',
-        email: 'admin@email.com',
-    }
+    // const adminUser = {
+    //     name: 'admin',
+    //     email: 'admin@email.com',
+    // }
 
-    const [user, setUser] = useState({name:'something', email:'something'});
+    // const [user, setUser] = useState({name:'something', email:'something'});
 
-    const [error, setError] = useState('');
+    // const [error, setError] = useState('');
 
-    const login = details => {
-        console.log(details);
-    }
+    // const login = details => {
+    //     console.log(details);
+    // }
 
-    const logout = () => {
-        console.log('logout');
-    }
+    // const logout = () => {
+    //     console.log('logout');
+    // }
 
-    const loginWithIntra = () => {
-        const response = axios
-          .get('http://localhost:3000/oauth/', {
-            headers: {
-              'Access-Control-Allow-Origin': '*',
-            },
-          })
-          .then((resp) => {
-            console.log('here is the json response', response);
-          });
-    }
+    // const loginWithIntra = () => {
+    //     const response = axios
+    //       .get('http://localhost:3000/oauth/', {
+    //         headers: {
+    //           'Access-Control-Allow-Origin': '*',
+    //         },
+    //       })
+    //       .then((resp) => {
+    //         console.log('here is the json response', response);
+    //       });
+    // }
 
     return (
         <>

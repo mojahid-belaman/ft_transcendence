@@ -12,6 +12,9 @@ export class Users {
     @Column({ unique: true })
     login: string;
 
+    @Column({ unique: true })
+    email: string;
+
     @Column({default: ""})
     username: string;
     
@@ -21,9 +24,15 @@ export class Users {
     @Column({ default: null })
     avatar: string;
     
-    @Column({default: false})
-    removedAvatar: boolean;
-
-    @Column({default: false})
-    twoFactorAuth: boolean;
+    @Column()
+    changedAvatar: boolean;
+  
+    @Column()
+    isTwoFactorAuthEnabled: boolean;
+  
+    @Column()
+    isTwoFactorAuthenticated: boolean;
+  
+    @Column()
+    twoFactorAuthenticationSecret: string;
 }
