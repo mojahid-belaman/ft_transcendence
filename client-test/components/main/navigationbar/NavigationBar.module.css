@@ -1,5 +1,4 @@
-
-.nav{
+.nav {
     /* width: 100%; */
     background-color: black;
     display: flex;
@@ -8,25 +7,27 @@
     height: 70px;
     width: 100vw;
 }
-.nav .barContent{
+
+.nav .barContent {
     display: flex;
     flex-direction: row;
 }
 
-.nav .barContent button{
-    font-family:  Impact, fantasy;
+.nav .barContent button {
+    font-family: Impact, fantasy;
     letter-spacing: 3px;
-	height: 70px;
-	border: none;
-	font-size: 16px;
-	color: white;
-	cursor: pointer;
+    height: 70px;
+    border: none;
+    font-size: 16px;
+    color: white;
+    cursor: pointer;
     align-items: center;
     justify-content: center;
-	background-color: transparent;
-    opacity: 70%; 
+    background-color: transparent;
+    opacity: 70%;
 }
-.nav .barContent button:hover{
+
+.nav .barContent button:hover {
     background-color: gray;
     opacity: 100%;
 }
@@ -34,43 +35,45 @@
 .nav .icons {
     margin-right: 10px;
     font-size: 20px;
-    
+
 }
-.link{
-	text-align: left;
-	font-size: 18px;
+
+.link {
+    text-align: left;
+    font-size: 18px;
     text-decoration: none;
     width: 25%;
 }
+
 .logout {
     display: flex;
     flex-direction: row;
     height: 70px;
     width: 180px;
-	border: none;
-	font-size: 16px;
-	color: white;
-	cursor: pointer;
+    border: none;
+    font-size: 16px;
+    color: white;
+    cursor: pointer;
     align-items: center;
     justify-content: flex-end;
-	background-color: transparent;
+    background-color: transparent;
 }
 
-.logout .button{
+.logout .button {
     border-radius: 50%;
     width: 60px;
-	height: 60px;
+    height: 60px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     background-color: firebrick;
-    color:white;
+    color: white;
     font-weight: 600;
-    border:none;
+    border: none;
     cursor: pointer;
 }
 
-.logout button:hover{
+.logout button:hover {
     background-color: rgb(187, 68, 68);
 }

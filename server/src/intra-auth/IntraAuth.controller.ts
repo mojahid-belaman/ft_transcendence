@@ -18,6 +18,6 @@ export class IntraAuthController {
     res.cookie('access_token', accesToken);
     // if (!userExist) return res.redirect(`${process.env.FRONT_END_URI}/`);
     // return res.redirect(`${process.env.FRONT_END_URI}/welcome`);
-    return res.redirect(`${process.env.FRONT_END_URI}/`);
+    return res.redirect(`http://localhost:3000/home`);
   }
 }
