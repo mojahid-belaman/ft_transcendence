@@ -4,7 +4,6 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 
 import styles from './settings.module.css';
-import { resolve } from 'path';
 
 function SettingsComponent() {
   const [userName, setUserName] = useState('');
@@ -115,17 +114,17 @@ function SettingsComponent() {
           <label>Username</label>
           <input
             type="text"
-            placeholder="Enter userName"
+            placeholder="Enter user name"
             className={styles.userInput}
             onChange={handleUsername}
-          />
-          <button className={styles.btnDef} onClick={updateUserName}>
+            />
+          <button className={styles.btnedit} onClick={updateUserName}>
             Edit
           </button>
         </div>
         <div className={styles.twoFactorAuth}>
-          <label>ENABLE TWO-FACTOR AUTHENTICATION</label>
-          <button className={styles.btnDef} onClick={handle2FA}>
+          <label>Enable two factor authentication</label>
+          <button className={styles.btnedit} onClick={handle2FA}>
             {is2FA ? 'Disable' : 'Enable'}
           </button>
         </div>
@@ -136,6 +135,7 @@ function SettingsComponent() {
           </div>
         )}
       </div>
+
     </>
   );
 }

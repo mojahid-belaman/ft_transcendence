@@ -3,7 +3,7 @@
 
 
 .card {
-    position: relative;
+    /* position: relative;
     display: flex;
     top: 20%;
     max-width: 999px;
@@ -14,7 +14,17 @@
     background-color: white;
     box-shadow: 0 10px 10px rgba(255, 255, 255, 0.2);
     font-family: 'Press Start 2P';
+    letter-spacing: 3px; */
     letter-spacing: 3px;
+    font-family: 'Press Start 2P';
+    background: black;
+    color: white;
+    width: 60%;
+    max-width: 1200px;
+    min-width: 600px;
+    margin: auto;
+    margin-top: 10%;
+    padding: 30px;
 }
 
 .contributorBox {
