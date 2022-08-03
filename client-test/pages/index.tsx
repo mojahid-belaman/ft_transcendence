@@ -1,15 +1,41 @@
-import type { NextPage } from 'next'
-import Head from 'next/head'
-import Image from 'next/image'
-import MainApp from '../components/main/MainApp'
-import styles from '../styles/Home.module.css'
+import axios from 'axios';
+import Cookies from 'js-cookie';
+import { useRouter } from 'next/router';
+import React, { useEffect } from 'react'
+import ParticleBackground from '../components/gameComponents/ParticleBackground'
+import LoginComponent from '../components/loginComponent/login'
 
-const Home: NextPage = () => {
+
+export default function index() {
+  	const history = useRouter();
+		const token = Cookies.get("access_token")
+    const tempToken = Cookies.get('temp_token');
+
+	const authHandler = async () => {
+		if (token)
+			await axios.get("http://localhost:5000/auth/isAuthorized", {
+				headers: {
+					Authorization: `Bearer ${token}`,
+				}
+			}).then(res => {
+				console.log(res);
+			})
+			.catch(err => {
+			history.push("/");
+			})
+    else if(tempToken)
+      history.push('/twoFactorAuth');
+		else
+			history.push("/");
+	}
+
+	useEffect(() => {
+		authHandler();
+	}, []);
   return (
-    <MainApp>
-      
-    </MainApp>
+    <>
+      <ParticleBackground/>
+      <LoginComponent/>
+    </>
   )
 }
-
-export default Home

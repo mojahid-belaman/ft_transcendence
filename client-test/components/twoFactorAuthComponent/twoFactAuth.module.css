@@ -1,80 +1,70 @@
-@keyframes gradient {
-    0% {
-        background-position: 0 0
-    }
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap");
+@import url("https:fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Overpass:wght@500&display=swap');
 
-    100% {
-        background-position: 100% 0
-    }
+.contributorBox {
+    font-family: 'Press Start 2P';
+    background-color: black;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 2px solid white;
+    position: absolute; 
+    left: 0; 
+    right: 0; 
+    margin-left: auto; 
+    margin-right: auto;
+    top: 30%;
+    height: 600px;
+    max-width: 1200px;
+    min-width: 600px;
+    width: 95%;
+    gap: 50px;
+    border-radius: 10px;
+}
+.contributorBox h1 {
+    align-self: center;
 }
 
-
-
-.box {
-    flex-grow: 1;
-    height: 100vh;
-    position: absolute;
-    top: 40%;
-    width: 100vw;
-}
-
-.container {
-    position: relative;
+.tfaBox{
     display: flex;
     flex-direction: row;
-    width: 100%;
-    max-width: 400px;
-    margin: 0 auto;
-    border-radius: 2px;
-    padding: 1.4rem 2rem 1.6rem;
-    background: #D4D4D4;
-    opacity: 0.8;
-
+    justify-content: space-evenly;
 }
 
-.container:after {
-    content: "";
-    position: absolute;
-    left: 0px;
-    right: 0px;
-    bottom: 0px;
-    z-index: 999;
-    height: 2px;
-    border-bottom-left-radius: 2px;
-    border-bottom-right-radius: 2px;
-    background-position: 0% 0%;
-    background: linear-gradient(to right, #8D0000, #D4D4D4, #656464, #8D0000, #656464, #D4D4D4);
-    background-size: 500% auto;
-    animation: gradient 3s linear infinite;
+.LoginButton {
+    padding: 15px 15px 15px 15px ;
+    font-family: inherit;
+	display: inline-block;
+    font-weight: bold;
+    background-color: lightgray;
+    text-shadow: -1px -1px black, 1px 1px white;
+    color: gray;
+    -webkit-border-radius: 7px;
+	-moz-border-radius: 7px;
+	-o-border-radius: 7px;
+	border-radius: 7px;
+    box-shadow: 0 .2em gray; 
+    cursor: pointer;
+    width: 20%;
 }
 
-.twofactAuthInput {
-    flex-grow: 1;
-    color: #656464;
-    font-family: 'Press Start 2P';
-    border-radius: 20%;
-    border-style: none;
+
+
+.LoginButton:hover {
+    background-color: rgb(232, 232, 232);
+} 
+
+
+.userInput {
+    font-family: 'Overpass', sans-serif;
+    color: white;
     background: transparent;
+    border: 2px solid white;
+    border-radius: 10px;
+    padding: 15px 15px 15px 15px ;
+    font-size: larger;
     outline: none;
-
-}
-
-.twofactAuthInput::placeholder {
-    color: #8D0000;
-}
-
-.twofactAuthBtn {
-    font-family: 'Press Start 2P';
-    color: #656464;
-    vertical-align: middle;
-    transition: color .25s;
-    padding: 0;
-    background: none;
-    border: none;
-    outline: none;
-
-}
-
-.twofactAuthBtn:hover {
-    color: #8D0000;
+    width: 60%;
 }

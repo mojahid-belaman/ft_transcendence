@@ -1,10 +1,10 @@
+import { Divider } from '@nextui-org/react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './login.module.css';
 
 const LoginComponent = () => {
-  console.log('hehe')
   return (
     <>
       <div className={styles.card}>

@@ -20,19 +20,16 @@ function SettingsComponent() {
           headers: { Authorization: `Bearer ${accessToken}` },
         })
         .then((resolve) => {
-          const staticUrl = resolve.data.changedAvatar
-            ? 'http://localhost:5000/' + resolve.data['avatar']
-            : resolve.data.avatar;
+          const staticUrl = resolve.data.avatar;
             setDefaultURL(staticUrl);
             setIs2FA(resolve.data.isTwoFactorAuthEnabled);
-        });
+        }).catch((e) => console.log(e));
       };
       responseImage();
     }, [avatar]);
     
    useEffect(() => {
     const getQrCode = async () => {
-      const accessToken = await Cookies.get('access_token');
       await axios
         .get('http://localhost:5000/twofactorAuth/register', {
           headers: { Authorization: `Bearer ${accessToken}` },
@@ -44,11 +41,12 @@ function SettingsComponent() {
 
   const updateAvatar = async (event: any) => {
     event.preventDefault();
-    const form = new FormData();
-    form.append('image', event.target.files[0]);
+    const formData = new FormData();
+    formData.append('avatar', event.target.files[0]);
     await axios
-      .post('http://localhost:5000/users/upload', form, {
-        headers: { Authorization: `Bearer ${accessToken}` },
+      .post('http://localhost:5000/users/upload', formData, {
+        headers: { "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${accessToken}` },
       })
       .then((res) => {
         setAvatar(res.data['avatar']);

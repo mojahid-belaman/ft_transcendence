@@ -4,7 +4,7 @@ import Game from "./Game";
 
 function LiveGame(props: any) {
   const [check, setCheck] = useState(false);
-  console.log(props.socket)
+  console.log
   const hundlGame = () => {
     props.socket.emit("watchers", props.game);
     setCheck(true);

@@ -14,15 +14,13 @@ export class IntraAuthController {
   @UseGuards(IntraAuthGuard)
   async login(@Req() req, @Res({ passthrough: true }) res) {
     const userExist = await this.intraAuthService.intraLogin(req);
-    // if(userExist && userExist.isTwoFactorAuthEnabled)
-    //   res.redirect(`http://localhost:3000/twoFactorAuth`);
-    const accesToken = await this.authService.login(req.user);
-    res.cookie('access_token', accesToken);
-    // if (!userExist) return res.redirect(`${process.env.FRONT_END_URI}/`);
-    // return res.redirect(`${process.env.FRONT_END_URI}/welcome`);
-    //TOFIX
-    if(!userExist)
+    // if(userExist && userExist.isTwoFactorAuthEnabled){
+    //   const temp_token = await this.authService.login(req.user)
+    //   res.cookie('temp_token', temp_token);
+    //   return res.redirect(`http://localhost:3000/twoFactorAuth`);
+    // }
+      const accesToken = await this.authService.login(req.user);
+      res.cookie('access_token', accesToken);
       return res.redirect(`http://localhost:3000/home`);
-    return res.redirect(`http://localhost:3000/settings`)
   }
 }

@@ -20,8 +20,12 @@ export class AuthService {
   async login(user: UserDto) {
     const payload = {
       login: user.login,
-      username: user.username,
-      avatar: user.avatar
+    };
+    return await this.jwtService.sign(payload);
+  }
+  async tempToken(user: UserDto) {
+    const payload = {
+      uuid : user.login,
     };
     return await this.jwtService.sign(payload);
   }
