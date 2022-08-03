@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import classes from './ChatHeader.module.css'
 import { BiDotsVertical } from "react-icons/bi";
-function GameInvitation(props:any) {
+function GameInvitation(props: any) {
     return <div>
         <div className={classes.backdrop}></div>
         <div className={classes.card}>
@@ -15,7 +15,7 @@ function GameInvitation(props:any) {
         </div>
     </div>
 }
-function ChatHeader(props:any) {
+function ChatHeader(props: any) {
     const [backdrop1, setBackdrop1] = useState(false);
     const [backdrop2, setBackdrop2] = useState(false);
     function OpenCloseModal1() {
@@ -38,17 +38,17 @@ function ChatHeader(props:any) {
                 <div>Online </div>
             </div>
         </button>
-        <button onClick={OpenCloseModal1} className={classes.buttonSetting}><BiDotsVertical/></button>
+        <button onClick={OpenCloseModal1} className={classes.buttonSetting}><BiDotsVertical /></button>
         {backdrop1 ?
-        <div className={classes.divUser}>                                  
-        <div className={classes.userHandler}>
-             <button onClick={()=>{OpenCloseModal2(); OpenCloseModal1()}} className={classes.button}>Game Invitation</button>
-             <button  onClick={OpenCloseModal1} className={classes.button}>Unfriend</button>
-             <button  onClick={OpenCloseModal1} className={classes.button}>Block</button>
-        </div></div>  :null
-    }
-    {backdrop2 ? <GameInvitation OpenClose={OpenCloseModal2}  /> : null}
-        
+            <div className={classes.divUser}>
+                <div className={classes.userHandler}>
+                    <button onClick={() => { OpenCloseModal2(); OpenCloseModal1() }} className={classes.button}>Game Invitation</button>
+                    <button onClick={OpenCloseModal1} className={classes.button}>Unfriend</button>
+                    <button onClick={OpenCloseModal1} className={classes.button}>Block</button>
+                </div></div> : null
+        }
+        {backdrop2 ? <GameInvitation OpenClose={OpenCloseModal2} /> : null}
+
     </div>)
 }
 export default ChatHeader
