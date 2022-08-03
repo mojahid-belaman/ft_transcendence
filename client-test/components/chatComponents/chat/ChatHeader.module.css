@@ -39,6 +39,7 @@
     /* color :white; */
 }
 .buttonSetting{
+    position: relative;
     min-width: 50px;
     min-height: 50px;
     border:none;
@@ -131,21 +132,20 @@
 /* for the buttons and info  */
 .divUser{
     position: absolute;
-    width:62%;
-    height: 450px;
+    top: 60px;
+    right: 0;
     display: flex;
     flex-direction: row;
-    justify-content: flex-end;
-    align-items: flex-end;
+    align-items: center;
 }
 .userHandler{
-    position:relative;
+    /* position:relative; */
     display: flex;
-    margin-top:270px;
+    /* margin-top:270px; */
     flex-direction: column;
     align-items: center;
     width:200px;
-    height: 200px;
+    /* height: 200px; */
     opacity: 80%;
 }
 

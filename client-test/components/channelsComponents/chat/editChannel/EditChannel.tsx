@@ -48,7 +48,7 @@ function EditChannel(props:any) {
                     </div>
                     <div className={classes.info}>
                         <label> Description <span>(optional)</span> </label>
-                        <textarea /* type="text" */ name="description" required ref={descriptionInputRef} />
+                        <textarea name="description" required ref={descriptionInputRef} />
                     </div>
                     <div className={classes.info}>
                         <label > Status </label>
