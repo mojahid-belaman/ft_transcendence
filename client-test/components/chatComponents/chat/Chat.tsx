@@ -3,7 +3,7 @@ import ProfileModal from './profileModal/ProfileModal';
 import classes from './Chat.module.css'
 import ChatHeader from './ChatHeader';
 import MessageCard from './MessageCard';
-function Chat(props:any) {
+function Chat(props: any) {
     const [backdrop, setBackdrop] = useState(false);
     function OpenCloseModal() {
         if (backdrop === false)
@@ -11,11 +11,11 @@ function Chat(props:any) {
         else
             setBackdrop(false);
     }
-    const [messagelist, setMessageList]:any = useState([]);
+    const [messagelist, setMessageList]: any = useState([]);
     const [CurentMessage, setCurentMessage] = useState("");
     function Message() {
         if (CurentMessage !== "") {
-            setMessageList((list:any) => [...list, CurentMessage])
+            setMessageList((list: any) => [...list, CurentMessage])
             setCurentMessage("")
         }
     }
@@ -23,7 +23,7 @@ function Chat(props:any) {
         <ChatHeader user={props.user} toggle={OpenCloseModal} />
         <div className={classes.chatContent} >
             <div className={classes.chatMessages}>
-                {messagelist.map((message:any) => (
+                {messagelist.map((message: any) => (
 
                     <MessageCard message={message} />
                 ))}
