@@ -1,13 +1,11 @@
 .channelButton{
     font-family:  Impact, fantasy;
     letter-spacing: 3px;
-    width:60%;
+    min-width:65%;
     height: 50px;
-    text-align: left;
-    /* border-radius: 10px; */
     border:none;
     background-color: lightgray;
-    margin-top: 10px;
+    margin-bottom: 10px;
     color: black;
     cursor: pointer;
     display: flex;
@@ -31,3 +29,25 @@
     width:95%;
     box-shadow: rgba(255, 253, 253, 0.25) 0px 54px 55px, rgba(197, 193, 193, 0.12) 0px -12px 30px, rgba(212, 212, 212, 0.12) 0px 4px 6px, rgba(117, 117, 117, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 }
+
+.channelButton:hover{
+    /* width:100%; */
+    box-shadow: rgba(255, 253, 253, 0.25) 0px 54px 55px, rgba(197, 193, 193, 0.12) 0px -12px 30px, rgba(212, 212, 212, 0.12) 0px 4px 6px, rgba(117, 117, 117, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    background-color: white;
+}
+@media screen and (max-width: 700px){
+    .channelButton{
+       flex-direction: column;
+       width: 100%;
+       height: 10%;
+    }
+    .profileInfo{
+        align-items: center;
+    }
+    .channelButton:hover{
+        box-shadow: none;
+        /* width: 90px; */
+        background-color: white;
+    }
+}
+    

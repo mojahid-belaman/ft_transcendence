@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import styles from './login.module.css';
 
 const LoginComponent = () => {
+  console.log('hehe')
   return (
     <>
       <div className={styles.card}>

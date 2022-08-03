@@ -20,6 +20,7 @@ import { UsersModule } from './users/users.module';
 import { IntraAuthModule } from './intra-auth/IntraAuth.module';
 import { AuthModule } from './auth/auth.module';
 import { TwofactorauthModule } from './2fa/2fa.module';
+import { GameModule } from './game/game.module';
 
 
 @Module({
@@ -57,7 +58,8 @@ import { TwofactorauthModule } from './2fa/2fa.module';
     IntraAuthModule,
     UsersModule,
     AuthModule,
-    TwofactorauthModule
+    TwofactorauthModule,
+    GameModule
   ],
   providers: [AppGateway, JwtService, FriendshipsService, UsersService]
 })

@@ -1,7 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
-// import SocketContext from '../../../main/navigationbar/data_context/socket-context';
-import socket from "../../../../../Library/Socket";
-import Cookies from 'js-cookie';
+import socket from "../../Library/Socket";
 
 
 

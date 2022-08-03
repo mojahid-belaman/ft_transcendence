@@ -11,7 +11,7 @@ function FriendCard(props:any) {
             <img className={classes.profileImg} src="https://i.pinimg.com/474x/ec/e2/b0/ece2b0f541d47e4078aef33ffd22777e.jpg"></img>
             <div className={classes.profileInfo}>
                 <div>{props.user.name}</div>
-                <div>online</div>
+                <div>Online</div>
             </div>
         </div>
     )

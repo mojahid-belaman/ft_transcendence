@@ -13,12 +13,12 @@ const AllFriends = () => {
 
     // const socketContext = useContext(SocketContext);
     
-    // useEffect(() => {
-    //     socket.emit("allFriends");
-    //     socket.on("getAllFriends", (data: any) => setUsers(data))
-    //     socket.on("addedNewFriendship", (data: any) => setUsers([...users, data]))
-    //     socket.on("RemoveFriend", (data: any) => setUsers(users.filter(user => user.id !== data.id)))
-    // }, [])
+    useEffect(() => {
+        socket.emit("allFriends");
+        socket.on("getAllFriends", (data: any) => setUsers(data))
+        socket.on("addedNewFriendship", (data: any) => setUsers([...users, data]))
+        socket.on("RemoveFriend", (data: any) => setUsers(users.filter(user => user.id !== data.id)))
+    }, [])
     
     return (<div className={classes.list}>
         {users.length !== 0 && users.map((user, index) => (
