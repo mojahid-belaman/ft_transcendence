@@ -18,7 +18,7 @@ const LoginComponent = () => {
         </div>
         <div className={styles.LoginBox}>
           <a className={styles.LoginButton} href="http://localhost:5000/oauth">
-            Login With 42 Intra
+            Login With 42
           </a>
         </div>
       </div>
