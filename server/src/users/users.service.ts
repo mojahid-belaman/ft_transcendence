@@ -53,6 +53,7 @@ export class UsersService {
   }
 
   async getUsers(userId: string): Promise<Users[]> {
+    console.log(userId);
     return await this.userRepository.query(`
       SELECT
         *
