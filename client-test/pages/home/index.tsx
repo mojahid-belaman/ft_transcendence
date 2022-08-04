@@ -5,32 +5,31 @@ import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import axios from "axios";
 import ParticleBackground from "../../components/gameComponents/ParticleBackground";
-// import { useR }
 
 
 function chat() {
-	// const history = useRouter();
+	const history = useRouter();
+	const token = Cookies.get("access_token")
 
-	// const authHandler = async () => {
-	// 	const token = Cookies.get("access_token")
-	// 	if (token)
-	// 		await axios.get("http://localhost:5000/auth/isAuthorized", {
-	// 			headers: {
-	// 				Authorization: `Bearer ${token}`,
-	// 			}
-	// 		}).then(res => {
-	// 			console.log(res);
-	// 		})
-	// 		.catch(err => {
-	// 		history.push("/login")
-	// 		})
-	// 	else
-	// 		history.push("/login")
-	// }
+	const authHandler = async () => {
+		if (token)
+			await axios.get("http://localhost:5000/auth/isAuthorized", {
+				headers: {
+					Authorization: `Bearer ${token}`,
+				}
+			}).then(res => {
+				// console.log(res);
+			})
+			.catch(err => {
+			history.push("/")
+			})
+		else
+			history.push("/")
+	}
 
-	// useEffect(() => {
-	// 	authHandler();
-	// }, []);
+	useEffect(() => {
+		authHandler();
+	}, []);
 	return (
 		<MainApp>
 			<ParticleBackground/>

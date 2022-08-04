@@ -4,25 +4,38 @@ import React, { useState } from 'react';
 import styles from './twoFactAuth.module.css';
 
 function TwoFactAuth() {
-  // const [code, setCode] = useState('');
-  // const accesToken = Cookies.get('access_token');
+  const [code, setCode] = useState('');
+  const tempToken = Cookies.get('2fa_token');
 
-  // const handleCode = (e: any) => {
-  //   e.preventDefault();
-  //   setCode(e.target.value);
-  // };
+  const handleCode = (e: any) => {
+    e.preventDefault();
+    setCode(e.target.value);
+  };
 
-  // const handleCodeClick = async (e: any) => {
-  //   e.preventDefault();
-  //   const test = await axios.post(
-  //     'http://localhost:5000/twofactorAuth/turnOn',
-  //     { code },
-  //     {
-  //       headers: { Authorization: `Bearer ${accesToken}` },
-  //     }
-  //   );
-  //   console.log('this is test', test);
-  // };
+  const handleCodeClick = async (e: any) => {
+    e.preventDefault();
+    const test = await axios.post(
+      'http://localhost:5000/2fa/turn-on',
+      { code },
+      {
+        headers: { Authorization: `Bearer ${tempToken}` },
+      }
+    ).then((res) => {
+      return res.data
+    })
+    if(test){
+      const temp = await axios.post(
+        'http://localhost:5000/2fa/authenticate',
+        { code },
+        {
+          headers: { Authorization: `Bearer ${tempToken}` },
+        }
+      ).then(e => e.data)
+      Cookies.set('access_token', temp.access_token);
+      Cookies.remove('2fa_token');
+      window.location.href = 'http://localhost:3000/'
+    }
+  };
 
   return (
     <>
@@ -33,8 +46,9 @@ function TwoFactAuth() {
             type="text"
             placeholder="Enter 2fa Password"
             className={styles.userInput}
+            onChange={handleCode}
             />
-        <button className={styles.LoginButton}>
+        <button className={styles.LoginButton} onClick={handleCodeClick}>
           Send
         </button>
             </div>

@@ -10,7 +10,7 @@ function SettingsComponent() {
   const [avatar, setAvatar] = useState('');
   const [defaultURL, setDefaultURL] = useState();
   const [qrCode, setQrCode] = useState();
-  const [is2FA, setIs2FA] = useState();
+  const [is2FA, setIs2FA] = useState(false);
   const accessToken =  Cookies.get('access_token');
 
   useEffect(() => {
@@ -23,69 +23,84 @@ function SettingsComponent() {
           const staticUrl = resolve.data.avatar;
             setDefaultURL(staticUrl);
             setIs2FA(resolve.data.isTwoFactorAuthEnabled);
-        }).catch((e) => console.log(e));
+        });
       };
       responseImage();
     }, [avatar]);
     
+    const updateAvatar = async (event: any) => {
+      event.preventDefault();
+      const formData = new FormData();
+      formData.append('avatar', event.target.files[0]);
+      await axios
+        .post('http://localhost:5000/users/upload', formData, {
+          headers: { "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${accessToken}` },
+        })
+        .then((res) => {
+          setAvatar(res.data['avatar']);
+        });
+    };
+    
+    const handleUsername = async (event: any) => {
+      event.preventDefault();
+      setUserName(event.target.value);
+    };
+  
+    const updateUserName = async () => {
+      axios.post(
+        'http://localhost:5000/users/username',
+        {
+          username: userName,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+    };
+    
    useEffect(() => {
     const getQrCode = async () => {
       await axios
-        .get('http://localhost:5000/twofactorAuth/register', {
+        .get('http://localhost:5000/2fa/generate', {
           headers: { Authorization: `Bearer ${accessToken}` },
         })
         .then((res) => setQrCode(res.data.qrcode));
     };
-    getQrCode();
+    // getQrCode();
+    axios.get('http://localhost:5000/users/me',{
+      headers: { Authorization: `Bearer ${accessToken}` },
+    }).then((res) => {
+      console.log(res.data.isTwoFactorAuthEnabled);
+      setIs2FA(res.data.isTwoFactorAuthEnabled)
+      if (res.data.isTwoFactorAuthEnabled)
+        getQrCode();
+    })
   }, []);
 
-  const updateAvatar = async (event: any) => {
-    event.preventDefault();
-    const formData = new FormData();
-    formData.append('avatar', event.target.files[0]);
-    await axios
-      .post('http://localhost:5000/users/upload', formData, {
-        headers: { "Content-Type": "multipart/form-data",
-        Authorization: `Bearer ${accessToken}` },
-      })
-      .then((res) => {
-        setAvatar(res.data['avatar']);
-      });
-  };
-
-  const handleUsername = async (event: any) => {
-    event.preventDefault();
-    setUserName(event.target.value);
-  };
-
-  const updateUserName = async () => {
-    axios.post(
-      'http://localhost:5000/users/username',
-      {
-        username: userName,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }
-    );
-  };
-
   const handle2FA = async () => {
-    await axios
-    .post(
-      'http://localhost:5000/twofactorAuth/turnAuthOn',
-      {
-        is2FA: !is2FA,
-      },
+    if(!is2FA){
+     axios
+     .get(
+        'http://localhost:5000/2fa/generate',
+        {
+          headers: { Authorization: `Bearer ${accessToken}` },
+        }
+        )
+        .then((res) => {
+          setIs2FA(!is2FA);
+          console.log(res.data)
+          setQrCode(res.data.qrcode)
+        });
+    }
+    else{
+      axios.get('http://localhost:5000/2fa/turn-off',
       {
         headers: { Authorization: `Bearer ${accessToken}` },
-      }
-    )
-    .then((res) => {
-      setIs2FA(res.data.isTwoFactorAuthEnabled);
-    });
+      }).then((res) => setIs2FA(res.data.isTwoFactorAuthEnabled))
+    }
   };
 
   return (

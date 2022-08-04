@@ -9,6 +9,9 @@ import { TwoFactorAuthService } from './2fa.service';
 import { UsersService } from '../users/users.service';
 import { AuthService } from '../auth/auth.service';
 import { JwtStrategy } from 'src/auth/Strategies/jwt.strategy';
+import { UsersModule } from 'src/users/users.module';
+import { Jwt2faStrategy } from './Strategy/2fa.strategy';
+import { JwtTwoFactorGuard } from './Guards/twofactorAuthJwt.guard';
 
 @Module({
   imports: [
@@ -18,6 +21,7 @@ import { JwtStrategy } from 'src/auth/Strategies/jwt.strategy';
       secret: String(process.env.JWT_SECRET),
       signOptions: { expiresIn: 60 },
     }),
+    UsersModule
   ],
   controllers: [TwoFactorAuthController],
   providers: [
@@ -25,7 +29,8 @@ import { JwtStrategy } from 'src/auth/Strategies/jwt.strategy';
     UsersService,
     ConfigService,
     AuthService,
-    JwtStrategy,
+    Jwt2faStrategy,
+    JwtTwoFactorGuard
   ],
 })
 export class TwofactorauthModule {}

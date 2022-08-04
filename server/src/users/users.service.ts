@@ -96,7 +96,6 @@ export class UsersService {
     userCreated.avatar = user.avatar;
     userCreated.changedAvatar = false;
     userCreated.isTwoFactorAuthEnabled = false;
-    userCreated.isTwoFactorAuthenticated = false;
     userCreated.twoFactorAuthenticationSecret = '';
     const newUser = this.userRepository.create(userCreated);
     return this.userRepository.insert(newUser);
@@ -158,9 +157,8 @@ export class UsersService {
     return this.userRepository.save(updatedUser);
   }
 
-  async EnableDisable2FA(login: string, is2FA: boolean): Promise<Users> {
-    const user = await this.getUserBylogin(login);
-      user.isTwoFactorAuthEnabled = is2FA;
+  async Enable2FA(user: Users): Promise<Users> {
+      user.isTwoFactorAuthEnabled = true;
     return this.userRepository.save(user);
   }
   
@@ -173,14 +171,14 @@ export class UsersService {
   
   async turnOnTwoFactorAuthentication(login: string) {
     const user = await this.getUserBylogin(login);
-    user.isTwoFactorAuthenticated = true;
+    user.isTwoFactorAuthEnabled = true;
     return this.userRepository.save(user);
   }
 
   async unSet2FASecret(login: string) {
     const user = await this.getUserBylogin(login);
-    user.twoFactorAuthenticationSecret = null;
-    user.isTwoFactorAuthenticated = false;
+    user.twoFactorAuthenticationSecret = '';
+    user.isTwoFactorAuthEnabled = false;
     return this.userRepository.save(user);
   }
 
