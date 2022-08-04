@@ -43,17 +43,18 @@ export class TwoFactorAuthController {
     const isValidCode = this.twoFactorAuthService.is2FactorAuthCodeValid(
       twoFACode.code,
       user,
-    );
-    if (!isValidCode)
+      );
+      
+      if (!isValidCode)
       throw new UnauthorizedException('Invalid authentication code');
-    await this.userService.turnOnTwoFactorAuthentication(user['login']);
-    return true;
-  }
-
-  @UseGuards(JwtAuthGuard)
-  @Get('turnoff')
-  turnOff2FA(@Req() req) {
-    const user = req.user;
+      await this.userService.turnOnTwoFactorAuthentication(user['login']);
+      return true;
+    }
+    
+    @UseGuards(JwtAuthGuard)
+    @Get('turnoff')
+    async turnOff2FA(@Req() req) {
+      const user = await this.userService.getUserBylogin(req.user['login']);
     if (!user.isTwoFactorAuthenticated)
       throw new BadRequestException('2-Factor-Authentication is not enabled!');
     this.userService.unSet2FASecret(user.login);

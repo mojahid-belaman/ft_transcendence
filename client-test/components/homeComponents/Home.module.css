@@ -24,17 +24,22 @@
     width:100%;
 }
 .home .navBar button{
-    font-family:  Impact, fantasy;
+
     letter-spacing: 3px;
     font-size: 18px;
     margin:5px;
     margin-top:30px;
-    border: none;
-    background-color: rgb(46, 46, 46); 
-    border: 3px solid lightgray;
     width:90%;
     height: 40px;
-    color :white;
+    font-weight: bold;
+    background-color: lightgray;
+    text-shadow: -1px -1px black, 1px 1px white;
+    color: gray;
+    -webkit-border-radius: 7px;
+	-moz-border-radius: 7px;
+	-o-border-radius: 7px;
+	border-radius: 7px;
+    box-shadow: 0 .2em gray; 
     cursor: pointer;
 }
 .home .navBar button:hover{

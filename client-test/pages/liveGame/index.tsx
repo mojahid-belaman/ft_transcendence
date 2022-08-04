@@ -10,8 +10,8 @@ export function LiveHome(props: any) {
   useEffect(() => {
     socket.on("receive_games", (data: any) => {
       const tmp = JSON.parse(data);
+      console.log(tmp);
       if (tmp.hasOwnProperty("games")) {
-        // console.log(tmp);
         setGames(tmp.games);
       }
     });
@@ -32,6 +32,7 @@ export function LiveHome(props: any) {
           <h1>CURRENT GAMES EMPTY</h1>
         </div>
       )}
+<<<<<<< HEAD
       <div className={styles.divBtn}>
         <button className={styles.btn}>
           <Link href="/game">
@@ -41,6 +42,8 @@ export function LiveHome(props: any) {
           </Link>
         </button>
       </div>
+=======
+>>>>>>> 719069b717041618375418c418061980cf1df58f
     </>
   );
 }

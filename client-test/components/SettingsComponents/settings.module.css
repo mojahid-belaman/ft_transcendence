@@ -1,3 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Overpass:wght@500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap");
+@import url("https:fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+
 
 .setting {
     letter-spacing: 3px;
@@ -10,6 +14,8 @@
     margin: auto;
     margin-top: 10%;
     padding: 30px;
+    border-radius: 10px;
+    border: 1px solid white;
 }
 
 .setting div {
@@ -18,73 +24,49 @@
 
 
 .userInput {
-    font-family: inherit;
-    display: block;
-        border-bottom: 1px solid rgb(187, 187, 187);
-        padding-bottom: 10px;
-        border-radius: 10px;
-     height: 30px;
-                width: 30%; 
-    font-weight: 100;
+    font-family: 'Overpass', sans-serif;
     color: white;
-    text-align: center;
     background: transparent;
+    border: 2px solid white;
+    border-radius: 10px;
+    padding: 15px 0 15px 15px ;
+    font-size: larger;
+    outline: none;
+    width: 45%;
 }
 
 
-.userName {
+ .userName {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap;
-    /* gap: 50px; */
-}
-    
-.userName label {
-    align-self: center;
+    justify-content: space-between;
+    gap: 50px;
 }
 
-.btnDef {
-    position: relative;
-    top: 0;
+
+
+.btnedit{
+    padding: 15px 0 15px 15px ;
+    font-family: inherit;
+	display: inline-block;
+	margin:5px;
+    font-weight: bold;
+    background-color: lightgray;
+    text-shadow: -1px -1px black, 1px 1px white;
+    color: gray;
+    -webkit-border-radius: 7px;
+	-moz-border-radius: 7px;
+	-o-border-radius: 7px;
+	border-radius: 7px;
+    box-shadow: 0 .2em gray; 
     cursor: pointer;
-    text-decoration: none !important;
-    outline: none !important;
-    font-family: "Press Start 2P", cursive;
-    font-size: 1vw;
-    line-height: 1.5em;
-    letter-spacing: 0.1em;
-    text-shadow: 2px 2px 1px #348628, -2px 2px 1px #348628, 2px -2px 1px #348628,-2px -2px 1px #348628, 0px 2px 1px #348628, 0px -2px 1px #348628,0px 4px 1px #1d4c16, 2px 4px 1px #1d4c16, -2px 4px 1px #1d4c16;
-    border: none;
-    margin: 15px 80px 30px;
-    background: repeating-linear-gradient(45deg,
-                #54d440,
-                #54d440 5px,
-                #52cc3f 5px,
-                #52cc3f 10px);
-    border-bottom: 3px solid rgba(40, 117, 29, 0.5);
-    border-top: 3px solid rgba(255, 255, 255, 0.3);
-    color: #fff !important;
-    border-radius: 8px;
-    padding: 8px 15px 10px;
-    box-shadow: 0 6px 0 #348628, 0 8px 1px 1px rgba(0, 0, 0, 0.3), 0 10px 0 5px #2a6d20, 0 12px 0 5px #39822e, 0 15px 0 5px #1d4c16, 0 15px 1px 6px rgba(0, 0, 0, 0.3);
+    width: 30%;
 }
-    
-.btnDef:hover {
-    top: 2px;
-    box-shadow: 0 4px 0 #348628, 0 6px 1px 1px rgba(0, 0, 0, 0.3), 0 8px 0 5px #2a6d20, 0 10px 0 5px #39822e, 0 13px 0 5px #1d4c16, 0 13px 1px 6px rgba(0, 0, 0, 0.3);
+
+.btnedit:hover{
+    background-color: rgb(251, 251, 251);
 }
-    
-.btnDef::before {
-    content: "";
-    height: 10%;
-    position: absolute;
-    width: 40%;
-    background: #fff;
-    right: 13%;
-    top: -3%;
-    border-radius: 99px;
-}  
+
 .avatar {
     display: flex;
     flex-direction: row;
@@ -101,12 +83,11 @@
     opacity: 0.7;
 }
 .twoFactorAuth {
-    background: black;
-    opacity: 0.9;
     color: white;
     line-height: 20px;
+    gap: 50px;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
 }
 
 .twoFactorAuth p {
@@ -121,56 +102,6 @@
     margin-top: 20px;
     font-weight: 100;
 }
-
-.switch {
-    position: relative;
-    display: inline-block;
-    width: 50px;
-    height: 16px;
-    left: 60px;
-}
-
-.switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-}
-
-.slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #ccc;
-    -webkit-transition: .4s;
-    transition: .4s;
-}
-
-.slider:before {
-    position: absolute;
-    content: "";
-    height: 20px;
-    width: 20px;
-    bottom: -2px;
-    background-color: gray;
-    -webkit-transition: .4s;
-    transition: .4s;
-}
-
-input:checked+.slider {
-    background-color: #ccc;
-}
-
-
-input:checked+.slider:before {
-    -webkit-transform: translateX(26px);
-    -ms-transform: translateX(26px);
-    transform: translateX(30px);
-}
-
-/* Rounded sliders */
 
 .file {
     opacity: 0;
@@ -195,5 +126,10 @@ input:checked+.slider:before {
 }
 
 .qrCode{
-    margin:auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
+
+
+

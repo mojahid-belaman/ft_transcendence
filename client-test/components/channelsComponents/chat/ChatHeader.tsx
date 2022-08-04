@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { AiFillEdit } from 'react-icons/ai';
 import classes from './ChatHeader.module.css'
 import EditChannel from './editChannel/EditChannel';
 
@@ -18,7 +19,7 @@ function ChatHeader(props: any) {
             </div>
         </button>
         {/* if the user is admin/owner */}
-        <button onClick={OpenCloseModal1} className={classes.buttonEdit}>Edit</button>
+        <button onClick={OpenCloseModal1} className={classes.buttonEdit}><AiFillEdit/></button>
         {backdrop1 ? <EditChannel OpenClose={OpenCloseModal1} /> : null}
     </div>
 }

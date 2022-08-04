@@ -5,7 +5,6 @@ import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import axios from "axios";
 import ParticleBackground from "../../components/gameComponents/ParticleBackground";
-// import { useR }
 
 
 function chat() {

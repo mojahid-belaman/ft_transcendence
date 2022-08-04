@@ -11,19 +11,19 @@
     width: 40%;
     height: 95%;
     border-radius: 10px;
-    display: flex; 
+    display: flex;
     flex-direction: column;
-    margin-left:10px
+    margin-left: 10px
 }
 
 .mainCard .channelList input {
-    width:95%;
+    width: 95%;
     height: 25px;
     border: none;
     background-color: lightgray;
-    color:black;
+    color: black;
     outline: none;
-    padding-left:5px;
+    padding-left: 5px;
 }
 
 .mainCard .channelList .createChannel {
@@ -61,7 +61,7 @@
 }
 
 .privateDiv {
-    font-family:  Impact, fantasy;
+    font-family: Impact, fantasy;
     letter-spacing: 3px;
     display: flex;
     flex-direction: column;
@@ -69,6 +69,7 @@
     align-items: center;
     width: 90%;
     height: 100%;
+    text-align: center;
 }
 
 .privateCard {
@@ -88,8 +89,8 @@
     border: 6px solid lightgray;
 }
 
-.passwordDiv{
-    font-family:  Impact, fantasy;
+.passwordDiv {
+    font-family: Impact, fantasy;
     letter-spacing: 3px;
     display: flex;
     flex-direction: column;
@@ -98,7 +99,8 @@
     width: 90%;
     height: 100%;
 }
-.password{
+
+.password {
     display: flex;
     flex-direction: column;
     width: 50%;
@@ -114,23 +116,24 @@
     border: 6px solid lightgray;
 }
 
-.password input{
+.password input {
     border-radius: 5px;
-    border:  2px  solid gray;
+    border: 2px solid gray;
     margin-top: 5px;
     height: 30px;
     width: 70%;
 }
-.password button{
-    font-family:  Impact, fantasy;
+
+.password button {
+    font-family: Impact, fantasy;
     letter-spacing: 3px;
     font-size: 16px;
-    border:  2px  solid lightgray;
-    background-color: rgb(46, 46, 46);;
+    border: 2px solid lightgray;
+    background-color: rgb(46, 46, 46);
+    ;
     margin-top: 5px;
     height: 30px;
     width: 30%;
     cursor: pointer;
     color: lightgray;
 }
-

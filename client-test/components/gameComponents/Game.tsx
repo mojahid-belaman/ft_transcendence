@@ -15,7 +15,6 @@ interface GameProps {
 
 export function Game(props: GameProps) {
   const { data, currentState, setCurrentState } = props;
-  console.log("Game: ", data.get_mapColor());
 
   const canvasRef: any = useRef();
   const initialState: GameObj = {

@@ -4,26 +4,7 @@ import { useEffect } from 'react';
 import styles from './login.module.css';
 
 const LoginComponent = () => {
-  // let mount = true;
-  // useEffect(() => {
-  //   if (mount) {
-  //     const accessToken = Cookies.get('access_token');
-  //     if (accessToken) {
-  //       axios
-  //         .get('http://localhost:5000/user', {
-  //           headers: {
-  //             Authorization: `Bearer ${accessToken}`,
-  //           },
-  //         })
-  //         .then((res) => {
-  //           console.log(res.data);
-  //         });
-  //     }
-  //   }
-  //   return () => {
-  //     mount = false;
-  //   };
-  // }, []);
+  console.log('hehe')
   return (
     <>
       <div className={styles.card}>
@@ -38,7 +19,7 @@ const LoginComponent = () => {
         </div>
         <div className={styles.LoginBox}>
           <a className={styles.LoginButton} href="http://localhost:5000/oauth">
-            Login With 42 Intra
+            Login With 42
           </a>
         </div>
       </div>

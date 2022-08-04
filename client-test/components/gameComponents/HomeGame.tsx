@@ -5,6 +5,7 @@ import Cookies from "js-cookie";
 import socket from "../Library/Socket";
 import { Data } from "../Library/Data";
 import Setting from "./Setting";
+import axios from "axios";
 
 //NOTE - Initiale data and Information about all Game like (ball, paddle, score, width, height, canvas)
 let data: Data;
@@ -16,19 +17,28 @@ export function HomeGame() {
   const [isSetting, setSetting] = useState(true);
   const [currentState, setCurrentState] = useState(data.get_State());
 
-  const handleGame = () => {
+  const handleGame = async () => {
     const token = Cookies.get("access_token");
-    socket.emit("join_match", {
-      access_token: token
-    });
-    socket.on("Playing", (payload: any) => {
-      if (payload.playing) {
-        data.set_userOne(payload.first);
-        data.set_userTwo(payload.second);
-        data.set_State(1);
+    await axios.get('http://localhost:5000/users/me',{
+      headers: {
+        Authorization: `Bearer ${token}`
       }
-      setCurrentState(1);
-    });
+    }).then((res) => {
+      socket.emit("join_match", {
+        user: res.data
+      })
+      socket.on("Playing", (payload: any) => {
+        if (payload.playing) {
+          data.set_userOne(payload.first);
+          data.set_userTwo(payload.second);
+          
+          data.set_State(1);
+        }
+        setCurrentState(1);
+      });
+    }
+    );
+  
     setIsGame(true);
   };
 
