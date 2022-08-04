@@ -91,7 +91,7 @@ export class FriendshipsGateway {
     }
   }
 
-  /* ************* INVITATIONS HANDLERS *************** */
+  /* ******************************** INVITATIONS HANDLERS *********************************** */
 
   @SubscribeMessage("addFriend")
   async addFriend(@MessageBody() body: CreateFriendshipsDtoBody, @ConnectedSocket() client) {
@@ -201,10 +201,5 @@ export class FriendshipsGateway {
         })
       }
     }
-  }
-
-  @SubscribeMessage("disconnect")
-  disconnectHandler() {
-
   }
 }
