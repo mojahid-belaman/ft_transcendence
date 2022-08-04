@@ -78,18 +78,19 @@ export class Ball {
   }
 
   public update_score(player_One: Player, player_Two: Player): void {
+    this.sendGame(this.server);
     if (this._ball_X - GameVariable._ball_Radius <= 0) {
       player_One.setScore(player_One.getScore() + 1);
+      // this.sendGame(this.server);
       this.resetBall(true);
-      this.sendGame(this.server);
     } else if (
       this._ball_X + GameVariable._ball_Radius >=
       GameVariable._canvas_Width
-    ) {
-      player_Two.setScore(player_Two.getScore() + 1);
-      this.sendGame(this.server);
-      this.resetBall(false);
-    }
+      ) {
+        // this.sendGame(this.server);
+        player_Two.setScore(player_Two.getScore() + 1);
+        this.resetBall(false);
+      }
   }
 
   public resetBall(check: boolean): void {

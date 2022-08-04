@@ -1,31 +1,31 @@
 import { useEffect, useState } from "react";
 import styles from "../../components/gameComponents/gameStyle/LiveHome.module.css";
-import Link from "next/link";
 import socket from "../../components/Library/Socket";
 import ParticleBackground from "../../components/gameComponents/ParticleBackground";
-import LiveGame from "../../components/gameComponents/LiveGame";
+import CurrentGame from "../../components/gameComponents/CurrentGame";
 
 export function LiveHome(props: any) {
   const [games, setGames] = useState([]);
-  useEffect(() => {
-    socket.on("receive_games", (data: any) => {
+
+  useEffect( () => {
+      socket.on("receive_games", (data: any) => {
       const tmp = JSON.parse(data);
-      console.log(tmp);
       if (tmp.hasOwnProperty("games")) {
+        console.log("tmp: ", tmp.games);
         setGames(tmp.games);
       }
     });
     return () => {
       socket.off("receive_games");
     };
-  }, [socket]);
+  }, [games]);
 
   return (
     <>
-      <ParticleBackground />
-      {games.length !== 0 ? (
+      {/* <ParticleBackground /> */}
+      {games.length !== 0  ? (
         games.map((game, index) => {
-          return <LiveGame key={index} game={game} socket={props.socket} />;
+          return <CurrentGame key={index} game={game} />;
         })
       ) : (
         <div className={styles.empty}>
