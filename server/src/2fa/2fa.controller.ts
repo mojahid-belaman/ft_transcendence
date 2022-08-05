@@ -32,15 +32,13 @@ export class TwoFactorAuthController {
 
   @UseGuards(JwtAuthGuard)
   @Get('/generate')
-  async register(@Req() req, @Res() res: Response) {
+  async generate(@Req() req, @Res() res: Response) {
     const user = await this.userService.getUserBylogin(req.user['login']);
     this.userService.Enable2FA(user);
-    console.log('user before => ', user);
     const { otpauthUrl } =
     await this.twoFactorAuthService.generateTwoFactorAuthenticationSecret(
       user,
       );
-      console.log('user after => ', user);
     await this.twoFactorAuthService.generateQrCodeDataURL(otpauthUrl).then((result) =>
       res.send(JSON.stringify({ qrcode: result })),
     );
@@ -49,7 +47,7 @@ export class TwoFactorAuthController {
   @UseGuards(JwtAuthGuard)
   @HttpCode(200)
   @Post('turn-on')
-  async trunOn2FA(@Body() twoFACode: twoFA, @Req() req) {
+  async turnon(@Body() twoFACode: twoFA, @Req() req) {
     const user = await this.userService.getUserBylogin(req.user['login']);
     const isValidCode = this.twoFactorAuthService.is2FactorAuthCodeValid(
       twoFACode.code,
@@ -78,7 +76,7 @@ export class TwoFactorAuthController {
 
     @UseGuards(JwtAuthGuard)
     @Get('turn-off')
-    async turnOff2FA(@Req() req) {
+    async turnOff(@Req() req) {
       const user = await this.userService.getUserBylogin(req.user['login']);
     if (!user.isTwoFactorAuthEnabled)
       throw new BadRequestException('2-Factor-Authentication is not enabled!');
