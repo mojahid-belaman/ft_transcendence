@@ -1,0 +1,139 @@
+.mainCard {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: center;
+}
+
+.mainCard .channelList {
+    width: 40%;
+    height: 95%;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px
+}
+
+.mainCard .channelList input {
+    width: 95%;
+    height: 25px;
+    border: none;
+    background-color: lightgray;
+    color: black;
+    outline: none;
+    padding-left: 5px;
+}
+
+.mainCard .channelList .createChannel {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 50px;
+    text-align: left;
+    border-radius: 5px;
+    border: none;
+    background-color: lightgray;
+    margin-bottom: 10px;
+    color: black;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.createChannel:hover {
+    background-color: white;
+}
+
+.createChannel i {
+    color: gray;
+    opacity: 50%;
+    font-size: 16px;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.createChannel .text {
+    color: gray;
+    font-weight: 500;
+}
+
+.privateDiv {
+    font-family: Impact, fantasy;
+    letter-spacing: 3px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    height: 100%;
+    text-align: center;
+}
+
+.privateCard {
+
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    min-width: 300px;
+    height: 20%;
+    background-color: rgb(46, 46, 46);
+    justify-content: space-evenly;
+    align-items: center;
+    color: white;
+    font-family: "Gill Sans", sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    border: 6px solid lightgray;
+}
+
+.passwordDiv {
+    font-family: Impact, fantasy;
+    letter-spacing: 3px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    height: 100%;
+}
+
+.password {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    min-width: 300px;
+    height: 20%;
+    background-color: rgb(46, 46, 46);
+    justify-content: space-evenly;
+    align-items: center;
+    color: white;
+    font-family: "Gill Sans", sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    border: 6px solid lightgray;
+}
+
+.password input {
+    border-radius: 5px;
+    border: 2px solid gray;
+    margin-top: 5px;
+    height: 30px;
+    width: 70%;
+}
+
+.password button {
+    font-family: Impact, fantasy;
+    letter-spacing: 3px;
+    font-size: 16px;
+    border: 2px solid lightgray;
+    background-color: rgb(46, 46, 46);
+    ;
+    margin-top: 5px;
+    height: 30px;
+    width: 30%;
+    cursor: pointer;
+    color: lightgray;
+}
