@@ -17,7 +17,6 @@ export class TwoFactorAuthService {
     );
 
     await this.userService.setTwoFactorAuthenticationSecret(secret, user.login);
-
     return {
       secret,
       otpauthUrl,

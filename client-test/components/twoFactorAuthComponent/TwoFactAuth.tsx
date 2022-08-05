@@ -23,15 +23,16 @@ function TwoFactAuth() {
     ).then((res) => {
       return res.data
     })
+    console.log('test ', test)
     if(test){
-      const temp = await axios.post(
+      const access_token = await axios.post(
         'http://localhost:5000/2fa/authenticate',
         { code },
         {
           headers: { Authorization: `Bearer ${tempToken}` },
         }
-      ).then(e => e.data)
-      Cookies.set('access_token', temp.access_token);
+      ).then(e => e.data.access_token)
+      Cookies.set('access_token', access_token);
       Cookies.remove('2fa_token');
       window.location.href = 'http://localhost:3000/'
     }

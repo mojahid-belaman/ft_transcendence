@@ -16,14 +16,14 @@ export default function index() {
 			history.push('/twoFactorAuth')
 		else if (token)
 			await axios.get("http://localhost:5000/auth/isAuthorized", {
-				headers: {
-					Authorization: `Bearer ${token}`,
-				}
+					headers: {
+						Authorization: `Bearer ${token}`,
+					}
 				}).then(res => {
 					history.push('/home');
 				})
 				.catch(err => {
-				history.push("/");
+					history.push("/");
 				})
 		else
 			history.push("/");

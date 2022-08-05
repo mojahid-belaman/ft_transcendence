@@ -35,10 +35,12 @@ export class TwoFactorAuthController {
   async register(@Req() req, @Res() res: Response) {
     const user = await this.userService.getUserBylogin(req.user['login']);
     this.userService.Enable2FA(user);
+    console.log('user before => ', user);
     const { otpauthUrl } =
-      await this.twoFactorAuthService.generateTwoFactorAuthenticationSecret(
-        user,
+    await this.twoFactorAuthService.generateTwoFactorAuthenticationSecret(
+      user,
       );
+      console.log('user after => ', user);
     await this.twoFactorAuthService.generateQrCodeDataURL(otpauthUrl).then((result) =>
       res.send(JSON.stringify({ qrcode: result })),
     );
@@ -53,7 +55,6 @@ export class TwoFactorAuthController {
       twoFACode.code,
       user,
       );
-      // console.log('is code valid', isValidCode);
       if (!isValidCode)
         return false;
       await this.userService.turnOnTwoFactorAuthentication(user['login']);

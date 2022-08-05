@@ -82,6 +82,7 @@ function SettingsComponent() {
 
   const handle2FA = async () => {
     if(!is2FA){
+      console.log('this is click')
      axios
      .get(
         'http://localhost:5000/2fa/generate',
@@ -91,11 +92,11 @@ function SettingsComponent() {
         )
         .then((res) => {
           setIs2FA(!is2FA);
-          console.log(res.data)
           setQrCode(res.data.qrcode)
         });
     }
     else{
+      console.log('when is2fa is enabled')
       axios.get('http://localhost:5000/2fa/turn-off',
       {
         headers: { Authorization: `Bearer ${accessToken}` },
