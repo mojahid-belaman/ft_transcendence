@@ -206,11 +206,7 @@ export class FriendshipsGateway {
         secret: process.env.JWT_SECRET
       });
       if (user) {
-<<<<<<< HEAD
-        await this.friendshipsService.setFriendshipStatus(user.id, body.blockedUserId, FriendshipStatus.ACCEPTED)
-=======
         await this.friendshipsService.setFriendshipStatus(user.userId, body.blockedUserId, FriendshipStatus.ACCEPTED)
->>>>>>> 0dd2246394d1dfae31dd2abfde65e70b9cfa93ce
         .then(friendship => {
           if (friendship) {
             const onlineUser = onlineFriends.find(onlineUser => onlineUser.id === user.id)
