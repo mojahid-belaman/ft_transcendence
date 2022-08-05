@@ -32,18 +32,6 @@ export function LiveHome(props: any) {
           <h1>CURRENT GAMES EMPTY</h1>
         </div>
       )}
-<<<<<<< HEAD
-      <div className={styles.divBtn}>
-        <button className={styles.btn}>
-          <Link href="/game">
-            <span style={{ color: "#FFF", textDecoration: "none" }}>
-              Play a Game
-            </span>
-          </Link>
-        </button>
-      </div>
-=======
->>>>>>> 719069b717041618375418c418061980cf1df58f
     </>
   );
 }

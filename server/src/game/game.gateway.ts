@@ -108,7 +108,6 @@ export class GameGateway
 
   private sendGames(_server: any) {
     const gameObj = { games: GameGateway.game.map((g) => g.getSubGame()) };
-    // console.log(gameObj);
     _server.emit('receive_games', JSON.stringify(gameObj, null, 2));
   }
 
@@ -116,7 +115,6 @@ export class GameGateway
   hundle_join_match(client: Socket, payload: any) {
     this.logger.log('Join Match ' + `${client.id} `);
     const user: any = payload.user;
-    console.log('user => ',payload.user);
 
     //NOTE - Check If the same client not add in Set of socket
     if (this.socketArr.has(client)) {

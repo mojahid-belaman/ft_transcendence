@@ -32,20 +32,26 @@ export class FriendshipsGateway {
         secret: process.env.JWT_SECRET
       });
       if (user) {
-        await this.friendshipsService.getAllFriendships(user.id, FriendshipStatus.ACCEPTED)
-        .then(users => client.emit("getAllFriends", users.map(user => ({...user, isOnline: this.friendshipsService.checkIfUserOnline(user.id) !== undefined}))));
+        await this.friendshipsService.getAllFriendships(user.userId, FriendshipStatus.ACCEPTED)
+        .then(users => {
+          console.log(users);
+          
+          client.emit("getAllFriends", users.map(user => 
+              ({...user, isOnline: this.friendshipsService.checkIfUserOnline(user.userId) !== undefined}
+            )))
+        });
       }
     }
   }
 
   @SubscribeMessage("onlineFriends")
-  async getOnlineFriends(@MessageBody() body: CreateFriendshipsDtoBody, @ConnectedSocket() client: Socket) {
+  async getOnlineFriends(@MessageBody() body: CreateFriendshipsDtoBody, @ConnectedSocket() client: Socket) {    
     if (client.handshake.query && client.handshake.query.token) {
       const user: any = await this.jwtService.verify(String(client.handshake.query.token), {
         secret: process.env.JWT_SECRET
       });
       if (user) {
-                this.friendshipsService.getOnlineFriends(user.id)
+                this.friendshipsService.getOnlineFriends(user.userId)
         .then(onlineUsers => {          
           if (onlineUsers.length !== 0)
             client.emit("getOnlineFriends", onlineUsers);
@@ -62,8 +68,10 @@ export class FriendshipsGateway {
         secret: process.env.JWT_SECRET
       });
       if (user) {
-        this.friendshipsService.getPendingFriendships(user.id)
+        console.log(user.userId);
+        this.friendshipsService.getPendingFriendships(user.userId)
         .then(pendingFriends => {
+          console.log("getting pending friends => ", pendingFriends);
           if (pendingFriends) 
             client.emit("pendingFriendsList", pendingFriends);
         })
@@ -80,10 +88,10 @@ export class FriendshipsGateway {
         secret: process.env.JWT_SECRET
       });
       if (user) {
-        this.friendshipsService.getBlockedFriendships(user.id)
+        this.friendshipsService.getBlockedFriendships(user.userId)
         .then(blockedFriends => {
           if (blockedFriends.length !== 0) {
-            const onlineUser = onlineFriends.find(onlineUser => onlineUser.id === user.id)
+            const onlineUser = onlineFriends.find(onlineUser => onlineUser.id === user.userId)
               onlineUser.sockets.forEach(socket => socket.emit("blockedFriendsList", [...blockedFriends]))
           }
         })
@@ -95,15 +103,20 @@ export class FriendshipsGateway {
 
   @SubscribeMessage("addFriend")
   async addFriend(@MessageBody() body: CreateFriendshipsDtoBody, @ConnectedSocket() client) {
-    if (client.handshake.query && client.handshake.query.token) {
-      const user: any = await this.jwtService.verify(String(client.handshake.query.token), {
+    if (body && body.token) {
+      const user: any = await this.jwtService.verify(String(body.token), {
         secret: process.env.JWT_SECRET
       });
       if (user) {
-        this.friendshipsService.addFriend({firstId: user.id, secondId: body.userId, status: FriendshipStatus.PENDING})
+        this.friendshipsService.addFriend({firstId: user.userId, secondId: body.userId, status: FriendshipStatus.PENDING})
         .then(newFriendShip => {
-          if (newFriendShip)
-            this.server.emit("addedNewPendingFriendship", newFriendShip); // SHOULD CHAAANGE
+          if (newFriendShip) {
+            console.log(onlineFriends);
+            const clientSockets = onlineFriends.find(online => online.id == body.userId);
+            console.log(clientSockets);
+            clientSockets.sockets.forEach(socket => socket.emit("addedNewPendingFriendship", {...newFriendShip}));
+          }
+            // this.server.emit("addedNewPendingFriendship", newFriendShip); // SHOULD CHAAANGE
         })
       }
     }
@@ -116,8 +129,9 @@ export class FriendshipsGateway {
         secret: process.env.JWT_SECRET
       });
       if (user) {
-        this.friendshipsService.acceptFriend({firstId: body.userId, secondId: user.id})
+        this.friendshipsService.acceptFriend({firstId: body.userId, secondId: user.userId})
         .then(newFriendShip => {
+          console.log("newFriendShip => ", newFriendShip);
           if(newFriendShip) {
             const clientSockets = onlineFriends.find(online => online.id == user.id);
             clientSockets.sockets.forEach(socket => socket.emit("RemovependingFriends", {...newFriendShip}));
@@ -138,7 +152,7 @@ export class FriendshipsGateway {
         secret: process.env.JWT_SECRET
       });
       if (user) {
-        const clientSockets = this.friendshipsService.checkIfUserOnline(user.id);
+        const clientSockets = this.friendshipsService.checkIfUserOnline(user.userId);
         clientSockets.sockets.forEach(socket => socket.emit("rejectFriendship", {id: body.userId}))
       }
     }
@@ -153,7 +167,7 @@ export class FriendshipsGateway {
         secret: process.env.JWT_SECRET
       });
       if (user) {
-        await this.friendshipsService.removeFriendship(user.id, body.friendId)
+        await this.friendshipsService.removeFriendship(user.userId, body.friendId)
         .then(() => {
           const clients = this.friendshipsService.checkIfUserOnline(user.id);
           clients.sockets.forEach(clientSocket => clientSocket.emit("RemoveFriend", {id: body.friendId})) 
@@ -174,10 +188,10 @@ export class FriendshipsGateway {
         secret: process.env.JWT_SECRET
       });
       if (user) {
-        await this.friendshipsService.setFriendshipStatus(user.id, body.blockedUserId, FriendshipStatus.BLOCKED)
+        await this.friendshipsService.setFriendshipStatus(user.userId, body.blockedUserId, FriendshipStatus.BLOCKED)
         .then(friendship => {
           if (friendship) {
-            const onlineUser = onlineFriends.find(onlineUser => onlineUser.id === user.id)
+            const onlineUser = onlineFriends.find(onlineUser => onlineUser.id === user.userId)
             onlineUser.sockets.forEach(socket => socket.emit("RemoveFriend", {id: body.blockedUserId}))
           }
         })
@@ -192,7 +206,7 @@ export class FriendshipsGateway {
         secret: process.env.JWT_SECRET
       });
       if (user) {
-        await this.friendshipsService.setFriendshipStatus(user.id, body.blockedUserId, FriendshipStatus.ACCEPTED)
+        await this.friendshipsService.setFriendshipStatus(user.userId, body.blockedUserId, FriendshipStatus.ACCEPTED)
         .then(friendship => {
           if (friendship) {
             const onlineUser = onlineFriends.find(onlineUser => onlineUser.id === user.id)

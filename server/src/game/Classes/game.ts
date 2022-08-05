@@ -219,6 +219,5 @@ export class Game {
       return w === watcher;
     });
     if (!findWtcher) this._watchers.push(watcher);
-    console.log(this._watchers.length);
   }
 }

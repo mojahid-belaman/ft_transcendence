@@ -1,3 +1,4 @@
+import Cookies from 'js-cookie';
 import { useContext, useEffect, useState } from 'react';
 import socket from '../../Library/Socket';
 import OnlineCard from './OnlineCard'
@@ -7,6 +8,7 @@ function OnlineList() {
     const [users, setUsers] = useState<any[]>([]);
     
     useEffect(() => {
+        const token = Cookies.get("access_token");
         socket.emit("onlineFriends");
         socket.on("getOnlineFriends", (data: any) => setUsers(data))
         socket.on("addedNewOnlineFriend", (data: any) => {

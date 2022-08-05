@@ -5,9 +5,7 @@ import { AppModule } from './app.module';
 import * as cookieParser from 'cookie-parser';
 
 async function bootstrap() {
-  require('dotenv').config()
-  console.log(process.env.INTRA_CLIENT_ID);
-  
+  require('dotenv').config()  
   const app = await NestFactory.create(AppModule);
   
   const config = new DocumentBuilder()
@@ -29,3 +27,16 @@ async function bootstrap() {
   await app.listen(5000);
 }
 bootstrap();
+
+/* 
+postgres:
+      container_name: postgres
+      image: postgres:latest
+      restart: always
+      environment:
+        POSTGRES_USER: ${POSTGRES_USER}
+        POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+        POSTGRES_DB: ${POSTGRES_DB}
+      ports:
+        - "5432:5432"
+*/

@@ -5,6 +5,8 @@ import PendingCard from './PendingCard'
 import classes from './PendingList.module.css'
 // import SocketContext from '../../../main/navigationbar/data_context/socket-context';
 
+// e => func =>
+
 const PendingList = () => {
     const [pendingFriendships, setPendingFriendships] = useState<any[]>([])
     
@@ -38,7 +40,7 @@ const PendingList = () => {
         <div>
             {pendingFriendships.length !== 0 && pendingFriendships.map((pendingFriendship: any, index) => {
                  return( 
-                    <PendingCard />
+                    <PendingCard avatar={pendingFriendship.avatar} username={pendingFriendship.username} id={pendingFriendship.id}  key={index} />
                     ) 
              })}
         </div>

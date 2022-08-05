@@ -51,6 +51,8 @@ export class UsersController {
   @UseGuards(JwtAuthGuard)
   @Get()
   async getUsers(@Req() req) {
+    console.log("userId => ",req.user.userId);
+    
     return await (this.usersService.getUsers(req.user.userId));
   }
   
@@ -86,7 +88,6 @@ export class UsersController {
       const updateUser = await this.usersService.getUserBylogin(
         req.user['login'],
       );
-      console.log(image);
       if (updateUser)
         return this.usersService.updateAvatarUrl(
           await updateUser,

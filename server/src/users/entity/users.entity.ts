@@ -9,10 +9,10 @@ export enum Role {
 export class Users {
     @PrimaryGeneratedColumn('uuid')
     id: string;
-    @Column({ unique: true })
+    @Column({default: null, unique: true})
     login: string;
 
-    @Column({ unique: true })
+    @Column({ default: null })
     email: string;
 
     @Column({default: ""})
@@ -24,15 +24,15 @@ export class Users {
     @Column({ default: null })
     avatar: string;
     
-    @Column()
+    @Column({default: false})
     changedAvatar: boolean;
   
-    @Column()
+    @Column({default: false})
     isTwoFactorAuthEnabled: boolean;
   
-    @Column()
+    @Column({default: false})
     isTwoFactorAuthenticated: boolean;
   
-    @Column()
+    @Column({default: ""})
     twoFactorAuthenticationSecret: string;
 }

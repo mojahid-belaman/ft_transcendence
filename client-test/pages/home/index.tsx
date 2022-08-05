@@ -18,10 +18,13 @@ function chat() {
 					Authorization: `Bearer ${token}`,
 				}
 			}).then(res => {
-				console.log(res);
+				console.log("Testing weird behavior");
+				
 			})
-			.catch(err => {
-			history.push("/login")
+			.catch(() => {
+				console.log("Hola!");
+				
+			// history.push("/login")
 			})
 		else
 			history.push("/login")

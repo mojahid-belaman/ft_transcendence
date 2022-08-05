@@ -121,6 +121,7 @@ export class FriendshipsService {
             where: {firstId: acceptFriend.firstId, secondId: acceptFriend.secondId, status: FriendshipStatus.PENDING}
         })
         .then(friendship => {
+            
             if (!friendship)
                 return undefined;
             return this.friendshipsRepository.save({...friendship, status: FriendshipStatus.ACCEPTED})

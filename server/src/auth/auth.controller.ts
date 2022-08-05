@@ -15,7 +15,6 @@ export class AuthController {
   @UseGuards(JwtAuthGuard)
   @Get('isAuthorized')
   isAuthorized(@Request() req) {
-    console.log(req.user);
     return req.user;
   }
 
