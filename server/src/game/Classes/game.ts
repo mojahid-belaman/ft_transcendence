@@ -73,6 +73,7 @@ export class Game {
   }
 
   public playGame(player_One: Player, player_Two: Player): void {
+    this.sendGames(this.server);
     if ( this._ball.detect_Collision(player_One.getPaddle())) {
       this._ball.handleCollision(player_One);
     }

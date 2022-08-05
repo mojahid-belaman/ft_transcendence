@@ -78,7 +78,6 @@ export class Ball {
   }
 
   public update_score(player_One: Player, player_Two: Player): void {
-    this.sendGame(this.server);
     if (this._ball_X - GameVariable._ball_Radius <= 0) {
       player_One.setScore(player_One.getScore() + 1);
       // this.sendGame(this.server);
