@@ -162,8 +162,8 @@ export class UsersService {
     return this.userRepository.save(user);
   }
   
-  async setTwoFactorAuthenticationSecret(secret: string, login: string) {
-    const user = await this.getUserBylogin(login);
+  async setTwoFactorAuthenticationSecret(secret: string, user: Users) {
+    // const user = await this.getUserBylogin(login);
     user.twoFactorAuthenticationSecret = secret;
     return this.userRepository.save(user);
   }
@@ -171,6 +171,7 @@ export class UsersService {
   
   async turnOnTwoFactorAuthentication(login: string) {
     const user = await this.getUserBylogin(login);
+    console.log('user => ', user);
     user.isTwoFactorAuthEnabled = true;
     return this.userRepository.save(user);
   }
