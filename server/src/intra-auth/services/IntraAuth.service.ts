@@ -9,7 +9,10 @@ export class IntraAuthService {
   ) {}
 
   async intraLogin(req) {
+    console.log(req.user);
     const userExist = await this.usersService.getUserBylogin(req.user['login']);
+    console.log("Login => ", userExist);
+
     if (!userExist) {
       await this.usersService.addUser(req.user);
       return null;

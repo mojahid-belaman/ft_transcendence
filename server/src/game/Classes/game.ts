@@ -197,11 +197,13 @@ export class Game {
       player_1: {
         id: this._player_One.getUserId(),
         username: this._player_One.getUsername(),
+        avatar: this._player_One.getAvatar(),
         score: this._player_One.getScore(),
       },
       player_2: {
         id: this._player_Two.getUserId(),
         username: this._player_Two.getUsername(),
+        avatar: this._player_Two.getAvatar(),
         score: this._player_Two.getScore(),
       },
       gameId: this._id,
@@ -217,6 +219,5 @@ export class Game {
       return w === watcher;
     });
     if (!findWtcher) this._watchers.push(watcher);
-    console.log(this._watchers.length);
   }
 }

@@ -74,6 +74,19 @@ export class UsersService {
       });
   }
 
+  /* 
+  SELECT
+        *
+      FROM USERS
+      WHERE 
+        id::text != '9d54b167-0d30-404d-b6ed-db7c286cd77d'
+      AND
+        id::text NOT IN (SELECT "firstId"::text FROM friendships WHERE "secondId"::text = '9d54b167-0d30-404d-b6ed-db7c286cd77d')
+      AND
+        id::text NOT IN (SELECT "secondId"::text FROM friendships WHERE "firstId"::text = '9d54b167-0d30-404d-b6ed-db7c286cd77d')
+  
+  */
+
   async getMultipleUsers(userIds: string[]) {
     return await this.userRepository.find({
       where: userIds.map(userId => ({id: userId}))
@@ -135,7 +148,7 @@ export class UsersService {
   async updateLastTimeConnected(info: Date, userId: string) {
     return await this.userRepository.findOne({ id: userId })
       .then(async (user) => {
-        console.log(user);
+        console.log("hola =>", user);
         return await this.userRepository.save({...user, lastConnected: info})
         .then(res => {
           console.log(res);

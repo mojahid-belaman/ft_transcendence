@@ -37,21 +37,25 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
 
     async handleConnection(client: Socket, ...args: any[]) {
         this.logger.log('connection => ' + client.id)
-        if (client.handshake.query && client.handshake.query.token) {
+        // "undefined"
+        if (client.handshake.query && client.handshake.query.token && client.handshake.query.token !== "undefined") {
+            console.log("hola 1 => ", typeof client.handshake.query.token);
+            console.log("hola 2 => ", client.handshake.query.token);
             const user: any = await this.jwtService.verify(String(client.handshake.query.token), {
                 secret: process.env.JWT_SECRET
             })
-            // console.log("User => ", user);
             
             if (user) {
-                this.friendshipsService.setOnlineStatus(user.id, client);                
+                this.friendshipsService.setOnlineStatus(user.userId, client);                
             }
         }
     }
 
     async handleDisconnect(client: Socket) {
         this.logger.log('disconnection')
-        if (client.handshake.query && client.handshake.query.token) {
+        console.log("hola => ", client.handshake.query.token);
+        console.log("hola => ", typeof client.handshake.query.token);
+        if (client.handshake.query && client.handshake.query.token && client.handshake.query.token !== "undefined") {
             const user: any = await this.jwtService.verify(String(client.handshake.query.token), {
                 secret: process.env.JWT_SECRET
             });

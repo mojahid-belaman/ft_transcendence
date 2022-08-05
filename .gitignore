@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ./client/.env
 ./client/node_modules
 ./client/.next
@@ -6,3 +7,14 @@
 ./server/node_modules
 ./server/upload/
 ./.env
+=======
+client-test/.env
+client-test/node_modules
+client-test/.next
+server/.env
+server/dist
+server/node_modules
+server/upload/
+.env
+.DS_Store
+>>>>>>> 0dd2246394d1dfae31dd2abfde65e70b9cfa93ce

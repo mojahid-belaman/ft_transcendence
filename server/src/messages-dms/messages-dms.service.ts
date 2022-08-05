@@ -14,7 +14,6 @@ export class MessagesDmsService {
   ){}
 
   sendMessage(createMessagesDmDto) {
-    console.log(createMessagesDmDto);
     return this.messagesDMRepository.save(createMessagesDmDto);
   }
 
