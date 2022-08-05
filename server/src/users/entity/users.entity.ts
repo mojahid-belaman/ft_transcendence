@@ -25,7 +25,7 @@ export class Users {
     avatar: string;
     
     @Column()
-    changedAvatar: boolean;
+    qrCode: string;
   
     @Column()
     isTwoFactorAuthEnabled: boolean;

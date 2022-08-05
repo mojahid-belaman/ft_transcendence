@@ -94,11 +94,10 @@ export class UsersService {
     userCreated.username = user.username;
     userCreated.lastConnected = null;
     userCreated.avatar = user.avatar;
-    userCreated.changedAvatar = false;
+    userCreated.qrCode = '';
     userCreated.isTwoFactorAuthEnabled = false;
     userCreated.twoFactorAuthenticationSecret = '';
-    const newUser = this.userRepository.create(userCreated);
-    return this.userRepository.insert(newUser);
+    return this.userRepository.save(userCreated);
   }
 
 
@@ -133,14 +132,7 @@ export class UsersService {
 
   async updateLastTimeConnected(info: Date, userId: string) {
     return await this.userRepository.findOne({ id: userId })
-      .then(async (user) => {
-        console.log(user);
-        return await this.userRepository.save({...user, lastConnected: info})
-        .then(res => {
-          console.log(res);
-          return res;
-        })
-      });
+      .then(async (user) => await this.userRepository.save({...user, lastConnected: info}));
   }
 
   async updateUsername(login: string, username: string): Promise<Users> {
@@ -152,7 +144,6 @@ export class UsersService {
   async updateAvatarUrl(updatedUser: Users, avatar: string): Promise<Users> {
     if (avatar) {
       updatedUser.avatar = 'http://localhost:5000/' + avatar;
-      updatedUser.changedAvatar = true;
     }
     return this.userRepository.save(updatedUser);
   }
@@ -163,7 +154,6 @@ export class UsersService {
   }
   
   async setTwoFactorAuthenticationSecret(secret: string, user: Users) {
-    // const user = await this.getUserBylogin(login);
     user.twoFactorAuthenticationSecret = secret;
     return this.userRepository.save(user);
   }
@@ -179,7 +169,13 @@ export class UsersService {
   async unSet2FASecret(login: string) {
     const user = await this.getUserBylogin(login);
     user.twoFactorAuthenticationSecret = '';
+    user.qrCode='';
     user.isTwoFactorAuthEnabled = false;
+    return this.userRepository.save(user);
+  }
+
+  async updateqrCode(user: Users, qrCode: string): Promise<Users>{
+    user.qrCode = qrCode;
     return this.userRepository.save(user);
   }
 

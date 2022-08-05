@@ -11,6 +11,7 @@ function SettingsComponent() {
   const [defaultURL, setDefaultURL] = useState();
   const [qrCode, setQrCode] = useState();
   const [is2FA, setIs2FA] = useState(false);
+  const [popup, setPopUp] = useState(false);
   const accessToken =  Cookies.get('access_token');
 
   useEffect(() => {
@@ -64,16 +65,15 @@ function SettingsComponent() {
    useEffect(() => {
     const getQrCode = async () => {
       await axios
-        .get('http://localhost:5000/2fa/generate', {
+        .get('http://localhost:5000/users/me', {
           headers: { Authorization: `Bearer ${accessToken}` },
         })
-        .then((res) => setQrCode(res.data.qrcode));
+        .then((res) => setQrCode(res.data.qrCode));
     };
     // getQrCode();
     axios.get('http://localhost:5000/users/me',{
       headers: { Authorization: `Bearer ${accessToken}` },
     }).then((res) => {
-      console.log(res.data.isTwoFactorAuthEnabled);
       setIs2FA(res.data.isTwoFactorAuthEnabled)
       if (res.data.isTwoFactorAuthEnabled)
         getQrCode();
@@ -82,7 +82,6 @@ function SettingsComponent() {
 
   const handle2FA = async () => {
     if(!is2FA){
-      console.log('this is click')
      axios
      .get(
         'http://localhost:5000/2fa/generate',
@@ -96,7 +95,6 @@ function SettingsComponent() {
         });
     }
     else{
-      console.log('when is2fa is enabled')
       axios.get('http://localhost:5000/2fa/turn-off',
       {
         headers: { Authorization: `Bearer ${accessToken}` },

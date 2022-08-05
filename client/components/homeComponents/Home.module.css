@@ -1,3 +1,5 @@
+@import url("https:fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+
 .home{
     display:flex;
     flex-direction: column;
@@ -24,27 +26,30 @@
     width:100%;
 }
 .home .navBar button{
-
-    letter-spacing: 3px;
-    font-size: 18px;
     margin:5px;
     margin-top:30px;
-    width:90%;
-    height: 40px;
+    padding: 15px 0 15px 0 ;
+    font-family: inherit;
+	display: inline-block;
+	margin:5px;
     font-weight: bold;
-    background-color: lightgray;
-    text-shadow: -1px -1px black, 1px 1px white;
-    color: gray;
+    background-color: #384864;
+    text-shadow: -1px -1px black, 1px 1px #B8B8CF;
+    color: rgb(204,149,62);
     -webkit-border-radius: 7px;
 	-moz-border-radius: 7px;
 	-o-border-radius: 7px;
 	border-radius: 7px;
-    box-shadow: 0 .2em gray; 
+    box-shadow: 0 .2em #1a2f4f; 
     cursor: pointer;
+    width: 100%;
+    text-align: center;
+    font-family: 'Press Start 2P';
 }
 .home .navBar button:hover{
-    background-color: lightgray;
-    color :black;
+    box-shadow: 0 .2em #B8B8CF; 
+    background-color: #757BC4;
+    color: #B8B8CF;
 }
 .home .list{
     display:flex;
