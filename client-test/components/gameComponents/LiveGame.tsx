@@ -1,46 +1,38 @@
 import { useEffect, useState } from "react";
-import styles from "../gameComponents/gameStyle/LiveGame.module.css";
-import Game from "./Game";
+import styles from "../../components/gameComponents/gameStyle/LiveHome.module.css";
+import socket from "../../components/Library/Socket";
+import ParticleBackground from "../../components/gameComponents/ParticleBackground";
+import CurrentGame from "../../components/gameComponents/CurrentGame";
 
-function LiveGame(props: any) {
-  const [check, setCheck] = useState(false);
-  console.log
-  const hundlGame = () => {
-    props.socket.emit("watchers", props.game);
-    setCheck(true);
-  };
-  useEffect(() => {
-    
-  }, [check])
+export function LiveGame() {
+  const [games, setGames] = useState([]);
+
+  useEffect( () => {
+      socket.on("receive_games", (data: any) => {
+      const tmp = JSON.parse(data);
+      if (tmp.hasOwnProperty("games")) {
+        console.log("tmp: ", tmp.games);
+        setGames(tmp.games);
+      }
+    });
+    return () => {
+      socket.off("receive_games");
+    };
+  }, [games]);
+
   return (
     <>
-      {
-        !check ? (<div className={styles.container}>
-          <div className={styles.box}>
-            <div className={styles.dataOne}>
-              <img src={props.socket.data.get_userOne().avatar} width="100px" height="200px" />
-              <span className={styles.username}>
-                {props.game.player_1.username}
-              </span>
-              <span className={styles.score}>{props.game.player_1.score}</span>
-            </div>
-            <div className={styles.dataTwo}>
-              <img src={props.socket.data.get_userTwo().avatar} width="100px" height="200px" />
-              <span className={styles.username}>
-                {props.game.player_2.username}
-              </span>
-              <span className={styles.score}>{props.game.player_2.score}</span>
-            </div>
-            <div className={styles.watch}>
-              <button onClick={hundlGame}>
-                <img src="/eye.png" width="30px" height="60px" />
-              </button>
-            </div>
-          </div>
-        </div>) : <Game />
-      }
+      {games.length !== 0  ? (
+        games.map((game, index) => {
+          return <CurrentGame key={index} game={game} />;
+        })
+      ) : (
+        <div className={styles.empty}>
+          <h1>CURRENT GAMES EMPTY</h1>
+        </div>
+      )}
     </>
-  )
+  );
 }
 
 export default LiveGame;

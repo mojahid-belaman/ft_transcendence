@@ -64,15 +64,6 @@ export class GameGateway
     GameGateway.game.splice(GameGateway.game.indexOf(gameFound), 1);
   }
 
-  // @SubscribeMessage('resize')
-  // hundle_responsiveGame(client: Socket, payload: any) {
-  //   GameVariable._canvas_Width = payload.cWidth;
-  //   GameVariable._canvas_Height = payload.cHeight;
-  //   GameVariable._paddle_Height = GameVariable._canvas_Height / 6;
-  //   GameVariable._right_Paddle_X =
-  //     GameVariable._canvas_Width - GameVariable._paddle_Width;
-  // }
-
   @SubscribeMessage('upPaddle')
   hundle_up_paddle(client: Socket, payload: string) {
     let gameFound = GameGateway.game.find((gm) => {
@@ -108,14 +99,12 @@ export class GameGateway
 
   private sendGames(_server: any) {
     const gameObj = { games: GameGateway.game.map((g) => g.getSubGame()) };
-    // console.log(gameObj);
     _server.emit('receive_games', JSON.stringify(gameObj, null, 2));
   }
 
   @SubscribeMessage('join_match')
   hundle_join_match(client: Socket, payload: any) {
     this.logger.log('Join Match ' + `${client.id} `);
-
     const user: any = payload.user;
     console.log('user => ',payload.user);
 
@@ -139,8 +128,6 @@ export class GameGateway
         this.userArr.splice(this.userArr.indexOf(first), 1);
         return;
       }
-      console.log('first => ',first.avatar);
-      console.log('second => ',second.avatar);
       this.server.emit('Playing', {
         playing: true,
         first: { username: first.username, avatar: first.avatar },
@@ -168,6 +155,7 @@ export class GameGateway
         this.gameService,
         this.sendGames,
         this.server,
+        GameGateway.game,
       );
 
       GameGateway.game.push(newGame);

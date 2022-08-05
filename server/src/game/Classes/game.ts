@@ -17,6 +17,7 @@ export class Game {
   private _watchers: Socket[] = [];
   private sendGames: Function;
   private server: { emit: (arg0: string, arg1: { playing: boolean; first: { username: any; avatar: any; }; second: { username: any; avatar: any; }; }) => void; };
+  private game: Array<Game> = [];
 
   constructor(
     player_One: Player,
@@ -24,7 +25,8 @@ export class Game {
     gameService: GameService,
     sendGames: Function,
     server: { emit: (arg0: string, arg1: { playing: boolean; first: { username: any; avatar: any; }; second: { username: any; avatar: any; }; }) => void; },
-  ) {
+    game: Array<Game>,
+    ) {
     this._id = uuid();
     this.server = server;
     this.sendGames = sendGames;
@@ -32,6 +34,7 @@ export class Game {
     this._player_Two = player_Two;
     this._ball = new Ball(this.sendGames, this.server);
     this._gameService = gameService;
+    this.game = game;
     this._myInterval = setInterval(() => {
       this.playGame(this._player_One, this._player_Two);
     }, 1000 / 60);
@@ -45,7 +48,12 @@ export class Game {
     clearInterval(this._myInterval);
     this._player_One.stopPaddle();
     this._player_Two.stopPaddle();
-
+    const findGame = this.game.findIndex((g) => {
+      return g.getId() === this._id;
+    })
+    this.game.splice(findGame, 1);
+    console.log("length game: ", this.game.length);
+    this.sendGames(this.server);
     const gameDta = new AddGameDto();
     gameDta.id = this._id;
     gameDta.firstPlayer = this._player_One.getUserId();
@@ -65,6 +73,7 @@ export class Game {
   }
 
   public playGame(player_One: Player, player_Two: Player): void {
+    this.sendGames(this.server);
     if ( this._ball.detect_Collision(player_One.getPaddle())) {
       this._ball.handleCollision(player_One);
     }
@@ -197,11 +206,13 @@ export class Game {
       player_1: {
         id: this._player_One.getUserId(),
         username: this._player_One.getUsername(),
+        avatar: this._player_One.getAvatar(),
         score: this._player_One.getScore(),
       },
       player_2: {
         id: this._player_Two.getUserId(),
         username: this._player_Two.getUsername(),
+        avatar: this._player_Two.getAvatar(),
         score: this._player_Two.getScore(),
       },
       gameId: this._id,

@@ -38,15 +38,19 @@ function ChatHeader(props: any) {
                 <div>Online </div>
             </div>
         </button>
-        <button onClick={OpenCloseModal1} className={classes.buttonSetting}><BiDotsVertical /></button>
+        <button onClick={OpenCloseModal1} className={classes.buttonSetting}><BiDotsVertical />
         {backdrop1 ?
             <div className={classes.divUser}>
                 <div className={classes.userHandler}>
                     <button onClick={() => { OpenCloseModal2(); OpenCloseModal1() }} className={classes.button}>Game Invitation</button>
                     <button onClick={OpenCloseModal1} className={classes.button}>Unfriend</button>
                     <button onClick={OpenCloseModal1} className={classes.button}>Block</button>
-                </div></div> : null
+                </div>
+            </div> 
+            : null
         }
+        </button>
+        
         {backdrop2 ? <GameInvitation OpenClose={OpenCloseModal2} /> : null}
 
     </div>)

@@ -23,21 +23,22 @@ export function HomeGame() {
       headers: {
         Authorization: `Bearer ${token}`
       }
-    }).then((res) =>
+    }).then((res) => {
       socket.emit("join_match", {
         user: res.data
       })
+      socket.on("Playing", (payload: any) => {
+        if (payload.playing) {
+          data.set_userOne(payload.first);
+          data.set_userTwo(payload.second);
+          
+          data.set_State(1);
+        }
+        setCurrentState(1);
+      });
+    }
     );
   
-    socket.on("Playing", (payload: any) => {
-      if (payload.playing) {
-        data.set_userOne(payload.first);
-        data.set_userTwo(payload.second);
-        
-        data.set_State(1);
-      }
-      setCurrentState(1);
-    });
     setIsGame(true);
   };
 
