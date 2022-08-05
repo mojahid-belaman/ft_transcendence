@@ -1,6 +1,6 @@
 import MainApp from "../../components/main/MainApp";
 import Home from "../../components/homeComponents/Home";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import axios from "axios";
@@ -10,6 +10,7 @@ import ParticleBackground from "../../components/gameComponents/ParticleBackgrou
 
 function chat() {
 	const history = useRouter();
+	const [isLoggedIn, setIsloggedIn] = useState(false)
 	const token = Cookies.get("access_token")
     const tempToken = Cookies.get('2fa_token');
 
@@ -34,11 +35,11 @@ function chat() {
 	useEffect(() => {
 		authHandler();
 	}, []);
-	return (
+	return isLoggedIn ? (
 		<MainApp>
 			<ParticleBackground/>
 			<Home />
-		</MainApp>)
+		</MainApp>) : <></>
 }
 
 export default chat;
