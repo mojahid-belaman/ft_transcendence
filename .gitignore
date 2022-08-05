@@ -1,3 +1,5 @@
+
+client-test/.env
 client/node_modules
 client/.next
 server/.env
@@ -5,3 +7,4 @@ server/dist
 server/node_modules
 server/upload/
 .env
+.DS_Store

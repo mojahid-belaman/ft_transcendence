@@ -7,6 +7,7 @@ import axios from "axios";
 import ParticleBackground from "../../components/gameComponents/ParticleBackground";
 
 
+
 function chat() {
 	const history = useRouter();
 	const token = Cookies.get("access_token")
