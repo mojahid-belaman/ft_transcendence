@@ -6,6 +6,7 @@ import style from "../gameComponents/gameStyle/Game.module.css";
 import socket from "../Library/Socket";
 import { Loading } from "@nextui-org/react";
 import { GameObj } from "../Library/gameObject";
+import MainApp from "../main/MainApp";
 
 interface GameProps {
   data: Data;

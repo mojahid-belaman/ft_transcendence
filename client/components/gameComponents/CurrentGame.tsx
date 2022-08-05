@@ -4,7 +4,6 @@ import Game from "./Game";
 
 function CurrentGame(props: any) {
   const [check, setCheck] = useState(false);
-  // console.log(props.game);
   const hundlGame = () => {
     props.socket.emit("watchers", props.game);
     setCheck(true);
