@@ -1,80 +1,92 @@
-import classes from "./Profile.module.css"
+import classes from "./Profile.module.css";
 function History() {
-    return (
-        <div className={classes.history}>
-            <div className={classes.historyCard}>
-                <div id={classes.start}>
-                    <img className={classes.userImage} src="https://i.pinimg.com/474x/ec/e2/b0/ece2b0f541d47e4078aef33ffd22777e.jpg"></img>
-                    <h2>name</h2>
-                </div>
-                <h2>vs</h2>
-                <div id={classes.end}>
-                    <h2>name</h2>
-                    <img className={classes.userImage} src="https://i.pinimg.com/474x/ec/e2/b0/ece2b0f541d47e4078aef33ffd22777e.jpg"></img>
-                </div>
-            </div>
-            <hr></hr>
+  return (
+    <div className={classes.boardInfo}>
+      <div className={classes.historyCard}>
+        <div id={classes.start}>
+          <img
+            className={classes.userImage}
+            src="https://i.pinimg.com/474x/ec/e2/b0/ece2b0f541d47e4078aef33ffd22777e.jpg"
+          ></img>
+          <h2>name</h2>
         </div>
-    )
+        <h2>vs</h2>
+        <div id={classes.end}>
+          <h2>name</h2>
+          <img
+            className={classes.userImage}
+            src="https://i.pinimg.com/474x/ec/e2/b0/ece2b0f541d47e4078aef33ffd22777e.jpg"
+          ></img>
+        </div>
+      </div>
+      <hr/>
+    </div>
+  );
 }
 function TopTen() {
-    return (
-        <div className={classes.history}>
-            <div className={classes.historyCard}>
-                <div id={classes.start}>
-                    <img className={classes.userImage} src="https://i.pinimg.com/474x/ec/e2/b0/ece2b0f541d47e4078aef33ffd22777e.jpg"></img>
-                    <h2>name</h2>
-                </div>
-            </div>
-            <hr></hr>
+  return (
+    <div className={classes.boardInfo}>
+      <div className={classes.historyCard}>
+        <div id={classes.start}>
+          <img
+            className={classes.userImage}
+            src="https://i.pinimg.com/474x/ec/e2/b0/ece2b0f541d47e4078aef33ffd22777e.jpg"
+          ></img>
+          <h2>name</h2>
         </div>
-    )
+      </div>
+      <hr/>
+    </div>
+  );
+}
+function DisplayUser(props: any) {
+  return (
+    <div className={classes.displayUser}>
+      <h3>{props.first}</h3>
+      <h3>{props.second}</h3>
+    </div>
+  );
 }
 function Profile() {
-    return <div className={classes.mainProfile}>
-        <div className={classes.cardsProfile}>
-            <div className={classes.profileInfo}>
-                <img className={classes.image} src="https://i.pinimg.com/474x/ec/e2/b0/ece2b0f541d47e4078aef33ffd22777e.jpg"></img>
-                <div className={classes.info}>
-                    <h2>Name:   soukaina</h2>
-                    <h2>Login:  shikma</h2>
-                    <h2>Wins:   10</h2>
-                    <h2>Loses:  10</h2>
-                </div>
-
+  return (
+    <div className={classes.mainProfile}>
+      <div className={classes.cardsProfile}>
+        <fieldset className={classes.profileInfo}>
+          <legend className={classes.legend}>
+            <img
+              className={classes.image}
+              src="https://i.pinimg.com/474x/ec/e2/b0/ece2b0f541d47e4078aef33ffd22777e.jpg"
+            ></img>
+          </legend>
+          <div className={classes.info}>
+            <div className={classes.displayData}>
+              <div className={classes.data}>
+                <DisplayUser first="Name:" second="soukaina" />
+                <DisplayUser first="Login:" second="shikma" />
+              </div>
+              <hr/>
+              <div className={classes.data}>
+                <DisplayUser first="Wins:" second="10" />
+                <DisplayUser first="Loses:" second="10" />
+              </div>
             </div>
-        </div>
-        <div className={classes.profileBoard}>
-            <fieldset className={classes.cardsBoard}>
-                <legend className={classes.legend}><h1>History:</h1></legend>
-                <History />
-                <History />
-                <History />
-                <History />
-                <History />
-                <History />
-                <History />
-                <History />
-                <History />
-                <History />
-            </fieldset>
-            <fieldset className={classes.cardsBoard}>
-                <legend className={classes.legend}><h1>Top 10:</h1></legend>
-                <TopTen />
-                <TopTen />
-                <TopTen />
-                <TopTen />
-                <TopTen />
-                <TopTen />
-                <TopTen />
-                <TopTen />
-                <TopTen />
-                <TopTen />
-                <TopTen />
-            </fieldset>
-        </div>
-
+          </div>
+        </fieldset>
+      </div>
+      <fieldset className={classes.cardsBoard}>
+        <legend className={classes.legend}>
+          <h1>History:</h1>
+        </legend>
+        <History />
+      </fieldset>
+      <fieldset className={classes.cardsBoard}>
+        <legend className={classes.legend}>
+          <h1>Top 10:</h1>
+        </legend>
+        <TopTen />
+      </fieldset>
     </div>
+  );
 }
 
 export default Profile;

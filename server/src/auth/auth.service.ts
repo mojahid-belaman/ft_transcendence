@@ -1,6 +1,5 @@
 import { Injectable, Res } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { AuthGuard } from '@nestjs/passport';
 import { UsersService } from 'src/users/users.service';
 import { UserDto } from './dto';
 
@@ -8,7 +7,7 @@ import { UserDto } from './dto';
 export class AuthService {
   constructor(
     private jwtService: JwtService,
-    private usersService: UsersService,
+    private usersService: UsersService
   ) {}
 
   async validateUser(username: string): Promise<any> {
@@ -17,12 +16,23 @@ export class AuthService {
     return null;
   }
 
-  async login(user: UserDto) {
+  async login(user: any) {
     const payload = {
       login: user.login,
-      username: user.username,
-      avatar: user.avatar
+      username: user.username,      
+      avatar: user.avatar,
     };
     return await this.jwtService.sign(payload);
+  }
+  async tfaToken(user: UserDto) {
+    const payload = {
+      login : user.login,
+    };
+    return await this.jwtService.sign(payload);
+  }
+
+  async validate(payload: any){
+    const user = this.usersService.getUserBylogin(payload.login);
+    // if (user)
   }
 }

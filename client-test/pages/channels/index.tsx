@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import ChannelsComponent from '../../components/channelsComponents/Channels';
 import { DataChannelProvider } from '../../components/channelsComponents/data_context/data-context';
+import ParticleBackground from '../../components/gameComponents/ParticleBackground';
 import MainApp from '../../components/main/MainApp';
 
 function Channels() {
@@ -33,6 +34,7 @@ function Channels() {
 
     return (
         <MainApp>
+			<ParticleBackground/>
             <DataChannelProvider>
                 <ChannelsComponent />
             </DataChannelProvider>

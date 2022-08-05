@@ -1,42 +1,43 @@
-import axios from 'axios'
-import Cookies from 'js-cookie'
-import type { NextPage } from 'next'
-import Head from 'next/head'
-import Image from 'next/image'
-import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
-import MainApp from '../components/main/MainApp'
-import styles from '../styles/Home.module.css'
 
-const Home: NextPage = () => {
-  const history = useRouter();
-  const [user, setUser] = useState({});
+import axios from 'axios';
+import Cookies from 'js-cookie';
+import { useRouter } from 'next/router';
+import React, { useEffect, useState } from 'react'
+import ParticleBackground from '../components/gameComponents/ParticleBackground'
+import LoginComponent from '../components/loginComponent/login'
+
+
+export default function index() {
+  	const history = useRouter();
+	const token = Cookies.get("access_token")
+    const tempToken = Cookies.get('2fa_token');
 
 	const authHandler = async () => {
-		const token = Cookies.get("access_token")
-		if (token)
+		if(tempToken)
+			history.push('/twoFactorAuth')
+		else if (token)
 			await axios.get("http://localhost:5000/auth/isAuthorized", {
-				headers: {
-					Authorization: `Bearer ${token}`,
-				}
-			}).then(res => {
-				setUser({...res});
-			})
-			.catch(err => {
-			history.push("/login")
-			})
+					headers: {
+						Authorization: `Bearer ${token}`,
+					}
+				}).then(res => {
+					history.push('/home');
+				})
+				.catch(err => {
+					history.push("/");
+				})
 		else
-			history.push("/login")
+			history.push("/");
+
 	}
 
 	useEffect(() => {
 		authHandler();
 	}, []);
   return (
-    <MainApp>
-      
-    </MainApp>
+    <>
+		<ParticleBackground/>
+    	<LoginComponent/>
+    </>
   )
 }
-
-export default Home

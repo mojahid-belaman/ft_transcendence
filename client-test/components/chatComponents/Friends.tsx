@@ -8,7 +8,6 @@ function Friends( ) {
     const dataContextVar = useContext(DataContex);
     return <div className={classes.mainCard}>
         <div className={classes.friendList}>
-            <input type="text" /* value="" */ placeholder="  Search..."/>
            {dataContextVar.data.map((user:any)=><FriendCard key={user.userId} user={user}/>) }
         </div>
         <Chat user={dataContextVar.selectedConversation} />

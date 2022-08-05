@@ -1,0 +1,70 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap");
+@import url("https:fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Overpass:wght@500&display=swap');
+
+.contributorBox {
+    font-family: 'Press Start 2P';
+    background-color: black;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 2px solid white;
+    position: absolute; 
+    left: 0; 
+    right: 0; 
+    margin-left: auto; 
+    margin-right: auto;
+    top: 30%;
+    height: 600px;
+    max-width: 1200px;
+    min-width: 600px;
+    width: 95%;
+    gap: 50px;
+    border-radius: 10px;
+}
+.contributorBox h1 {
+    align-self: center;
+}
+
+.tfaBox{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.LoginButton {
+    padding: 15px 15px 15px 15px ;
+    font-family: inherit;
+	display: inline-block;
+    font-weight: bold;
+    background-color: lightgray;
+    text-shadow: -1px -1px black, 1px 1px white;
+    color: gray;
+    -webkit-border-radius: 7px;
+	-moz-border-radius: 7px;
+	-o-border-radius: 7px;
+	border-radius: 7px;
+    box-shadow: 0 .2em gray; 
+    cursor: pointer;
+    width: 20%;
+}
+
+
+
+.LoginButton:hover {
+    background-color: rgb(232, 232, 232);
+} 
+
+
+.userInput {
+    font-family: 'Overpass', sans-serif;
+    color: white;
+    background: transparent;
+    border: 2px solid white;
+    border-radius: 10px;
+    padding: 15px 15px 15px 15px ;
+    font-size: larger;
+    outline: none;
+    width: 60%;
+}

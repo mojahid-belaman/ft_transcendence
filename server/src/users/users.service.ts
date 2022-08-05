@@ -6,13 +6,15 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { Users } from './entity/users.entity';
 import { Repository } from 'typeorm';
+import { Response } from 'express';
+import {toFileStream} from 'qrcode'
 
 @Injectable()
 export class UsersService {
 
   constructor(
     @InjectRepository(Users)
-    private userRepositroy: Repository<Users>
+    private userRepository: Repository<Users>
   ) { }
 
   private onlineUsers = [];
@@ -35,7 +37,7 @@ export class UsersService {
   }
 
   /* async getUsers(userId: string): Promise<Users[]> {
-    return await this.userRepositroy.find({
+    return await this.userRepository.find({
       where: {id: Not(userId)}
     })
       .then(data => {
@@ -46,8 +48,12 @@ export class UsersService {
       });
   } */
 
+  getAll(): Promise<Users[]> {
+    return this.userRepository.find();
+  }
+
   async getUsers(userId: string): Promise<Users[]> {
-    return await this.userRepositroy.query(`
+    return await this.userRepository.query(`
       SELECT
         *
       FROM USERS
@@ -69,7 +75,7 @@ export class UsersService {
   }
 
   async getMultipleUsers(userIds: string[]) {
-    return await this.userRepositroy.find({
+    return await this.userRepository.find({
       where: userIds.map(userId => ({id: userId}))
     })
   }
@@ -77,24 +83,27 @@ export class UsersService {
   async getUserBylogin(login: string): Promise<Users> {
     const userCreated = new Users();
     userCreated.login = login;
-    const usrFound = await this.userRepositroy.findOne(userCreated);
+    const usrFound = await this.userRepository.findOne(userCreated);
     return usrFound;
   }
 
-  async addUser(user: CreateUserDto) {
+  async addUser(user: Users) {
     const userCreated = new Users();
     userCreated.login = user.login;
-    userCreated.username = user.login;
+    userCreated.email = user.email;
+    userCreated.username = user.username;
+    userCreated.lastConnected = null;
     userCreated.avatar = user.avatar;
-    userCreated.removedAvatar = user.removedAvatar || false;
-    userCreated.twoFactorAuth = user.twoFactorAuth || false;
-    const newUser = this.userRepositroy.create(userCreated);
-    return this.userRepositroy.insert(newUser);
+    userCreated.changedAvatar = false;
+    userCreated.isTwoFactorAuthEnabled = false;
+    userCreated.twoFactorAuthenticationSecret = '';
+    const newUser = this.userRepository.create(userCreated);
+    return this.userRepository.insert(newUser);
   }
 
 
   async findOne(condition): Promise<Users> {
-    return await this.userRepositroy.findOne({
+    return await this.userRepository.findOne({
       where: [condition]
     })
       .then(user => {
@@ -102,7 +111,7 @@ export class UsersService {
       });
   }
   async createUser(newUser: CreateUserDto) {
-    return await this.userRepositroy.save(newUser)
+    return await this.userRepository.save(newUser)
       .then((user) => {
         return ({
           ...user,
@@ -112,7 +121,7 @@ export class UsersService {
       });
   }
   async updateUser(info: UpdateUserDto, userId: string) {
-    return await this.userRepositroy.save({ id: userId, ...info })
+    return await this.userRepository.save({ id: userId, ...info })
       .then(user => {
         return ({
           ...user,
@@ -123,10 +132,10 @@ export class UsersService {
   }
 
   async updateLastTimeConnected(info: Date, userId: string) {
-    return await this.userRepositroy.findOne({ id: userId })
+    return await this.userRepository.findOne({ id: userId })
       .then(async (user) => {
         console.log(user);
-        return await this.userRepositroy.save({...user, lastConnected: info})
+        return await this.userRepository.save({...user, lastConnected: info})
         .then(res => {
           console.log(res);
           return res;
@@ -134,10 +143,43 @@ export class UsersService {
       });
   }
 
-  async updateAvatarUrl(updatedUser: Users, avatar: string): Promise<Users> {
-    if (avatar) updatedUser.avatar = avatar;
-    return this.userRepositroy.save(updatedUser);
+  async updateUsername(login: string, username: string): Promise<Users> {
+    const updatedUser = await this.getUserBylogin(login);
+    if (username) updatedUser.username = username;
+    return this.userRepository.save(updatedUser);
   }
 
+  async updateAvatarUrl(updatedUser: Users, avatar: string): Promise<Users> {
+    if (avatar) {
+      updatedUser.avatar = 'http://localhost:5000/' + avatar;
+      updatedUser.changedAvatar = true;
+    }
+    return this.userRepository.save(updatedUser);
+  }
+
+  async Enable2FA(user: Users): Promise<Users> {
+      user.isTwoFactorAuthEnabled = true;
+    return this.userRepository.save(user);
+  }
+  
+  async setTwoFactorAuthenticationSecret(secret: string, login: string) {
+    const user = await this.getUserBylogin(login);
+    user.twoFactorAuthenticationSecret = secret;
+    return this.userRepository.save(user);
+  }
+
+  
+  async turnOnTwoFactorAuthentication(login: string) {
+    const user = await this.getUserBylogin(login);
+    user.isTwoFactorAuthEnabled = true;
+    return this.userRepository.save(user);
+  }
+
+  async unSet2FASecret(login: string) {
+    const user = await this.getUserBylogin(login);
+    user.twoFactorAuthenticationSecret = '';
+    user.isTwoFactorAuthEnabled = false;
+    return this.userRepository.save(user);
+  }
 
 }

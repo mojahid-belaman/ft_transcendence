@@ -5,6 +5,9 @@ import { useRouter } from "next/router";
 import Cookies from "js-cookie";
 import axios from "axios";
 import { useEffect } from "react";
+import ParticleBackground from "../../components/gameComponents/ParticleBackground";
+
+
 
 function chat() {
 
@@ -33,6 +36,7 @@ function chat() {
     
     return (
         <MainApp>
+			<ParticleBackground/>
             <DataContexProvider>
                 <Friends />
             </DataContexProvider>

@@ -21,11 +21,12 @@ import { ApiBearerAuth } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/Guards/jwt-auth.guard';
 
 const editfilename = (req, file, callback) => {
-  if (!file.mimetype.match(/\/(jpg|jpeg|png|gif)$/))
+  if (!file.mimetype.match(/\/(jpg|jpeg|png|gif)$/)){
     callback(
       new HttpException('Bad file extension!', HttpStatus.BAD_REQUEST),
       false,
-    );
+      );
+  }
   else
     callback(
       null,
@@ -37,6 +38,15 @@ const editfilename = (req, file, callback) => {
 export class UsersController {
 
   constructor(private readonly usersService: UsersService) { }
+
+
+  @Get('/me')
+  @UseGuards(JwtAuthGuard)
+  async getUser(@Req() req) {
+    const user = await this.usersService.getUserBylogin(req.user['login']);
+    if (user) return user;
+    return { error: 'user not found' };
+  }
 
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
@@ -61,7 +71,7 @@ export class UsersController {
     return await (this.usersService.updateUser(body, req.user.userId));
   }
 
-  @ApiBearerAuth()
+
   @UseGuards(JwtAuthGuard)
   @UseInterceptors(
     FileInterceptor('avatar', {
@@ -71,8 +81,9 @@ export class UsersController {
       }),
     }),
   )
-  @Post('/upload-avatar')
+  @Post('/upload')
   async uploadAvatar(@Req() req, @UploadedFile() image: Express.Multer.File) {
+    console.log(req.body);
     if (image) {
       const updateUser = await this.usersService.getUserBylogin(
         req.user['login'],

@@ -35,7 +35,6 @@ function ChannelsComponent() {
 
     return <div className={classes.mainCard}>
         <div className={classes.channelList}>
-            <input type="text" placeholder="  Search..." />
             <button onClick={OpenCloseModal} className={classes.createChannel}>
                 <i className="fa-solid fa-circle-plus"></i>
                 <div className={classes.text}>Create Channel</div>
