@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import styles from "../../components/gameComponents/gameStyle/LiveHome.module.css";
-import socket from "../../components/Library/Socket";
-import ParticleBackground from "../../components/gameComponents/ParticleBackground";
-import CurrentGame from "../../components/gameComponents/CurrentGame";
+import socket from "../Library/Socket";
+import ParticleBackground from "./ParticleBackground";
+import CurrentGame from "./CurrentGame";
 
 export function LiveGame() {
   const [games, setGames] = useState([]);
