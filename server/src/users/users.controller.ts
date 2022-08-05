@@ -64,6 +64,12 @@ export class UsersController {
     return await (this.usersService.createUser(body));
   }
 
+  @Post('/username')
+  @UseGuards(JwtAuthGuard)
+  setUserName(@Req() req) {
+    this.usersService.updateUsername(req.user['login'], req.body['username']);
+  }
+
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @Put("/")
