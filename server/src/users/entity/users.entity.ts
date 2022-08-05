@@ -30,9 +30,6 @@ export class Users {
     @Column({default: false})
     isTwoFactorAuthEnabled: boolean;
   
-    @Column({default: false})
-    isTwoFactorAuthenticated: boolean;
-  
-    @Column({default: ""})
+    @Column()
     twoFactorAuthenticationSecret: string;
 }

@@ -3,6 +3,8 @@ import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import * as dotenv from 'dotenv';
+import { JwtTwoFactorGuard } from 'src/2fa/Guards/twofactorAuthJwt.guard';
+import { Jwt2faStrategy } from 'src/2fa/Strategy/2fa.strategy';
 import { Users } from 'src/users/entity/users.entity';
 dotenv.config();
 

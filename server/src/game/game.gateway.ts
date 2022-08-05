@@ -64,15 +64,6 @@ export class GameGateway
     GameGateway.game.splice(GameGateway.game.indexOf(gameFound), 1);
   }
 
-  // @SubscribeMessage('resize')
-  // hundle_responsiveGame(client: Socket, payload: any) {
-  //   GameVariable._canvas_Width = payload.cWidth;
-  //   GameVariable._canvas_Height = payload.cHeight;
-  //   GameVariable._paddle_Height = GameVariable._canvas_Height / 6;
-  //   GameVariable._right_Paddle_X =
-  //     GameVariable._canvas_Width - GameVariable._paddle_Width;
-  // }
-
   @SubscribeMessage('upPaddle')
   hundle_up_paddle(client: Socket, payload: string) {
     let gameFound = GameGateway.game.find((gm) => {
@@ -163,6 +154,7 @@ export class GameGateway
         this.gameService,
         this.sendGames,
         this.server,
+        GameGateway.game,
       );
 
       GameGateway.game.push(newGame);
