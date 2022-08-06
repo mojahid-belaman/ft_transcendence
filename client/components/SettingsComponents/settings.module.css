@@ -139,4 +139,11 @@
 }
 
 
-
+.toast-message {
+    /* background: darkblue; */
+    color: rgb(187, 27, 27);
+    font-size: 20px;
+    width: 34vw;
+    height: 5vh;
+    /* padding: 30px 20px; */
+}

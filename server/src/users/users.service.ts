@@ -135,10 +135,13 @@ export class UsersService {
       .then(async (user) => await this.userRepository.save({...user, lastConnected: info}));
   }
 
-  async updateUsername(login: string, username: string): Promise<Users> {
+  async updateUsername(login: string, username: string): Promise<Users | boolean>{
     const updatedUser = await this.getUserBylogin(login);
-    if (username) updatedUser.username = username;
-    return this.userRepository.save(updatedUser);
+    if (username) {
+      updatedUser.username = username;
+     return this.userRepository.save(updatedUser).then((res) => res).catch(() => false)
+    };
+    return false;
   }
 
   async updateAvatarUrl(updatedUser: Users, avatar: string): Promise<Users> {

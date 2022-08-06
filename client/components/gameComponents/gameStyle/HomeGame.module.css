@@ -4,7 +4,7 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  color: #fff;
+  color: #384864;
 }
 
 .game {
@@ -20,9 +20,10 @@
   display: flex;
   align-items: center;
   text-align: center;
-  background-color: #000;
+  background-color: rgb(204,149,62);
   flex-basis: 50%;
   height: 100vh;
+  padding: 30px;
 }
 .about h1 {
   font-size: 4vw;
@@ -61,85 +62,29 @@
   justify-content: center;
   align-items: center;
 }
-.about .btnDef,
-.about .btnObs {
-  position: relative;
-  top: 0;
-  width: 12vw;
-  cursor: pointer;
-  text-decoration: none !important;
-  outline: none !important;
+.about .btnDef {
   font-family: "Press Start 2P", cursive;
-  font-size: 1vw;
-  line-height: 1.5em;
-  letter-spacing: 0.1em;
-  text-shadow: 2px 2px 1px #348628, -2px 2px 1px #348628, 2px -2px 1px #348628,
-    -2px -2px 1px #348628, 0px 2px 1px #348628, 0px -2px 1px #348628,
-    0px 4px 1px #1d4c16, 2px 4px 1px #1d4c16, -2px 4px 1px #1d4c16;
-  border: none;
-  margin: 15px 80px 30px;
-  background: repeating-linear-gradient(
-    45deg,
-    #54d440,
-    #54d440 5px,
-    #52cc3f 5px,
-    #52cc3f 10px
-  );
-  border-bottom: 3px solid rgba(40, 117, 29, 0.5);
-  border-top: 3px solid rgba(255, 255, 255, 0.3);
-  color: #fff !important;
-  border-radius: 8px;
-  padding: 8px 15px 10px;
-  box-shadow: 0 6px 0 #348628, 0 8px 1px 1px rgba(0, 0, 0, 0.3),
-    0 10px 0 5px #2a6d20, 0 12px 0 5px #39822e, 0 15px 0 5px #1d4c16,
-    0 15px 1px 6px rgba(0, 0, 0, 0.3);
+  padding: 20px 0 20px 15px ;
+  display: inline-block;
+  margin:60px;
+  font-weight: bold;
+  background-color: #384864;
+  text-shadow: -1px -1px black, 1px 1px #B8B8CF;
+  color: rgb(204,149,62);
+  -webkit-border-radius: 7px;
+  -moz-border-radius: 7px;
+  -o-border-radius: 7px;
+  border-radius: 7px;
+  box-shadow: 0 .2em #1a2f4f; 
+  cursor: pointer;
+  text-align: center;
+  width: 27%;
+  font-size: x-large;
 }
-.about .btnDef:hover,
-.about .btnObs:hover {
-  top: 2px;
-  box-shadow: 0 4px 0 #348628, 0 6px 1px 1px rgba(0, 0, 0, 0.3),
-    0 8px 0 5px #2a6d20, 0 10px 0 5px #39822e, 0 13px 0 5px #1d4c16,
-    0 13px 1px 6px rgba(0, 0, 0, 0.3);
-}
-.btnDef::before {
-  content: "";
-  height: 10%;
-  position: absolute;
-  width: 40%;
-  background: #fff;
-  right: 13%;
-  top: -3%;
-  border-radius: 99px;
-}
-.btnObs::before {
-  content: "";
-  height: 10%;
-  position: absolute;
-  width: 40%;
-  background: #fff;
-  right: 13%;
-  top: -3%;
-  border-radius: 99px;
-}
-.btnDef::after {
-  content: "";
-  height: 10%;
-  position: absolute;
-  width: 5%;
-  background: #fff;
-  right: 5%;
-  top: -3%;
-  border-radius: 99px;
-}
-.btnObs::after {
-  content: "";
-  height: 10%;
-  position: absolute;
-  width: 5%;
-  background: #fff;
-  right: 5%;
-  top: -3%;
-  border-radius: 99px;
+.about .btnDef:hover{
+  box-shadow: 0 .2em #B8B8CF; 
+  background-color: #757BC4;
+  color: rgb(204,149,62);
 }
 
 @media (max-width: 1900px) {
@@ -163,12 +108,11 @@
       transform: translateY(-60px);
     }
   }
-  .about .btnDef,
-  .about .btnObs {
-    padding: 10px 10px 10px 10px;
+  .about .btnDef {
+    padding: 20px 10px 20px 10px;
+    margin:20px
   }
-  .about .btnDef img,
-  .about .btnObs img {
+  .about .btnDef img {
     width: 50px;
     height: 50px;
   }
@@ -232,25 +176,13 @@
       transform: translateY(-50px);
     }
   }
-  .about .btnDef,
-  .about .btnObs {
+  .about .btnDef {
     padding: 10px 10px 10px 10px;
-  }
-  .about .btnDef img,
-  .about .btnObs img {
-    width: 40px;
-    height: 40px;
   }
 }
 @media (max-width: 1200px) {
-  .about .btnDef,
-  .about .btnObs {
+  .about .btnDef {
     padding: 10px 10px 10px 10px;
-  }
-  .about .btnDef img,
-  .about .btnObs img {
-    width: 30px;
-    height: 30px;
   }
 }
 @media (max-width: 900px) {
@@ -276,14 +208,9 @@
       transform: translateY(-30px);
     }
   }
-  .about .btnDef,
-  .about .btnObs {
+  .about .btnDef {
     padding: 10px 10px 10px 10px;
-  }
-  .about .btnDef img,
-  .about .btnObs img {
-    width: 20px;
-    height: 20px;
+    font-size: small;
   }
 }
 @media (max-width: 600px) {
@@ -309,13 +236,8 @@
       transform: translateY(-20px);
     }
   }
-  .about .btnDef,
-  .about .btnObs {
+  .about .btnDef {
     padding: 10px 10px 10px 10px;
-  }
-  .about .btnDef img,
-  .about .btnObs img {
-    width: 10px;
-    height: 10px;
+    font-size: small;
   }
 }

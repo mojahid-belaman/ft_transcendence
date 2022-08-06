@@ -59,15 +59,14 @@
     cursor: pointer;
     align-items: center;
     width: 100%;
-    /* border-bottom: 5px solid #AB2E29; */
-    background-color: #B8B8CF;
-    color: #AB2E29;
+    background-color: #384864;
+    color: rgb(204,149,62);
 }
 
 .logout:hover{
-    color: #B8B8CF;
+    color: rgb(204,149,62);
     background-color: #AB2E29;
-    border-top: 5px solid #B8B8CF;
+    border-top: 5px solid rgb(204,149,62);
 }
 
 @media screen and (max-width: 700px) {
