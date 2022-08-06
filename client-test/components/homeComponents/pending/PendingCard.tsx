@@ -5,20 +5,18 @@ import Cookies from 'js-cookie';
 import socket from '../../Library/Socket';
 
 const PendingCard = (props: any) => {
-    // const socketContext = useContext(SocketContext);
     const acceptFriend = () => {
-        // console.log("Client Socket");
-        // socket.emit("acceptFriend", {userId: props.id});
+        socket.emit("acceptFriend", {userId: props.id});
     }
     const denyFriend = () => {
-        // socket.emit("refuseFriend", {userId: props.id});
+        socket.emit("refuseFriend", {userId: props.id});
     }
     return(<div className={classes.pendingCard}>
-        <img src="https://i.pinimg.com/474x/ec/e2/b0/ece2b0f541d47e4078aef33ffd22777e.jpg"></img>
+        <img src={props.avatar}></img>
         <div> { props.username }</div>
         <div className={classes.buttons}>
-            <button /* onClick={acceptFriend} */>accept</button>
-            <button /* onClick={acceptFriend} */>deny</button>
+            <button onClick={acceptFriend}>accept</button>
+            <button onClick={denyFriend}>deny</button>
         </div>
     </div>)
 }

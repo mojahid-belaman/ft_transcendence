@@ -39,8 +39,6 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
         this.logger.log('connection => ' + client.id)
         // "undefined"
         if (client.handshake.query && client.handshake.query.token && client.handshake.query.token !== "undefined") {
-            console.log("hola 1 => ", typeof client.handshake.query.token);
-            console.log("hola 2 => ", client.handshake.query.token);
             const user: any = await this.jwtService.verify(String(client.handshake.query.token), {
                 secret: process.env.JWT_SECRET
             })
@@ -53,16 +51,15 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
 
     async handleDisconnect(client: Socket) {
         this.logger.log('disconnection')
-        console.log("hola => ", client.handshake.query.token);
-        console.log("hola => ", typeof client.handshake.query.token);
         if (client.handshake.query && client.handshake.query.token && client.handshake.query.token !== "undefined") {
             const user: any = await this.jwtService.verify(String(client.handshake.query.token), {
                 secret: process.env.JWT_SECRET
             });
             if (user) {
-                this.friendshipsService.setOffLineStatus(user.id, client.id);
-                this.usersService.updateLastTimeConnected(new Date(), user.id);
+                console.log("Disconnect => ", user);
+                this.friendshipsService.setOffLineStatus(user.userId, client.id);
+                await this.usersService.updateLastTimeConnected(new Date(), user.userId);
             }
-        }
+        }        
     }
 }

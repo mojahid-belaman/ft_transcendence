@@ -38,7 +38,7 @@ const PendingList = () => {
         <div>
             {pendingFriendships.length !== 0 && pendingFriendships.map((pendingFriendship: any, index) => {
                  return( 
-                    <PendingCard />
+                    <PendingCard {...pendingFriendship} />
                     ) 
              })}
         </div>

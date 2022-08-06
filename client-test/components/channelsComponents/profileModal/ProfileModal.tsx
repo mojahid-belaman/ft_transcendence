@@ -9,7 +9,7 @@ function ProfileModal(props:any) {
       <div className={classes.backdrop} onClick={props.OpenClose}></div>
       <div className={classes.card}>
         <div onClick={props.OpenClose} className={classes.close}> <i className="fa-solid fa-xmark"></i></div>
-        <ChannelInfo/>
+        <ChannelInfo channel={props.channel} />
       </div>
     </div>)
 }

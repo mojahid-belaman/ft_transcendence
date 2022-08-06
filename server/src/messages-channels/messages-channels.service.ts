@@ -1,26 +1,40 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { FriendshipsService } from 'src/friendships/friendships.service';
+import { UsersService } from 'src/users/users.service';
+import { Repository } from 'typeorm';
 import { CreateMessagesChannelDto } from './dto/create-messages-channel.dto';
 import { UpdateMessagesChannelDto } from './dto/update-messages-channel.dto';
+import { MessagesChannel } from './entities/messages-channel.entity';
 
 @Injectable()
 export class MessagesChannelsService {
-  create(createMessagesChannelDto: CreateMessagesChannelDto) {
-    return 'This action adds a new messagesChannel';
-  }
 
-  findAll() {
-    return `This action returns all messagesChannels`;
-  }
+  constructor(
+    @InjectRepository(MessagesChannel)
+    private messagesDMRepository: Repository<MessagesChannel>,
+    private friendshipSevice: FriendshipsService,
+    private usersService: UsersService
+  ) { }
 
-  findOne(id: number) {
-    return `This action returns a #${id} messagesChannel`;
-  }
-
-  update(id: number, updateMessagesChannelDto: UpdateMessagesChannelDto) {
-    return `This action updates a #${id} messagesChannel`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} messagesChannel`;
+ 
+  getAllChannels(userId: string) {
+    return this.messagesDMRepository.query(`
+      SELECT DISTINCT
+        id as "channelId",
+        name,
+        status,
+        avatar,
+        "ownerId",
+        date,
+        image
+      FROM channels
+      WHERE
+        id::text IN (SELECT "channelId"::text FROM messages_dm WHERE "userId"::text = '${userId}')
+    `).then(convs => {
+      if (convs && convs.length !== 0)
+        return convs.map((conv, index) => ({ ...conv, conversationId: index}))
+      return [];
+    })
   }
 }

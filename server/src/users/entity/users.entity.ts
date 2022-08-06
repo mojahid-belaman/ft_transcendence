@@ -27,12 +27,12 @@ export class Users {
     @Column()
     changedAvatar: boolean;
   
-    @Column()
+    @Column({default: false})
     isTwoFactorAuthEnabled: boolean;
   
-    @Column()
+    @Column({default: false})
     isTwoFactorAuthenticated: boolean;
   
-    @Column()
+    @Column({default: ""})
     twoFactorAuthenticationSecret: string;
 }

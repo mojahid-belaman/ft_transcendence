@@ -22,29 +22,53 @@ export class ConnectionsService {
     })
   }
 
+  /* 
+  { conversationId: 0, channelId: 1, name: "annoucement" ,status:"private"}
+  */
+
+  async getAll() {
+    return await this.connectionsRepository.query(`
+      SELECT
+        channels.id as "channelId",
+        channels.name,
+        channels.avatar,
+        channels."ownerId",
+        channels.image as "channelImage"
+        channels.status,
+        channels.date as "channelCreationDate"
+      FROM connection
+      JOIN channels ON (connection."channelId"::text = channels.id::text)
+    `).then(convs => {
+      if (convs && convs.length !== 0)
+        return convs.map((conv, index) => ({ ...conv, conversationId: index}))
+      return [];
+    });
+  }
+
   async findAll(condition) {
-    // return this.connectionsRepository.find({
-    //   where: [condition]
-    // }); connection."channelId"
     return await this.connectionsRepository.query(`
       SELECT
         connection.id as "connectionId",
         connection.status,
         connection.date,
+        channels.id as "channelId",
         channels.name,
-        channels.id as "ChannelId",
+        channels.avatar,
+        channels."ownerId",
         channels.image as "channelImage"
+        channels.status,
+        channels.date as "channelCreationDate"
       FROM connection
       JOIN channels ON (connection."channelId"::text = channels.id::text)
       WHERE connection."userId" = '${condition.user}'
-    `);
+    `).then(convs => {
+      if (convs && convs.length !== 0)
+        return convs.map((conv, index) => ({ ...conv, conversationId: index}))
+      return [];
+    });
   }
 
   async findOne(condition) {
-    // return this.connectionsRepository.findOne({
-    //   where: [condition]
-    // });
-    // {id: id, user: req.user.userId}    
     return await this.connectionsRepository.query(`
       SELECT
         connection.id as "connectionId",
@@ -57,6 +81,20 @@ export class ConnectionsService {
       JOIN channels ON (connection."channelId"::text = channels.id::text)
       WHERE connection.id::text = '${condition.id}' AND connection."userId" = '${condition.user}'
     `);
+  }
+
+  async checkConnectionExistance (channelId: string, userId: string) {
+    return await this.connectionsRepository.query(`
+      SELECT
+        "userId",
+        "channelId"
+      FROM connection
+      WHERE "userId"::text = '${channelId}' AND "channelId" = '${userId}'
+    `).then(res => {
+      if (res)
+        return true;
+      return false;
+    });
   }
 
   async delete(condition) {

@@ -7,6 +7,13 @@ import { JwtAuthGuard } from 'src/auth/Guards/jwt-auth.guard';
 export class ConnectionsController {
   constructor(private readonly connectionsService: ConnectionsService) {}
 
+
+  @UseGuards(JwtAuthGuard)
+  @Get()
+  getAll() {
+    return this.connectionsService.getAll();
+  }
+
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @Post("/new")

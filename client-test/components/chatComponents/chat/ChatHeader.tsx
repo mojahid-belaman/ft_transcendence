@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import classes from './ChatHeader.module.css'
 import { BiDotsVertical } from "react-icons/bi";
 import { BsCheckLg, BsXLg } from 'react-icons/bs';
+import socket from '../../Library/Socket';
 function GameInvitation(props: any) {
     return <div>
         <div className={classes.backdrop}></div>
@@ -19,6 +20,15 @@ function GameInvitation(props: any) {
 function ChatHeader(props: any) {
     const [backdrop1, setBackdrop1] = useState(false);
     const [backdrop2, setBackdrop2] = useState(false);
+
+    const unfriendHandler = () => socket.emit("RemoveFriendship", {friendId: props.user.userId})
+    const blockdHandler = () => socket.emit("blockFriend", {blockedUserId: props.user.userId})
+
+    socket.on("RemoveFriend", (data) => {
+        props.setAllowed(false)
+        props.setMessage(data.message)
+    })
+
     function OpenCloseModal1() {
         if (backdrop1 === false)
             setBackdrop1(true);
@@ -31,12 +41,17 @@ function ChatHeader(props: any) {
         else
             setBackdrop2(false);
     }
-    return (<div className={classes.chatWrapper}>
+
+    useEffect(() => {
+        console.log(props.user);
+    }, [])
+
+    return props.user ? (<div className={classes.chatWrapper}>
         <button className={classes.chatHeader} onClick={props.toggle} >
-            <img src="https://i.pinimg.com/474x/ec/e2/b0/ece2b0f541d47e4078aef33ffd22777e.jpg"></img>
+            <img src={props.user.avatar}></img>
             <div className={classes.info}>
                 <div>{props.user.name}</div>
-                <div>Online </div>
+                <div>{props.user.isOnline ? "Online" : "Offline"}  </div>
             </div>
         </button>
         <button onClick={OpenCloseModal1} className={classes.buttonSetting}><BiDotsVertical />
@@ -44,8 +59,8 @@ function ChatHeader(props: any) {
             <div className={classes.divUser}>
                 <div className={classes.userHandler}>
                     <button onClick={() => { OpenCloseModal2(); OpenCloseModal1() }} className={classes.button}>Game Invitation</button>
-                    <button onClick={OpenCloseModal1} className={classes.button}>Unfriend</button>
-                    <button onClick={OpenCloseModal1} className={classes.button}>Block</button>
+                    <button onClick={unfriendHandler} className={classes.button}>Unfriend</button>
+                    <button onClick={blockdHandler} className={classes.button}>Block</button>
                 </div>
             </div> 
             : null
@@ -54,6 +69,6 @@ function ChatHeader(props: any) {
         
         {backdrop2 ? <GameInvitation OpenClose={OpenCloseModal2} /> : null}
 
-    </div>)
+    </div>) : <></>
 }
 export default ChatHeader

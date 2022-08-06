@@ -21,10 +21,10 @@ export class Channels {
     status: channelStatus;
     @Column({default: null})
     password: string;
-    @ManyToOne(type => Users, user => user.id/* , {onUpdate: 'CASCADE' } */)
-    owner: Users;
+    @Column()
+    ownerId: string;
+    @Column({default: ""})
+    description: string;
     @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP"})
     date: Date;
-    @Column({default: ''})
-    image: string;
 }

@@ -11,4 +11,7 @@ export class CreateChannelDto{
 	password: string;
 	@IsEnum(channelStatus)
 	status: channelStatus;
+	@IsString()
+	@ValidateIf((object, value) => value === null)
+	description: string;
 }

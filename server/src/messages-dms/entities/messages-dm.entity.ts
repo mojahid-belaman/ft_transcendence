@@ -6,10 +6,6 @@ import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 export class MessagesDM{
     @PrimaryGeneratedColumn('uuid')
     id: string;
-    /* @ManyToOne(type => Users, user => user.id)
-    first: Users;
-    @ManyToOne(type => Users, user => user.id)
-    second: Users; */
     @Column()
     firstId: string;
     @Column()

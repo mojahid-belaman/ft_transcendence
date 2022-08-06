@@ -8,7 +8,7 @@ function GameCard(){
   </div>)
 }
 
-function Game() {
+function Game(props: any) {
   return (
       <div>
           <hr />
@@ -28,7 +28,7 @@ function Game() {
           </div>
       </div>)
 }
-function About() {
+function About(props:any) {
   return (
       <div>
           <hr />
@@ -42,22 +42,22 @@ function About() {
           </div>
       </div>)
 }
-function UserInfo() {
+function UserInfo(props: any) {
   const [buttons, setButton] = useState(1);
   return (
       <div className={classes.infoCard}>
           <div className={classes.header}>
-              <img className={classes.channelImage} src="https://i.pinimg.com/474x/ec/e2/b0/ece2b0f541d47e4078aef33ffd22777e.jpg"></img>
+              <img className={classes.channelImage} src={props.user.avatar}></img>
               <div className={classes.channelName}>
-                 <p> User Name</p>
+                 <p>{props.user.name}</p>
                   <div className={classes.buttons}>
                       <button onClick={()=> setButton(1)}>About</button>
                       <button onClick={()=> setButton(2)}>Games</button>
                   </div>
               </div>
           </div>
-          {buttons === 1 ? <div><About/></div> : null}
-          {buttons === 2 ? <div><Game/></div> : null}
+          {buttons === 1 ? <div><About user={props.user}/></div> : null}
+          {buttons === 2 ? <div><Game user={props.user}/></div> : null}
       </div>
   )
 }
@@ -68,7 +68,7 @@ function ProfileModal(props:any) {
         <div onClick={props.OpenClose} className={classes.backdrop}></div>
         <div className={classes.card}>
           <div onClick={props.OpenClose} className={classes.close}> <i className="fa-solid fa-xmark"></i></div>
-          <UserInfo/>
+          <UserInfo user={props.user}/>
         </div>
     </div>
 }

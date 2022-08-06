@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  ForbiddenException,
   Get,
   HttpException,
   HttpStatus,
@@ -44,8 +45,9 @@ export class UsersController {
   @UseGuards(JwtAuthGuard)
   async getUser(@Req() req) {
     const user = await this.usersService.getUserBylogin(req.user['login']);
-    if (user) return user;
-    return { error: 'user not found' };
+    if (user)
+      return user;
+    throw new ForbiddenException()
   }
 
   @ApiBearerAuth()
@@ -91,7 +93,6 @@ export class UsersController {
   )
   @Post('/upload')
   async uploadAvatar(@Req() req, @UploadedFile() image: Express.Multer.File) {
-    console.log(req.body);
     if (image) {
       const updateUser = await this.usersService.getUserBylogin(
         req.user['login'],

@@ -18,7 +18,7 @@ export class AuthService {
 
   async login(user: any) {
     const payload = {
-      userId: user.userId,
+      userId: user.id,
       login: user.login,
       username: user.username,      
       avatar: user.avatar,
@@ -28,6 +28,7 @@ export class AuthService {
   async tfaToken(user: UserDto) {
     const payload = {
       login : user.login,
+      userId: user.id
     };
     return await this.jwtService.sign(payload);
   }

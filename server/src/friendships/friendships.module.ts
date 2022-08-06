@@ -10,7 +10,10 @@ import { FriendshipsController } from './friendships.controller';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Friendships, Users])
+    TypeOrmModule.forFeature([Friendships, Users]),
+    JwtModule.register({
+      secret: process.env.JWT_SECRET
+    })
   ],
   controllers: [FriendshipsController],
   providers: [FriendshipsGateway, FriendshipsService, UsersService, JwtService],

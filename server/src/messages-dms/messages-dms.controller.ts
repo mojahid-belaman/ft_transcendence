@@ -24,9 +24,9 @@ export class MessagesDmsController {
   
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
-  @Get(":conversationId")
-  findAll(@Req() req, @Param("conversationId") conversationId: string) {
-    return this.messagesDmsService.findAll(conversationId, req.user.userId);
+  @Get(":login")
+  findAll(@Req() req, @Param("login") login: string) {    
+    return this.messagesDmsService.findAll(login, req.user.userId);
   }
   
   @ApiBearerAuth()

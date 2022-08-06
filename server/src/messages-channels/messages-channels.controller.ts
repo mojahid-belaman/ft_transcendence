@@ -1,34 +1,17 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Req } from '@nestjs/common';
 import { MessagesChannelsService } from './messages-channels.service';
 import { CreateMessagesChannelDto } from './dto/create-messages-channel.dto';
 import { UpdateMessagesChannelDto } from './dto/update-messages-channel.dto';
+import { JwtAuthGuard } from 'src/auth/Guards/jwt-auth.guard';
 
 @Controller('channels/messages')
 export class MessagesChannelsController {
   constructor(private readonly messagesChannelsService: MessagesChannelsService) {}
 
-  @Post()
-  create(@Body() createMessagesChannelDto: CreateMessagesChannelDto) {
-    return this.messagesChannelsService.create(createMessagesChannelDto);
-  }
-
+  /* @UseGuards(JwtAuthGuard)
   @Get()
-  findAll() {
-    return this.messagesChannelsService.findAll();
-  }
+  getAllConversations(@Req() req) {
+    return this.messagesChannelsService.getAllChannels(req.user.userId);
+  } */
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.messagesChannelsService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateMessagesChannelDto: UpdateMessagesChannelDto) {
-    return this.messagesChannelsService.update(+id, updateMessagesChannelDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.messagesChannelsService.remove(+id);
-  }
 }

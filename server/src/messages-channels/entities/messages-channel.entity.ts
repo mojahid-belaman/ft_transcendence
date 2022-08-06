@@ -6,10 +6,10 @@ import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 export class MessagesChannel {
     @PrimaryGeneratedColumn('uuid')
     id: string;
-    @ManyToOne(type => Users, user => user.id)
-    user: Users;
-    @ManyToOne(type => Channels, channel => channel.id)
-    channel: Channels;
+    @Column()
+    userId: string;
+    @Column()
+    channelId: string;
     @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP"})
     info: Date;
     @Column()

@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import DataContex from './data_context/data-context';
 import classes from './FriendCard.module.css'
 function FriendCard(props:any) {
@@ -6,12 +6,13 @@ function FriendCard(props:any) {
     function setConversation_(){
         dataContextVar.setConversation(props.user.conversationId);
     }
+
     return (
         <div className={classes.friendButton} onClick={setConversation_}>
-            <img className={classes.profileImg} src="https://i.pinimg.com/474x/ec/e2/b0/ece2b0f541d47e4078aef33ffd22777e.jpg"></img>
+            <img className={classes.profileImg} src={props.user.avatar}></img>
             <div className={classes.profileInfo}>
                 <div>{props.user.name}</div>
-                <div>Online</div>
+                <div>{props.user.isOnline ? "Online" : "Offline"}</div>
             </div>
         </div>
     )

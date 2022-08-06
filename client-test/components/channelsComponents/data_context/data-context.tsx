@@ -1,4 +1,6 @@
-import { createContext, useState } from "react";
+import axios from "axios";
+import Cookies from "js-cookie";
+import { createContext, useEffect, useState } from "react";
 
 const DataChannel = createContext({
     data: [],
@@ -8,11 +10,8 @@ const DataChannel = createContext({
 });
 
 export function DataChannelProvider(props:any) {
-    const [userData, SetUserData]:any = useState([{ conversationId: 0, channelId: 1, name: "annoucement" ,status:"private"},
-    { conversationId: 1, channelId: 5, name: "general" ,status:"public"},
-    { conversationId: 2, channelId: 9, name: "random" ,status:"protected"}
-    ]);
-    const [selectedConv,setSelectedConv] = useState(userData[0])
+    const [userData, SetUserData]:any = useState([]);
+    const [selectedConv,setSelectedConv] = useState(userData.length !== 0 ? userData[0] : undefined )
     function addChannelHandler(userData:any) {
         SetUserData((previousData:any) => {
             return (previousData.concat(userData));
@@ -21,14 +20,27 @@ export function DataChannelProvider(props:any) {
     function setConversation(convId:any) {
         setSelectedConv(userData.find((user:any) => user.conversationId === convId));
     }
-    const context = {
-        data: userData,
-        addChannel: addChannelHandler,
-        selectedConversation: selectedConv,
-        setConversation: setConversation
+
+    const getChannels = async () => {
+        const token = Cookies.get("access_token");
+        await axios.get('http://localhost:5000/channels', {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then((res) => SetUserData([...res.data]));
     }
+
+    useEffect(() => {
+        getChannels();
+    }, []);
+
     return (
-        <DataChannel.Provider value={context}>
+        <DataChannel.Provider value={{
+            data: userData,
+            addChannel: addChannelHandler,
+            selectedConversation: selectedConv,
+            setConversation: setConversation
+        }}>
             {props.children}
         </DataChannel.Provider>
     )

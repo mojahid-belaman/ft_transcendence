@@ -1,6 +1,7 @@
 
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import socket from '../../Library/Socket';
 import NewChannel from '../newChannel/NewChannel';
 import ProfileModal from '../profileModal/ProfileModal';
 import classes from './Chat.module.css'
@@ -18,10 +19,22 @@ function Chat(props:any) {
     const [CurentMessage, setCurentMessage]:any = useState("");
     function Message() {
         if (CurentMessage !== "") {
-            setMessageList((list:any) => [...list, CurentMessage])
+            socket.emit("SendMessage", { channel: props.channel.id, CurentMessage })
+            const date = new Date();
+
+            setMessageList((list: any) => [...list, { CurentMessage, date: date.toISOString() }])
             setCurentMessage("")
         }
     }
+
+    socket.on("receiveMessage", (data) => {
+        setMessageList([...messagelist, data])
+    })
+
+    useEffect(() => {
+      console.log(props.channel);
+    }, [])
+    
 
     return <div className={classes.chatCard}>
         <ChatHeader toggle={OpenCloseModal} channel={props.channel} />
@@ -40,7 +53,7 @@ function Chat(props:any) {
                     };
                 }} />
                 <button onClick={Message}>&#9658;</button></div>
-            {backdrop ? <ProfileModal OpenClose={OpenCloseModal} /> : null}
+            {backdrop ? <ProfileModal channel={props.channel} OpenClose={OpenCloseModal} /> : null}
         </div>
     </div>
 }

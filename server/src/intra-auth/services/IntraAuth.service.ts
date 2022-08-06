@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 
 import { UsersService } from 'src/users/users.service';
 
@@ -8,15 +8,16 @@ export class IntraAuthService {
     private readonly usersService: UsersService,
   ) {}
 
-  async intraLogin(req) {
-    console.log(req.user);
-    const userExist = await this.usersService.getUserBylogin(req.user['login']);
-    console.log("Login => ", userExist);
+  async intraLogin(user) {
+    console.log("user => ", user);
 
-    if (!userExist) {
-      await this.usersService.addUser(req.user);
-      return null;
-    }
+    const userExist = await this.usersService.getUserBylogin(user['login']);
+    console.log("userExist => ", userExist);
+    if (!userExist) 
+      return await this.usersService.addUser(user)
+      .catch(() => {
+        throw new BadRequestException();
+      });
     return userExist;
   }
 }

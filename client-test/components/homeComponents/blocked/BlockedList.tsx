@@ -7,22 +7,13 @@ import classes from './BlockedList.module.css'
 function BlockedList() {
     const [blocked, setBlocked] = useState<any[]>([]);
 
-    // const socketContext = useContext(SocketContext);
-
-    // useEffect(() => {
-    //     socket.emit("blockedFriends");
-    //     socket.on("blockedFriendsList", (data: any) => {
-    //         console.log(data);
-    //         setBlocked(data)
-    //     })
-    //     socket.on("RemoveBlockedFriend", (data: any) => {
-    //         console.log(data);
-    //         setBlocked(blocked.filter(user => user.id !== data.id))
-    //     })
-    // }, [])
+    useEffect(() => {
+        socket.emit("blockedFriends");
+        socket.on("blockedFriendsList", (data: any) => setBlocked(data))
+        socket.on("RemoveBlockedFriend", (data: any) => setBlocked(blocked.filter(user => user.id !== data.id)))
+    }, [])
     
     return (<div className={classes.list}>
-        {/* <BlockedCard key={index} {...user} /> */}
         {
             blocked.length !== 0 && blocked.map((user, index) => {
                 return (

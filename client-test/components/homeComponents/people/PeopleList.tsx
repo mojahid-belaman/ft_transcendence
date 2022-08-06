@@ -14,7 +14,6 @@ function PeopleList() {
             Authorization: `Bearer ${token}`,
         }
       }).then(data => {
-          console.log(data.data);
           setPeople(data.data);
         });
     }, [])

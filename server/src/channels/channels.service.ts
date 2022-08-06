@@ -11,8 +11,21 @@ export class ChannelsService {
     private channelRepository: Repository<Channels>
   ) {}
 
-  async getchannels(): Promise<Channels[]> {
-    return await this.channelRepository.find();
+  async getChannels() {
+      return await this.channelRepository.query(`
+        SELECT
+          channels.id as "channelId",
+          channels.name,
+          channels."ownerId",
+          channels.status,
+          channels.description,
+          channels.date as "channelCreationDate"
+        FROM channels
+      `).then(convs => {
+        if (convs && convs.length !== 0)
+          return convs.map((conv, index) => ({ ...conv, conversationId: index}))
+        return [];
+      });
   }
 
   async getchannelsByConditon(condition): Promise<Channels[]> {

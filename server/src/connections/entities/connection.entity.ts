@@ -13,10 +13,10 @@ export enum connectionStatus {
 export class Connection {
     @PrimaryGeneratedColumn('uuid')
     id: string;
-    @ManyToOne(type => Users, user => user.id)
-    user: Users;
-    @ManyToOne(type => Channels, channel => channel.id)
-    channel: Channels;
+    @Column()
+    userId: string;
+    @Column()
+    channelId: string;
     @Column({
         type: "enum",
         enum: connectionStatus,

@@ -12,7 +12,7 @@ function MemberCard(){
     </div>)
 }
 
-function Members() {
+function Members(props: any) {
     return (
         <div>
             <hr />

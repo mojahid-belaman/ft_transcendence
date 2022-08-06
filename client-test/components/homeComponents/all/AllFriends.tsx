@@ -10,8 +10,6 @@ import socket from '../../Library/Socket';
 const AllFriends = () => {
 
     const [users, setUsers] = useState<any[]>([]);
-
-    // const socketContext = useContext(SocketContext);
     
     useEffect(() => {
         socket.emit("allFriends");

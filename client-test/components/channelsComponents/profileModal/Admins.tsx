@@ -11,7 +11,7 @@ function AdminCard() {
     </div>)
 }
 
-function Admins() {
+function Admins(props: any) {
     return (
         <div>
             <hr />

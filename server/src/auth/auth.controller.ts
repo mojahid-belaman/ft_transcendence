@@ -12,6 +12,7 @@ import { JwtAuthGuard } from './Guards/jwt-auth.guard';
 
 @Controller("auth")
 export class AuthController {
+  
   @UseGuards(JwtAuthGuard)
   @Get('isAuthorized')
   isAuthorized(@Request() req) {

@@ -73,20 +73,6 @@ export class UsersService {
         return [];
       });
   }
-
-  /* 
-  SELECT
-        *
-      FROM USERS
-      WHERE 
-        id::text != '9d54b167-0d30-404d-b6ed-db7c286cd77d'
-      AND
-        id::text NOT IN (SELECT "firstId"::text FROM friendships WHERE "secondId"::text = '9d54b167-0d30-404d-b6ed-db7c286cd77d')
-      AND
-        id::text NOT IN (SELECT "secondId"::text FROM friendships WHERE "firstId"::text = '9d54b167-0d30-404d-b6ed-db7c286cd77d')
-  
-  */
-
   async getMultipleUsers(userIds: string[]) {
     return await this.userRepository.find({
       where: userIds.map(userId => ({id: userId}))
@@ -96,6 +82,13 @@ export class UsersService {
   async getUserBylogin(login: string): Promise<Users> {
     const userCreated = new Users();
     userCreated.login = login;
+    const usrFound = await this.userRepository.findOne(userCreated);
+    return usrFound;
+  }
+
+  async getUserById(id: string): Promise<Users> {
+    const userCreated = new Users();
+    userCreated.id = id;
     const usrFound = await this.userRepository.findOne(userCreated);
     return usrFound;
   }
@@ -110,8 +103,7 @@ export class UsersService {
     userCreated.changedAvatar = false;
     userCreated.isTwoFactorAuthEnabled = false;
     userCreated.twoFactorAuthenticationSecret = '';
-    const newUser = this.userRepository.create(userCreated);
-    return this.userRepository.insert(newUser);
+    return this.userRepository.save(userCreated);
   }
 
 
@@ -144,10 +136,9 @@ export class UsersService {
       });
   }
 
-  async updateLastTimeConnected(info: Date, userId: string) {
+  async updateLastTimeConnected(info: Date, userId: string) {    
     return await this.userRepository.findOne({ id: userId })
       .then(async (user) => {
-        console.log("hola =>", user);
         return await this.userRepository.save({...user, lastConnected: info})
         .then(res => {
           console.log(res);

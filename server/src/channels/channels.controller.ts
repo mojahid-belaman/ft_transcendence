@@ -9,11 +9,10 @@ export class ChannelsController {
 
 	constructor(private readonly channelsService:ChannelsService){}
 	
-	@ApiBearerAuth()
 	@UseGuards(JwtAuthGuard)
 	@Get()
 	async getChannels(){
-		return await this.channelsService.getchannels();
+		return await this.channelsService.getChannels();
 	}
 
 	@ApiBearerAuth()
@@ -27,7 +26,7 @@ export class ChannelsController {
 	@UseGuards(JwtAuthGuard)
 	@Post()
 	async createChannel(@Req() req, @Body() body: CreateChannelDto) {
-		return await this.channelsService.createChannel({...body, owner: req.user.userId});
+		return await this.channelsService.createChannel({...body, ownerId: req.user.userId});
 	}
 
 	@ApiBearerAuth()
