@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import styles from "../../components/gameComponents/gameStyle/LiveHome.module.css";
 import socket from "../Library/Socket";
-import ParticleBackground from "./ParticleBackground";
 import CurrentGame from "./CurrentGame";
 
 export function LiveGame() {

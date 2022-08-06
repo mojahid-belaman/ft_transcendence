@@ -15,7 +15,7 @@ if (socket.io.opts.query)
 export function HomeGame() {
   const [isGame, setIsGame] = useState(false);
   const [isSetting, setSetting] = useState(true);
-  const [currentState, setCurrentState] = useState(data.get_State());
+  const [currentState, setCurrentState] = useState(() => data.get_State());
 
   const handleGame = async () => {
     const token = Cookies.get("access_token");
@@ -31,14 +31,12 @@ export function HomeGame() {
         if (payload.playing) {
           data.set_userOne(payload.first);
           data.set_userTwo(payload.second);
-          
           data.set_State(1);
         }
         setCurrentState(1);
       });
     }
     );
-  
     setIsGame(true);
   };
 
@@ -50,6 +48,12 @@ export function HomeGame() {
     console.log("HomeGame: ", data.get_mapColor());
     
   }, [data]);
+
+  useEffect(() => {
+   console.log({currentState});
+   console.log({isGame});
+  }, [currentState, isGame]);
+
   return (
     <>
       {!isSetting && <Setting setSetting={setSetting}/>}
@@ -71,7 +75,7 @@ export function HomeGame() {
                 Pong
               </h1>
               <p>
-                PING PON is a table
+                PING PONG is a table
                 tennis game where you can enjoy a real match experience.
                 <br />
                 You can enjoy the feeling of an actual table tennis by tossing
@@ -97,6 +101,7 @@ export function HomeGame() {
           data={data}
           currentState={currentState}
           setCurrentState={setCurrentState}
+          setIsGame={setIsGame}
         />
       )}
     </>

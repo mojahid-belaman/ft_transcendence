@@ -1,12 +1,22 @@
 import { useEffect, useState } from "react";
 import styles from "../gameComponents/gameStyle/LiveGame.module.css";
+import { Data } from "../Library/Data";
+import socket from "../Library/Socket";
 import Game from "./Game";
 
+//NOTE - Initiale data and Information about all Game like (ball, paddle, score, width, height, canvas)
+let data: Data;
+if (socket.io.opts.query)
+  data = socket.io.opts.query.data;
+
 function CurrentGame(props: any) {
+  console.log(props.game);
+  
   const [check, setCheck] = useState(false);
-  // console.log(props.game);
   const hundlGame = () => {
-    props.socket.emit("watchers", props.game);
+    data.set_userOne(props.game.player_1);
+    data.set_userTwo(props.game.player_2);
+    socket.emit("watchers", props.game);
     setCheck(true);
   };
   return (
@@ -34,7 +44,7 @@ function CurrentGame(props: any) {
               <span className={styles.score}>{props.game.player_2.score}</span>
             </div>
           </div>
-        </div>) : <Game />
+        </div>) : <Game data={data}/>
       }
     </>
   )

@@ -5,6 +5,7 @@
   flex-direction: row;
   align-items: center;
   color: #fff;
+  height: calc(100% + 10px);
 }
 
 .game {
@@ -14,7 +15,8 @@
 }
 
 .game img {
-  width: 80%;
+  width: 70%;
+  height: 70%;
 }
 .about {
   display: flex;
@@ -22,7 +24,7 @@
   text-align: center;
   background-color: #000;
   flex-basis: 50%;
-  height: 100vh;
+  height: 100%;
 }
 .about h1 {
   font-size: 4vw;
