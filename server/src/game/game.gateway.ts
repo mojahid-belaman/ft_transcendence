@@ -59,9 +59,9 @@ export class GameGateway
       if (gameFound.gameStateFunc() === gameSate.PLAY) {
         gameFound.playerOutGame(client);
         gameFound.stopGame();
+        GameGateway.game.splice(GameGateway.game.indexOf(gameFound), 1);
       }
     }
-    GameGateway.game.splice(GameGateway.game.indexOf(gameFound), 1);
   }
 
   @SubscribeMessage('upPaddle')
@@ -99,6 +99,9 @@ export class GameGateway
 
   private sendGames(_server: any) {
     const gameObj = { games: GameGateway.game.map((g) => g.getSubGame()) };
+    console.log(GameGateway.game.length);
+    
+    
     _server.emit('receive_games', JSON.stringify(gameObj, null, 2));
   }
 
@@ -113,6 +116,12 @@ export class GameGateway
       return;
     }
 
+    const findUser = this.userArr.find((u) => {
+      return u.id === user.id;
+    })
+    if (findUser)
+      return;
+      
     //NOTE - Add Client Socket In Set
     this.socketArr.add(client);
 
