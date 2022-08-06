@@ -55,9 +55,9 @@ export function HomeGame() {
       {!isSetting ? <Setting setSetting={setSetting}/> : 
       (!isGame ? (
         <div className={styles.container}>
-          <div className={styles.game}>
-            <img src="/pingpong.png" alt="Ping Pong Game" />
-          </div>
+            <div className={styles.game}>
+              <img src="/pingpong.png" alt="Ping Pong Game" />
+            </div>
           <div className={styles.about}>
             <div>
               <h1>
