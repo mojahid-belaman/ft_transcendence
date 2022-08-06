@@ -1,11 +1,13 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import styles from './twoFactAuth.module.css';
 
 function TwoFactAuth() {
   const [code, setCode] = useState('');
   const tempToken = Cookies.get('2fa_token');
+  const history = useRouter();
 
   const handleCode = (e: any) => {
     e.preventDefault();
@@ -14,7 +16,7 @@ function TwoFactAuth() {
 
   const handleCodeClick = async (e: any) => {
     e.preventDefault();
-    const test = await axios.post(
+    const turnOn2fa = await axios.post(
       'http://localhost:5000/2fa/turn-on',
       { code },
       {
@@ -23,8 +25,7 @@ function TwoFactAuth() {
     ).then((res) => {
       return res.data
     })
-    console.log('test ', test)
-    if(test){
+    if(turnOn2fa){
       const access_token = await axios.post(
         'http://localhost:5000/2fa/authenticate',
         { code },
@@ -34,7 +35,7 @@ function TwoFactAuth() {
       ).then(e => e.data.access_token)
       Cookies.set('access_token', access_token);
       Cookies.remove('2fa_token');
-      window.location.href = 'http://localhost:3000/'
+      history.push('/');
     }
   };
 

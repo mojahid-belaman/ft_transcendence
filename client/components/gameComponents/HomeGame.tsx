@@ -56,8 +56,8 @@ export function HomeGame() {
 
   return (
     <>
-      {!isSetting && <Setting setSetting={setSetting}/>}
-      {!isGame ? (
+      {!isSetting ? <Setting setSetting={setSetting}/> : 
+      (!isGame ? (
         <div className={styles.container}>
           <div className={styles.game}>
             <img src="/pingpong.png" alt="Ping Pong Game" />
@@ -89,7 +89,7 @@ export function HomeGame() {
                 <button className={styles.btnDef} onClick={handleGame}>
                   PLAY
                 </button>
-                <button className={styles.btnObs} onClick={handleSetting}>
+                <button className={styles.btnDef} onClick={handleSetting}>
                   SETTING
                 </button>
               </div>
@@ -103,7 +103,7 @@ export function HomeGame() {
           setCurrentState={setCurrentState}
           setIsGame={setIsGame}
         />
-      )}
+      ))}
     </>
   );
 }

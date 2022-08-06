@@ -15,7 +15,7 @@ export class Users {
     @Column({ unique: true })
     email: string;
 
-    @Column({default: ""})
+    @Column({ unique: true })
     username: string;
     
     @Column({ default: null })
@@ -25,7 +25,7 @@ export class Users {
     avatar: string;
     
     @Column()
-    changedAvatar: boolean;
+    qrCode: string;
   
     @Column()
     isTwoFactorAuthEnabled: boolean;

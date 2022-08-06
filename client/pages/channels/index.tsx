@@ -19,7 +19,7 @@ function Channels() {
 					Authorization: `Bearer ${token}`,
 				}
 			}).then(res => {
-				console.log(res);
+				return;
 			})
 			.catch(err => {
 			history.push("/login")
