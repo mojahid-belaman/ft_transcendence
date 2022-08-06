@@ -32,6 +32,7 @@ export function Game(props: GameProps) {
       playerOne_Score: data.get_Score_One(),
       playerTwo_Score: data.get_Score_Two(),
     },
+    watcher_count: data.get_Watchers(),
     currentState: data.get_State(),
     isWin: data.get_Winner(),
   };
@@ -170,6 +171,9 @@ export function Game(props: GameProps) {
       data.set_Score_One(gameState.score.playerOne_Score);
       data.set_Score_Two(gameState.score.playerTwo_Score);
 
+      //NOTE - Update Watchers
+      data.set_Watchers(gameState.watcher_count);
+
       //NOTE - Update State Game if Wait OR Play OR Over
       data.set_State(gameState.currentState);
 
@@ -181,7 +185,6 @@ export function Game(props: GameProps) {
 
       //NOTE - Check State Game if true Display "Game Over"
       if (data.get_State() === StateGame.OVER) {
-        console.log("data from backend => ", data.get_State())
         setCurrentState(StateGame.OVER);
         // contextData.setGameStatus({isFinished: true});
       } 
@@ -246,6 +249,10 @@ export function Game(props: GameProps) {
                 alt="User_One"
               />
               <span>{data.get_userOne().username}</span>
+            </div>
+            <div className={style.watcher}>
+              <h2>WATCHERS</h2>
+              <span>{gameState.watcher_count}</span>
             </div>
             <div>
               <img

@@ -10,8 +10,12 @@ if (socket.io.opts.query)
   data = socket.io.opts.query.data;
 
 function CurrentGame(props: any) {
+  console.log(props.game);
+  
   const [check, setCheck] = useState(false);
   const hundlGame = () => {
+    data.set_userOne(props.game.player_1);
+    data.set_userTwo(props.game.player_2);
     socket.emit("watchers", props.game);
     setCheck(true);
   };

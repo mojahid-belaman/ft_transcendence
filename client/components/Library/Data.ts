@@ -230,6 +230,9 @@ export class Data {
   public get_Watchers(): number {
     return this.watchers;
   }
+  public set_Watchers(watchers: number): void {
+    this.watchers = watchers;
+  }
   public set_ball_Radius(radius: number): void {
     this.ballRadius = radius;
   }
