@@ -48,12 +48,14 @@ export class Game {
     clearInterval(this._myInterval);
     this._player_One.stopPaddle();
     this._player_Two.stopPaddle();
+
     const findGame = this.game.findIndex((g) => {
       return g.getId() === this._id;
     })
     this.game.splice(findGame, 1);
     console.log("length game: ", this.game.length);
     this.sendGames(this.server);
+    
     const gameDta = new AddGameDto();
     gameDta.id = this._id;
     gameDta.firstPlayer = this._player_One.getUserId();
@@ -99,6 +101,7 @@ export class Game {
         playerOne_Score: this._player_One.getScore(),
         playerTwo_Score: this._player_Two.getScore(),
       },
+      watcher_count: this._watchers.length + 0,
       currentState: this.gameStateFunc(),
       isWin: this._player_One.checkWin(),
     });
@@ -115,6 +118,7 @@ export class Game {
         playerOne_Score: this._player_One.getScore(),
         playerTwo_Score: this._player_Two.getScore(),
       },
+      watcher_count: this._watchers.length + 0,
       currentState: this.gameStateFunc(),
       isWin: this._player_Two.checkWin(),
     });
@@ -132,6 +136,7 @@ export class Game {
           playerOne_Score: this._player_One.getScore(),
           playerTwo_Score: this._player_Two.getScore(),
         },
+        watcher_count: this._watchers.length + 0,
       });
     });
   }
