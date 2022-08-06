@@ -34,7 +34,7 @@ function Channels() {
 
     return (
         <MainApp>
-			<ParticleBackground/>
+			{/* <ParticleBackground/> */}
             <DataChannelProvider>
                 <ChannelsComponent />
             </DataChannelProvider>

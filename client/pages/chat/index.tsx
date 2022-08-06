@@ -36,7 +36,7 @@ function chat() {
     
     return (
         <MainApp>
-			<ParticleBackground/>
+			{/* <ParticleBackground/> */}
             <DataContexProvider>
                 <Friends />
             </DataContexProvider>

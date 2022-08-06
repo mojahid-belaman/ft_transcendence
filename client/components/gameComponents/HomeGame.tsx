@@ -6,6 +6,7 @@ import socket from "../Library/Socket";
 import { Data } from "../Library/Data";
 import Setting from "./Setting";
 import axios from "axios";
+import ParticleBackground from "./ParticleBackground";
 
 //NOTE - Initiale data and Information about all Game like (ball, paddle, score, width, height, canvas)
 let data: Data;

@@ -49,7 +49,7 @@
 .home .navBar button:hover{
     box-shadow: 0 .2em #B8B8CF; 
     background-color: #757BC4;
-    color: #B8B8CF;
+    color: rgb(204,149,62);
 }
 .home .list{
     display:flex;

@@ -5,7 +5,7 @@
     flex-direction: row;
     justify-content: center;
     height: 80px;
-    width: 100vw;
+    width: 100%;
     font-family: 'Press Start 2P';
 }
 
@@ -28,9 +28,7 @@
 
 
 .nav .button:hover {
-    /* background-color: #384864; */
     border-top: 5px solid #384864;
-    /* color: rgb(204,149,62); */
 }
 
 .nav .icons {

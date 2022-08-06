@@ -34,7 +34,7 @@ export function PingPong(props: any) {
 	}, []);
   return (
     <MainApp>
-      <ParticleBackground />
+		{/* <ParticleBackground /> */}
       <HomeGame />
     </MainApp>
   );

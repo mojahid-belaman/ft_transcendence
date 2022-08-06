@@ -59,9 +59,9 @@ export class GameGateway
       if (gameFound.gameStateFunc() === gameSate.PLAY) {
         gameFound.playerOutGame(client);
         gameFound.stopGame();
+        GameGateway.game.splice(GameGateway.game.indexOf(gameFound), 1);
       }
     }
-    GameGateway.game.splice(GameGateway.game.indexOf(gameFound), 1);
   }
 
   @SubscribeMessage('upPaddle')

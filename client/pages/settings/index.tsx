@@ -34,7 +34,7 @@ export default function Settings() {
 	}, []);
   return (
     <MainApp>
-      <ParticleBackground/>
+      {/* <ParticleBackground/> */}
       <SettingsComponent/>
     </MainApp>
   )

@@ -32,7 +32,7 @@ export default function twoFactorAuth() {
 	}, []);
   return (
     <>
-    <ParticleBackground/>
+    {/* <ParticleBackground/> */}
     <TwoFactAuth/>
     </>
   )

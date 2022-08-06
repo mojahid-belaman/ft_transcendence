@@ -41,8 +41,7 @@
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    color: rgb(201, 201, 201);
-    /* color: #AB2E29; */
+    color: rgb(204,149,62);
     padding-top: 40px;
 }
 
@@ -282,23 +281,6 @@
     }
 }
 
-/* .dev {
-    display: flex;
-    justify-content: space-around;
-}
-
-.devLink {
-    height: 30px;
-    width: 30px;
-    background-color: white;
-    border-radius: 50%;
-    display: inline-block;
-    margin: 10px;
-    text-decoration: none;
-    color: black;
-    font-size: 15px;
-    border: 2px solid red;
-} */
 
 .LoginBox {
     display: flex;

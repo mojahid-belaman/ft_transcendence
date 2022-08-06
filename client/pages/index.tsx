@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import React, {useEffect } from 'react'
 import ParticleBackground from '../components/gameComponents/ParticleBackground'
 import LoginComponent from '../components/loginComponent/login'
+import MainApp from '../components/main/MainApp';
 
 export default function index() {
   	const history = useRouter();

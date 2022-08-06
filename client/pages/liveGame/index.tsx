@@ -5,7 +5,7 @@ import MainApp from "../../components/main/MainApp";
 export function Home(props: any) {
   return (
     <MainApp>
-      <ParticleBackground />
+      {/* <ParticleBackground /> */}
       <LiveGame />
     </MainApp>
   );

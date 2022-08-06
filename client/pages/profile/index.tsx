@@ -37,7 +37,7 @@ function chat() {
 
     return (
         <MainApp>
-			<ParticleBackground/>
+			{/* <ParticleBackground/> */}
                 <Profile />
         </MainApp>) 
 }
