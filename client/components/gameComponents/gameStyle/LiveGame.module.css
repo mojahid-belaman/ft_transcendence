@@ -1,5 +1,15 @@
 @import url("https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Kanit:wght@500&family=Outfit:wght@100;500&family=Press+Start+2P&family=Work+Sans:wght@100;200;300;400;500;600;700;800&display=swap");
 
+.empty {
+  color: #fff;
+  font-size: 1vw;
+  font-family: "Press Start 2P", cursive;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
 .container {
   width: 70vw;
   margin: 0 auto;

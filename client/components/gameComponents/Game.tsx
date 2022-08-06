@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState, useContext } from "react";
 import { GameOver } from "./GameOver";
 import { Data, StateGame, UserInGame } from "../Library/Data";
 import { drawGame } from "../Library/DrawShapes";
@@ -9,14 +9,16 @@ import { GameObj } from "../Library/gameObject";
 
 interface GameProps {
   data: Data;
-  currentState?: StateGame;
+  currentState: StateGame;
   setCurrentState: (state: StateGame) => void;
+  setIsGame: (isGame: boolean) => void;
 }
 
 export function Game(props: GameProps) {
-  const { data, currentState, setCurrentState } = props;
-
+  const { data, currentState, setCurrentState, setIsGame } = props;
   const canvasRef: any = useRef();
+  // console.log("currentState: ", currentState);
+  
   const initialState: GameObj = {
     ball: {
       ball_x: data.get_Ball_X(),
@@ -30,6 +32,7 @@ export function Game(props: GameProps) {
       playerOne_Score: data.get_Score_One(),
       playerTwo_Score: data.get_Score_Two(),
     },
+    watcher_count: data.get_Watchers(),
     currentState: data.get_State(),
     isWin: data.get_Winner(),
   };
@@ -40,6 +43,7 @@ export function Game(props: GameProps) {
     data.get_Width(),
     data.get_Height(),
   ]);
+
 
   function responseGame() {
       if (data.get_TypeRes() !== 1 && window.innerWidth > 1200) {
@@ -104,8 +108,11 @@ export function Game(props: GameProps) {
   }, [changeData]);
 
   useEffect(() => {
+    // console.log("currentState: ", currentState);
+    
     window.addEventListener("resize", responseGame);
   }, []);
+
 
   useEffect(() => {
     //NOTE - Declare Variable "canvas" and Assign Reference from JSX
@@ -164,6 +171,9 @@ export function Game(props: GameProps) {
       data.set_Score_One(gameState.score.playerOne_Score);
       data.set_Score_Two(gameState.score.playerTwo_Score);
 
+      //NOTE - Update Watchers
+      data.set_Watchers(gameState.watcher_count);
+
       //NOTE - Update State Game if Wait OR Play OR Over
       data.set_State(gameState.currentState);
 
@@ -174,7 +184,10 @@ export function Game(props: GameProps) {
       drawGame(context, data);
 
       //NOTE - Check State Game if true Display "Game Over"
-      if (data.get_State() === StateGame.OVER) setCurrentState(StateGame.OVER);
+      if (data.get_State() === StateGame.OVER) {
+        setCurrentState(StateGame.OVER);
+        // contextData.setGameStatus({isFinished: true});
+      } 
 
       socket.on("gameState", (newState: any) => {
         setGameState(newState);
@@ -237,6 +250,10 @@ export function Game(props: GameProps) {
               />
               <span>{data.get_userOne().username}</span>
             </div>
+            <div className={style.watcher}>
+              <h2>WATCHERS</h2>
+              <span>{gameState.watcher_count}</span>
+            </div>
             <div>
               <img
                 src={data.get_userTwo().avatar}
@@ -247,7 +264,7 @@ export function Game(props: GameProps) {
           </div>
         </div>
       )}
-      {currentState === StateGame.OVER && <GameOver curData={data} />}
+      {currentState === StateGame.OVER && <GameOver data={data} setIsGame={setIsGame} setCurrentState={setCurrentState} />}
     </>
   );
 }

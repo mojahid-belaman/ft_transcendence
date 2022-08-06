@@ -2,10 +2,9 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react'
+import React, {useEffect } from 'react'
 import ParticleBackground from '../components/gameComponents/ParticleBackground'
 import LoginComponent from '../components/loginComponent/login'
-
 
 export default function index() {
   	const history = useRouter();
@@ -35,7 +34,7 @@ export default function index() {
 		authHandler();
 	}, []);
   return (
-    <>
+	<>
 		<ParticleBackground/>
     	<LoginComponent/>
     </>

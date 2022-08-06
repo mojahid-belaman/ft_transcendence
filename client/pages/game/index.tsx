@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { HomeGame } from "../../components/gameComponents/HomeGame";
 import ParticleBackground from "../../components/gameComponents/ParticleBackground";
+import MainApp from "../../components/main/MainApp";
 
 export function PingPong(props: any) {
   const history = useRouter();
@@ -32,10 +33,10 @@ export function PingPong(props: any) {
 		authHandler();
 	}, []);
   return (
-    <>
-    <ParticleBackground />
+    <MainApp>
+      <ParticleBackground />
       <HomeGame />
-    </>
+    </MainApp>
   );
 }
 
