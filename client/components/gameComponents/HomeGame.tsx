@@ -7,6 +7,7 @@ import { Data } from "../Library/Data";
 import Setting from "./Setting";
 import axios from "axios";
 import ParticleBackground from "./ParticleBackground";
+import { useRouter } from "next/router";
 
 //NOTE - Initiale data and Information about all Game like (ball, paddle, score, width, height, canvas)
 let data: Data;
@@ -16,9 +17,11 @@ if (socket.io.opts.query)
 export function HomeGame() {
   const [isGame, setIsGame] = useState(false);
   const [isSetting, setSetting] = useState(true);
-  const [currentState, setCurrentState] = useState(() => data.get_State());
+  const [currentState, setCurrentState] = useState(data.get_State());
+  const history = useRouter();
 
   const handleGame = async () => {
+    setCurrentState(0)
     const token = Cookies.get("access_token");
     await axios.get('http://localhost:5000/users/me',{
       headers: {
@@ -27,7 +30,9 @@ export function HomeGame() {
     }).then((res) => {
       socket.emit("join_match", {
         user: res.data
+        
       })
+      
       socket.on("Playing", (payload: any) => {
         if (payload.playing) {
           data.set_userOne(payload.first);
@@ -40,6 +45,11 @@ export function HomeGame() {
     );
     setIsGame(true);
   };
+
+  useEffect(() => {
+    console.log("currentState: ", currentState);
+      
+  }, [currentState])
 
   const handleSetting = () => {
     setSetting(false);
@@ -87,6 +97,9 @@ export function HomeGame() {
                 </button>
                 <button className={styles.btnDef} onClick={handleSetting}>
                   SETTING
+                </button>
+                <button className={styles.btnDef} onClick={() => history.push("/home")}>
+                  HOME
                 </button>
               </div>
             </div>

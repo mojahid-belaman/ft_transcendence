@@ -5,11 +5,11 @@
   flex-direction: row;
   align-items: center;
   color: #fff;
-  height: 100%;
-  /* margin: 0%; */
+  height: 100vh;
 }
 
 .game {
+  flex-basis: 50%;
   display: flex;
   justify-content: center;
 }
@@ -23,7 +23,7 @@
   align-items: center;
   text-align: center;
   background-color: rgb(204,149,62);
-  /* flex-basis: 100%; */
+  flex-basis: 50%;
   color: #384864;
   padding: 50px;
   height: 100%;

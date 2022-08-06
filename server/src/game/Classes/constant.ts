@@ -6,7 +6,7 @@ export class GameVariable {
   static readonly _paddle_Height = GameVariable._canvas_Height / 6;
   static readonly _left_Paddle_X = GameVariable._paddle_Width;
   static readonly _right_Paddle_X = GameVariable._canvas_Width - GameVariable._paddle_Width;
-  static readonly _paddle_Speed = 1;
+  static readonly _paddle_Speed = 10;
 
   static readonly _bounded_PaddleHeight = 15;
   static readonly _max_Score = 5;
