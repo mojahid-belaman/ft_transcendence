@@ -45,14 +45,9 @@ export function HomeGame() {
     setSetting(false);
   };
 
-  useEffect(() => {
-    console.log("HomeGame: ", data.get_mapColor());
-    
-  }, [data]);
 
   useEffect(() => {
-   console.log({currentState});
-   console.log({isGame});
+
   }, [currentState, isGame]);
 
   return (

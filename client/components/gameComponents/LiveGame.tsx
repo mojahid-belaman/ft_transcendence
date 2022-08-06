@@ -10,7 +10,6 @@ export function LiveGame() {
       socket.on("receive_games", (data: any) => {
       const tmp = JSON.parse(data);
       if (tmp.hasOwnProperty("games")) {
-        console.log("tmp: ", tmp.games);
         setGames(tmp.games);
       }
     });

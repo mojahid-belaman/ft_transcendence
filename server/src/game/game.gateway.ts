@@ -99,9 +99,6 @@ export class GameGateway
 
   private sendGames(_server: any) {
     const gameObj = { games: GameGateway.game.map((g) => g.getSubGame()) };
-    console.log(GameGateway.game.length);
-    
-    
     _server.emit('receive_games', JSON.stringify(gameObj, null, 2));
   }
 

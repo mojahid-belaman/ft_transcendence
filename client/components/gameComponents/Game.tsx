@@ -17,7 +17,6 @@ interface GameProps {
 export function Game(props: GameProps) {
   const { data, currentState, setCurrentState, setIsGame } = props;
   const canvasRef: any = useRef();
-  // console.log("currentState: ", currentState);
   
   const initialState: GameObj = {
     ball: {
@@ -108,7 +107,6 @@ export function Game(props: GameProps) {
   }, [changeData]);
 
   useEffect(() => {
-    // console.log("currentState: ", currentState);
     
     window.addEventListener("resize", responseGame);
   }, []);

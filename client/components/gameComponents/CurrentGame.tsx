@@ -10,7 +10,6 @@ if (socket.io.opts.query)
   data = socket.io.opts.query.data;
 
 function CurrentGame(props: any) {
-  console.log(props.game);
   
   const [check, setCheck] = useState(false);
   const hundlGame = () => {
