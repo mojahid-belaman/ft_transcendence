@@ -39,9 +39,9 @@ export class TwoFactorAuthController {
     await this.twoFactorAuthService.generateTwoFactorAuthenticationSecret(
       user,
       );
-    await this.twoFactorAuthService.generateQrCodeDataURL(otpauthUrl).then((result) =>
-      res.send(JSON.stringify({ qrcode: result })),
-    );
+    const qrCode = await this.twoFactorAuthService.generateQrCodeDataURL(otpauthUrl);
+    await this.userService.updateqrCode(user, qrCode);
+    res.send(JSON.stringify({ qrcode: qrCode }));
   }
 
   @UseGuards(JwtAuthGuard)

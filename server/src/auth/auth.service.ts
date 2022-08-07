@@ -19,22 +19,14 @@ export class AuthService {
   async login(user: any) {
     const payload = {
       userId: user.id,
-      login: user.login,
-      username: user.username,      
-      avatar: user.avatar,
+      login: user.login
     };
     return await this.jwtService.sign(payload);
   }
   async tfaToken(user: UserDto) {
     const payload = {
-      login : user.login,
-      userId: user.id
+      login : user.login
     };
     return await this.jwtService.sign(payload);
-  }
-
-  async validate(payload: any){
-    const user = this.usersService.getUserBylogin(payload.login);
-    // if (user)
   }
 }
