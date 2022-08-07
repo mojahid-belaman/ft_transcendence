@@ -13,15 +13,12 @@ export default function twoFactorAuth() {
 	const authHandler = async () => {
 	if(!tempToken)
 		history.push('/')
-	else if (token)
+	if (token)
 		await axios.get("http://localhost:5000/auth/isAuthorized", {
 			headers: {
 				Authorization: `Bearer ${token}`,
 			}
-			}).then(res => {
-				// console.log(res);
-        history.push("/home");
-			})
+			}).then(res => history.push("/home"))
 			.catch(err => {
 			  history.push("/");
 			})
@@ -32,7 +29,7 @@ export default function twoFactorAuth() {
 	}, []);
   return (
     <>
-    {/* <ParticleBackground/> */}
+	<ParticleBackground/>
     <TwoFactAuth/>
     </>
   )

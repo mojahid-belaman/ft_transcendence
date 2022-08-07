@@ -30,8 +30,4 @@ export class AuthService {
     return await this.jwtService.sign(payload);
   }
 
-  async validate(payload: any){
-    const user = this.usersService.getUserBylogin(payload.login);
-    // if (user)
-  }
 }

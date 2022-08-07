@@ -15,7 +15,7 @@ export default function Settings() {
 	const authHandler = async () => {
     if(tempToken)
 			history.push('/twoFactorAuth')
-		else if (token)
+	if (token)
 		  await axios.get("http://localhost:5000/auth/isAuthorized", {
 		  	headers: {
 			  	Authorization: `Bearer ${token}`,

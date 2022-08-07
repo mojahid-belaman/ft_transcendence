@@ -5,7 +5,6 @@ import { useRouter } from 'next/router';
 import React, {useEffect } from 'react'
 import ParticleBackground from '../components/gameComponents/ParticleBackground'
 import LoginComponent from '../components/loginComponent/login'
-import MainApp from '../components/main/MainApp';
 
 export default function index() {
   	const history = useRouter();
@@ -15,7 +14,9 @@ export default function index() {
 	const authHandler = async () => {
 		if(tempToken)
 			history.push('/twoFactorAuth')
-		else if (token)
+		if (token)
+			{
+				console.log('dkhl hna')
 			await axios.get("http://localhost:5000/auth/isAuthorized", {
 					headers: {
 						Authorization: `Bearer ${token}`,
@@ -25,10 +26,9 @@ export default function index() {
 				})
 				.catch(err => {
 					history.push("/");
-				})
+				})}
 		else
 			history.push("/");
-
 	}
 
 	useEffect(() => {
