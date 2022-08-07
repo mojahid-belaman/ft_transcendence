@@ -184,7 +184,6 @@ export function Game(props: GameProps) {
       //NOTE - Check State Game if true Display "Game Over"
       if (data.get_State() === StateGame.OVER) {
         setCurrentState(StateGame.OVER);
-        // contextData.setGameStatus({isFinished: true});
       } 
 
       socket.on("gameState", (newState: any) => {
@@ -213,8 +212,13 @@ export function Game(props: GameProps) {
         socket.emit("downPaddle", "up");
       }
     });
-
+    
     responseGame();
+
+    return () => {
+      socket.off("upPaddle");
+      socket.off("downPaddle");
+    }
   }, []);
 
   return (

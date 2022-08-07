@@ -44,6 +44,7 @@ export class Player {
     this._paddle.set_PaddleY(
       GameVariable._canvas_Height / 2 - GameVariable._paddle_Height / 2,
     );
+    
   }
   public getSocket(): Socket {
     return this._socket;

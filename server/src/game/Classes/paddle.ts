@@ -22,10 +22,21 @@ export class Paddle {
     public get_PaddleX(): number {
         return this._paddle_X;
     }
+    public get_PaddleSpeed(): number {
+        return this._paddleSpeed;
+    }
+    public set_PaddleSpeed(paddleSpeed: number) {
+        this._paddleSpeed = paddleSpeed;
+    }
 
     public movePaddle(): void {
         if (this._paddleSpeed === 0) return;
+
         this._paddle_Y += this._paddleSpeed;
+        console.log("paddle speed: ", this._paddleSpeed);
+        
+        console.log("paddle Y: ", this._paddle_Y);
+        
         if (this._paddle_Y < GameVariable._bounded_PaddleHeight) {
             this._paddleSpeed = 0;
             this._paddle_Y = GameVariable._bounded_PaddleHeight - 5;
@@ -41,6 +52,7 @@ export class Paddle {
     public up(key: string): void {
         if (key === 'down') {
             this._paddleSpeed -= GameVariable._paddle_Speed;
+            
         }
         else {
             this._paddleSpeed = 0;
