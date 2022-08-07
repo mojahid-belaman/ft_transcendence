@@ -37,8 +37,8 @@
     padding: 15px 0 15px 15px ;
     font-size: larger;
     outline: none;
+    box-shadow: rgb(204,149,62) 0px 1px 3px, rgba(250, 189, 93, 0.001) 0px 1px 2px;
     width: 100%;
-    box-shadow: rgba(255, 255, 255, 0.25) 0px 13px 27px -5px, rgba(255, 255, 255, 0.3) 0px 8px 16px -8px;
 
 }
 .chatFooter button{
@@ -61,7 +61,7 @@
     display: flex;
     flex-direction: column;
     /* overflow-x: hidden; */
-    height: calc(100vh - 200px);
+    height: 80vh;
     overflow-x: auto;
     overflow-y: auto;
     justify-content: flex-start;

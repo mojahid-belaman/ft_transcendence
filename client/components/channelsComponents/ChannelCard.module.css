@@ -1,21 +1,20 @@
 .channelButton{
-    font-family:  Impact, fantasy;
+    font-family:  'Overpass', sans-serif;
     letter-spacing: 3px;
     min-width:65%;
     height: 50px;
-    border:none;
-    background-color: lightgray;
+    border-radius: 6px;
+    background-color: #384864;
+    box-shadow: rgb(204,149,62) 0px 2px 5px, rgba(250, 189, 93, 0.001) 0px 1px 2px;
+    color:  rgb(204,149,62);
     margin-bottom: 10px;
-    color: black;
+    padding: 29px;
     cursor: pointer;
     display: flex;
     flex-direction: row;
     align-items: center;
-    background-color:rgb(204,149,62);
-    color:  #384864;
-    font-family: inherit;
-    font-weight: bold;
 }
+
 .channelButton .channelImg{
     border-radius: 50%;
     width:40px;
@@ -30,15 +29,10 @@
 }
 
 .channelButton:hover{
-    width:95%;
-    box-shadow: rgba(255, 253, 253, 0.25) 0px 54px 55px, rgba(197, 193, 193, 0.12) 0px -12px 30px, rgba(212, 212, 212, 0.12) 0px 4px 6px, rgba(117, 117, 117, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    background-color: rgba(255, 253, 253, 0.25);
+    color:rgb(204,149,62);
 }
 
-.channelButton:hover{
-    /* width:100%; */
-    box-shadow: rgba(255, 253, 253, 0.25) 0px 54px 55px, rgba(197, 193, 193, 0.12) 0px -12px 30px, rgba(212, 212, 212, 0.12) 0px 4px 6px, rgba(117, 117, 117, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
-    background-color: white;
-}
 @media screen and (max-width: 700px){
     .channelButton{
        flex-direction: column;

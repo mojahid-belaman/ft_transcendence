@@ -1,3 +1,6 @@
+import axios from "axios";
+import Cookies from "js-cookie";
+import { useEffect, useState } from "react";
 import classes from "./Profile.module.css";
 function History() {
   return (
@@ -48,6 +51,25 @@ function DisplayUser(props: any) {
   );
 }
 function Profile() {
+  const accessToken = Cookies.get('access_token');
+  const [imgUrl, setImgUrl] = useState('https://i.pinimg.com/474x/ec/e2/b0/ece2b0f541d47e4078aef33ffd22777e.jpg');
+  const [username, setUsermame] = useState('');
+  const [login, setLogin] = useState('');
+  const fetchImage = async () => {
+    const img =  await axios.get('http://localhost:5000/users/me',{
+      headers : {
+        Authorization: `Bearer ${accessToken}`
+      }
+    }).then((res: any) => {
+      setImgUrl(res.data.avatar);
+      setUsermame(res.data.username)
+      setLogin(res.data.login);
+    })
+    return img;
+  }
+  useEffect(() =>{
+      fetchImage();
+  }, [username, login, imgUrl])
   return (
     <div className={classes.mainProfile}>
       <div className={classes.cardsProfile}>
@@ -55,14 +77,14 @@ function Profile() {
           <legend className={classes.legend}>
             <img
               className={classes.image}
-              src="https://i.pinimg.com/474x/ec/e2/b0/ece2b0f541d47e4078aef33ffd22777e.jpg"
+              src={imgUrl}
             ></img>
           </legend>
           <div className={classes.info}>
             <div className={classes.displayData}>
               <div className={classes.data}>
-                <DisplayUser first="Name:" second="soukaina" />
-                <DisplayUser first="Login:" second="shikma" />
+                <DisplayUser first="Name:" second={username} />
+                <DisplayUser first="Login:" second={login} />
               </div>
               <hr/>
               <div className={classes.data}>

@@ -30,8 +30,8 @@ const OnlineCard =  (props: any) => {
     const blockdHandler = () => socket.emit("blockFriend", {blockedUserId: props.id})
 
     return(<div className={classes.onlineCard}>
-        <img src={props.avatar}></img>
-        <div>{props.username}</div>
+            <img src={props.avatar}></img>
+            <div>{props.username}</div>
         <div className={classes.buttons}>
             <button onClick={msgHandler}> Msg </button>
             <button onClick={unfriendHandler}> Unfriend </button>

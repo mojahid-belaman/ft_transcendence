@@ -46,7 +46,8 @@ function ChatHeader(props: any) {
         console.log(props.user);
     }, [])
 
-    return props.user ? (<div className={classes.chatWrapper}>
+    return props.user ? (
+        <div className={classes.chatWrapper}>
         <button className={classes.chatHeader} onClick={props.toggle} >
             <img src={props.user.avatar}></img>
             <div className={classes.info}>

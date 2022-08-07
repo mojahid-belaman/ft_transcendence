@@ -1,57 +1,66 @@
 @import url("https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Kanit:wght@500&family=Outfit:wght@100;500&family=Press+Start+2P&family=Work+Sans:wght@100;200;300;400;500;600;700;800&display=swap");
 
+.empty {
+  color: #fff;
+  font-size: 1vw;
+  font-family: "Press Start 2P", cursive;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
 .container {
   width: 70vw;
   margin: 0 auto;
   color: #fff;
+  background-color: #000;
   font-size: 1vw;
   font-family: "Press Start 2P", cursive;
 }
 .container .box {
   display: flex;
+  justify-content: center;
 }
 .box .dataOne {
-  flex: 30vw;
+  /* flex: 30vw; */
   display: flex;
   justify-content: space-around;
   align-items: center;
 }
-.box .dataOne {
-  border-left: 5px dashed #fff;
-  border-right: 5px dashed #fff;
-  border-bottom: 5px dashed #fff;
+
+.box .dataOne img {
+  border-radius: 50%;
+  width: 15%;
+  height: 70%;
 }
 
 .box .dataTwo {
-  flex: 30vw;
+  /* flex: 30vw; */
   display: flex;
   flex-direction: row-reverse;
   justify-content: flex-end;
   justify-content: space-around;
   align-items: center;
-  border-right: 5px dashed #fff;
-  border-bottom: 5px dashed #fff;
 }
+
+.box .dataTwo img {
+  border-radius: 50%;
+  width: 15%;
+  height: 70%;
+}
+
 .box .watch {
-  position: relative;
-  left: -50%;
+  display: flex;
+  align-items: center;
+  
 }
 .box .watch button {
-  position: relative;
-  top: 25%;
-  left: 5%;
-  border-radius: 15px;
+  border-radius: 50%;
   cursor: pointer;
-  border: 2px solid green;
-  user-select: none;
-}
-.box .watch button:active {
-  background-color: #EEE;
-  border: 3px solid #EEE;
-
 }
 .box .watch button:hover {
-  background-color: #EEE;
+  background-color: rgb(204, 204, 204);
 
 }
 .box .watch button img {

@@ -1,47 +1,41 @@
-import { useEffect, useState } from "react";
-import styles from "../../components/gameComponents/gameStyle/LiveHome.module.css";
-import Link from "next/link";
-import socket from "../../components/Library/Socket";
-import ParticleBackground from "../../components/gameComponents/ParticleBackground";
+import axios from "axios";
+import Cookies from "js-cookie";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 import LiveGame from "../../components/gameComponents/LiveGame";
+import MainApp from "../../components/main/MainApp";
 
-export function LiveHome(props: any) {
-  const [games, setGames] = useState([]);
-  useEffect(() => {
-    socket.on("receive_games", (data: any) => {
-      const tmp = JSON.parse(data);
-      if (tmp.hasOwnProperty("games")) {
-        // console.log(tmp);
-        setGames(tmp.games);
-      }
-    });
-    return () => {
-      socket.off("receive_games");
-    };
-  }, [socket]);
+export function Home(props: any) {
+  const history = useRouter();
+	const token = Cookies.get("access_token");
+	const tempToken = Cookies.get('2fa_token');
+	
+	const authHandler = async () => {
+		if(tempToken)
+				history.push('/twoFactorAuth')
+		else if (token)
+			  await axios.get("http://localhost:5000/auth/isAuthorized", {
+				  headers: {
+					  Authorization: `Bearer ${token}`,
+				  }
+				  }).then(() => {
+					  return;
+				  })
+				  .catch(err => {
+					history.push("/");
+				})
+		else
+		  history.push('/');
+		}
 
+	useEffect(() => {
+		authHandler();
+	}, []);
   return (
-    <>
-      {games.length !== 0 ? (
-        games.map((game, index) => {
-          return <LiveGame key={index} game={game} socket={props.socket} />;
-        })
-      ) : (
-        <div className={styles.empty}>
-          <h1>CURRENT GAMES EMPTY</h1>
-        </div>
-      )}
-      <div className={styles.divBtn}>
-        <button className={styles.btn}>
-          <Link href="/game">
-            <span style={{ color: "#FFF", textDecoration: "none" }}>
-              Play a Game
-            </span>
-          </Link>
-        </button>
-      </div>
-    </>
+    <MainApp>
+      <LiveGame />
+    </MainApp>
   );
 }
 
-export default LiveHome;
+export default Home;

@@ -7,23 +7,26 @@ import axios from "axios";
 
 function HomePage() {
 	const history = useRouter();
-
+	const token = Cookies.get("access_token");
+	const tempToken = Cookies.get('2fa_token');
+	
 	const authHandler = async () => {
-		const token = Cookies.get("access_token")
-		if (token)
-			await axios.get("http://localhost:5000/auth/isAuthorized", {
-				headers: {
-					Authorization: `Bearer ${token}`,
-				}
-			}).then(res => {
-				console.log(res);
-			})
-			.catch(() => {
-			history.push("/login")
-			})
+		if(tempToken)
+				history.push('/twoFactorAuth')
+		else if (token)
+			  await axios.get("http://localhost:5000/auth/isAuthorized", {
+				  headers: {
+					  Authorization: `Bearer ${token}`,
+				  }
+				  }).then(() => {
+					  return;
+				  })
+				  .catch(err => {
+					history.push("/");
+				})
 		else
-			history.push("/login")
-	}
+		  history.push('/');
+		}
 
 	useEffect(() => {
 		authHandler();

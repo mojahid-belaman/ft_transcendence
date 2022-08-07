@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Overpass:wght@500&display=swap');
+
+
 .backdrop {
     position: absolute;
     left: 0px;
@@ -12,7 +15,8 @@
     display: flex;
     flex-direction: column;
     letter-spacing: 3px;
-    font-family: 'Press Start 2P';
+    /* font-family: 'Press Start 2P'; */
+    font-family: 'Overpass', sans-serif;
     background: black;
     color: rgb(204,149,62);
     width: 60%;
@@ -32,9 +36,11 @@
 }
 
 .text {
-    text-align: left;
+    text-align: center;
     font-size: 20px;
     font-size: 30px;
+    font-family: 'Press Start 2P';
+
 }
 
 .card {
@@ -63,7 +69,7 @@
     font-family: 'Overpass', sans-serif;
     color: #384864;
     background: transparent;
-    border: 2px solid rgb(204,149,62);
+    border: 2px solid #384864;
     border-radius: 10px;
     padding: 15px 0 15px 15px ;
     font-size: larger;
@@ -75,12 +81,13 @@
     font-family: 'Overpass', sans-serif;
     color: #384864;
     background: transparent;
-    border: 2px solid rgb(204,149,62);
+    border: 2px solid #384864;
     border-radius: 10px;
     padding: 15px 0 15px 15px ;
     font-size: larger;
     outline: none;
-    width: 70%;
+    width: 100%;
+    resize: none;
 }
 
 
@@ -114,13 +121,15 @@
 
 
 #cancel:hover {
-    background-color: rgb(204,149,62);
-    color: #384864;
+    box-shadow: 0 .2em #B8B8CF; 
+    background-color: #757BC4;
+    color: #B8B8CF;
 }
 
 #edit:hover {
-    background-color: rgb(204,149,62);
-    color: #384864;
+    box-shadow: 0 .2em #B8B8CF; 
+    background-color: #757BC4;
+    color: #B8B8CF;
 }
 
 .buttons {
