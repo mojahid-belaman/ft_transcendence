@@ -6,12 +6,4 @@
 ./server/node_modules
 ./server/upload/
 ./.env
-client-test/.env
-client-test/node_modules
-client-test/.next
-server/.env
-server/dist
-server/node_modules
-server/upload/
-.env
-.DS_Store
+
