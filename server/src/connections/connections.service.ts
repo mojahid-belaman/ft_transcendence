@@ -122,9 +122,9 @@ export class ConnectionsService {
     return await this.connectionsRepository.delete({ userId: id })
   }
 
-  checkSatus(userId) {
+  checkSatus(userId, channelId) {
     return this.connectionsRepository.findOne({
-      where: [{ userId }]
+      where: [{ userId, channelId }]
     }).then(res => {
       if (!res)
         throw new NotFoundException("User Not Found");

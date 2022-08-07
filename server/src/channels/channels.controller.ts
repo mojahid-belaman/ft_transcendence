@@ -45,7 +45,7 @@ export class ChannelsController {
 
 	@UseGuards(JwtAuthGuard)
 	@Post("joinChannel")
-	joinChanel(@Body() body) {
-		return this.channelsService.joinChanel(body);
+	joinChanel(@Body() body, @Req() req) {
+		return this.channelsService.joinChanel(body, req.user.userId);
 	}
 }

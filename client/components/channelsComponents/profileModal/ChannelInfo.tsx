@@ -22,12 +22,12 @@ function ChannelInfo(props: any) {
 
     const setUserStatus = async () => {
         const token = Cookies.get("access_token");
-        await axios.get(`http://localhost:5000/channels/connections/checkSatus`, {
+        await axios.get(`http://localhost:5000/channels/connections/checkSatus/${props.channel.channelId}`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
         }).then(res => {
-            console.log(res.data);
+            console.log("data in debug mode => ", res.data);
 
             setStatus(res.data)
         })

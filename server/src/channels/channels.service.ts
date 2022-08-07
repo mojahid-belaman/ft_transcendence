@@ -64,14 +64,37 @@ export class ChannelsService {
     throw new BadRequestException();
   }
 
-  async joinChanel(body) {
+  async joinChanel(body, userId) {
     if (body.channelId) {
       const channel = await this.channelRepository.findOne({
         where: { id: body.channelId }
       })
       if (channel) {
-        if (channel.status === channelStatus.PROTECTED && channel.password === body.password)
-          return ({ status: 200 })
+        if (channel.status === channelStatus.PROTECTED) {
+          if (channel.password === body.password)
+            return ({ status: 200 })
+          throw new UnauthorizedException("Wrong Password!");
+        }
+        else if (channel.status === channelStatus.PRIVATE) {
+          const connection = await this.connectionsService.findConnection(body.channelId, userId)
+          if (connection)
+            return ({ status: 200 })
+          throw new UnauthorizedException("This Chat Room is Private !");
+        }
+      }
+      throw new NotFoundException("No channel Found");
+    }
+    throw new ForbiddenException("No channel provided!")
+  }
+
+  async privateChannel(body) {
+    if (body.channelId) {
+      const channel = await this.channelRepository.findOne({
+        where: { id: body.channelId }
+      })
+      if (channel) {
+        if (channel.status === channelStatus.PRIVATE) { }
+        return ({ status: 200 })
         throw new UnauthorizedException("Wrong Password!");
       }
       throw new NotFoundException("No channel Found");

@@ -16,11 +16,32 @@ export enum channelStatus {
     PROTECTED = "Protected"
 }
 
-function PrivateCard() {
-    return (
+function PrivateCard(props: any) {
+
+    const [error, setError] = useState("")
+
+    const handlePrivateChannel = async () => {
+        const data = {channelId: props.channel.channelId}
+        const token = Cookies.get("access_token");
+        await axios.post(`http://localhost:5000/channels/joinChannel`, data, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            }
+        }).then(async (data) => {
+            console.log(data);
+            props.setStatus(channelStatus.PUBLIC);
+        })
+        .catch(err => setError(err.response.data.message))
+    }
+
+    useEffect(() => {
+        handlePrivateChannel()
+    }, [])
+
+    return error !== "" ? (
         <div className={classes.privateDiv}>
-            <div className={classes.privateCard}>This Chat Room is Private !</div>
-        </div>)
+            <div className={classes.privateCard}>{error}</div>
+        </div>) : <></>
 }
 
 function ProtectedCard(props: any) {
@@ -97,7 +118,7 @@ function ChannelsComponent() {
         </div>
         {
             status == channelStatus.PUBLIC ? <Chat channel={dataChannelVar.selectedConversation} /> :
-                status === channelStatus.PRIVATE ? <PrivateCard /> :
+                status === channelStatus.PRIVATE ? <PrivateCard channel={dataChannelVar.selectedConversation} setStatus={setStatus}/> :
                     status === channelStatus.PROTECTED ? <ProtectedCard channel={dataChannelVar.selectedConversation} setStatus={setStatus}/> : null
         }
         {backdrop ? <NewChannel setBackdrop={setBackdrop} OpenClose={OpenCloseModal} /> : null}

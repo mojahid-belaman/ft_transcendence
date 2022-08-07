@@ -8,9 +8,9 @@ export class ConnectionsController {
   constructor(private readonly connectionsService: ConnectionsService) { }
 
   @UseGuards(JwtAuthGuard)
-  @Get("checkSatus")
-  checkSatus(@Req() req) {
-    return this.connectionsService.checkSatus(req.user.userId)
+  @Get("checkSatus/:channelId")
+  checkSatus(@Req() req, @Param("channelId") channelId: string) {
+    return this.connectionsService.checkSatus(req.user.userId, channelId)
   }
 
   @UseGuards(JwtAuthGuard)
