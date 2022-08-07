@@ -1,15 +1,17 @@
-
-
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useEffect, useState } from 'react';
 import socket from '../../Library/Socket';
+import { connectionStatus } from '../profileModal/ChannelInfo';
 import ProfileModal from '../profileModal/ProfileModal';
 import classes from './Chat.module.css'
 import ChatHeader from './ChatHeader';
 import MessageCard from './MessageCard';
 function Chat(props:any) {
+
     const [backdrop, setBackdrop] = useState(false);
+    const [error, setError] = useState('');
+
     function OpenCloseModal() {
         if (backdrop === false)
             setBackdrop(true);
@@ -26,8 +28,15 @@ function Chat(props:any) {
     }
 
     socket.on("receiveMessageChannel", (data) => {
-        // console.log("DATA => ", data);
         setMessageList([...messagelist, data])
+    })
+
+    socket.on("channelConnectionStatusChange", data => {
+        console.log("After one minute => ", data);
+        if (data.status === connectionStatus.BLOCKED)
+            setError("Error(from Socket): " + data.error)
+        else
+            setError("")
     })
 
     const getCurrentConv = async () => {
@@ -38,16 +47,15 @@ function Chat(props:any) {
             }
         }).then((res) => {
             setMessageList([...res.data])
-        });
+        }).catch(err => setError("Error: " + err.response.data.message));
     }
 
     useEffect(() => {
       if (props.channel)
         getCurrentConv();
     }, [props.channel])
-    
 
-    return <div className={classes.chatCard}>
+    return error === "" ? (<div className={classes.chatCard}>
         <ChatHeader toggle={OpenCloseModal} channel={props.channel} />
         <div className={classes.chatContent} >
             <div className={classes.chatMessages}>
@@ -66,6 +74,8 @@ function Chat(props:any) {
                 <button onClick={Message}>&#9658;</button></div>
             {backdrop ? <ProfileModal channel={props.channel} OpenClose={OpenCloseModal} /> : null}
         </div>
-    </div>
+    </div>) :
+     <>{error}</>
 }
+
 export default Chat;

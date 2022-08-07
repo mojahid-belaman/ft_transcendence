@@ -1,12 +1,14 @@
 import classes from './Channels.module.css'
 
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import DataChannel from './data_context/data-context';
 import ChannelCard from './ChannelCard';
 import Chat from './chat/Chat';
 import NewChannel from './newChannel/NewChannel';
 import { useRouter } from 'next/router';
 import socket from '../Library/Socket';
+import axios from 'axios';
+import Cookies from 'js-cookie';
 
 export enum channelStatus {
     PUBLIC = "Public",
@@ -21,13 +23,36 @@ function PrivateCard() {
         </div>)
 }
 
-function ProtectedCard() {
+function ProtectedCard(props: any) {
+    const [error, setError] = useState("")
+    const passwordRef: any = useRef();
+
+    const joinChannel = async (e: any) => {
+        e.preventDefault();
+        const password = passwordRef.current.value;
+        const data = {
+            password,
+            channelId: props.channel.channelId
+        }
+        const token = Cookies.get("access_token");
+        await axios.post(`http://localhost:5000/channels/joinChannel`, data, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            }
+        }).then(async (data) => {
+            console.log(data);
+            props.setStatus(channelStatus.PUBLIC);
+        })
+        .catch(err => setError(err.response.data.message))
+    }
+
     return (
         <form className={classes.passwordDiv}>
             <div className={classes.password}>
                 <label> Enter password : </label>
-                <input type="password" name="name" required />
-                <button className={classes.buttons}>Join</button>
+                <input type="password" name="name" required ref={passwordRef} />
+                <button className={classes.buttons} onClick={joinChannel}>Join</button>
+                <div>{error}</div>
             </div>
         </form>)
 }
@@ -44,7 +69,7 @@ function ChannelsComponent() {
             setBackdrop(false);
     }
     const dataChannelVar = useContext(DataChannel);
-    
+
 
     socket.on("JoinedOrNot", (data) => setStatus(data.status));
 
@@ -71,9 +96,9 @@ function ChannelsComponent() {
 
         </div>
         {
-            status == channelStatus.PUBLIC ? <Chat channel={dataChannelVar.selectedConversation}  /> :
+            status == channelStatus.PUBLIC ? <Chat channel={dataChannelVar.selectedConversation} /> :
                 status === channelStatus.PRIVATE ? <PrivateCard /> :
-                    status === channelStatus.PROTECTED ? <ProtectedCard /> : null
+                    status === channelStatus.PROTECTED ? <ProtectedCard channel={dataChannelVar.selectedConversation} setStatus={setStatus}/> : null
         }
         {backdrop ? <NewChannel setBackdrop={setBackdrop} OpenClose={OpenCloseModal} /> : null}
     </div>

@@ -10,6 +10,9 @@ import DataChannel from '../data_context/data-context';
 function NewChannel(props:any) {
     const [choice, setChoice] = useState(false)
     const [status, setStatus] = useState('Public');
+    const [description, setDescription] = useState("")
+    const [password, setPassword] = useState("")
+    const [confirmedPassword, setConfirmedPassword] = useState("")
     const CHANNEL_STATUS = ["Public", "Private", "Protected"];
     const nameInputRef:any = useRef();
     const descriptionInputRef :any= useRef();
@@ -30,8 +33,9 @@ function NewChannel(props:any) {
 
         const data={
             name: enteredName,
-            descrition: enteredDescription,
-            status: status
+            description: enteredDescription,
+            status: status,
+            password: password
         }
         const token = Cookies.get('access_token');
         await axios.post(`http://localhost:5000/channels`, data, {
@@ -70,7 +74,7 @@ function NewChannel(props:any) {
                             ))}
                         </div>
                     </div>
-                    {choice ? <Password /> : null}
+                    {choice ? <Password setPassword={setPassword} setConfirmedPassword={setConfirmedPassword}  /> : null}
                     <div className={classes.info}>
                         <label> Add people <span>(You can skip this step for now) </span></label>
                         <input type="text" name="name" className={classes.inputs} />

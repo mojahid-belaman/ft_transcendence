@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put, Req, UseGuards } from '@nestjs/common';
 import { ChannelsService } from './channels.service';
 import { CreateChannelDto } from './dto/channels.dto';
 import { ApiBearerAuth } from '@nestjs/swagger';
@@ -18,7 +18,7 @@ export class ChannelsController {
 	@ApiBearerAuth()
 	@UseGuards(JwtAuthGuard)
 	@Get("/:channelId")
-	async getChannelById(@Param('channel')channelId:string) {
+	async getChannelById(@Param('channelId')channelId: string) {
 		return await this.channelsService.getchannelById(channelId);
 	}
 
@@ -34,5 +34,18 @@ export class ChannelsController {
 	@Get("/owner/me")
 	async getChannelsAswOwner(@Req() req) {
 		return await this.channelsService.getchannelsByConditon({owner: req.user.userId});
+	}
+
+	@UseGuards(JwtAuthGuard)
+	@Post("update")
+	updateChannel(@Body() body, @Req() req) {
+		console.log("body => ", body);
+		return this.channelsService.updateChannel(body);
+	}
+
+	@UseGuards(JwtAuthGuard)
+	@Post("joinChannel")
+	joinChanel(@Body() body) {
+		return this.channelsService.joinChanel(body);
 	}
 }

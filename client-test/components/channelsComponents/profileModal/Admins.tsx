@@ -5,12 +5,18 @@ import classes from './Admins.module.css'
 import { connectionStatus } from './ChannelInfo';
 
 function AdminCard(props: any) {
+
+    useEffect(() => {
+        console.log("debugging props => ", props);
+    })
+
     return (<div className={classes.AdminsCard}>
         <img className={classes.AdminImage} alt="" src={props.avatar}></img>
+
         <div>{props.username}</div>
         {/* if user is owner */}
         <div className={classes.buttons}>
-            {(props.status === connectionStatus.ADMIN || props.status === connectionStatus.OWNER) ? (<button className={classes.button}>remove</button>) : <></>}
+            {(props.status === connectionStatus.OWNER) ? (<button className={classes.button}>remove</button>) : <></>}
         </div>
     </div>)
 }
@@ -24,8 +30,7 @@ function Admins(props: any) {
                 Authorization: `Bearer ${token}`
             }
         }).then(res => {
-            console.log(res.data);
-            setUsers(res.data)
+            setUsers(res.data.filter((user: any) => (user.status === connectionStatus.OWNER || user.status === connectionStatus.ADMIN)))
         }).catch(() => { })
     }
     useEffect(() => {
@@ -37,7 +42,6 @@ function Admins(props: any) {
             <div className={classes.Admins}>
                 {
                     users
-                        .filter(user => (user.status === connectionStatus.ADMIN || connectionStatus.OWNER))
                         .map((user, index) => <div key= {index}><AdminCard {...user} status={props.status} /></div>)
                 }
             </div>

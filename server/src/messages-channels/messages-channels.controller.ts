@@ -17,7 +17,8 @@ export class MessagesChannelsController {
   @UseGuards(JwtAuthGuard)
   @Get(":channelId")
   getAllMessagesChannel(@Param('channelId') channelId: string, @Req() req) {
-    return this.messagesChannelsService.findAll(channelId);
+    console.log("Hello")
+    return this.messagesChannelsService.findAll(channelId, req.user.userId);
   }
 
 }

@@ -113,7 +113,6 @@ export class FriendshipsGateway {
             if (newFriendShip) {
               console.log(onlineFriends);
               const clientSockets = onlineFriends.find(online => online.id == body.userId);
-              console.log(clientSockets);
               if (clientSockets)
                 clientSockets.sockets.forEach(socket => socket.emit("addedNewPendingFriendship", { ...newFriendShip }));
             }

@@ -12,17 +12,19 @@ function PeopleCard(props: any) {
         const token = Cookies.get("access_token")
         console.log(props);
         const data = {channelId: props.channelId}
-        await axios.post(`http://localhost:5000/channels/connections/new`, data,{
+        await axios.post(`http://localhost:5000/channels/connections/new/${props.id}`, data,{
             headers: {
                 Authorization: `Bearer ${token}`,
             }
         }).then(() => {
             setAdded(!added)
         })
-        .catch(() => {
-            setError("There is an error!");
-        })
+        .catch((err) => setError(err.response.data.message))
     }
+
+    useEffect(() => {
+        console.log(props);
+    }, [])
 
     return (<div className={classes.PeopleCard}>
         <img className={classes.AdminImage} alt="" src={props.avatar}></img>

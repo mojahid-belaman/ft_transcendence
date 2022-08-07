@@ -29,6 +29,7 @@ import { Channels } from 'src/channels/entity/channels.entity';
     UsersService,
     FriendshipsService,
     ConnectionsService,
+    ChannelsService,
     ChannelsService
   ]
 })

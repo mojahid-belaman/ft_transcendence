@@ -1,5 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { ChannelsService } from 'src/channels/channels.service';
+import { channelStatus } from 'src/channels/entity/channels.entity';
+import { ConnectionsService } from 'src/connections/connections.service';
+import { connectionStatus } from 'src/connections/entities/connection.entity';
 import { FriendshipsService } from 'src/friendships/friendships.service';
 import { UsersService } from 'src/users/users.service';
 import { Repository } from 'typeorm';
@@ -14,7 +18,9 @@ export class MessagesChannelsService {
     @InjectRepository(MessagesChannel)
     private messagesChannelRepository: Repository<MessagesChannel>,
     private friendshipSevice: FriendshipsService,
-    private usersService: UsersService
+    private usersService: UsersService,
+    private connectionService: ConnectionsService,
+    private channelsService: ChannelsService
   ) { }
 
 
@@ -42,7 +48,11 @@ export class MessagesChannelsService {
     return this.messagesChannelRepository.save(createMessagesDmDto);
   }
 
-  async findAll(channelId: string) {
+  async findAll(channelId: string, userId: string) {
+    const channelObject = await this.channelsService.getchannelById(channelId);
+    const adminConnection = await this.connectionService.findConnection(channelId, userId)
+    if (adminConnection.status === connectionStatus.BLOCKED)
+      throw new UnauthorizedException("You are blocked")
     return this.messagesChannelRepository.find({
       where: [{ channelId: channelId }],
       order: { info: "ASC" }

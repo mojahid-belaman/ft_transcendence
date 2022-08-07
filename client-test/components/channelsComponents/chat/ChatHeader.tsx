@@ -11,7 +11,7 @@ function ChatHeader(props: any) {
         else
             setBackdrop1(false);
     }
-    return <div className={classes.chatWrapper}>
+    return props.channel ? (<div className={classes.chatWrapper}>
         <button className={classes.chatHeader} onClick={props.toggle} >
             <img src="https://i.pinimg.com/474x/ec/e2/b0/ece2b0f541d47e4078aef33ffd22777e.jpg"></img>
             <div className={classes.info}>
@@ -20,7 +20,7 @@ function ChatHeader(props: any) {
         </button>
         {/* if the user is admin/owner */}
         <button onClick={OpenCloseModal1} className={classes.buttonEdit}><AiFillEdit/></button>
-        {backdrop1 ? <EditChannel OpenClose={OpenCloseModal1} /> : null}
-    </div>
+        {backdrop1 ? <EditChannel channelId={props.channel.channelId} OpenClose={OpenCloseModal1} /> : null}
+    </div>) : <></>
 }
 export default ChatHeader
