@@ -9,7 +9,6 @@ function MainApp(props: any){
         <div className={classes.mainCard}>
             <ParticleBackground/>
             <NavigationBar/>
-            <ParticleBackground />
             <ContentCard children={props.children}/>    
         </div>
     );

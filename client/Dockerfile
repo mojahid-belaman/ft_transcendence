@@ -8,6 +8,6 @@ COPY . .
 
 RUN yarn
 
-EXPOSE 5000
+EXPOSE 3000
 
-CMD ["npm", "run", "start:dev"]
+CMD ["npm", "run", "dev"]

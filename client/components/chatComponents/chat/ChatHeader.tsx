@@ -17,6 +17,17 @@ function GameInvitation(props: any) {
         </div>
     </div>
 }
+
+function WaitingInvitation(props: any) {
+    return <div>
+        <div className={classes.backdrop}></div>
+        <div className={classes.card}>
+            <div className={classes.cardContent}>
+                <h1>Waiting...</h1>
+            </div>
+        </div>
+    </div>
+}
 function ChatHeader(props: any) {
     const [backdrop1, setBackdrop1] = useState(false);
     const [backdrop2, setBackdrop2] = useState(false);
@@ -66,7 +77,7 @@ function ChatHeader(props: any) {
             : null
         }
         </button>
-        
+        // check if it's the user =>display gameInvitation else => display waiting + add socket
         {backdrop2 ? <GameInvitation OpenClose={OpenCloseModal2} /> : null}
 
     </div>) : <></>
