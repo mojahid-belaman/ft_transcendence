@@ -33,9 +33,6 @@ export class Paddle {
         if (this._paddleSpeed === 0) return;
 
         this._paddle_Y += this._paddleSpeed;
-        console.log("paddle speed: ", this._paddleSpeed);
-        
-        console.log("paddle Y: ", this._paddle_Y);
         
         if (this._paddle_Y < GameVariable._bounded_PaddleHeight) {
             this._paddleSpeed = 0;
@@ -51,6 +48,7 @@ export class Paddle {
 
     public up(key: string): void {
         if (key === 'down') {
+            this._paddleSpeed = 0;
             this._paddleSpeed -= GameVariable._paddle_Speed;
             
         }
@@ -61,6 +59,7 @@ export class Paddle {
     
     public down(key: string): void {
         if (key === 'down') {
+            this._paddleSpeed = 0;
             this._paddleSpeed += GameVariable._paddle_Speed;
         }
         else {
