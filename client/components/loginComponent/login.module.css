@@ -1,0 +1,327 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap");
+@import url("https:fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+
+
+.card {
+    display: flex;
+    font-family: 'Press Start 2P';
+    letter-spacing: 3px;
+    position: absolute; 
+    left: 0; 
+    right: 0; 
+    margin-left: auto; 
+    margin-right: auto;
+    top: 30%;
+    height: 600px;
+    max-width: 1200px;
+    min-width: 600px;
+    width: 95%;
+    /* border: 2px solid rgb(201, 201, 201); */
+    box-shadow: rgb(204,149,62) 0px 1px 3px, rgba(250, 189, 93, 0.001) 0px 1px 2px;
+    border-radius: 10px;
+    background-color: transparent;
+}
+
+.contributorBox {
+    background-color: rgb(204,149,62);
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
+    width: 60%;
+    color: #384864;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 40px;
+}
+
+.img{
+    flex-basis: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    color: rgb(204,149,62);
+    padding-top: 40px;
+}
+
+.contributorBox h6 {
+    margin-top: 200px;
+    font-size: 7px;
+}
+
+
+.field {
+    margin: auto auto;
+    width: 400px;
+    height: 200px;
+    position: relative;
+    border: 4px solid #384864;
+    border-radius: 10px;
+}
+
+.pad {
+    width: 0;
+    height: 100%;
+
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+
+    border-width: 2px;
+    border-style: dashed;
+    border-color: #384864;
+}
+
+.ping,
+.pong {
+    width: 4px;
+    height: 25px;
+    position: absolute;
+    background: #384864;
+}
+
+.ping {
+    left: 6%;
+    animation: ping 6s infinite linear;
+}
+
+.pong {
+    right: 6%;
+    animation: pong 6s infinite linear;
+}
+
+.ball {
+    width: 5px;
+    height: 5px;
+
+    position: absolute;
+    background: #384864;
+
+    animation: ball 6s infinite linear;
+}
+
+
+@keyframes ball {
+    0% {
+        /*  start in the middle */
+        top: 34%;
+        left: 52%;
+    }
+
+    8.3% {
+        /* pong */
+        top: 52%;
+        left: 90%;
+    }
+
+    24.9% {
+        /* ping */
+        top: 85%;
+        left: 8%;
+    }
+
+    30% {
+        top: 98%;
+        left: 27%;
+    }
+
+    41.5% {
+        /* pong */
+        top: 70%;
+        left: 90%;
+    }
+
+    58.1% {
+        /* ping */
+        top: 55%;
+        left: 8%;
+    }
+
+    74.7% {
+        /* pong */
+        top: 13%;
+        left: 90%;
+    }
+
+    79% {
+        top: 1%;
+        left: 70%;
+    }
+
+    91.3% {
+        /* ping */
+        top: 22%;
+        left: 8%;
+    }
+
+    100% {
+        /* back to center */
+        top: 34%;
+        left: 52%;
+    }
+}
+
+@keyframes ping {
+
+    /*  left player */
+    0% {
+        top: 10%;
+    }
+
+    5% {
+        top: 10%;
+    }
+
+    9% {
+        top: 24%;
+    }
+
+    13% {
+        top: 17%;
+    }
+
+    24.9% {
+        /* tap */
+        top: 82%;
+    }
+
+    47% {
+        top: 37%;
+    }
+
+    52% {
+        top: 41%;
+    }
+
+    56% {
+        top: 64%;
+    }
+
+    58.1% {
+        /* tap */
+        top: 54%;
+    }
+
+    70% {
+        top: 74%;
+    }
+
+    84% {
+        top: 12%;
+    }
+
+    91.3% {
+        /* tap */
+        top: 18%;
+    }
+
+    100% {
+        top: 10%;
+    }
+}
+
+@keyframes pong {
+
+    /* right player */
+    0% {
+        top: 90%;
+    }
+
+    8.3% {
+        /* tap */
+        top: 51%;
+    }
+
+    20% {
+        top: 60%;
+    }
+
+    25% {
+        top: 34%;
+    }
+
+    41.5% {
+        /* tap */
+        top: 68%;
+    }
+
+    46% {
+        top: 36%;
+    }
+
+    52% {
+        top: 18%;
+    }
+
+    58.1% {
+        top: 53%;
+    }
+
+    66% {
+        top: 14%;
+    }
+
+    70% {
+        top: 20%;
+    }
+
+    74.7% {
+        top: 10%;
+    }
+
+    91.3% {
+        /* tap */
+        top: 10%;
+    }
+
+    100% {
+        top: 90%;
+    }
+}
+
+
+.LoginBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.LoginButton {
+    padding: 30px 0 30px 15px ;
+    font-family: inherit;
+	display: inline-block;
+	margin:5px;
+    font-weight: bold;
+    background-color: #384864;
+    text-shadow: -1px -1px black, 1px 1px #B8B8CF;
+    color: rgb(204,149,62);
+    -webkit-border-radius: 7px;
+	-moz-border-radius: 7px;
+	-o-border-radius: 7px;
+	border-radius: 7px;
+    box-shadow: 0 .2em #1a2f4f; 
+    cursor: pointer;
+    text-align: center;
+    width: 100%;
+    
+}
+
+.LoginButton:hover {
+    box-shadow: 0 .2em #B8B8CF; 
+    background-color: #757BC4;
+    color: #B8B8CF;
+
+} 
+
+@keyframes animate {
+    0% {
+        background-position-y: 0;
+    }
+
+    100% {
+        background-position-y: -480px;
+    }
+}

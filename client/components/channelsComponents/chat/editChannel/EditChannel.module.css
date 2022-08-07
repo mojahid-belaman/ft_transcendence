@@ -1,0 +1,139 @@
+.backdrop {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    opacity: 50%;
+}
+
+.editForm {
+    display: flex;
+    flex-direction: column;
+    letter-spacing: 3px;
+    font-family: 'Press Start 2P';
+    background: black;
+    color: rgb(204,149,62);
+    width: 60%;
+    max-width: 1200px;
+    min-width: 600px;
+    margin: auto;
+    margin-top: 10%;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: rgb(204,149,62) 0px 2px 5px, rgba(250, 189, 93, 0.001) 0px 1px 2px;
+    /*
+   
+    
+    background-color: lightgray;
+   
+    */
+}
+
+.text {
+    text-align: left;
+    font-size: 20px;
+    font-size: 30px;
+}
+
+.card {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    height: 50%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    width: 50%;
+    max-width: 700px;
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    height: 20%;
+    margin-top: 25px;
+}
+
+.card .editForm .info .inputs {
+    font-family: 'Overpass', sans-serif;
+    color: #384864;
+    background: transparent;
+    border: 2px solid rgb(204,149,62);
+    border-radius: 10px;
+    padding: 15px 0 15px 15px ;
+    font-size: larger;
+    outline: none;
+    width: 100%;
+}
+
+.card .editForm .info textarea {
+    font-family: 'Overpass', sans-serif;
+    color: #384864;
+    background: transparent;
+    border: 2px solid rgb(204,149,62);
+    border-radius: 10px;
+    padding: 15px 0 15px 15px ;
+    font-size: larger;
+    outline: none;
+    width: 70%;
+}
+
+
+.editForm span {
+    margin-top: 5px;
+    font-size: 10px;
+    color: gray;
+}
+
+.card .editForm button {
+    margin:5px;
+    margin-top:30px;
+    padding: 15px 0 15px 0 ;
+    font-family: inherit;
+	display: inline-block;
+	margin:5px;
+    font-weight: bold;
+    background-color: #384864;
+    color: rgb(204,149,62);
+    text-shadow: -1px -1px black, 1px 1px #B8B8CF;
+    -webkit-border-radius: 7px;
+	-moz-border-radius: 7px;
+	-o-border-radius: 7px;
+	border-radius: 7px;
+    box-shadow: 0 .2em #1a2f4f; 
+    cursor: pointer;
+    width: 30%;
+    text-align: center;
+    font-family: 'Press Start 2P';
+}
+
+
+#cancel:hover {
+    background-color: rgb(204,149,62);
+    color: #384864;
+}
+
+#edit:hover {
+    background-color: rgb(204,149,62);
+    color: #384864;
+}
+
+.buttons {
+    justify-content: flex-end;
+    align-items: flex-end;
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    margin-top: 20px;
+
+}
+
+.status {
+    display: flex;
+    flex-direction: row;
+}

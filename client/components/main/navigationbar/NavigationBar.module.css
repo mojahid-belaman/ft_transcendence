@@ -1,0 +1,79 @@
+@import url("https:fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+
+.nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    height: 80px;
+    width: 100%;
+    font-family: 'Press Start 2P';
+}
+
+ .button {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    padding: 10px;
+    font-family: inherit;
+    letter-spacing: 3px;
+    height: 100%;
+    border: none;
+    font-size: 16px;
+    color: #384864;
+    cursor: pointer;
+    background-color: rgb(204,149,62);
+    align-items: center;
+    width: 100%;
+}
+
+
+.nav .button:hover {
+    border-top: 5px solid #384864;
+}
+
+.nav .icons {
+    margin-right: 10px;
+    font-size: 20px;
+
+}
+
+.link {
+    text-align: left;
+    font-size: 18px;
+    text-decoration: none;
+    /* width: 25%; */
+}
+
+.logout {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    padding: 10px;
+    font-family: inherit;
+    letter-spacing: 3px;
+    height: 100%;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    align-items: center;
+    width: 100%;
+    background-color: #384864;
+    color: rgb(204,149,62);
+}
+
+.logout:hover{
+    color: rgb(204,149,62);
+    background-color: #AB2E29;
+    border-top: 5px solid rgb(204,149,62);
+}
+
+@media screen and (max-width: 700px) {
+    .nav {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        width: 25%;
+        justify-content: flex-start;
+        align-items: flex-start;
+    }
+}
