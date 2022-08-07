@@ -39,22 +39,23 @@ export class TwoFactorAuthController {
     await this.twoFactorAuthService.generateTwoFactorAuthenticationSecret(
       user,
       );
-    await this.twoFactorAuthService.generateQrCodeDataURL(otpauthUrl).then((result) =>
-      res.send(JSON.stringify({ qrcode: result })),
-    );
+    const qrCode = await this.twoFactorAuthService.generateQrCodeDataURL(otpauthUrl);
+    await this.userService.updateqrCode(user, qrCode);
+    res.send(JSON.stringify({ qrcode: qrCode }));
   }
 
   @UseGuards(JwtAuthGuard)
   @HttpCode(200)
   @Post('turn-on')
   async turnon(@Body() twoFACode: twoFA, @Req() req) {
-    const user = await this.userService.getUserBylogin(req.user['login']);
+    const user = await this.userService.getUserById(req.user.userId);
     const isValidCode = this.twoFactorAuthService.is2FactorAuthCodeValid(
       twoFACode.code,
       user,
       );
+      console.log('hehe');
       if (!isValidCode)
-        return false;
+        return new UnauthorizedException();
       await this.userService.turnOnTwoFactorAuthentication(user['login']);
       return true;
     }
@@ -62,7 +63,7 @@ export class TwoFactorAuthController {
     @Post('authenticate')
     @UseGuards(JwtAuthGuard)
     async authenticate(@Body() twoFACode: twoFA, @Req() req, @Res() res){
-      const user = await this.userService.getUserBylogin(req.user['login']);
+      const user = await this.userService.getUserById(req.user['userId']);
       const isValidCode = this.twoFactorAuthService.is2FactorAuthCodeValid(
         twoFACode.code,
         user,

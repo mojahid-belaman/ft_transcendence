@@ -4,9 +4,10 @@
     position: fixed;
     top: 0;
     left: 0;
-    background-color: hsla(0, 0%, 0%, 0.526);
+    background-color: hsla(0, 0%, 0%, 0.801);
     width: 100%;
     height: 100%;
+
 }
 
 .splashScreen h2 {
@@ -20,10 +21,58 @@
     color: #FFF;
     position: absolute;
     left: 50%;
-    top: 50%;
+    top: 10%;
     transform: translate(-50%, -50%);
     letter-spacing: 10px;
 }
+
+.splashScreen button {
+    position: absolute;
+    left: 47%;
+    top: 30%;
+    transform: translate(-50%, -50%);
+    width: 15%;
+    cursor: pointer;
+    text-decoration: none !important;
+    outline: none !important;
+    font-family: "Press Start 2P", cursive;
+    font-size: 15px;
+    line-height: 1.5em;
+    letter-spacing: 0.1em;
+    text-shadow: 2px 2px 1px #348628, -2px 2px 1px #348628, 2px -2px 1px #348628,
+      -2px -2px 1px #348628, 0px 2px 1px #348628, 0px -2px 1px #348628,
+      0px 4px 1px #1d4c16, 2px 4px 1px #1d4c16, -2px 4px 1px #1d4c16;
+    border: none;
+    margin: 15px 80px 30px;
+    background: repeating-linear-gradient(
+      45deg,
+      #54d440,
+      #54d440 5px,
+      #52cc3f 5px,
+      #52cc3f 10px
+    );
+    border-bottom: 3px solid rgba(40, 117, 29, 0.5);
+    border-top: 3px solid rgba(255, 255, 255, 0.3);
+    color: #fff !important;
+    border-radius: 8px;
+    padding: 8px 15px 10px;
+    box-shadow: 0 6px 0 #348628, 0 8px 1px 1px rgba(0, 0, 0, 0.3),
+      0 10px 0 5px #2a6d20, 0 12px 0 5px #39822e, 0 15px 0 5px #1d4c16,
+      0 15px 1px 6px rgba(0, 0, 0, 0.3);
+}
+
+.splashScreen button::before {
+    content: "";
+    height: 10%;
+    position: absolute;
+    width: 40%;
+    background: #fff;
+    right: 13%;
+    top: -3%;
+    border-radius: 99px;
+}
+
+
 
 @media (max-width: 1200px) {
     .splashScreen h2 {
@@ -46,18 +95,18 @@
     }
 }
 
-.loser {
+.loser, .win {
     font-size: 4rem;
     font-family: 'Press Start 2P', cursive;
     position: absolute;
-    left: 51%;
-    top: calc(100% - 95%);
+    left: 50%;
+    top: calc(100% - 15%);
     transform: translate(-50%, -50%);
     width: 100%;
     height: 100%;
 }
 
-.loser h2 {
+.loser h2, .win h2 {
     width: 100%;
     text-align: center;
     padding: 0;
@@ -65,12 +114,17 @@
     font-size: 5rem;
     font-family: 'Press Start 2P', cursive;
     font-weight: bold;
-    color: #d50000;
     position: absolute;
-    left: 50%;
-    top: 50%;
     transform: translate(-50%, -50%);
     letter-spacing: 1.5rem;
+}
+.loser h2 {
+    color: red;
+    left: 52%;
+}
+.win h2 {
+    color: green;
+    left: 50%;
 }
 
 @media (max-width: 1200px) {
@@ -92,32 +146,6 @@
     .loser h2 {
         font-size: 1.5rem;
     }
-}
-.win {
-    font-size: 4rem;
-    font-family: 'Press Start 2P', cursive;
-    position: absolute;
-    left: 51%;
-    top: calc(100% - 95%);
-    transform: translate(-50%, -50%);
-    width: 100%;
-    height: 100%;
-}
-
-.win h2 {
-    width: 100%;
-    text-align: center;
-    padding: 0;
-    margin: 0;
-    font-size: 5rem;
-    font-family: 'Press Start 2P', cursive;
-    font-weight: bold;
-    color: #357a38;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    letter-spacing: 1.5rem;
 }
 
 @media (max-width: 1200px) {

@@ -39,10 +39,13 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
         this.logger.log('connection => ' + client.id)
         // "undefined"
         if (client.handshake.query && client.handshake.query.token && client.handshake.query.token !== "undefined") {
+            console.log("Hello from socket 1 ", client.handshake.query.token);
+            
             const user: any = await this.jwtService.verify(String(client.handshake.query.token), {
                 secret: process.env.JWT_SECRET
             })
             
+            console.log("Hello from socket 2");
             if (user) {
                 this.friendshipsService.setOnlineStatus(user.userId, client);                
             }
@@ -56,7 +59,7 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
                 secret: process.env.JWT_SECRET
             });
             if (user) {
-                console.log("Disconnect => ", user);
+                //console.log("Disconnect => ", user);
                 this.friendshipsService.setOffLineStatus(user.userId, client.id);
                 await this.usersService.updateLastTimeConnected(new Date(), user.userId);
             }

@@ -43,7 +43,7 @@ function ChatHeader(props: any) {
     }
 
     useEffect(() => {
-        console.log(props.user);
+        //console.log(props.user);
     }, [])
 
     return props.user ? (<div className={classes.chatWrapper}>

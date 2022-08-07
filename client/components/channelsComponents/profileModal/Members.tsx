@@ -12,7 +12,7 @@ function MemberCard(props: any) {
 
     const getConnection = async () => {
         const token = Cookies.get("access_token");
-        console.log("CHANNEL => ", props);
+        //console.log("CHANNEL => ", props);
 
         return await axios.get(`http://localhost:5000/channels/connections/${props.channelId}/${props.userId}`, {
             headers: {
@@ -20,7 +20,7 @@ function MemberCard(props: any) {
             }
         })
             .then(res => {
-                console.log(res);
+                //console.log(res);
                 if (res.status === 200)
                     setUserStatus(res.data.status)
             })
@@ -60,7 +60,7 @@ function MemberCard(props: any) {
     }, [])
 
     const muteHandler = async () => {
-        console.log("testing muteHandler");
+        //console.log("testing muteHandler");
         const token = Cookies.get("access_token");
         const data = {
             date: dateRef.current.value
@@ -106,7 +106,7 @@ function Members(props: any) {
                 Authorization: `Bearer ${token}`
             }
         }).then(res => {
-            console.log(res);
+            //console.log(res);
             setUsers(res.data)
         }).catch(() => { })
     }

@@ -28,7 +28,7 @@ function PrivateCard(props: any) {
                 Authorization: `Bearer ${token}`,
             }
         }).then(async (data) => {
-            console.log(data);
+            //console.log(data);
             props.setStatus(channelStatus.PUBLIC);
         })
         .catch(err => setError(err.response.data.message))
@@ -61,7 +61,7 @@ function ProtectedCard(props: any) {
                 Authorization: `Bearer ${token}`,
             }
         }).then(async (data) => {
-            console.log(data);
+            //console.log(data);
             props.setStatus(channelStatus.PUBLIC);
         })
         .catch(err => setError(err.response.data.message))

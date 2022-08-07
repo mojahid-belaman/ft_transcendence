@@ -48,7 +48,7 @@ export class MessagesDmsService {
         return (message.firstId == userId) ? await this.usersService.getUserById(userId)
           .then(receiverUser => {
             const object = ({ CurentMessage: message.content, user: receiverUser, date: message.info })
-            console.log(object);
+            //console.log(object);
             return object
           }) : await this.usersService.getUserById(user.id)
         .then(receiverUser => ({ CurentMessage: message.content, user: receiverUser, date: message.info }))

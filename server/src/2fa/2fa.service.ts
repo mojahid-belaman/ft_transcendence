@@ -33,4 +33,5 @@ export class TwoFactorAuthService {
       secret: user.twoFactorAuthenticationSecret,
     });
   }
+
 }

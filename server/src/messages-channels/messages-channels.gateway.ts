@@ -54,9 +54,9 @@ export class MessagesChannelsGateway {
         if (channel.length === 1) {
           if (channel[0].status !== channelStatus.PRIVATE) {
             const isConnected = await this.connectionsService.checkConnectionExistance(data, user.userId);
-            console.log(data);
+            //console.log(data);
             if (isConnected) {
-              console.log("Test Join =>", data);
+              //console.log("Test Join =>", data);
               client.join(data);
             }
           }

@@ -7,7 +7,7 @@ import { connectionStatus } from './ChannelInfo';
 function AdminCard(props: any) {
 
     useEffect(() => {
-        console.log("debugging props => ", props);
+        //console.log("debugging props => ", props);
     })
 
     return (<div className={classes.AdminsCard}>

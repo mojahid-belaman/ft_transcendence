@@ -32,7 +32,7 @@ function Chat(props: any) {
     }
 
     socket.on("receieveMessage", (newMessage: any) => {
-        console.log("Received message => ", newMessage);
+        //console.log("Received message => ", newMessage);
         setMessageList([...messagelist, newMessage])
         setCurentMessage("")
     })
@@ -43,7 +43,7 @@ function Chat(props: any) {
                 Authorization: `Bearer ${token}`
             }
         }).then((res) => {
-            console.log("Debugging => ", res.data.messages);
+            //console.log("Debugging => ", res.data.messages);
             setMessageList([...res.data.messages])
             setUser(res.data.user)
         });

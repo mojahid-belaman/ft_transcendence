@@ -8,16 +8,16 @@ export class IntraAuthService {
     private readonly usersService: UsersService,
   ) {}
 
+
   async intraLogin(user) {
-    console.log("user => ", user);
 
     const userExist = await this.usersService.getUserBylogin(user['login']);
-    console.log("userExist => ", userExist);
     if (!userExist) 
       return await this.usersService.addUser(user)
+      .then(newUser => ({...newUser, isFirstTime: true}))
       .catch(() => {
         throw new BadRequestException();
       });
-    return userExist;
+    return ({...userExist, isFirstTime: false});
   }
 }

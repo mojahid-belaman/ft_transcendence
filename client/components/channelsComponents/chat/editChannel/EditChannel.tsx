@@ -39,7 +39,7 @@ function EditChannel(props: any) {
         }
         if (password === confirmedPassword) {
             const token = Cookies.get("access_token");
-            console.log("data to update => ", data);
+            //console.log("data to update => ", data);
             
             await axios.post(`http://localhost:5000/channels/update`, data, {
                 headers: {
@@ -67,7 +67,7 @@ function EditChannel(props: any) {
     }
 
     useEffect(() => {
-        console.log(props);
+        //console.log(props);
         getChannel()
     }, [])
 
@@ -105,4 +105,6 @@ function EditChannel(props: any) {
             </div>
         </div>)
 }
+
+
 export default EditChannel;   

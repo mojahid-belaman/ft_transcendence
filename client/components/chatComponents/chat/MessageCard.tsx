@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import classes from './MessageCard.module.css'
 function MessageCard(props: any) {
 	useEffect(() => {
-		console.log(props);
+		//console.log(props);
 	}, []);
 	return props.message.user ? (
 		<div className={classes.messageCard} >

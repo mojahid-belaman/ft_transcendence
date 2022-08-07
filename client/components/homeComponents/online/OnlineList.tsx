@@ -10,7 +10,7 @@ function OnlineList() {
         socket.emit("onlineFriends");
         socket.on("getOnlineFriends", (data: any) => setUsers(data))
         socket.on("addedNewOnlineFriend", (data: any) => {
-            console.log("Hola");
+            //console.log("Hola");
             if (!users.find(user => user.id === data.id))
                 setUsers([...users, data]);
         });

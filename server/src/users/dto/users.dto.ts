@@ -6,10 +6,6 @@ export class CreateUserDto {
 	@IsString()
 	@ValidateIf((object, value) => value !== null && value !== undefined)
 	avatar: string;
-	@IsBoolean()
-	removedAvatar: boolean;
-	@IsBoolean()
-	twoFactorAuth: boolean;
 }
 
 export class UpdateUserDto {
@@ -20,10 +16,7 @@ export class UpdateUserDto {
 	@IsString()
 	@ValidateIf((object, value) => value !== null && value !== undefined)
 	avatar: string;
-	@IsBoolean()
-	removedAvatar: boolean;
-	@IsBoolean()
-	twoFactorAuth: boolean;
+
 }
 
 export class FindUserResponsDto {

@@ -19,7 +19,7 @@ export class ConnectionsService {
       where: [createConnectionDto]
     })
       .then(async data => {
-        console.log(createConnectionDto);
+        //console.log(createConnectionDto);
 
         if (data)
           throw new ForbiddenException("Already Connected");
@@ -156,7 +156,7 @@ export class ConnectionsService {
     return await this.connectionsRepository.findOne({
       where: [{ userId, channelId }]
     }).then(res => {
-      console.log(res);
+      //console.log(res);
       if (!res)
         throw new NotFoundException("Connection Not Found")
       return res
@@ -196,7 +196,7 @@ export class ConnectionsService {
     const prevStatus = mutedConnection.status;
     mutedConnection.status = connectionStatus.BLOCKED;
     const test = await this.connectionsRepository.save(mutedConnection);
-    console.log("Testing the mute => ", test);
+    //console.log("Testing the mute => ", test);
     const clientSockets = onlineFriends.find(online => online.id == mutedConnection.userId);
     if (clientSockets)
       clientSockets.sockets.forEach(socket => socket.emit("channelConnectionStatusChange",{
@@ -207,8 +207,8 @@ export class ConnectionsService {
     const tmp = new Date(newDate.getTime() + 1 * 60000);
     const job = new CronJob(tmp, async () => {
       mutedConnection.status = prevStatus;
-      console.log("DEBUG => AFTER ONE MINUTE");
-      console.log(onlineFriends);
+      //console.log("DEBUG => AFTER ONE MINUTE");
+      //console.log(onlineFriends);
       await this.connectionsRepository.save(mutedConnection);
       const clientSockets = onlineFriends.find(online => online.id == mutedConnection.userId);
     if (clientSockets)

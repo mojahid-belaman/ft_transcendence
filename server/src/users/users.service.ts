@@ -88,7 +88,7 @@ export class UsersService {
     userCreated.username = user.username;
     userCreated.lastConnected = null;
     userCreated.avatar = user.avatar;
-    userCreated.changedAvatar = false;
+    userCreated.qrCode = '';
     userCreated.isTwoFactorAuthEnabled = false;
     userCreated.twoFactorAuthenticationSecret = '';
     return this.userRepository.save(userCreated);
@@ -129,22 +129,25 @@ export class UsersService {
       .then(async (user) => {
         return await this.userRepository.save({...user, lastConnected: info})
         .then(res => {
-          console.log(res);
+          //console.log(res);
           return res;
         })
       });
   }
 
-  async updateUsername(login: string, username: string): Promise<Users> {
+  
+  async updateUsername(login: string, username: string): Promise<Users | boolean>{
     const updatedUser = await this.getUserBylogin(login);
-    if (username) updatedUser.username = username;
-    return this.userRepository.save(updatedUser);
+    if (username) {
+      updatedUser.username = username;
+     return this.userRepository.save(updatedUser).then((res) => res).catch(() => false)
+    };
+    return false;
   }
 
   async updateAvatarUrl(updatedUser: Users, avatar: string): Promise<Users> {
     if (avatar) {
       updatedUser.avatar = 'http://localhost:5000/' + avatar;
-      updatedUser.changedAvatar = true;
     }
     return this.userRepository.save(updatedUser);
   }
@@ -155,7 +158,6 @@ export class UsersService {
   }
   
   async setTwoFactorAuthenticationSecret(secret: string, user: Users) {
-    // const user = await this.getUserBylogin(login);
     user.twoFactorAuthenticationSecret = secret;
     return this.userRepository.save(user);
   }
@@ -163,7 +165,7 @@ export class UsersService {
   
   async turnOnTwoFactorAuthentication(login: string) {
     const user = await this.getUserBylogin(login);
-    console.log('user => ', user);
+    //console.log('user => ', user);
     user.isTwoFactorAuthEnabled = true;
     return this.userRepository.save(user);
   }
@@ -171,7 +173,13 @@ export class UsersService {
   async unSet2FASecret(login: string) {
     const user = await this.getUserBylogin(login);
     user.twoFactorAuthenticationSecret = '';
+    user.qrCode='';
     user.isTwoFactorAuthEnabled = false;
+    return this.userRepository.save(user);
+  }
+
+  async updateqrCode(user: Users, qrCode: string): Promise<Users>{
+    user.qrCode = qrCode;
     return this.userRepository.save(user);
   }
 

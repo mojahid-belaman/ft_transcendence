@@ -35,7 +35,7 @@ export class MessagesDmsGateway {
         const messageToSend = {firstId: sender.id, secondId: receiverUser.id, content: body.CurentMessage}
         const newMessage = await this.messagesDmService.sendMessage(messageToSend)
         const onlineUser = onlineFriends.find(onlineUser => onlineUser.id === receiverUser.id);
-        console.log(onlineUser);
+        //console.log(onlineUser);
         if (onlineUser)
           onlineUser.sockets.forEach(socket => socket.emit("receieveMessage", { CurentMessage: body.CurentMessage, user:{...sender}, date: newMessage.info})) 
       }

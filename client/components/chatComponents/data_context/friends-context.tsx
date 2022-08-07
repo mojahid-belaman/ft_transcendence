@@ -31,7 +31,7 @@ export function FriendsContexProvider(props:any) {
             SetUserData(data)
         })
         socket.on("addedNewFriendship", (data: any) => {
-            console.log(data);
+            //console.log(data);
             // SetUserData([...userData, data])
         })
     }, [])
