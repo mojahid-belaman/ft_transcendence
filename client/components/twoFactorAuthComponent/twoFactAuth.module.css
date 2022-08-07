@@ -5,6 +5,7 @@
 .contributorBox {
     font-family: 'Press Start 2P';
     background-color: black;
+
     color: rgb(204,149,62);
     display: flex;
     flex-direction: column;

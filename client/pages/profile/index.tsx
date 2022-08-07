@@ -7,6 +7,7 @@ import MainApp from "../../components/main/MainApp";
 import Profile from "../../components/profileComponents/Profile";
 
 
+
 function ProfilePage() {
 	const history = useRouter();
 	const token = Cookies.get("access_token");
@@ -29,7 +30,9 @@ function ProfilePage() {
 		else
 		  history.push('/');
 		}
-
+    	useEffect(() => {
+		authHandler();
+	}, []);
     return (
         <MainApp>
                 <Profile />

@@ -7,7 +7,6 @@ function ContentCard(props: any) {
                 {props.children}
             </div>
         </div>)
-    {/* </div> */ }
 
 }
 export default ContentCard;

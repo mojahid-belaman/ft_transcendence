@@ -7,7 +7,6 @@ import MainApp from '../../components/main/MainApp'
 import SettingsComponent from '../../components/SettingsComponents/settings'
 
 export default function Settings() {
-
 	const history = useRouter();
 	const token = Cookies.get("access_token");
   const tempToken = Cookies.get('2fa_token');

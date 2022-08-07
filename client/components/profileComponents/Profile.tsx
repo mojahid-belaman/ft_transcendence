@@ -70,6 +70,7 @@ function Profile() {
   useEffect(() =>{
       fetchImage();
   }, [username, login, imgUrl])
+
   return (
     <div className={classes.mainProfile}>
       <div className={classes.cardsProfile}>

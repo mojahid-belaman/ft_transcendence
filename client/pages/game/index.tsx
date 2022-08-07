@@ -7,6 +7,7 @@ import ParticleBackground from "../../components/gameComponents/ParticleBackgrou
 
 export function PingPong(props: any) {
   const history = useRouter();
+
 	const token = Cookies.get("access_token");
 	const tempToken = Cookies.get('2fa_token');
 	
@@ -14,6 +15,7 @@ export function PingPong(props: any) {
 		if(tempToken)
 				history.push('/twoFactorAuth')
 		else if (token)
+
 			  await axios.get("http://localhost:5000/auth/isAuthorized", {
 				  headers: {
 					  Authorization: `Bearer ${token}`,
@@ -36,6 +38,7 @@ export function PingPong(props: any) {
       <ParticleBackground/>
       <HomeGame />
     </>
+
   );
 }
 

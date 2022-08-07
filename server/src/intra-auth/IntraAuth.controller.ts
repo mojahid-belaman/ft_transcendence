@@ -26,5 +26,6 @@ export class IntraAuthController {
         return res.redirect(`http://localhost:3000/settings`);
       return res.redirect(`http://localhost:3000/home`);
     }
+
   }
 }

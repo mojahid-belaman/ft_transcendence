@@ -15,7 +15,9 @@ function chat() {
 	const authHandler = async () => {
 		if(tempToken)
 				history.push('/twoFactorAuth')
+
 		else if (token)
+
 			  await axios.get("http://localhost:5000/auth/isAuthorized", {
 				  headers: {
 					  Authorization: `Bearer ${token}`,
@@ -36,6 +38,7 @@ function chat() {
     return (
         <MainApp>
             <DataContexProvider >
+
                 <Friends />
             </DataContexProvider>
         </MainApp>)

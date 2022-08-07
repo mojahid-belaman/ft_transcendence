@@ -25,6 +25,7 @@ function TwoFactAuth() {
     ).then((res) => {
       return res.data
     }).catch((e) => console.log(e))
+
     if(turnOn2fa){
       const access_token = await axios.post(
         'http://localhost:5000/2fa/authenticate',
@@ -36,6 +37,7 @@ function TwoFactAuth() {
       Cookies.set('access_token', access_token);
       Cookies.remove('2fa_token');
       history.push('/home');
+
     }
   };
 

@@ -26,6 +26,7 @@ export default function twoFactorAuth() {
         history.push('/twoFactorAuth');
       }
 
+
 	useEffect(() => {
 		authHandler();
 	}, []);
