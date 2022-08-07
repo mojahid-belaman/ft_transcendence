@@ -3,16 +3,15 @@ import styles from "../gameComponents/gameStyle/HomeGame.module.css";
 import Game from "./Game";
 import Cookies from "js-cookie";
 import socket from "../Library/Socket";
-import { Data } from "../Library/Data";
+import { Data, StateGame } from "../Library/Data";
 import Setting from "./Setting";
 import axios from "axios";
 import ParticleBackground from "./ParticleBackground";
 import { useRouter } from "next/router";
 
-//NOTE - Initiale data and Information about all Game like (ball, paddle, score, width, height, canvas)
+// NOTE - Initiale data and Information about all Game like (ball, paddle, score, width, height, canvas)
 let data: Data;
-if (socket.io.opts.query)
-  data = socket.io.opts.query.data;
+if (socket.io.opts.query) data = socket.io.opts.query.data;
 
 export function HomeGame() {
   const [isGame, setIsGame] = useState(false);
@@ -21,53 +20,48 @@ export function HomeGame() {
   const history = useRouter();
 
   const handleGame = async () => {
-    setCurrentState(0)
+    setCurrentState(StateGame.WAIT);
     const token = Cookies.get("access_token");
-    await axios.get('http://localhost:5000/users/me',{
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    }).then((res) => {
-      socket.emit("join_match", {
-        user: res.data
-        
+    await axios
+      .get("http://localhost:5000/users/me", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       })
-      
-      socket.on("Playing", (payload: any) => {
-        if (payload.playing) {
-          data.set_userOne(payload.first);
-          data.set_userTwo(payload.second);
-          data.set_State(1);
-        }
-        setCurrentState(1);
-      });
-    }
-    );
-    setIsGame(true);
-  };
+      .then((res) => {
+        socket.emit("join_match", {
+          user: res.data,
+        });
 
-  useEffect(() => {
-    console.log("currentState: ", currentState);
-      
-  }, [currentState])
+        socket.on("Playing", (payload: any) => {
+          if (payload.playing) {
+            data.set_userOne(payload.first);
+            data.set_userTwo(payload.second);
+
+            data.set_State(StateGame.PLAY);
+          }
+          setCurrentState(StateGame.PLAY);
+        });
+      });
+    setIsGame(true);
+    return () => {
+      socket.off("Playing");
+    };
+  };
 
   const handleSetting = () => {
     setSetting(false);
   };
 
-
-  useEffect(() => {
-
-  }, [currentState, isGame]);
-
   return (
     <>
-      {!isSetting ? <Setting setSetting={setSetting}/> : 
-      (!isGame ? (
+      {!isSetting ? (
+        <Setting setSetting={setSetting} />
+      ) : !isGame ? (
         <div className={styles.container}>
-            <div className={styles.game}>
-              <img src="/pingpong.png" alt="Ping Pong Game" />
-            </div>
+          <div className={styles.game}>
+            <img src="/pingpong.png" alt="Ping Pong Game" />
+          </div>
           <div className={styles.about}>
             <div>
               <h1>
@@ -81,8 +75,8 @@ export function HomeGame() {
                 Pong
               </h1>
               <p>
-                PING PONG is a table
-                tennis game where you can enjoy a real match experience.
+                PING PONG is a table tennis game where you can enjoy a real
+                match experience.
                 <br />
                 You can enjoy the feeling of an actual table tennis by tossing
                 and serving the ball, and hitting back to a different direction
@@ -98,7 +92,10 @@ export function HomeGame() {
                 <button className={styles.btnDef} onClick={handleSetting}>
                   SETTING
                 </button>
-                <button className={styles.btnDef} onClick={() => history.push("/home")}>
+                <button
+                  className={styles.btnDef}
+                  onClick={() => history.push("/home")}
+                >
                   HOME
                 </button>
               </div>
@@ -112,7 +109,7 @@ export function HomeGame() {
           setCurrentState={setCurrentState}
           setIsGame={setIsGame}
         />
-      ))}
+      )}
     </>
   );
 }

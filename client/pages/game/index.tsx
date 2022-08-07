@@ -13,7 +13,7 @@ export function PingPong(props: any) {
 	const authHandler = async () => {
 		if(tempToken)
 				history.push('/twoFactorAuth')
-		if (token)
+		else if (token)
 			  await axios.get("http://localhost:5000/auth/isAuthorized", {
 				  headers: {
 					  Authorization: `Bearer ${token}`,

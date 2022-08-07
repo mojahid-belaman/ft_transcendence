@@ -14,7 +14,7 @@ export default function index() {
 	const authHandler = async () => {
 		if(tempToken)
 			history.push('/twoFactorAuth')
-		if (token)
+		else if (token)
 			{
 				console.log('dkhl hna')
 			await axios.get("http://localhost:5000/auth/isAuthorized", {
