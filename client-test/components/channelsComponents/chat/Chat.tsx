@@ -1,8 +1,9 @@
 
 
+import axios from 'axios';
+import Cookies from 'js-cookie';
 import { useEffect, useState } from 'react';
 import socket from '../../Library/Socket';
-import NewChannel from '../newChannel/NewChannel';
 import ProfileModal from '../profileModal/ProfileModal';
 import classes from './Chat.module.css'
 import ChatHeader from './ChatHeader';
@@ -19,29 +20,39 @@ function Chat(props:any) {
     const [CurentMessage, setCurentMessage]:any = useState("");
     function Message() {
         if (CurentMessage !== "") {
-            socket.emit("SendMessage", { channel: props.channel.id, CurentMessage })
-            const date = new Date();
-
-            setMessageList((list: any) => [...list, { CurentMessage, date: date.toISOString() }])
+            socket.emit("SendMessageChannel", { channel: props.channel.channelId, CurentMessage })
             setCurentMessage("")
         }
     }
 
-    socket.on("receiveMessage", (data) => {
+    socket.on("receiveMessageChannel", (data) => {
+        // console.log("DATA => ", data);
         setMessageList([...messagelist, data])
     })
 
+    const getCurrentConv = async () => {
+        const token = Cookies.get("access_token");
+        await axios.get(`http://localhost:5000/channels/messages/${props.channel.channelId}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then((res) => {
+            setMessageList([...res.data])
+        });
+    }
+
     useEffect(() => {
-      console.log(props.channel);
-    }, [])
+      if (props.channel)
+        getCurrentConv();
+    }, [props.channel])
     
 
     return <div className={classes.chatCard}>
         <ChatHeader toggle={OpenCloseModal} channel={props.channel} />
         <div className={classes.chatContent} >
             <div className={classes.chatMessages}>
-                {messagelist.map((message:any) => (
-                    <MessageCard message={message} />
+                {messagelist.map((message:any, index: number) => (
+                    <MessageCard key={index} message={message} />
                 ))}
             </div>
             <div className={classes.chatFooter}>

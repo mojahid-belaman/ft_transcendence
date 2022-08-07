@@ -28,11 +28,4 @@ export class MessagesDmsController {
   findAll(@Req() req, @Param("login") login: string) {    
     return this.messagesDmsService.findAll(login, req.user.userId);
   }
-  
-  @ApiBearerAuth()
-  @UseGuards(JwtAuthGuard)
-  @Delete(':id')
-  unsend(@Param('id') id: string) {
-    return this.messagesDmsService.remove(+id);
-  }
 }

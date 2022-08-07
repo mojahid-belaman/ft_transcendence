@@ -6,6 +6,7 @@ import { ChannelsService } from 'src/channels/channels.service';
 import { channelStatus } from 'src/channels/entity/channels.entity';
 import { ConnectionsService } from 'src/connections/connections.service';
 import { UsersService } from 'src/users/users.service';
+import { MessagesChannelsService } from './messages-channels.service';
 
 @WebSocketGateway()
 export class MessagesChannelsGateway {
@@ -16,7 +17,8 @@ export class MessagesChannelsGateway {
   constructor(
     private readonly usersSerive: UsersService,
     private readonly connectionsService: ConnectionsService,
-    private readonly channelsService: ChannelsService
+    private readonly channelsService: ChannelsService,
+    private readonly messagesChannels: MessagesChannelsService
   ) { }
 
 
@@ -27,7 +29,16 @@ export class MessagesChannelsGateway {
         secret: process.env.JWT_SECRET
       });
       if (user) {
-
+        const sender = await this.usersSerive.getUserBylogin(user.login);
+        const data = { userId: user.userId, channelId: body.channel, content: body.CurentMessage };
+        const newMessage = await this.messagesChannels.sendMessage(data);
+        const newBody = {
+          CurentMessage: newMessage.content,
+          user: sender,
+          date: newMessage.info
+        }
+        client.to(body.channel).emit('receiveMessageChannel', newBody)
+        client.emit('receiveMessageChannel', newBody)
       }
     }
   }
@@ -43,10 +54,13 @@ export class MessagesChannelsGateway {
         if (channel.length === 1) {
           if (channel[0].status !== channelStatus.PRIVATE) {
             const isConnected = await this.connectionsService.checkConnectionExistance(data, user.userId);
-            if (isConnected)
+            console.log(data);
+            if (isConnected) {
+              console.log("Test Join =>", data);
               client.join(data);
             }
-            client.emit("JoinedOrNot", { status: channel[0].status });
+          }
+          client.emit("JoinedOrNot", { status: channel[0].status });
         }
       }
     }

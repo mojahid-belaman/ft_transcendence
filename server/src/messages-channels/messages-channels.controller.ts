@@ -14,4 +14,10 @@ export class MessagesChannelsController {
     return this.messagesChannelsService.getAllChannels(req.user.userId);
   } */
 
+  @UseGuards(JwtAuthGuard)
+  @Get(":channelId")
+  getAllMessagesChannel(@Param('channelId') channelId: string, @Req() req) {
+    return this.messagesChannelsService.findAll(channelId);
+  }
+
 }

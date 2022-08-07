@@ -36,16 +36,6 @@ function Chat(props: any) {
         setMessageList([...messagelist, newMessage])
         setCurentMessage("")
     })
-
-    const getCurrentUser = async () => {
-        const token = Cookies.get("access_token");
-        await axios.get('http://localhost:5000/users/me', {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        }).then((res) => setUser(res.data));
-    }
-
     const getCurrentConv = async () => {
         const token = Cookies.get("access_token");
         await axios.get(`http://localhost:5000/conversations/messages/${props.login}`, {
@@ -54,13 +44,12 @@ function Chat(props: any) {
             }
         }).then((res) => {
             console.log("Debugging => ", res.data.messages);
-            setMessageList([...messagelist, ...res.data.messages])
+            setMessageList([...res.data.messages])
             setUser(res.data.user)
         });
     }
 
     useEffect(() => {
-        console.log(props.login);
         if (props.login)
             getCurrentConv();
     }, [props.login])

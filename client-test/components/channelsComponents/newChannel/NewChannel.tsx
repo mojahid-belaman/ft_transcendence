@@ -2,7 +2,10 @@ import classes from './NewChannel.module.css'
 import Password from './Password';
 import { useRef, useState } from "react"
 import axios from 'axios';
-import Cookies from 'js-cookie'
+import Cookies from 'js-cookie';
+import { useContext } from 'react';
+import DataChannel from '../data_context/data-context';
+
 
 function NewChannel(props:any) {
     const [choice, setChoice] = useState(false)
@@ -11,11 +14,14 @@ function NewChannel(props:any) {
     const nameInputRef:any = useRef();
     const descriptionInputRef :any= useRef();
     const statusInputRef :any= useRef();
+    const dataChannelVar = useContext(DataChannel);
 
     const changeStatusHandler = (stat: string) => {
         setChoice(stat === "Protected");
         setStatus(stat)
     }
+
+
 
     const SubmitHandler = async (event:any) => {
         event.preventDefault();
@@ -32,7 +38,11 @@ function NewChannel(props:any) {
             headers: {
                 Authorization: `Bearer ${token}`,
             }
-        }).then(data => console.log(data))
+        }).then(async (data) => {
+            // window.location.reload()
+            await dataChannelVar.getChannels();
+            props.setBackdrop(false)
+        })
         .catch(err => console.log(err))
     }
     return (

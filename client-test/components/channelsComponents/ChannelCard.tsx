@@ -1,5 +1,7 @@
 import { useContext } from 'react';
+import { AiFillLock } from 'react-icons/ai';
 import classes from './ChannelCard.module.css'
+import { channelStatus } from './Channels';
 import DataChannel from './data_context/data-context';
 function ChannelCard(props:any) {
     const dataChannelVar = useContext(DataChannel);
@@ -13,6 +15,7 @@ function ChannelCard(props:any) {
             <div className={classes.channelInfo}>
                 <div>{props.channel.name}</div>
             </div>
+            {props.channel.status === channelStatus.PRIVATE? <AiFillLock/> :null}
         </button>
     )
 }

@@ -12,14 +12,14 @@ export class MessagesChannelsService {
 
   constructor(
     @InjectRepository(MessagesChannel)
-    private messagesDMRepository: Repository<MessagesChannel>,
+    private messagesChannelRepository: Repository<MessagesChannel>,
     private friendshipSevice: FriendshipsService,
     private usersService: UsersService
   ) { }
 
- 
+
   getAllChannels(userId: string) {
-    return this.messagesDMRepository.query(`
+    return this.messagesChannelRepository.query(`
       SELECT DISTINCT
         id as "channelId",
         name,
@@ -33,8 +33,26 @@ export class MessagesChannelsService {
         id::text IN (SELECT "channelId"::text FROM messages_dm WHERE "userId"::text = '${userId}')
     `).then(convs => {
       if (convs && convs.length !== 0)
-        return convs.map((conv, index) => ({ ...conv, conversationId: index}))
+        return convs.map((conv, index) => ({ ...conv, conversationId: index }))
       return [];
     })
+  }
+
+  sendMessage(createMessagesDmDto: CreateMessagesChannelDto) {
+    return this.messagesChannelRepository.save(createMessagesDmDto);
+  }
+
+  async findAll(channelId: string) {
+    return this.messagesChannelRepository.find({
+      where: [{ channelId: channelId }],
+      order: { info: "ASC" }
+    }).then(async (messages) => Promise.all(messages.map(async (message) => {
+      return await this.usersService.getUserById(message.userId)
+        .then(receiverUser => ({
+          CurentMessage: message.content,
+          user: receiverUser,
+          date: message.info
+        }))
+    })))
   }
 }

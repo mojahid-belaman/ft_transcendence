@@ -44,12 +44,11 @@ function ChannelsComponent() {
             setBackdrop(false);
     }
     const dataChannelVar = useContext(DataChannel);
+    
 
     socket.on("JoinedOrNot", (data) => setStatus(data.status));
 
     useEffect(() => {
-        console.log(channel);
-        console.log(dataChannelVar.data);
     }, [])
 
     return <div className={classes.mainCard}>
@@ -59,18 +58,24 @@ function ChannelsComponent() {
                 <div className={classes.text}>Create Channel</div>
             </button>
             {dataChannelVar.data.map((channel: any) => (
-                <div key={channel.channelId} onClick={() => { setChannel(channel.channelId); router.push(`channels?name=${channel.name}`); socket.emit("joinChannel", channel.channelId) }}>
+                <div key={channel.channelId} onClick={() => {
+                    // socket.join(channel.channelId);
+                    setChannel(channel.channelId);
+                    socket.emit("joinChannel", channel.channelId)
+                    router.push(`channels?name=${channel.name}`);
+                }
+                }>
                     <ChannelCard key={channel.channelId} channel={channel} setStatus={setStatus} />
                 </div>))
             }
 
         </div>
         {
-            status == channelStatus.PUBLIC ? <Chat channel={dataChannelVar.selectedConversation} /> :
+            status == channelStatus.PUBLIC ? <Chat channel={dataChannelVar.selectedConversation}  /> :
                 status === channelStatus.PRIVATE ? <PrivateCard /> :
-                    status === channelStatus.PROTECTED ? <ProtectedCard/> : null
+                    status === channelStatus.PROTECTED ? <ProtectedCard /> : null
         }
-        {backdrop ? <NewChannel OpenClose={OpenCloseModal} /> : null}
+        {backdrop ? <NewChannel setBackdrop={setBackdrop} OpenClose={OpenCloseModal} /> : null}
     </div>
 }
 

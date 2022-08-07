@@ -6,7 +6,8 @@ const DataChannel = createContext({
     data: [],
     selectedConversation: {},
     addChannel: (user:any) => { },
-    setConversation: (val:any) => { }
+    setConversation: (val:any) => { },
+    getChannels: async () => { }
 });
 
 export function DataChannelProvider(props:any) {
@@ -39,7 +40,8 @@ export function DataChannelProvider(props:any) {
             data: userData,
             addChannel: addChannelHandler,
             selectedConversation: selectedConv,
-            setConversation: setConversation
+            setConversation: setConversation,
+            getChannels: getChannels
         }}>
             {props.children}
         </DataChannel.Provider>

@@ -2,9 +2,9 @@ import { IsString, IsUUID, ValidateIf } from "class-validator";
 
 export class CreateConnectionDto {
     @IsUUID()
-    user: string;
+    userId: string;
     @IsUUID()
-    channel: string;
+    channelId: string;
     @IsString()
     @ValidateIf((object, value) => value !== null && value !== undefined)
     status: string;

@@ -1,3 +1,5 @@
+import axios from 'axios';
+import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
 import { useContext } from 'react';
 import socket from '../../Library/Socket';
@@ -10,7 +12,20 @@ const OnlineCard =  (props: any) => {
 
     const history = useRouter();
 
-    const msgHandler = () => history.push(`/chat?username=${props.login}`)
+    const msgHandler = async () => {
+        const token = Cookies.get("access_token");
+        const data = {
+            secondId: props.id,
+            content: ""
+        }
+        await axios.post(`http://localhost:5000/conversations/messages/debug`, data, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            }
+        }).then(data => console.log(data))
+        .catch(err => console.log(err))
+        history.push(`/chat?username=${props.login}`)
+    }
     const unfriendHandler = () => socket.emit("RemoveFriendship", {friendId: props.id})
     const blockdHandler = () => socket.emit("blockFriend", {blockedUserId: props.id})
 

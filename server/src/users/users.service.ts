@@ -36,20 +36,8 @@ export class UsersService {
     this.inGameUsers.push(user);
   }
 
-  /* async getUsers(userId: string): Promise<Users[]> {
-    return await this.userRepository.find({
-      where: {id: Not(userId)}
-    })
-      .then(data => {
-        return data.map(user => {
-          delete user.password
-          return user;
-        })
-      });
-  } */
-
-  getAll(): Promise<Users[]> {
-    return this.userRepository.find();
+  async getAll(): Promise<Users[]> {
+    return await this.userRepository.find();
   }
 
   async getUsers(userId: string): Promise<Users[]> {

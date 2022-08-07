@@ -1,3 +1,5 @@
+import axios from 'axios'
+import Cookies from 'js-cookie'
 import socket from '../../Library/Socket'
 import classes from './AllCard.module.css'
 
@@ -5,7 +7,7 @@ const AllCard = (props: any) => {
 
 
     const msgHandler = () => {}
-    const unfriendHandler = () => socket.emit("RemoveFriendship", {friendId: props.id})
+    const unfriendHandler = async () => socket.emit("RemoveFriendship", {friendId: props.id})
     const blockdHandler = () => socket.emit("blockFriend", {blockedUserId: props.id})
 
     return(<div className={classes.allCard}>

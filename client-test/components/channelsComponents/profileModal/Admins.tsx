@@ -1,24 +1,45 @@
+import axios from 'axios';
+import Cookies from 'js-cookie';
+import { useEffect, useState } from 'react';
 import classes from './Admins.module.css'
+import { connectionStatus } from './ChannelInfo';
 
-function AdminCard() {
+function AdminCard(props: any) {
     return (<div className={classes.AdminsCard}>
-        <img className={classes.AdminImage} alt="" src="https://i.pinimg.com/474x/ec/e2/b0/ece2b0f541d47e4078aef33ffd22777e.jpg"></img>
-        <div>Admin</div>
+        <img className={classes.AdminImage} alt="" src={props.avatar}></img>
+        <div>{props.username}</div>
         {/* if user is owner */}
         <div className={classes.buttons}>
-            <button className={classes.button}>remove</button>
+            {(props.status === connectionStatus.ADMIN || props.status === connectionStatus.OWNER) ? (<button className={classes.button}>remove</button>) : <></>}
         </div>
     </div>)
 }
 
 function Admins(props: any) {
+    const [users, setUsers] = useState<any[]>([]);
+    const getMembers = async () => {
+        const token = Cookies.get("access_token");
+        return await axios.get(`http://localhost:5000/channels/connections/members/${props.channel.channelId}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then(res => {
+            console.log(res.data);
+            setUsers(res.data)
+        }).catch(() => { })
+    }
+    useEffect(() => {
+        getMembers()
+    }, [])
     return (
         <div>
             <hr />
             <div className={classes.Admins}>
-                <div ><AdminCard /></div>
-                <div ><AdminCard /></div>
-                <div ><AdminCard /></div>
+                {
+                    users
+                        .filter(user => (user.status === connectionStatus.ADMIN || connectionStatus.OWNER))
+                        .map((user, index) => <div key= {index}><AdminCard {...user} status={props.status} /></div>)
+                }
             </div>
         </div>)
 }

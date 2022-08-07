@@ -9,6 +9,14 @@ export class ConnectionsController {
 
 
   @UseGuards(JwtAuthGuard)
+  @Get("checkSatus")
+  checkSatus(@Req() req) {
+    console.log(req.user.userId);
+    
+    return this.connectionsService.checkSatus(req.user.userId)
+  }
+
+  @UseGuards(JwtAuthGuard)
   @Get()
   getAll() {
     return this.connectionsService.getAll();
@@ -17,8 +25,8 @@ export class ConnectionsController {
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @Post("/new")
-  async join(@Body() createConnectionDto, @Req() req) {
-    return await this.connectionsService.create({...createConnectionDto, user: req.user.userId});
+  async join(@Body() createConnectionDto, @Req() req) {    
+    return await this.connectionsService.create({...createConnectionDto, userId: req.user.userId});
   }
   
   @ApiBearerAuth()
@@ -43,5 +51,11 @@ export class ConnectionsController {
   @Delete(':id')
   async delete(@Param('id') id: string, @Req() req) {
     return await this.connectionsService.delete({id: id, user: req.user.userId});
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get("/members/:id")
+  getMembersById(@Param("id") id) {
+    return this.connectionsService.getMembersById(id)
   }
 }

@@ -52,6 +52,13 @@ export class UsersController {
 
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
+  @Get("all")
+  async getAllUsers(@Req() req) {
+    return await (this.usersService.getAll());
+  }
+
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @Get()
   async getUsers(@Req() req) {
     console.log("userId => ",req.user.userId);
