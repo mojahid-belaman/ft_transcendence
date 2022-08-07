@@ -27,16 +27,23 @@
 
 }
 .blockedCard .buttons button{
-    font-family:  Impact, fantasy;
-    letter-spacing: 3px;
-    font-size: 18px;
-    margin:10px;
+    margin:5px;
     margin-top:30px;
-    border: none;
-    background-color: rgb(46, 46, 46); 
-    border: 3px solid lightgray;
-    width:15%;
-    height: 40px;
-    color :white;
+    padding: 15px 0 15px 0 ;
+    font-family: inherit;
+	display: inline-block;
+	margin:5px;
+    font-weight: bold;
+    background-color: #384864;
+    color: rgb(204,149,62);
+    text-shadow: -1px -1px black, 1px 1px #B8B8CF;
+    -webkit-border-radius: 7px;
+	-moz-border-radius: 7px;
+	-o-border-radius: 7px;
+	border-radius: 7px;
+    box-shadow: 0 .2em #1a2f4f; 
     cursor: pointer;
+    width: 30%;
+    text-align: center;
+    font-family: 'Press Start 2P';
 }

@@ -45,10 +45,10 @@
 .buttonSetting{
     position: relative;
     min-width: 50px;
-    min-height: 50px;
+    min-height: 100%;
     border:none;
-    background-color: white;
-    color :black;
+    background-color:rgb(204,149,62);
+    color:  #384864;
     cursor: pointer;
     font-weight: 900;
     font-size: 20px;

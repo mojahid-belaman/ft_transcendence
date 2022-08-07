@@ -1,15 +1,13 @@
-.chatCard {
+.chatCard{
     width: 70%;
     height: 95%;
-    display: flex;
+    display: flex; 
     flex-direction: column;
     align-items: left;
-    margin-left: 10px;
-    margin-right: 10px;
-    ;
+    margin-left:10px;
+    margin-right: 10px;;
 }
-
-.chatCard .chatContent {
+.chatCard .chatContent{
     margin-top: 20px;
     width: 100%;
     height: calc(100vh - 250px);
@@ -18,11 +16,12 @@
     align-items: center;
     justify-content: flex-end;
 }
-
-.chatCard .chatContent .chatFooter {
+.chatCard .chatContent .chatFooter{
     display: flex;
     flex-direction: row;
-    width: 95%;
+    width:95%;
+    height: 40px;
+    border: none;
     outline: none;
     background-color:transparent;
     margin-bottom: 20px;    
@@ -43,16 +42,15 @@
 
 
 }
-
-.chatFooter button {
+.chatFooter button{
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
     align-items: center;
     margin-left: 10px;
     border: 0;
-    cursor: pointer;
-    height: 100%;
+	cursor: pointer;
+	height: 100%;
     width: 5%;
 	background: transparent;
 	outline: none;
@@ -60,24 +58,28 @@
 	color:  rgb(204,149,62);;
 }
 
-.chatMessages {
-    overflow: scroll;
+.chatMessages{
+    display: flex;
+    flex-direction: column;
     /* overflow-x: hidden; */
-    width: 100%;
+    height: calc(100vh - 200px);
+    overflow-x: auto;
+    overflow-y: auto;
+    justify-content: flex-start;
+    width: 95%;
 }
-
 .chatContent .chatMessages::-webkit-scrollbar {
-    background: white;
-    border-radius: 10px
-}
+	background: white;
+	border-radius: 10px
+} 
 
 .chatContent .chatMessages::-webkit-scrollbar-thumb {
-    background: gray;
-    border-radius: 10px;
-    width: 1px;
+	background: gray;
+	border-radius: 10px;
+	width: 1px;
 
 }
 
 .chatFooter input::-webkit-input-placeholder {
     color: black;
-}
+  }

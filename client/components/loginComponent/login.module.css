@@ -4,7 +4,6 @@
 
 .card {
     display: flex;
-    background-color: white;
     font-family: 'Press Start 2P';
     letter-spacing: 3px;
     position: absolute; 
@@ -17,36 +16,48 @@
     max-width: 1200px;
     min-width: 600px;
     width: 95%;
+    /* border: 2px solid rgb(201, 201, 201); */
+    box-shadow: rgb(204,149,62) 0px 1px 3px, rgba(250, 189, 93, 0.001) 0px 1px 2px;
+    border-radius: 10px;
+    background-color: transparent;
 }
 
 .contributorBox {
-    background-color: black;
+    background-color: rgb(204,149,62);
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
     width: 60%;
-    color: white;
+    color: #384864;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    padding: 20px;
-    border: 2px solid white;
+    justify-content: space-evenly;
+    padding: 40px;
 }
 
-
+.img{
+    flex-basis: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    color: rgb(204,149,62);
+    padding-top: 40px;
+}
 
 .contributorBox h6 {
     margin-top: 200px;
     font-size: 7px;
 }
 
-.contributorBox i {
-    color: #EC1840;
-}
 
 .field {
     margin: auto auto;
     width: 400px;
     height: 200px;
     position: relative;
+    border: 4px solid #384864;
+    border-radius: 10px;
 }
 
 .pad {
@@ -59,8 +70,8 @@
     transform: translateX(-50%);
 
     border-width: 2px;
-    border-style: solid;
-    border-color: white;
+    border-style: dashed;
+    border-color: #384864;
 }
 
 .ping,
@@ -68,7 +79,7 @@
     width: 4px;
     height: 25px;
     position: absolute;
-    background: white;
+    background: #384864;
 }
 
 .ping {
@@ -86,7 +97,7 @@
     height: 5px;
 
     position: absolute;
-    background: white;
+    background: #384864;
 
     animation: ball 6s infinite linear;
 }
@@ -270,26 +281,8 @@
     }
 }
 
-/* .dev {
-    display: flex;
-    justify-content: space-around;
-}
-
-.devLink {
-    height: 30px;
-    width: 30px;
-    background-color: white;
-    border-radius: 50%;
-    display: inline-block;
-    margin: 10px;
-    text-decoration: none;
-    color: black;
-    font-size: 15px;
-    border: 2px solid red;
-} */
 
 .LoginBox {
-    width: 40%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -297,45 +290,29 @@
 }
 
 .LoginButton {
-    /* font-family: 'Press Start 2P';
-    margin: 20px;
-    line-height: 40px;
-    letter-spacing: 2px;
-    text-decoration: none;
-    text-transform: uppercase;
-    text-align: center;
-    color: black;
-    transition: 0.5s;
-    border: 1px solid transparent;
-    cursor: pointer;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; */
-    padding: 15px 0 15px 15px ;
+    padding: 30px 0 30px 15px ;
     font-family: inherit;
 	display: inline-block;
 	margin:5px;
     font-weight: bold;
-    background-color: black;
-    text-shadow: -1px -1px black, 1px 1px white;
-    color: gray;
+    background-color: #384864;
+    text-shadow: -1px -1px black, 1px 1px #B8B8CF;
+    color: rgb(204,149,62);
     -webkit-border-radius: 7px;
 	-moz-border-radius: 7px;
 	-o-border-radius: 7px;
 	border-radius: 7px;
-    box-shadow: 0 .2em gray; 
+    box-shadow: 0 .2em #1a2f4f; 
     cursor: pointer;
-    width: 70%;
     text-align: center;
+    width: 100%;
+    
 }
 
-/* .LoginButton a {
-    text-decoration: none;
-    color: black;
-}*/
-
 .LoginButton:hover {
-    /* border: 7px solid black;
-    background-size: 180px; */
-    background-color: lightgray;
+    box-shadow: 0 .2em #B8B8CF; 
+    background-color: #757BC4;
+    color: #B8B8CF;
 
 } 
 

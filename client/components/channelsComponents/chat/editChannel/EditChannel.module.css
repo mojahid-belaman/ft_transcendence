@@ -15,20 +15,18 @@
     display: flex;
     flex-direction: column;
     letter-spacing: 3px;
-<<<<<<< HEAD
-=======
     /* font-family: 'Press Start 2P'; */
     font-family: 'Overpass', sans-serif;
->>>>>>> 7d93243dee28086c50c910fb8af93d0fc1285713
     background: black;
-    color: white;
+    color: rgb(204,149,62);
+    width: 60%;
+    max-width: 1200px;
+    min-width: 600px;
     margin: auto;
     margin-top: 10%;
+    padding: 30px;
     border-radius: 10px;
-    border: 1px solid white;
-    width: 100%;
-    padding: 20px;
-    font-family: "Gill Sans", sans-serif;
+    box-shadow: rgb(204,149,62) 0px 2px 5px, rgba(250, 189, 93, 0.001) 0px 1px 2px;
     /*
    
     
@@ -41,12 +39,8 @@
     text-align: center;
     font-size: 20px;
     font-size: 30px;
-<<<<<<< HEAD
-    color: rgb(107, 107, 107);
-=======
     font-family: 'Press Start 2P';
 
->>>>>>> 7d93243dee28086c50c910fb8af93d0fc1285713
 }
 
 .card {
@@ -72,43 +66,27 @@
 }
 
 .card .editForm .info .inputs {
-
     font-family: 'Overpass', sans-serif;
-    color: white;
+    color: #384864;
     background: transparent;
-<<<<<<< HEAD
-    border: 2px solid white;
-=======
     border: 2px solid #384864;
->>>>>>> 7d93243dee28086c50c910fb8af93d0fc1285713
     border-radius: 10px;
     padding: 15px 0 15px 15px ;
     font-size: larger;
     outline: none;
-    height: 40px;
     width: 100%;
-    margin-top: 5px;
 }
 
 .card .editForm .info textarea {
     font-family: 'Overpass', sans-serif;
-    color: white;
+    color: #384864;
     background: transparent;
-<<<<<<< HEAD
-    border: 2px solid white;
-=======
     border: 2px solid #384864;
->>>>>>> 7d93243dee28086c50c910fb8af93d0fc1285713
     border-radius: 10px;
-    /* padding: 15px 0 15px 15px ; */
+    padding: 15px 0 15px 15px ;
     font-size: larger;
     outline: none;
-<<<<<<< HEAD
-    margin-top: 5px;
-    height: 70px;
-=======
     width: 100%;
->>>>>>> 7d93243dee28086c50c910fb8af93d0fc1285713
     resize: none;
 }
 
@@ -120,38 +98,29 @@
 }
 
 .card .editForm button {
+    margin:5px;
+    margin-top:30px;
+    padding: 15px 0 15px 0 ;
+    font-family: inherit;
+	display: inline-block;
+	margin:5px;
     font-weight: bold;
-    background-color: lightgray;
-    text-shadow: -1px -1px black, 1px 1px white;
-    color: gray;
+    background-color: #384864;
+    color: rgb(204,149,62);
+    text-shadow: -1px -1px black, 1px 1px #B8B8CF;
     -webkit-border-radius: 7px;
-    -moz-border-radius: 7px;
-    -o-border-radius: 7px;
-    border-radius: 7px;
-    box-shadow: 0 .2em gray;
+	-moz-border-radius: 7px;
+	-o-border-radius: 7px;
+	border-radius: 7px;
+    box-shadow: 0 .2em #1a2f4f; 
     cursor: pointer;
-    margin: 10px;
-    height: 40px;
-    width: 100px;
-    font-size: 20px;
+    width: 30%;
+    text-align: center;
+    font-family: 'Press Start 2P';
 }
 
-#cancel {
-    background-color: rgb(105, 105, 105);
-}
-
-#edit {
-    background-color: black;
-}
 
 #cancel:hover {
-<<<<<<< HEAD
-    background-color: gray;
-}
-
-#edit:hover {
-    background-color: gray;
-=======
     box-shadow: 0 .2em #B8B8CF; 
     background-color: #757BC4;
     color: #B8B8CF;
@@ -161,7 +130,6 @@
     box-shadow: 0 .2em #B8B8CF; 
     background-color: #757BC4;
     color: #B8B8CF;
->>>>>>> 7d93243dee28086c50c910fb8af93d0fc1285713
 }
 
 .buttons {

@@ -10,31 +10,31 @@
 .chatCard .chatContent{
     margin-top: 20px;
     width: 100%;
-    height: calc(100vh - 200px);
+    /* height: calc(100vh - 200px); */
     display : flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-end;
 }
-.chatCard .chatContent .chatFooter {
+.chatCard .chatContent .chatFooter{
     display: flex;
     flex-direction: row;
-    width: 95%;
-    outline: none;
-    justify-content: space-between;
-    height: 6%;
-    align-items: center;
-}
-
-.chatFooter input {
-    width: 90%;
+    width:95%;
     height: 40px;
-    font-family: 'Overpass', sans-serif;
+    border: none;
+    outline: none;
+    background-color:transparent;
+    margin-bottom: 20px;    
+    margin-top: 10px;
     color: white;
+}
+.chatFooter input{
+    font-family: 'Overpass', sans-serif;
+    color: #384864;
     background: transparent;
-    border: 2px solid white;
+    border: 2px solid rgb(204,149,62);
     border-radius: 10px;
-    padding: 15px 0 15px 15px;
+    padding: 15px 0 15px 15px ;
     font-size: larger;
     outline: none;
     box-shadow: rgb(204,149,62) 0px 1px 3px, rgba(250, 189, 93, 0.001) 0px 1px 2px;
@@ -45,6 +45,8 @@
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
+    align-items: center;
+    margin-left: 10px;
     border: 0;
 	cursor: pointer;
 	height: 100%;
@@ -52,12 +54,12 @@
 	background: transparent;
 	outline: none;
 	font-size: 25px;
-	color: white;
-    align-items: center;
+	color:  rgb(204,149,62);;
 }
 
 .chatMessages{
-    overflow: scroll;
+    display: flex;
+    flex-direction: column;
     /* overflow-x: hidden; */
     height: 80vh;
     overflow-x: auto;
@@ -68,7 +70,7 @@
 .chatContent .chatMessages::-webkit-scrollbar {
 	background: white;
 	border-radius: 10px
-}
+} 
 
 .chatContent .chatMessages::-webkit-scrollbar-thumb {
 	background: gray;
