@@ -4,7 +4,6 @@ import { loadFull } from "tsparticles";
 
 function ParticleWinner() {
     const particlesInit = async (main: any) => {
-        console.log(main);
     
         // you can initialize the tsParticles instance (main) here, adding custom shapes or presets
         // this loads the tsparticles package bundle, it's the easiest method for getting everything ready
@@ -13,7 +12,6 @@ function ParticleWinner() {
       };
     
       const particlesLoaded: any = (container: any) => {
-        console.log(container);
       };
   return (
     <Particles  

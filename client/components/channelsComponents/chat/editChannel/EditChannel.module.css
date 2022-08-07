@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Overpass:wght@500&display=swap');
+
+
 .backdrop {
     position: absolute;
     left: 0px;
@@ -12,6 +15,11 @@
     display: flex;
     flex-direction: column;
     letter-spacing: 3px;
+<<<<<<< HEAD
+=======
+    /* font-family: 'Press Start 2P'; */
+    font-family: 'Overpass', sans-serif;
+>>>>>>> 7d93243dee28086c50c910fb8af93d0fc1285713
     background: black;
     color: white;
     margin: auto;
@@ -30,10 +38,15 @@
 }
 
 .text {
-    text-align: left;
+    text-align: center;
     font-size: 20px;
     font-size: 30px;
+<<<<<<< HEAD
     color: rgb(107, 107, 107);
+=======
+    font-family: 'Press Start 2P';
+
+>>>>>>> 7d93243dee28086c50c910fb8af93d0fc1285713
 }
 
 .card {
@@ -63,7 +76,11 @@
     font-family: 'Overpass', sans-serif;
     color: white;
     background: transparent;
+<<<<<<< HEAD
     border: 2px solid white;
+=======
+    border: 2px solid #384864;
+>>>>>>> 7d93243dee28086c50c910fb8af93d0fc1285713
     border-radius: 10px;
     padding: 15px 0 15px 15px ;
     font-size: larger;
@@ -77,13 +94,21 @@
     font-family: 'Overpass', sans-serif;
     color: white;
     background: transparent;
+<<<<<<< HEAD
     border: 2px solid white;
+=======
+    border: 2px solid #384864;
+>>>>>>> 7d93243dee28086c50c910fb8af93d0fc1285713
     border-radius: 10px;
     /* padding: 15px 0 15px 15px ; */
     font-size: larger;
     outline: none;
+<<<<<<< HEAD
     margin-top: 5px;
     height: 70px;
+=======
+    width: 100%;
+>>>>>>> 7d93243dee28086c50c910fb8af93d0fc1285713
     resize: none;
 }
 
@@ -120,11 +145,23 @@
 }
 
 #cancel:hover {
+<<<<<<< HEAD
     background-color: gray;
 }
 
 #edit:hover {
     background-color: gray;
+=======
+    box-shadow: 0 .2em #B8B8CF; 
+    background-color: #757BC4;
+    color: #B8B8CF;
+}
+
+#edit:hover {
+    box-shadow: 0 .2em #B8B8CF; 
+    background-color: #757BC4;
+    color: #B8B8CF;
+>>>>>>> 7d93243dee28086c50c910fb8af93d0fc1285713
 }
 
 .buttons {

@@ -132,4 +132,25 @@
 }
 
 
+.toast-message {
+    color: rgb(187, 27, 27);
+    font-size: 20px;
+    width: 34vw;
+    height: 5vh;
+}
+
+@media only screen and (max-width: 900px) {
+
+    .userName{
+        flex-direction: column;
+    }
+    .twoFactorAuth{
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .twoFactorAuth label{
+        text-align: center;
+    }
+}
 

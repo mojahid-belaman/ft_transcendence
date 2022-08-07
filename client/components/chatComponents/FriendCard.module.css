@@ -1,16 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Overpass:wght@500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap");
+
 .friendButton{
-    font-family:  Impact, fantasy;
+    font-family:  'Overpass', sans-serif;
     letter-spacing: 3px;
-    min-width:65%;
     height: 50px;
-    border:none;
-    background-color: lightgray;
+    border-radius: 6px;
+    background-color: #384864;
+    color: rgb(204,149,62);
     margin-bottom: 10px;
     color: black;
     cursor: pointer;
     display: flex;
     flex-direction: row;
     align-items: center;
+    padding: 10px;
 }
 .friendButton .profileImg{
     border-radius: 50%;
@@ -26,23 +30,20 @@
 }
 
 .friendButton:hover{
-    /* width:100%; */
-    box-shadow: rgba(255, 253, 253, 0.25) 0px 54px 55px, rgba(197, 193, 193, 0.12) 0px -12px 30px, rgba(212, 212, 212, 0.12) 0px 4px 6px, rgba(117, 117, 117, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
-    background-color: white;
+   background-color: rgba(255, 253, 253, 0.25);
+    color:rgb(204,149,62);
 }
 @media screen and (max-width: 700px){
     .friendButton{
        flex-direction: column;
        width: 100%;
-       height: 10%;
+       height: 100%;
+       justify-content: center;
+       align-items: center;
     }
-    .profileInfo{
-        align-items: center;
-    }
+
     .friendButton:hover{
         box-shadow: none;
         /* width: 90px; */
-        background-color: white;
     }
 }
-    

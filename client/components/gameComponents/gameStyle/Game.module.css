@@ -38,7 +38,21 @@
   width: 50vw;
   font-family: "Press Start 2P", cursive;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
+}
+
+.container .users .watcher {
+  display: flex;
+  flex-direction: column;
+}
+
+.container .users .watcher span {
+  display: inline-block;
+  background-color: #000;
+  padding: 10px;
+  border-radius: 50%;
+  font-size: 15px;
+  text-align: center;
 }
 
 .container .users div {
