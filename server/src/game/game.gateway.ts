@@ -15,9 +15,7 @@ import { Player } from './Classes/player';
 import { GameService } from './game.service';
 
 @WebSocketGateway({namespace: "game", cors: { origin: '*' } })
-export class GameGateway
-  implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect
-{
+export class GameGateway {
   private logger: Logger = new Logger('GameGateway');
   //NOTE - Declare Objects Of Players
   private playerOne: Player;
@@ -40,10 +38,10 @@ export class GameGateway
     this.logger.log('Initial');
   }
 
-  handleConnection(client: Socket, ...args: any[]) {
-    /* 
-    if the user has watcher stat: emit "send_games" with GameGateway.game array to be rendered in the frontend
-     */
+  /* handleConnection(client: Socket, ...args: any[]) {
+    
+    // if the user has watcher stat: emit "send_games" with GameGateway.game array to be rendered in the frontend
+    
     this.logger.log('Connect Success ' + `${client.id}`);
   }
 
@@ -63,6 +61,7 @@ export class GameGateway
       }
     }
   }
+ */
 
   @SubscribeMessage('upPaddle')
   hundle_up_paddle(client: Socket, payload: string) {
@@ -104,8 +103,13 @@ export class GameGateway
 
   @SubscribeMessage('join_match')
   hundle_join_match(client: Socket, payload: any) {
-    this.logger.log('Join Match ' + `${client.id} `);
     const user: any = payload.user;
+    const tmp = this.userArr.findIndex((u) => {
+      return u.id === user.id;
+    })
+    if (tmp !== -1 && this.userArr.length == 1)
+      return;
+    this.logger.log('Join Match ' + `${client.id} `);
     console.log('user => ',payload.user);
 
     //NOTE - Check If the same client not add in Set of socket

@@ -64,7 +64,10 @@ function ProtectedCard(props: any) {
             //console.log(data);
             props.setStatus(channelStatus.PUBLIC);
         })
-        .catch(err => setError(err.response.data.message))
+        .catch(err => {
+            console.log(err);
+            setError(err.response.data.message)
+        })
     }
 
     return (

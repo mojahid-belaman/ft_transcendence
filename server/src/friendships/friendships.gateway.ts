@@ -9,7 +9,7 @@ import { FriendshipsService, onlineFriends } from './friendships.service';
 
 @WebSocketGateway({
   cors: {
-    origin: "http://localhost:3000"
+    origin: "*"
   }
 })
 export class FriendshipsGateway {

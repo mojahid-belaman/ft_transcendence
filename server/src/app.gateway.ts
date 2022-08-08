@@ -13,6 +13,8 @@ import {
 import { UsersService } from './users/users.service';
 import { JwtService } from '@nestjs/jwt';
 import { FriendshipsService } from './friendships/friendships.service';
+import { GameGateway } from './game/game.gateway';
+import { gameSate } from './game/Classes/gameState';
 
 @WebSocketGateway({ cors: { origin: "*" } })
 
@@ -32,7 +34,7 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
     }
 
     async handleConnection(client: Socket, ...args: any[]) {
-        this.logger.log('connection => ' + client.id)
+        this.logger.log('Connect Success ' + `${client.id}`);
         // "undefined"
         if (client.handshake.query && client.handshake.query.token && client.handshake.query.token !== "undefined") {
             const user: any = this.jwtService.decode(String(client.handshake.query.token))
@@ -44,6 +46,19 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
 
     async handleDisconnect(client: Socket) {
         this.logger.log('disconnection => ', client.id)
+        let gameFound = GameGateway.game.find((gm) => {
+            return (
+              gm.get_PlayerOne().getSocket() === client ||
+              gm.get_PlayerTwo().getSocket() === client
+            );
+          });
+          if (gameFound) {
+            if (gameFound.gameStateFunc() === gameSate.PLAY) {
+              gameFound.playerOutGame(client);
+              gameFound.stopGame();
+              GameGateway.game.splice(GameGateway.game.indexOf(gameFound), 1);
+            }
+          }
         if (client.handshake.query && client.handshake.query.token && client.handshake.query.token !== "undefined") {
             const user: any = await this.jwtService.decode(String(client.handshake.query.token));
             if (user) {

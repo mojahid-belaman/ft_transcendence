@@ -47,7 +47,10 @@ function Chat(props:any) {
             }
         }).then((res) => {
             setMessageList([...res.data])
-        }).catch(err => setError("Error: " + err.response.data.message));
+        }).catch(err => {
+            console.log(err.response.data);
+            setError("Error: " + err.response.data.message)
+        });
     }
 
     useEffect(() => {

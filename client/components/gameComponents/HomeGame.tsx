@@ -29,6 +29,7 @@ export function HomeGame() {
         },
       })
       .then((res) => {
+        console.log("Entered!");
         socket.emit("join_match", {
           user: res.data,
         });
