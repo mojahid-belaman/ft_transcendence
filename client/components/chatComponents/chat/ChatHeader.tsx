@@ -4,14 +4,20 @@ import { BiDotsVertical } from "react-icons/bi";
 import { BsCheckLg, BsXLg } from 'react-icons/bs';
 import socket from '../../Library/Socket';
 function GameInvitation(props: any) {
+
+    const acceptInviteHandler = () => {
+        if (props.roomGame)
+            socket.emit("AcceptGameInvite", props?.roomGame)
+    }
+
     return <div>
         <div className={classes.backdrop}></div>
         <div className={classes.card}>
             <div className={classes.cardContent}>
                 <h1>GAME INVITATION</h1>
                 <div className={classes.choices}>
-                    <button id={classes.check} className={classes.buttons} onClick={props.OpenClose}><BsCheckLg/></button>
-                    <button id={classes.cross} className={classes.buttons} onClick={props.OpenClose}><BsXLg/></button>
+                    <button id={classes.check} className={classes.buttons} onClick={acceptInviteHandler}><BsCheckLg /></button>
+                    <button id={classes.cross} className={classes.buttons} onClick={props.OpenClose}><BsXLg /></button>
                 </div>
             </div>
         </div>
@@ -31,15 +37,16 @@ function WaitingInvitation(props: any) {
 function ChatHeader(props: any) {
     const [backdrop1, setBackdrop1] = useState(false);
     const [backdrop2, setBackdrop2] = useState(false);
+    const [isWaiting, setIsWaiting] = useState(false)
+    const [roomGame, setRoomGame] = useState({});
 
-    const unfriendHandler = () => socket.emit("RemoveFriendship", {friendId: props.user.userId})
-    const blockdHandler = () => socket.emit("blockFriend", {blockedUserId: props.user.userId})
+    const unfriendHandler = () => socket.emit("RemoveFriendship", { friendId: props.user.userId })
+    const blockdHandler = () => socket.emit("blockFriend", { blockedUserId: props.user.userId })
 
     socket.on("RemoveFriend", (data) => {
         props.setAllowed(false)
         props.setMessage(data.message)
     })
-
     function OpenCloseModal1() {
         if (backdrop1 === false)
             setBackdrop1(true);
@@ -53,9 +60,15 @@ function ChatHeader(props: any) {
             setBackdrop2(false);
     }
 
-    useEffect(() => {
-        //console.log(props.user);
-    }, [])
+    socket.on("InviteToGameSent", (data: any) => {
+        setRoomGame({...data?.room})
+        setBackdrop2(true)
+    })
+
+    const sendInvitationHandler = () => {
+        socket.emit("inviteToGame", { userId: props.user.userId })
+        setIsWaiting(true)
+    }
 
     return props.user ? (<div className={classes.chatWrapper}>
         <button className={classes.chatHeader} onClick={props.toggle} >
@@ -66,19 +79,19 @@ function ChatHeader(props: any) {
             </div>
         </button>
         <button onClick={OpenCloseModal1} className={classes.buttonSetting}><BiDotsVertical />
-        {backdrop1 ?
-            <div className={classes.divUser}>
-                <div className={classes.userHandler}>
-                    <button onClick={() => { OpenCloseModal2(); OpenCloseModal1() }} className={classes.button}>Game Invitation</button>
-                    <button onClick={unfriendHandler} className={classes.button}>Unfriend</button>
-                    <button onClick={blockdHandler} className={classes.button}>Block</button>
+            {backdrop1 ?
+                <div className={classes.divUser}>
+                    <div className={classes.userHandler}>
+                        <button onClick={sendInvitationHandler} className={classes.button}>Game Invitation</button>
+                        <button onClick={unfriendHandler} className={classes.button}>Unfriend</button>
+                        <button onClick={blockdHandler} className={classes.button}>Block</button>
+                    </div>
                 </div>
-            </div> 
-            : null
-        }
+                : null
+            }
         </button>
-        // check if it's the user =>display gameInvitation else => display waiting + add socket
-        {backdrop2 ? <GameInvitation OpenClose={OpenCloseModal2} /> : null}
+        {backdrop2 ? <GameInvitation roomGame={roomGame} OpenClose={OpenCloseModal2} {...props.user} /> : null}
+        {isWaiting ? <WaitingInvitation OpenClose={OpenCloseModal2} {...props.user} /> : null}
 
     </div>) : <></>
 }

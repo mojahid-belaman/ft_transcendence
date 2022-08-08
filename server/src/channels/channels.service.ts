@@ -4,6 +4,7 @@ import { ConnectionsService } from 'src/connections/connections.service';
 import { connectionStatus } from 'src/connections/entities/connection.entity';
 import { Repository } from 'typeorm';
 import { Channels, channelStatus } from './entity/channels.entity';
+import bcrypt from "bcryptjs";
 
 @Injectable()
 export class ChannelsService {
@@ -44,6 +45,10 @@ export class ChannelsService {
   async createChannel(channelObj) {
     if (channelObj.status === channelStatus.PROTECTED && channelObj.password === null)
       throw new ForbiddenException("Password not set for protected channel")
+    else if (channelObj.password !== null) {
+      let salt = bcrypt.genSaltSync(10);
+      channelObj.password = bcrypt.hashSync(channelObj.password, salt)
+    }
     return await this.channelRepository.save(channelObj)
       .then(async (channel) => {
         await this.connectionsService.create({ channelId: channel.id, userId: channel.ownerId, status: connectionStatus.OWNER })
@@ -71,7 +76,8 @@ export class ChannelsService {
       })
       if (channel) {
         if (channel.status === channelStatus.PROTECTED) {
-          if (channel.password === body.password)
+          // if (channel.password === body.password)
+          if (bcrypt.compareSync(body.password, channel.password))
             return ({ status: 200 })
           throw new UnauthorizedException("Wrong Password!");
         }

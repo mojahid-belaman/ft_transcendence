@@ -16,7 +16,7 @@ import { FriendshipsService } from './friendships/friendships.service';
 
 @WebSocketGateway({
     cors: {
-        origin: '*',
+        origin: "http://localhost:3000",
         },
 })
 
@@ -39,13 +39,7 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
         this.logger.log('connection => ' + client.id)
         // "undefined"
         if (client.handshake.query && client.handshake.query.token && client.handshake.query.token !== "undefined") {
-            console.log("Hello from socket 1 ", client.handshake.query.token);
-            
-            const user: any = await this.jwtService.verify(String(client.handshake.query.token), {
-                secret: process.env.JWT_SECRET
-            })
-            
-            console.log("Hello from socket 2");
+            const user: any = this.jwtService.decode(String(client.handshake.query.token))            
             if (user) {
                 this.friendshipsService.setOnlineStatus(user.userId, client);                
             }
@@ -53,11 +47,9 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
     }
 
     async handleDisconnect(client: Socket) {
-        this.logger.log('disconnection')
+        this.logger.log('disconnection => ', client.id)
         if (client.handshake.query && client.handshake.query.token && client.handshake.query.token !== "undefined") {
-            const user: any = await this.jwtService.verify(String(client.handshake.query.token), {
-                secret: process.env.JWT_SECRET
-            });
+            const user: any = await this.jwtService.decode(String(client.handshake.query.token));
             if (user) {
                 //console.log("Disconnect => ", user);
                 this.friendshipsService.setOffLineStatus(user.userId, client.id);

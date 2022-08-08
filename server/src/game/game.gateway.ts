@@ -14,10 +14,9 @@ import { gameSate } from './Classes/gameState';
 import { Player } from './Classes/player';
 import { GameService } from './game.service';
 
-@WebSocketGateway(5001, { cors: { origin: '*' } })
+@WebSocketGateway( 5001, { cors: { origin: "*" } })
 export class GameGateway
-  implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect
-{
+  implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
   private logger: Logger = new Logger('GameGateway');
   //NOTE - Declare Objects Of Players
   private playerOne: Player;
@@ -106,7 +105,9 @@ export class GameGateway
   hundle_join_match(client: Socket, payload: any) {
     this.logger.log('Join Match ' + `${client.id} `);
     const user: any = payload.user;
-    console.log('user => ',payload.user);
+
+
+    console.log('user => ', user);
 
     //NOTE - Check If the same client not add in Set of socket
     if (this.socketArr.has(client)) {
@@ -118,13 +119,13 @@ export class GameGateway
     })
     if (findUser)
       return;
-      
+
     //NOTE - Add Client Socket In Set
     this.socketArr.add(client);
 
     //NOTE - Add User In Array
     this.userArr.push(user);
-    
+
     //NOTE - Check if Set Of Socket (i means player) to stock is 2
     const itSock = this.socketArr.values();
     const [first, second] = this.userArr;

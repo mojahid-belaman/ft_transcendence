@@ -6,7 +6,14 @@ import * as cookieParser from 'cookie-parser';
 
 async function bootstrap() {
   require('dotenv').config()  
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    cors: {
+      origin: "http://localhost:3000"
+    }
+  });
+  // const cors = require('cors');
+  // app.use(cors({ credentials: true, origin: process.env.FRONT_END_URI }));
+  app.use(cookieParser());
   
   const config = new DocumentBuilder()
   .setTitle("Channels & Chat API")
@@ -18,9 +25,6 @@ async function bootstrap() {
   
   
   app.useGlobalPipes(new ValidationPipe())
-  const cors = require('cors');
-  app.use(cors({ credentials: true, origin: process.env.FRONT_END_URI }));
-  app.use(cookieParser());
   
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
