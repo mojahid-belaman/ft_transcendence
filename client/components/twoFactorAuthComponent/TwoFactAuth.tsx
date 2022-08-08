@@ -19,7 +19,7 @@ function TwoFactAuth() {
   const handleCodeClick = async (e: any) => {
     e.preventDefault();
     const turnOn2fa = await axios.post(
-      'http://localhost:5000/2fa/turn-on',
+      `${process.env.BACK_END_URI}/2fa/turn-on`,
       { code },
       {
         headers: { Authorization: `Bearer ${tempToken}` },
@@ -30,7 +30,7 @@ function TwoFactAuth() {
       }
       else{
         await axios.post(
-              'http://localhost:5000/2fa/authenticate',
+              `${process.env.BACK_END_URI}/2fa/authenticate`,
               { code },
               {
                 headers: { Authorization: `Bearer ${tempToken}` },

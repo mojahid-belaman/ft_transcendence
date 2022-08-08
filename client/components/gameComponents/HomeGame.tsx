@@ -23,7 +23,7 @@ export function HomeGame() {
     setCurrentState(StateGame.WAIT);
     const token = Cookies.get("access_token");
     await axios
-      .get("http://localhost:5000/users/me", {
+      .get(`${process.env.BACK_END_URI}/users/me`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -57,7 +57,7 @@ export function HomeGame() {
   setCurrentState(StateGame.WAIT);
   const token = Cookies.get("access_token");
   await axios
-    .get("http://localhost:5000/users/me", {
+    .get(`${process.env.BACK_END_URI}/users/me`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

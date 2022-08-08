@@ -18,13 +18,13 @@ export class IntraAuthController {
       if (userExist.isTwoFactorAuthEnabled) {
         const temp_token = await this.authService.tfaToken({...req.user, id: userExist.id});
         res.cookie('2fa_token', temp_token);
-        return res.redirect(`http://localhost:3000/twoFactorAuth`);
+        return res.redirect(`${process.env.FRONT_END_URI}/twoFactorAuth`);
       }
       const accesToken = await this.authService.login({...req.user, id: userExist.id});
       res.cookie('access_token', accesToken);
       if(userExist.isFirstTime)
-        return res.redirect(`http://localhost:3000/settings`);
-      return res.redirect(`http://localhost:3000/home`);
+        return res.redirect(`${process.env.FRONT_END_URI}/settings`);
+      return res.redirect(`${process.env.FRONT_END_URI}/home`);
     }
 
   }

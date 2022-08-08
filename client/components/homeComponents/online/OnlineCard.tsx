@@ -18,7 +18,7 @@ const OnlineCard =  (props: any) => {
             secondId: props.id,
             content: ""
         }
-        await axios.post(`http://localhost:5000/conversations/messages/debug`, data, {
+        await axios.post(`${process.env.BACK_END_URI}/conversations/messages/debug`, data, {
             headers: {
                 Authorization: `Bearer ${token}`,
             }

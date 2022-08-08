@@ -58,7 +58,7 @@ function Profile() {
   const [username, setUsermame] = useState('');
   const [login, setLogin] = useState('');
   const fetchImage = async () => {
-    const img =  await axios.get('http://localhost:5000/users/me',{
+    const img =  await axios.get(`${process.env.BACK_END_URI}/users/me`,{
       headers : {
         Authorization: `Bearer ${accessToken}`
       }
@@ -71,7 +71,7 @@ function Profile() {
   }
 
   const getHistory = async () => {
-    await axios.get('http://localhost:5000/games/history',{
+    await axios.get(`${process.env.BACK_END_URI}/games/history`,{
       headers : {
         Authorization: `Bearer ${accessToken}`
       }

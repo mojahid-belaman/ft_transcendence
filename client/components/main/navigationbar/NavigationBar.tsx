@@ -14,7 +14,7 @@ function NavigationBar() {
   const accessToken = Cookies.get("access_token");
   const handleLogOut = async () => {
     Cookies.remove("access_token");
-    window.location.href = "http://localhost:3000/";
+    window.location.href = `${process.env.FRONT_END_URI}`;
   };
 
   return (

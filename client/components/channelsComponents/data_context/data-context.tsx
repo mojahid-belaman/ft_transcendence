@@ -24,7 +24,7 @@ export function DataChannelProvider(props:any) {
 
     const getChannels = async () => {
         const token = Cookies.get("access_token");
-        await axios.get('http://localhost:5000/channels', {
+        await axios.get(`${process.env.BACK_END_URI}/channels`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }

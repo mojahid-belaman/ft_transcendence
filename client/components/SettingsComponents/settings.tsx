@@ -19,7 +19,7 @@ function SettingsComponent() {
   useEffect(() => {
     const responseImage = async () => {
       await axios
-      .get('http://localhost:5000/users/me', {
+      .get(`${process.env.BACK_END_URI}/users/me`, {
         headers: { Authorization: `Bearer ${accessToken}` },
       })
       .then((resolve) => {
@@ -36,7 +36,7 @@ function SettingsComponent() {
     const formData = new FormData();
     formData.append('avatar', event.target.files[0]);
     await axios
-    .post('http://localhost:5000/users/upload', formData, {
+    .post(`${process.env.BACK_END_URI}/users/upload`, formData, {
       headers: { "Content-Type": "multipart/form-data",
       Authorization: `Bearer ${accessToken}` },
     })
@@ -49,7 +49,7 @@ function SettingsComponent() {
   
   const updateUserName = async () => {
       await axios.post(
-      'http://localhost:5000/users/username',
+      `${process.env.BACK_END_URI}/users/username`,
       {
         username: userRef.current.value,
       },
@@ -71,12 +71,12 @@ function SettingsComponent() {
     useEffect(() => {
       const getQrCode = async () => {
         await axios
-        .get('http://localhost:5000/users/me', {
+        .get(`${process.env.BACK_END_URI}/users/me`, {
           headers: { Authorization: `Bearer ${accessToken}` },
         })
         .then((res) => setQrCode(res.data.qrCode));
       };
-      axios.get('http://localhost:5000/users/me',{
+      axios.get(`${process.env.BACK_END_URI}/users/me`,{
         headers: { Authorization: `Bearer ${accessToken}` },
       }).then((res) => {
         setIs2FA(res.data.isTwoFactorAuthEnabled)
@@ -89,7 +89,7 @@ function SettingsComponent() {
       if(!is2FA){
         axios
         .get(
-          'http://localhost:5000/2fa/generate',
+          `${process.env.BACK_END_URI}/2fa/generate`,
           {
             headers: { Authorization: `Bearer ${accessToken}` },
           }
@@ -100,7 +100,7 @@ function SettingsComponent() {
           });
         }
         else{
-          axios.get('http://localhost:5000/2fa/turn-off',
+          axios.get(`${process.env.BACK_END_URI}/2fa/turn-off`,
           {
             headers: { Authorization: `Bearer ${accessToken}` },
           }).then((res) => setIs2FA(res.data.isTwoFactorAuthEnabled))

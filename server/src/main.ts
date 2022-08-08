@@ -8,7 +8,7 @@ async function bootstrap() {
   require('dotenv').config()  
   const app = await NestFactory.create(AppModule, {
     cors: {
-      origin: "http://localhost:3000"
+      origin: `${process.env.FRONT_END_URI}`
     }
   });
   // const cors = require('cors');

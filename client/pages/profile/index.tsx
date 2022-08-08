@@ -17,7 +17,7 @@ function ProfilePage() {
 		if(tempToken)
 				history.push('/twoFactorAuth')
 		else if (token)
-			  await axios.get("http://localhost:5000/auth/isAuthorized", {
+			  await axios.get(`${process.env.BACK_END_URI}/auth/isAuthorized`, {
 				  headers: {
 					  Authorization: `Bearer ${token}`,
 				  }

@@ -38,7 +38,7 @@ function NewChannel(props:any) {
             password: password
         }
         const token = Cookies.get('access_token');
-        await axios.post(`http://localhost:5000/channels`, data, {
+        await axios.post(`${process.env.BACK_END_URI}/channels`, data, {
             headers: {
                 Authorization: `Bearer ${token}`,
             }

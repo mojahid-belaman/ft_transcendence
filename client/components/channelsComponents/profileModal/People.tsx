@@ -12,7 +12,7 @@ function PeopleCard(props: any) {
         const token = Cookies.get("access_token")
         //console.log(props);
         const data = {channelId: props.channelId}
-        await axios.post(`http://localhost:5000/channels/connections/new/${props.id}`, data,{
+        await axios.post(`${process.env.BACK_END_URI}/channels/connections/new/${props.id}`, data,{
             headers: {
                 Authorization: `Bearer ${token}`,
             }
@@ -48,7 +48,7 @@ function People(props: any) {
 
     const token = Cookies.get("access_token");
     const getAllUsers = async () => {
-        await axios.get(`http://localhost:5000/users/all`, {
+        await axios.get(`${process.env.BACK_END_URI}/users/all`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }

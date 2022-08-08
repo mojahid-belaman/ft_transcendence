@@ -42,7 +42,7 @@ function Chat(props: any) {
     const token = Cookies.get("access_token");
     await axios
       .get(
-        `http://localhost:5000/channels/messages/${props.channel.channelId}`,
+        `${process.env.BACK_END_URI}/channels/messages/${props.channel.channelId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

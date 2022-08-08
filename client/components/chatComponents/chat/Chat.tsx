@@ -43,7 +43,7 @@ function Chat(props: any) {
   const getCurrentConv = async () => {
     const token = Cookies.get("access_token");
     await axios
-      .get(`http://localhost:5000/conversations/messages/${props.login}`, {
+      .get(`${process.env.BACK_END_URI}/conversations/messages/${props.login}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

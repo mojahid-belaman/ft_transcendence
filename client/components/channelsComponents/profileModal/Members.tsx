@@ -14,7 +14,7 @@ function MemberCard(props: any) {
         const token = Cookies.get("access_token");
         //console.log("CHANNEL => ", props);
 
-        return await axios.get(`http://localhost:5000/channels/connections/${props.channelId}/${props.userId}`, {
+        return await axios.get(`${process.env.BACK_END_URI}/channels/connections/${props.channelId}/${props.userId}`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -28,7 +28,7 @@ function MemberCard(props: any) {
 
     const removeHandler = async () => {
         const token = Cookies.get("access_token");
-        await axios.delete(`http://localhost:5000/channels/connections/${props.channelId}/${props.userId}`, {
+        await axios.delete(`${process.env.BACK_END_URI}/channels/connections/${props.channelId}/${props.userId}`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -43,7 +43,7 @@ function MemberCard(props: any) {
     const powerUp = async () => {
         const token = Cookies.get("access_token");
         const data = { status: connectionStatus.ADMIN }
-        await axios.put(`http://localhost:5000/channels/connections/members/${props.channelId}/${props.userId}`, data, {
+        await axios.put(`${process.env.BACK_END_URI}/channels/connections/members/${props.channelId}/${props.userId}`, data, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -65,7 +65,7 @@ function MemberCard(props: any) {
         const data = {
             date: dateRef.current.value
         };
-        await axios.post(`http://localhost:5000/channels/connections/mute/${props.channelId}/${props.userId}`, data, {
+        await axios.post(`${process.env.BACK_END_URI}/channels/connections/mute/${props.channelId}/${props.userId}`, data, {
             headers: {
                 Authorization: `Bearer ${token}`,
             }
@@ -101,7 +101,7 @@ function Members(props: any) {
     const [users, setUsers] = useState<any[]>([]);
     const getMembers = async () => {
         const token = Cookies.get("access_token");
-        return await axios.get(`http://localhost:5000/channels/connections/members/${props.channel.channelId}`, {
+        return await axios.get(`${process.env.BACK_END_URI}/channels/connections/members/${props.channel.channelId}`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }

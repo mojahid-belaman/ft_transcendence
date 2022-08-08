@@ -14,7 +14,7 @@ const LoginComponent = () => {
             <div className={styles.ball}></div>
           </div>
           <div className={styles.LoginBox}>
-            <a className={styles.LoginButton} href="http://localhost:5000/oauth">
+            <a className={styles.LoginButton} href={`${process.env.BACK_END_URI}/oauth`}>
               Login With 42
             </a>
           </div>
