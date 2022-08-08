@@ -14,7 +14,7 @@ import { UsersService } from './users/users.service';
 import { JwtService } from '@nestjs/jwt';
 import { FriendshipsService } from './friendships/friendships.service';
 
-@WebSocketGateway({namespace: "chat", cors: { origin: "*" } })
+@WebSocketGateway({ cors: { origin: "*" } })
 
 export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
     @WebSocketServer()
