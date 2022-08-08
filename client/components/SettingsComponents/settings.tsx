@@ -7,15 +7,16 @@ import styles from './settings.module.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+
 function SettingsComponent() {
-  const [userName, setUserName] = useState('');
+  // const [userName, setUserName] = useState('');
   const [avatar, setAvatar] = useState('');
   const [defaultURL, setDefaultURL] = useState();
   const [qrCode, setQrCode] = useState();
   const [is2FA, setIs2FA] = useState(false);
   const userRef : any = useRef('');
   const accessToken =  Cookies.get('access_token');
-  
+
   useEffect(() => {
     const responseImage = async () => {
       await axios
@@ -42,16 +43,13 @@ function SettingsComponent() {
     })
     .then((res) => {
       setAvatar(res.data['avatar']);
-    });
-  };
-  
-  const handleUsername = async (event: any) => {
-    event.preventDefault();
-    setUserName(event.target.value);
+    })
+    .catch((e) => toast.error('You need to set a valid Image',{autoClose: 1000}));
   };
   
   const updateUserName = async () => {
-    const notif = await axios.post(
+    try{
+      await axios.post(
       'http://localhost:5000/users/username',
       {
         username: userRef.current.value,
@@ -61,12 +59,13 @@ function SettingsComponent() {
           Authorization: `Bearer ${accessToken}`,
         },
       }
-      ).then((res) => res.data);
-      if(!notif)
-      toast.error('You need to set a unique User name',{autoClose: 1000});
-      else{
-        toast.success('successfully changed',{autoClose: 1000});
-      }
+      ).then(() => toast.success('successfully changed',{autoClose: 1000}))
+      // .catch(() => toast.error('You need to set a valid User name',{autoClose: 1000}));
+    }
+    catch{
+      // console.clear();
+      toast.error('You need to set a valid User name',{autoClose: 1000})
+    }
       userRef.current.value = '';
     };
     

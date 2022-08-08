@@ -1,3 +1,5 @@
+import { IsString, ValidateIf } from "class-validator";
+import { UserValidateDTO } from "src/auth/dto";
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 export enum Role {
@@ -21,7 +23,7 @@ export class Users {
     @Column({ default: null })
     lastConnected: Date;
     
-    @Column({ default: null })
+    @Column({ default: null})
     avatar: string;
     
     @Column()

@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Body,
   Controller,
   ForbiddenException,
@@ -76,7 +77,10 @@ export class UsersController {
   @Post('/username')
   @UseGuards(JwtAuthGuard)
   async setUserName(@Req() req) {
-   return await this.usersService.updateUsername(req.user['login'], req.body['username']);
+    const regex = new RegExp('[a-z]+');
+    if(regex.test(req.body.username))
+      return await this.usersService.updateUsername(req.user['login'], req.body['username']);
+    throw new BadRequestException();
   }
 
   @ApiBearerAuth()
@@ -102,11 +106,13 @@ export class UsersController {
       const updateUser = await this.usersService.getUserBylogin(
         req.user['login'],
       );
-      if (updateUser)
+      if (updateUser){
+
         return this.usersService.updateAvatarUrl(
           await updateUser,
           image['filename'],
-        );
+          );
+      }
     }
     throw new UnauthorizedException();
   }
