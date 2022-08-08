@@ -2,7 +2,8 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 import classes from "./Profile.module.css";
-function History() {
+
+function History(props: any) {
   return (
     <div className={classes.boardInfo}>
       <div className={classes.historyCard}>
@@ -11,11 +12,11 @@ function History() {
             className={classes.userImage}
             src="https://i.pinimg.com/474x/ec/e2/b0/ece2b0f541d47e4078aef33ffd22777e.jpg"
           ></img>
-          <h2>name</h2>
+          <h2>{props.firstPlayer}</h2>
         </div>
         <h2>vs</h2>
         <div id={classes.end}>
-          <h2>name</h2>
+          <h2>{props.secondPlayer}</h2>
           <img
             className={classes.userImage}
             src="https://i.pinimg.com/474x/ec/e2/b0/ece2b0f541d47e4078aef33ffd22777e.jpg"
@@ -52,6 +53,7 @@ function DisplayUser(props: any) {
 }
 function Profile() {
   const accessToken = Cookies.get('access_token');
+  const [history, setHistory] = useState<any>([]);
   const [imgUrl, setImgUrl] = useState('https://i.pinimg.com/474x/ec/e2/b0/ece2b0f541d47e4078aef33ffd22777e.jpg');
   const [username, setUsermame] = useState('');
   const [login, setLogin] = useState('');
@@ -67,8 +69,21 @@ function Profile() {
     })
     return img;
   }
+
+  const getHistory = async () => {
+    await axios.get('http://localhost:5000/games/history',{
+      headers : {
+        Authorization: `Bearer ${accessToken}`
+      }
+    }).then((res: any) => {
+      console.log(res.data);
+     setHistory([...res.data])
+    })
+  }
+
   useEffect(() =>{
       fetchImage();
+      getHistory();
   }, [username, login, imgUrl])
 
   return (
@@ -100,7 +115,7 @@ function Profile() {
         <legend className={classes.legend}>
           <h1>History:</h1>
         </legend>
-        <History />
+        {history.map((h: any) => <History {...h} />)}
       </fieldset>
       <fieldset className={classes.cardsBoard}>
         <legend className={classes.legend}>

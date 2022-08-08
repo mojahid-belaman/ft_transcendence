@@ -29,7 +29,6 @@ export function HomeGame() {
         },
       })
       .then((res) => {
-        console.log("Entered!");
         socket.emit("join_match", {
           user: res.data,
         });
@@ -49,10 +48,17 @@ export function HomeGame() {
       socket.off("Playing");
     };
   };
-
   const handleSetting = () => {
     setSetting(false);
   };
+
+  const inviteGame = async () => {
+    
+  }
+
+  useEffect(() => {
+
+  }, []);
 
   return (
     <>
