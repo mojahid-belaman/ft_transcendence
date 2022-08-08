@@ -14,10 +14,8 @@ import { gameSate } from './Classes/gameState';
 import { Player } from './Classes/player';
 import { GameService } from './game.service';
 
-@WebSocketGateway(5001, { cors: { origin: '*' } })
-export class GameGateway
-  implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect
-{
+@WebSocketGateway({namespace: "game", cors: { origin: '*' } })
+export class GameGateway {
   private logger: Logger = new Logger('GameGateway');
   //NOTE - Declare Objects Of Players
   private playerOne: Player;
@@ -28,7 +26,7 @@ export class GameGateway
   private socketArr: Set<Socket> = new Set<Socket>();
   private userArr: any[] = [];
 
-  @WebSocketServer() server: { emit: (arg0: string, arg1: { playing: boolean; first: { username: any; avatar: any; }; second: { username: any; avatar: any; }; }) => void; };
+  @WebSocketServer() server;
 
   @Inject()
   private jwtService: JwtService;
@@ -40,10 +38,10 @@ export class GameGateway
     this.logger.log('Initial');
   }
 
-  handleConnection(client: Socket, ...args: any[]) {
-    /* 
-    if the user has watcher stat: emit "send_games" with GameGateway.game array to be rendered in the frontend
-     */
+  /* handleConnection(client: Socket, ...args: any[]) {
+    
+    // if the user has watcher stat: emit "send_games" with GameGateway.game array to be rendered in the frontend
+    
     this.logger.log('Connect Success ' + `${client.id}`);
   }
 
@@ -63,6 +61,7 @@ export class GameGateway
       }
     }
   }
+ */
 
   @SubscribeMessage('upPaddle')
   hundle_up_paddle(client: Socket, payload: string) {
@@ -104,8 +103,13 @@ export class GameGateway
 
   @SubscribeMessage('join_match')
   hundle_join_match(client: Socket, payload: any) {
-    this.logger.log('Join Match ' + `${client.id} `);
     const user: any = payload.user;
+    const tmp = this.userArr.findIndex((u) => {
+      return u.id === user.id;
+    })
+    if (tmp !== -1 && this.userArr.length == 1)
+      return;
+    this.logger.log('Join Match ' + `${client.id} `);
     console.log('user => ',payload.user);
 
     //NOTE - Check If the same client not add in Set of socket
@@ -134,39 +138,40 @@ export class GameGateway
         this.userArr.splice(this.userArr.indexOf(first), 1);
         return;
       }
-      this.server.emit('Playing', {
-        playing: true,
-        first: { username: first.username, avatar: first.avatar },
-        second: { username: second.username, avatar: second.avatar },
-      });
       this.playerOne = new Player(
         itSock.next().value,
         true,
         first.id,
         first.username,
         first.avatar,
-      );
-      this.playerTwo = new Player(
-        itSock.next().value,
-        false,
-        second.id,
-        second.username,
-        second.avatar,
-      );
-
-      //NOTE - Create new instance of game and game is start in constructor
-      const newGame = new Game(
-        this.playerOne,
-        this.playerTwo,
-        this.gameService,
-        this.sendGames,
-        this.server,
-        GameGateway.game,
-      );
-
-      GameGateway.game.push(newGame);
-      this.sendGames(this.server);
-
+        );
+        this.playerTwo = new Player(
+          itSock.next().value,
+          false,
+          second.id,
+          second.username,
+          second.avatar,
+          );
+          
+          //NOTE - Create new instance of game and game is start in constructor
+          const newGame = new Game(
+            this.playerOne,
+            this.playerTwo,
+            this.gameService,
+            this.sendGames,
+            this.server,
+            GameGateway.game,
+            );
+            
+            this.server.emit('Playing', {
+              playing: true,
+              first: { id: first.id, username: first.username, avatar: first.avatar },
+              second: { id: second.id,  username: second.username, avatar: second.avatar },
+            });
+            
+            GameGateway.game.push(newGame);
+            this.sendGames(this.server);
+            
       this.socketArr.delete(newGame.get_PlayerOne().getSocket());
       this.socketArr.delete(newGame.get_PlayerTwo().getSocket());
       this.userArr.splice(0, this.userArr.length);

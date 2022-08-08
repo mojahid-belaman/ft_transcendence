@@ -225,4 +225,42 @@ export class FriendshipsGateway {
       }
     }
   }
+
+  @SubscribeMessage("inviteToGame")
+  async inviteToGame(@MessageBody() body, @ConnectedSocket() client) {
+    if (client.handshake.query && client.handshake.query.token) {
+      const user: any = await this.jwtService.verify(String(client.handshake.query.token), {
+        secret: process.env.JWT_SECRET
+      });
+      if (user) {
+        const onlineUser = onlineFriends.find(onlineUser => onlineUser.id === body.userId)
+        console.log("onlineUser => ",body);
+        onlineUser?.sockets.forEach(socket => socket.emit("InviteToGameSent", { id: user.userId, room: { 
+          sender: user.userId,
+          receiver: body.userId
+        } }))
+      }
+    }
+  }
+
+  @SubscribeMessage("AcceptGameInvite")
+  async AcceptGameInvite(@MessageBody() body, @ConnectedSocket() client) {
+    if (client.handshake.query && client.handshake.query.token) {
+      const user: any = await this.jwtService.verify(String(client.handshake.query.token), {
+        secret: process.env.JWT_SECRET
+      });
+      if (user) {
+        console.log("accept =>", body);
+        const senderSockets = onlineFriends.find(onlineUser => onlineUser.id === body.sender)
+        const receiverSockets = onlineFriends.find(onlineUser => onlineUser.id === body.receiver)
+        setTimeout(() => {
+          senderSockets?.sockets.forEach(socket => socket.emit("startGame", { room: {...body} }))
+        }, 500)
+        receiverSockets?.sockets.forEach(socket => socket.emit("startGame", { room: {...body}}))
+      }
+    }
+  }
+
+  // inviteToGame
+
 }

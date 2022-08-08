@@ -4,7 +4,7 @@ import { WebSocketGateway } from "@nestjs/websockets";
 
 @WebSocketGateway({
   cors: {
-    origin: "*"
+    origin: process.env.FRONT_END_URI
   }
 })
 export class ConnectionsGateway {

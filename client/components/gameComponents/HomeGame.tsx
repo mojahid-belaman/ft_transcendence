@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import styles from "../gameComponents/gameStyle/HomeGame.module.css";
 import Game from "./Game";
 import Cookies from "js-cookie";
-import socket from "../Library/Socket";
+import socket from "../Library/SocketGame";
 import { Data, StateGame } from "../Library/Data";
 import Setting from "./Setting";
 import axios from "axios";
@@ -29,6 +29,7 @@ export function HomeGame() {
         },
       })
       .then((res) => {
+        console.log("Entered!");
         socket.emit("join_match", {
           user: res.data,
         });

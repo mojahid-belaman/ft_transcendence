@@ -8,7 +8,7 @@ import { MessagesDmsService } from './messages-dms.service';
 
 @WebSocketGateway({
   cors: {
-    origin: "*"
+    origin: process.env.FRONT_END_URI
   }
 })
 export class MessagesDmsGateway {

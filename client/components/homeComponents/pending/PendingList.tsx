@@ -9,7 +9,7 @@ const PendingList = () => {
     const [pendingFriendships, setPendingFriendships] = useState<any[]>([])
     
     socket.on("addedNewPendingFriendship", (data: any) => {
-        //console.log("addedNewPendingFriendship");
+        // console.log("addedNewPendingFriendship");
         setPendingFriendships([...pendingFriendships, data]);
     });
 

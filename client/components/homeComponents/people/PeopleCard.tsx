@@ -6,7 +6,9 @@ const PeopleCard = (props: any) => {
     const [isSent, setIsSent] = useState(false)
     useEffect(() => {
         socket.on("addedNewPendingFriendship", (data: any) => {
-            //console.log(data);
+            // console.log("here");
+            
+            console.log(data);
         });
     }, [])
     

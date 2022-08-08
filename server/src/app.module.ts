@@ -16,10 +16,11 @@ import { Friendships } from './friendships/entity/friendships.entity';
 import { Users } from './users/entity/users.entity';
 import { UsersService } from './users/users.service';
 import { UsersModule } from './users/users.module';
-// import { AuthModule } from './auth/auth.module';
 import { IntraAuthModule } from './intra-auth/IntraAuth.module';
 import { AuthModule } from './auth/auth.module';
 import { TwofactorauthModule } from './2fa/2fa.module';
+import { GameModule } from './game/game.module';
+import { Games } from './game/enitites/game.entity';
 
 @Module({
   imports: [
@@ -47,7 +48,7 @@ import { TwofactorauthModule } from './2fa/2fa.module';
       autoLoadEntities: true,
       synchronize: true,
     }),
-    TypeOrmModule.forFeature([Friendships, Users]),
+    TypeOrmModule.forFeature([Friendships, Users, Games]),
     ChannelsModule,
     ConnectionsModule,
     FriendshipsModule,
@@ -57,7 +58,8 @@ import { TwofactorauthModule } from './2fa/2fa.module';
     UsersModule,
     AuthModule,
     TwofactorauthModule,
+    GameModule
   ],
   providers: [AppGateway, JwtService, FriendshipsService, UsersService]
 })
-export class AppModule { }
+export class AppModule {}
