@@ -15,21 +15,21 @@ export class Users {
     @Column({ unique: true, default: "" })
     email: string;
 
-    @Column({ unique: true })
+    @Column({ unique: true, default: ""  })
     username: string;
     
-    @Column({ default: null })
+    @Column({ default: null})
     lastConnected: Date;
     
-    @Column({ default: null })
+    @Column({ default: null})
     avatar: string;
     
-    @Column()
+    @Column({default: null} )
     qrCode: string;
   
-    @Column()
+    @Column({default: false})
     isTwoFactorAuthEnabled: boolean;
   
-    @Column()
+    @Column({default: ''})
     twoFactorAuthenticationSecret: string;
 }

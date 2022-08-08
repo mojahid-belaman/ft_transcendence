@@ -17,10 +17,7 @@ import { TwoFactorAuthService } from './2fa.service';
 import * as QRCode from 'qrcode';
 import { Response } from 'express';
 import { twoFA } from './interface/2fa.interface';
-import { JwtTwoFactorGuard } from './Guards/twofactorAuthJwt.guard';
 import { AuthService } from 'src/auth/auth.service';
-import { UserDto } from 'src/auth/dto';
-import { UpdateUserDto } from 'src/users/dto/users.dto';
 
 @Controller('2fa')
 export class TwoFactorAuthController {
@@ -53,7 +50,6 @@ export class TwoFactorAuthController {
       twoFACode.code,
       user,
       );
-      console.log('hehe');
       if (!isValidCode)
         return new UnauthorizedException();
       await this.userService.turnOnTwoFactorAuthentication(user['login']);
@@ -69,7 +65,7 @@ export class TwoFactorAuthController {
         user,
         );
       if (!isValidCode)
-        throw new UnauthorizedException('Invalid authentication code');
+        return new UnauthorizedException('Invalid authentication code');
       return res.status(HttpStatus.CREATED).send({
         'access_token': await this.authService.login(user)
       });;
@@ -80,7 +76,7 @@ export class TwoFactorAuthController {
     async turnOff(@Req() req) {
       const user = await this.userService.getUserBylogin(req.user['login']);
     if (!user.isTwoFactorAuthEnabled)
-      throw new BadRequestException('2-Factor-Authentication is not enabled!');
+      return new BadRequestException('2-Factor-Authentication is not enabled!');
     return this.userService.unSet2FASecret(user.login);
   }
 }

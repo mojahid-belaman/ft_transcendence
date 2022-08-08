@@ -41,17 +41,15 @@ function SettingsComponent() {
       Authorization: `Bearer ${accessToken}` },
     })
     .then((res) => {
+      console.log(res.data);
       setAvatar(res.data['avatar']);
-    });
-  };
-  
-  const handleUsername = async (event: any) => {
-    event.preventDefault();
-    setUserName(event.target.value);
+    })
+    .catch((e) => toast.error('You need to set a valid Image',{autoClose: 1000}));
   };
   
   const updateUserName = async () => {
-    const notif = await axios.post(
+    // try{
+      await axios.post(
       'http://localhost:5000/users/username',
       {
         username: userRef.current.value,
@@ -61,12 +59,13 @@ function SettingsComponent() {
           Authorization: `Bearer ${accessToken}`,
         },
       }
-      ).then((res) => res.data);
-      if(!notif)
-      toast.error('You need to set a unique User name',{autoClose: 1000});
-      else{
-        toast.success('successfully changed',{autoClose: 1000});
-      }
+      ).then((res) => {
+        console.log(res.data);
+        if (res.data.status == 400)
+          toast.error('You need to set a valid User name',{autoClose: 1000})
+        else
+          toast.success('successfully changed',{autoClose: 1000})}
+        )
       userRef.current.value = '';
     };
     
