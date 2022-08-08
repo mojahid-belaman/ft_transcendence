@@ -18,7 +18,7 @@ function chat() {
 
 		else if (token)
 
-			  await axios.get("http://localhost:5000/auth/isAuthorized", {
+			  await axios.get(`${process.env.BACKEND_URL}/auth/isAuthorized`, {
 				  headers: {
 					  Authorization: `Bearer ${token}`,
 				  }
@@ -38,7 +38,6 @@ function chat() {
     return (
         <MainApp>
             <DataContexProvider >
-
                 <Friends />
             </DataContexProvider>
         </MainApp>)

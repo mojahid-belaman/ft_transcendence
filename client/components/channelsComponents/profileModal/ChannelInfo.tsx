@@ -22,7 +22,7 @@ function ChannelInfo(props: any) {
 
     const setUserStatus = async () => {
         const token = Cookies.get("access_token");
-        await axios.get(`http://localhost:5000/channels/connections/checkSatus/${props.channel.channelId}`, {
+        await axios.get(`${process.env.BACKEND_URL}/channels/connections/checkSatus/${props.channel.channelId}`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }

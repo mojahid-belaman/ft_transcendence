@@ -15,10 +15,10 @@ function Friends() {
 
     useEffect(()=> {
         socket.on("startGame", data => {
-            console.log("start game : on startGame");
-            console.log(data);
             router.push(`/game?room_id=${data?.room.sender}${data?.room.receiver}`)
         })
+        // socket.on("blockedFiend")
+
         return(()=> {
             socket.off('startGame');
         })
@@ -30,7 +30,7 @@ function Friends() {
 
     return <div className={classes.mainCard}>
         <div className={classes.friendList}>
-            {dataContextVar.data.map((user: any) => <div key={user.id} onClick={() => {
+            {dataContextVar.data.map((user: any, index: number) => <div key={index} onClick={() => {
                     setUsername(user.login);
                     router.push(`chat?username=${user.login}`);
                     dataContextVar.getConversationByLogin(user.login);

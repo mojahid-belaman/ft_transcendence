@@ -9,7 +9,7 @@ function PeopleList() {
 
     useEffect(() => {
     const token = Cookies.get('access_token');  
-      axios.get(`http://localhost:5000/users`, {
+      axios.get(`${process.env.BACKEND_URL}/users`, {
         headers: {
             Authorization: `Bearer ${token}`,
         }

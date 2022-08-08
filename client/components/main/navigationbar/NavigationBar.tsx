@@ -7,6 +7,7 @@ import { FaUserAlt } from "react-icons/fa";
 import Link from "next/link";
 import Cookies from "js-cookie";
 import { createContext } from "react";
+import { useRouter } from "next/router";
 
 const context = createContext(null);
 
@@ -14,7 +15,7 @@ function NavigationBar() {
   const accessToken = Cookies.get("access_token");
   const handleLogOut = async () => {
     Cookies.remove("access_token");
-    window.location.href = "http://localhost:3000/";
+    window.location.href = `${process.env.FRONT_END_URI}/`;
   };
 
   return (

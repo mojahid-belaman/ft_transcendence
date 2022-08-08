@@ -54,11 +54,13 @@ function DisplayUser(props: any) {
 function Profile() {
   const accessToken = Cookies.get('access_token');
   const [history, setHistory] = useState<any>([]);
+  const [wins, setWins] = useState<number>(0)
+  const [losses, setLosses] = useState<number>(0)
   const [imgUrl, setImgUrl] = useState('https://i.pinimg.com/474x/ec/e2/b0/ece2b0f541d47e4078aef33ffd22777e.jpg');
   const [username, setUsermame] = useState('');
   const [login, setLogin] = useState('');
   const fetchImage = async () => {
-    const img =  await axios.get('http://localhost:5000/users/me',{
+    const img =  await axios.get(`${process.env.BACKEND_URL}/users/me`,{
       headers : {
         Authorization: `Bearer ${accessToken}`
       }
@@ -71,12 +73,21 @@ function Profile() {
   }
 
   const getHistory = async () => {
-    await axios.get('http://localhost:5000/games/history',{
+    await axios.get(`${process.env.BACKEND_URL}/games/history`,{
       headers : {
         Authorization: `Bearer ${accessToken}`
       }
     }).then((res: any) => {
      setHistory([...res.data])
+     res.data.forEach((history: any) => {
+      if ((history.firstPlayer === username && history.scoreFirst > history.scoreSecond)
+        ||
+        (history.secondPlayer === username && history.scoreSecond > history.scoreFirst)
+      )
+        setWins(wins + 1);
+      else
+        setLosses(losses + 1);
+     })
     })
   }
 
@@ -103,8 +114,8 @@ function Profile() {
               </div>
               <hr/>
               <div className={classes.data}>
-                <DisplayUser first="Wins:" second="10" />
-                <DisplayUser first="Loses:" second="10" />
+                <DisplayUser first="Wins:" second={wins} />
+                <DisplayUser first="Loses:" second={losses} />
               </div>
             </div>
           </div>

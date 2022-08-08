@@ -25,7 +25,7 @@ function Admins(props: any) {
     const [users, setUsers] = useState<any[]>([]);
     const getMembers = async () => {
         const token = Cookies.get("access_token");
-        return await axios.get(`http://localhost:5000/channels/connections/members/${props.channel.channelId}`, {
+        return await axios.get(`${process.env.BACKEND_URL}/channels/connections/members/${props.channel.channelId}`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }

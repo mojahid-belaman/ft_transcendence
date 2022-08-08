@@ -19,7 +19,7 @@ function Chat(props: any) {
   const [allowed, setAllowed] = useState(true);
   const [message, setMessage] = useState("");
 
-  function Message() {
+  const Message = () => {
     if (CurentMessage !== "") {
       socket.emit("SendMessage", {
         receiverLogin: props.user.login,
@@ -43,20 +43,30 @@ function Chat(props: any) {
   const getCurrentConv = async () => {
     const token = Cookies.get("access_token");
     await axios
-      .get(`http://localhost:5000/conversations/messages/${props.login}`, {
+      .get(`${process.env.BACKEND_URL}/conversations/messages/${props.login}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
       .then((res) => {
-        //console.log("Debugging => ", res.data.messages);
-        setMessageList([...res.data.messages]);
-        setUser(res.data.user);
+        console.log(res);
+        if (res.data.friendshipStatus == "blocked") {
+          console.log("HEllo");
+          
+          setAllowed(false);
+          setMessage(res.data.message);
+        }
+        else {
+          setMessageList([...res.data.messages]);
+          setUser(res.data.user);
+        }
       });
   };
 
   useEffect(() => {
-    if (props.login) getCurrentConv();
+    if (props.login)
+      getCurrentConv();
+
   }, [props.login]);
   const messageEndRef = useRef<HTMLInputElement>(null);
   const scrollToBottom = () => {

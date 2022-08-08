@@ -7,6 +7,7 @@ import ProfileModal from "../profileModal/ProfileModal";
 import classes from "./Chat.module.css";
 import ChatHeader from "./ChatHeader";
 import MessageCard from "./MessageCard";
+
 function Chat(props: any) {
   const [backdrop, setBackdrop] = useState(false);
   const [error, setError] = useState("");
@@ -42,7 +43,7 @@ function Chat(props: any) {
     const token = Cookies.get("access_token");
     await axios
       .get(
-        `http://localhost:5000/channels/messages/${props.channel.channelId}`,
+        `${process.env.BACKEND_URL}/channels/messages/${props.channel.channelId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

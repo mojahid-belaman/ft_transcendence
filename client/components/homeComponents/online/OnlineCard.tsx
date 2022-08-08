@@ -18,12 +18,12 @@ const OnlineCard =  (props: any) => {
             secondId: props.id,
             content: ""
         }
-        await axios.post(`http://localhost:5000/conversations/messages/debug`, data, {
+        await axios.post(`${process.env.BACKEND_URL}/conversations/messages/goTo`, data, {
             headers: {
                 Authorization: `Bearer ${token}`,
             }
-        }).then(data => console.log(data))
-        .catch(err => console.log(err))
+        }).then(data => data)
+        .catch(err => err)
         history.push(`/chat?username=${props.login}`)
     }
     const unfriendHandler = () => socket.emit("RemoveFriendship", {friendId: props.id})

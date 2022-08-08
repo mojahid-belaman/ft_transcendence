@@ -23,7 +23,7 @@ function PrivateCard(props: any) {
     const handlePrivateChannel = async () => {
         const data = {channelId: props.channel.channelId}
         const token = Cookies.get("access_token");
-        await axios.post(`http://localhost:5000/channels/joinChannel`, data, {
+        await axios.post(`${process.env.BACKEND_URL}/channels/joinChannel`, data, {
             headers: {
                 Authorization: `Bearer ${token}`,
             }
@@ -56,7 +56,7 @@ function ProtectedCard(props: any) {
             channelId: props.channel.channelId
         }
         const token = Cookies.get("access_token");
-        await axios.post(`http://localhost:5000/channels/joinChannel`, data, {
+        await axios.post(`${process.env.BACKEND_URL}/channels/joinChannel`, data, {
             headers: {
                 Authorization: `Bearer ${token}`,
             }

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import socket from '../Library/Socket';
+import socket from '../Library/SocketGame';
 import style  from '../gameComponents/gameStyle/Setting.module.css'
 
 const Setting = ({setSetting}: any) => {

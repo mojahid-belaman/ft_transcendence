@@ -48,6 +48,11 @@ function ChatHeader(props: any) {
         props.setAllowed(false)
         props.setMessage(data.message)
     })
+
+    socket.on("RemoveBlockedFriend", (data) => {
+        props.setAllowed(true)
+    })
+
     function OpenCloseModal1() {
         if (backdrop1 === false)
             setBackdrop1(true);
@@ -70,6 +75,14 @@ function ChatHeader(props: any) {
         socket.emit("inviteToGame", { userId: props.user.userId })
         setIsWaiting(true)
     }
+
+    useEffect(() => {
+        return () => {
+            socket.off("RemoveFriend");
+            socket.off("RemoveBlockedFriend");
+            socket.off("InviteToGameSent");
+        }
+    }, [])
 
     return props.user ? (<div className={classes.chatWrapper}>
         <button className={classes.chatHeader} onClick={props.toggle} >

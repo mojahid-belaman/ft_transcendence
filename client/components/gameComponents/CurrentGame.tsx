@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import styles from "../gameComponents/gameStyle/LiveGame.module.css";
 import { Data } from "../Library/Data";
-import socket from "../Library/Socket";
+import socket from "../Library/SocketGame";
 import Game from "./Game";
 
 //NOTE - Initiale data and Information about all Game like (ball, paddle, score, width, height, canvas)

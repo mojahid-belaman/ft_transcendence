@@ -41,7 +41,7 @@ function EditChannel(props: any) {
             const token = Cookies.get("access_token");
             //console.log("data to update => ", data);
             
-            await axios.post(`http://localhost:5000/channels/update`, data, {
+            await axios.post(`${process.env.BACKEND_URL}/channels/update`, data, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 }
@@ -56,7 +56,7 @@ function EditChannel(props: any) {
 
     const getChannel = async () => {
         const token = Cookies.get("access_token");
-        await axios.get(`http://localhost:5000/channels/${props.channelId}`, {
+        await axios.get(`${process.env.BACKEND_URL}/channels/${props.channelId}`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }

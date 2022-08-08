@@ -29,7 +29,7 @@ export function DataContexProvider(props: any) {
 
     const getConversations = async () => {
         const token = Cookies.get("access_token");
-        await axios.get('http://localhost:5000/conversations/messages', {
+        await axios.get(`${process.env.BACKEND_URL}/conversations/messages`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }

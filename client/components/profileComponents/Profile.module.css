@@ -124,9 +124,3 @@
     width: 50%;
     align-items: center;
 }
-
-.levelCard{
-    display: flex;
-    flex-direction: row;
-    /* align-items: center; */
-}
