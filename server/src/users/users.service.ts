@@ -147,7 +147,7 @@ export class UsersService {
 
   async updateAvatarUrl(updatedUser: Users, avatar: string): Promise<Users> {
     if (avatar) {
-      updatedUser.avatar = 'http://localhost:5000/' + avatar;
+      updatedUser.avatar = `${process.env.BACK_END_URI}/` + avatar;
     }
     return this.userRepository.save(updatedUser);
   }

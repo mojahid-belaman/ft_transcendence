@@ -2,11 +2,11 @@ FROM node:17-alpine
 
 WORKDIR /usr/app
 
-RUN npm install --location=global --force yarn
+RUN npm install --location=global npm@latest
 
 COPY . .
 
-RUN yarn
+RUN npm install
 
 EXPOSE 5000
 
