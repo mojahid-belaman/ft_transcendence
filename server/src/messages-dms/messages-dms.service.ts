@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { FriendshipStatus } from 'src/friendships/entity/friendships.entity';
 import { FriendshipsService, onlineFriends } from 'src/friendships/friendships.service';
 import { UsersService } from 'src/users/users.service';
 import { Repository } from 'typeorm';
@@ -17,6 +18,17 @@ export class MessagesDmsService {
 
   sendMessage(createMessagesDmDto) {
     return this.messagesDMRepository.save(createMessagesDmDto);
+  }
+
+  async sendMessageOrGoTo(createMessagesDmDto) {
+    return this.messagesDMRepository.find({
+      where: [{ firstId: createMessagesDmDto.firstId, secondId: createMessagesDmDto.secondId }]
+    }).then((async (res) => {
+      console.log(res);
+      if (res.length === 0)
+        return await this.sendMessage(createMessagesDmDto);
+      return res;
+    }));
   }
 
   getAllConversations(userId: string) {
@@ -41,22 +53,25 @@ export class MessagesDmsService {
 
   async findAll(login: string, userId: string) {
     const user = await this.usersService.getUserBylogin(login);
-    return this.messagesDMRepository.find({
-      where: [{ firstId: userId, secondId: user.id }, { firstId: user.id, secondId: userId }],
-      order: { info: "ASC" }
-    }).then(async (messages) => Promise.all(messages.map(async (message) => {
+    const friendship = await this.friendshipSevice.getFriendshipStatus(user.id, userId);
+    if (friendship && friendship.status === FriendshipStatus.ACCEPTED)
+      return this.messagesDMRepository.find({
+        where: [{ firstId: userId, secondId: user.id }, { firstId: user.id, secondId: userId }],
+        order: { info: "ASC" }
+      }).then(async (messages) => Promise.all(messages.map(async (message) => {
         return (message.firstId == userId) ? await this.usersService.getUserById(userId)
           .then(receiverUser => {
             const object = ({ CurentMessage: message.content, user: receiverUser, date: message.info })
             //console.log(object);
             return object
           }) : await this.usersService.getUserById(user.id)
-        .then(receiverUser => ({ CurentMessage: message.content, user: receiverUser, date: message.info }))
-    }))).then(async (messages) => {
-      return ({
-        user: await this.usersService.getUserById(userId),
-        messages
+            .then(receiverUser => ({ CurentMessage: message.content, user: receiverUser, date: message.info }))
+      }))).then(async (messages) => {
+        return ({
+          user: await this.usersService.getUserById(userId),
+          messages
+        })
       })
-    })
+    return { friendshipStatus: friendship.status, message: "It is a blocked conversation" }
   }
 }

@@ -156,9 +156,7 @@ export class ConnectionsService {
     return await this.connectionsRepository.findOne({
       where: [{ userId, channelId }]
     }).then(res => {
-      //console.log(res);
-      if (!res)
-        throw new NotFoundException("Connection Not Found")
+      console.log(res);
       return res
     })
   }
@@ -180,7 +178,7 @@ export class ConnectionsService {
     return await this.connectionsRepository.save(changingConnection);
   }
 
-  async muteMember(channelId: string, userId: string, date: Date, adminId: string) {
+  async muteMember(channelId: string, userId: string, date: string, adminId: string) {
     if (!date)
       throw new ForbiddenException("No date provided")
     const adminConnection = await this.connectionsRepository.findOne({
@@ -191,29 +189,26 @@ export class ConnectionsService {
     const mutedConnection = await this.connectionsRepository.findOne({
       where: [{ userId, channelId }]
     })
+    console.log(mutedConnection.status);
     if (!mutedConnection)
       throw new NotFoundException("No connection Found");
     const prevStatus = mutedConnection.status;
     mutedConnection.status = connectionStatus.BLOCKED;
-    const test = await this.connectionsRepository.save(mutedConnection);
-    //console.log("Testing the mute => ", test);
+    await this.connectionsRepository.save(mutedConnection);
     const clientSockets = onlineFriends.find(online => online.id == mutedConnection.userId);
     if (clientSockets)
-      clientSockets.sockets.forEach(socket => socket.emit("channelConnectionStatusChange",{
+      clientSockets.sockets.forEach(socket => socket.emit("channelConnectionStatusChange", {
         status: mutedConnection.status,
         error: "You've been Muted"
       }));
-    const newDate = new Date()
-    const tmp = new Date(newDate.getTime() + 1 * 60000);
-    const job = new CronJob(tmp, async () => {
+    const newDate = new Date(date);
+    const job = new CronJob(newDate, async () => {
       mutedConnection.status = prevStatus;
-      //console.log("DEBUG => AFTER ONE MINUTE");
-      //console.log(onlineFriends);
       await this.connectionsRepository.save(mutedConnection);
       const clientSockets = onlineFriends.find(online => online.id == mutedConnection.userId);
-    if (clientSockets)
-      clientSockets.sockets.forEach(
-        socket => socket.emit("channelConnectionStatusChange", { status: prevStatus }));
+      if (clientSockets)
+        clientSockets.sockets.forEach(
+          socket => socket.emit("channelConnectionStatusChange", { status: prevStatus }));
     });
     job.start();
   }

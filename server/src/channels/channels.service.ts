@@ -20,6 +20,7 @@ export class ChannelsService {
         SELECT
           channels.id as "channelId",
           channels.name,
+          channels.password,
           channels."ownerId",
           channels.status,
           channels.description,
@@ -73,7 +74,9 @@ export class ChannelsService {
         where: { id: body.channelId }
       })
       if (channel) {
-        if (channel.status === channelStatus.PROTECTED) {
+        console.log(body.password);
+        console.log(channel);
+        if (channel.status === channelStatus.PROTECTED ) {
           const test = await argon2.verify(channel.password, body.password)
           if (test)
             return ({ status: 200 })

@@ -7,11 +7,16 @@ import { JwtAuthGuard } from 'src/auth/Guards/jwt-auth.guard';
 export class MessagesDmsController {
   constructor(private readonly messagesDmsService: MessagesDmsService) {}
 
-  @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @Post("debug")
   sendMessage(@Req() req, @Body() createMessagesDmDto) {
     return this.messagesDmsService.sendMessage({firstId: req.user.userId, ...createMessagesDmDto});
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Post("goTo")
+  sendMessageOrGoTo(@Req() req, @Body() createMessagesDmDto) {
+    return this.messagesDmsService.sendMessageOrGoTo({firstId: req.user.userId, ...createMessagesDmDto});
   }
 
   

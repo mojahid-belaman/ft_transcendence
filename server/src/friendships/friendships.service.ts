@@ -224,5 +224,14 @@ export class FriendshipsService {
         // onlineFriends = onlineFriends.filter(user => user.id !== userId);
     }
 
+    async getFriendshipStatus(userId: string, friendId: string) {
+        return await this.friendshipsRepository.findOne({
+            where: [
+                {firstId: userId, secondId: friendId},
+                {firstId: friendId, secondId: userId}
+            ]
+        })
+    }
+
     /* ****************************************************************************** */
 }

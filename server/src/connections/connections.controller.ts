@@ -66,8 +66,7 @@ export class ConnectionsController {
   @Post("mute/:channelId/:userId")
   async muteMember(@Req() req, @Body() body, @Param("channelId") channelId, @Param("userId") userId) {
     //console.log("hello from mute function");
-    const date = new Date(body.date);
-    return await this.connectionsService.muteMember(channelId, userId, date, req.user.userId)
+    return await this.connectionsService.muteMember(channelId, userId, body.date, req.user.userId)
   }
 
 }

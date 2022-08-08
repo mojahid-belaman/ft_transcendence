@@ -220,6 +220,8 @@ export class FriendshipsGateway {
             if (friendship) {
               const onlineUser = onlineFriends.find(onlineUser => onlineUser.id === user.userId)
               onlineUser.sockets.forEach(socket => socket.emit("RemoveBlockedFriend", { id: body.blockedUserId }))
+              const blockedFriendAgents = onlineFriends.find(onlineUser => onlineUser.id === body.blockedUserId)
+              blockedFriendAgents.sockets.forEach(socket => socket.emit("RemoveBlockedFriend", { id: user.userId }))
             }
           })
       }

@@ -28,4 +28,10 @@ export class FriendshipsController {
     async blockUser (@Req() req, @Param("id") id) {
         return await this.friendshipsService.setFriendshipStatus(req.user.userId, id, FriendshipStatus.BLOCKED);
     }
+
+    @UseGuards(JwtAuthGuard)
+    @Get("friendshipStatus/:friendId")
+    async getFriendship(@Req() req, @Param("friendId") friendId: string) {
+        return await this.friendshipsService.getFriendshipStatus(req.user.userId, friendId);
+    }
 }
