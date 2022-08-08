@@ -265,16 +265,11 @@ export function Game(props: GameProps) {
             <div>
               <img
                 src={
-                  data.get_userOne().length !== 0
-                    ? data.get_userOne()[0].avatar
-                    : "undefined"
-                }
+                  data.get_userOne().avatar}
                 alt="User_One"
               />
               <span>
-                {data.get_userOne().length !== 0
-                  ? data.get_userOne()[0].username
-                  : "undefined"}
+                {data.get_userOne().username}
               </span>
             </div>
             <div className={style.watcher}>
@@ -284,15 +279,10 @@ export function Game(props: GameProps) {
             <div>
               <img
                 src={
-                  data.get_userTwo().length !== 0
-                    ? data.get_userTwo()[0].avatar
-                    : "undefined"
-                }
+                  data.get_userTwo().avatar}
                 alt="User_Two"
               />
-              {data.get_userTwo().length !== 0
-                ? data.get_userTwo()[0].username
-                : "undefined"}
+              {data.get_userTwo().username}
             </div>
           </div>
         </div>
