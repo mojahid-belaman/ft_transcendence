@@ -3,7 +3,7 @@ import { GameOver } from "./GameOver";
 import { Data, StateGame, UserInGame } from "../Library/Data";
 import { drawGame } from "../Library/DrawShapes";
 import style from "../gameComponents/gameStyle/Game.module.css";
-import socket from "../Library/Socket";
+import socket from "../Library/SocketGame";
 import { Loading } from "@nextui-org/react";
 import { GameObj } from "../Library/gameObject";
 
@@ -189,6 +189,7 @@ export function Game(props: GameProps) {
       }
 
       socket.on("gameState", (newState: any) => {
+        console.log("TEST");
         setGameState(newState);
       });
       // socket.on("deleteUsers", () => {

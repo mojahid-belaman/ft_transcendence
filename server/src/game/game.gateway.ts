@@ -14,7 +14,7 @@ import { gameSate } from './Classes/gameState';
 import { Player } from './Classes/player';
 import { GameService } from './game.service';
 
-@WebSocketGateway({namespace: "game", cors: { origin: '*' } })
+@WebSocketGateway({ namespace: "game", cors: { origin: '*' } })
 export class GameGateway {
   private logger: Logger = new Logger('GameGateway');
   //NOTE - Declare Objects Of Players
@@ -110,7 +110,7 @@ export class GameGateway {
     if (tmp !== -1 && this.userArr.length == 1)
       return;
     this.logger.log('Join Match ' + `${client.id} `);
-    console.log('user => ',payload.user);
+    console.log('user => ', payload.user);
 
     //NOTE - Check If the same client not add in Set of socket
     if (this.socketArr.has(client)) {
@@ -122,15 +122,20 @@ export class GameGateway {
     })
     if (findUser)
       return;
-      
+
     //NOTE - Add Client Socket In Set
     this.socketArr.add(client);
 
     //NOTE - Add User In Array
     this.userArr.push(user);
-    
+
     //NOTE - Check if Set Of Socket (i means player) to stock is 2
     const itSock = this.socketArr.values();
+    const test = [...itSock]
+    // test.forEach(t => console.log("Socket in game => ", t.id))
+    
+    
+
     const [first, second] = this.userArr;
 
     if (this.userArr.length > 1) {
@@ -138,40 +143,42 @@ export class GameGateway {
         this.userArr.splice(this.userArr.indexOf(first), 1);
         return;
       }
+      console.log("Socket before => ", test[0].id);
+      console.log("Socket before => ", test[1].id);
       this.playerOne = new Player(
-        itSock.next().value,
+        test[0],
         true,
         first.id,
         first.username,
         first.avatar,
-        );
-        this.playerTwo = new Player(
-          itSock.next().value,
-          false,
-          second.id,
-          second.username,
-          second.avatar,
-          );
-          
-          //NOTE - Create new instance of game and game is start in constructor
-          const newGame = new Game(
-            this.playerOne,
-            this.playerTwo,
-            this.gameService,
-            this.sendGames,
-            this.server,
-            GameGateway.game,
-            );
-            
-            this.server.emit('Playing', {
-              playing: true,
-              first: { id: first.id, username: first.username, avatar: first.avatar },
-              second: { id: second.id,  username: second.username, avatar: second.avatar },
-            });
-            
-            GameGateway.game.push(newGame);
-            this.sendGames(this.server);
-            
+      );
+      this.playerTwo = new Player(
+        test[1],
+        false,
+        second.id,
+        second.username,
+        second.avatar,
+      );
+
+      //NOTE - Create new instance of game and game is start in constructor
+      const newGame = new Game(
+        this.playerOne,
+        this.playerTwo,
+        this.gameService,
+        this.sendGames,
+        this.server,
+        GameGateway.game,
+      );
+
+      this.server.emit('Playing', {
+        playing: true,
+        first: { id: first.id, username: first.username, avatar: first.avatar },
+        second: { id: second.id, username: second.username, avatar: second.avatar },
+      });
+
+      GameGateway.game.push(newGame);
+      this.sendGames(this.server);
+
       this.socketArr.delete(newGame.get_PlayerOne().getSocket());
       this.socketArr.delete(newGame.get_PlayerTwo().getSocket());
       this.userArr.splice(0, this.userArr.length);

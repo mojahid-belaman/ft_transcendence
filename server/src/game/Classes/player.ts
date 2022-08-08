@@ -33,6 +33,8 @@ export class Player {
     this._isInterval = setInterval(() => {
       this._paddle.movePaddle();
     }, 1000 / 60);
+    console.log("SOCKET IN CONSTRUCTOR => ", socket.id);
+    
   }
 
   public checkWin(): boolean {
