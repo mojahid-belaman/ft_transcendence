@@ -2,7 +2,7 @@ FROM node:17-alpine
 
 WORKDIR /usr/app
 
-RUN npm install --location=global npm@latest
+RUN npm install -g npm@latest
 
 COPY . .
 

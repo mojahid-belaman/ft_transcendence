@@ -31,11 +31,7 @@ const editfilename = (req, file, callback) => {
     );
   }
   else
-    // return new BadRequestException();
-    callback(
-      new HttpException('Bad file extension!', HttpStatus.BAD_REQUEST),
-      false,
-    );
+    return new BadRequestException();
 };
 
 @Controller('users')
