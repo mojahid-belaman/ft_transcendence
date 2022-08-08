@@ -86,16 +86,9 @@ export function HomeGame() {
 
  useEffect(()=> {
     if (history.query && history.query.room_id)
-    {
-      console.log("star a game invitation");
-      console.log("roo  id: ",history.query.room_id);
       handleGameInvite(`${history.query.room_id}`);
-    }
 
 }, [])
-
-
-console.log("render Home game");
 
   return (
     <>

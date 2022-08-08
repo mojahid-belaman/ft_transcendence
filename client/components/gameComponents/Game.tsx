@@ -189,28 +189,12 @@ export function Game(props: GameProps) {
       }
 
       socket.on("gameState", (newState: any) => {
-        console.log("TEST");
         setGameState(newState);
       });
-      // socket.on("deleteUsers", () => {
-      //   const findUserOne = data
-      //     .get_userOne()
-      //     .findIndex((user) => user.id === socket.id);
-      //   const findUserTwo = data
-      //     .get_userTwo()
-      //     .findIndex((user) => user.id === socket.id);
-      //   if (findUserOne && findUserTwo) {
-      //     data.get_userOne().splice(findUserOne, 1);
-      //     data.get_userTwo().splice(findUserTwo, 1);
-      //   }
-      //   console.log("after delete userOne", data.get_userOne());
-      //   console.log("after delete userTwo", data.get_userTwo());
-      //   });
     }
 
     return () => {
       socket.off("gameState");
-      socket.off("deleteUsers");
     };
   }, [gameState, currentState]);
 
@@ -266,16 +250,11 @@ export function Game(props: GameProps) {
             <div>
               <img
                 src={
-                  data.get_userOne().length !== 0
-                    ? data.get_userOne()[0].avatar
-                    : "undefined"
-                }
+                  data.get_userOne().avatar}
                 alt="User_One"
               />
               <span>
-                {data.get_userOne().length !== 0
-                  ? data.get_userOne()[0].username
-                  : "undefined"}
+                {data.get_userOne().username}
               </span>
             </div>
             <div className={style.watcher}>
@@ -285,15 +264,10 @@ export function Game(props: GameProps) {
             <div>
               <img
                 src={
-                  data.get_userTwo().length !== 0
-                    ? data.get_userTwo()[0].avatar
-                    : "undefined"
-                }
+                  data.get_userTwo().avatar}
                 alt="User_Two"
               />
-              {data.get_userTwo().length !== 0
-                ? data.get_userTwo()[0].username
-                : "undefined"}
+              {data.get_userTwo().username}
             </div>
           </div>
         </div>
