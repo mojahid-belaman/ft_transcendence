@@ -4,7 +4,7 @@ import { Data } from "./Data";
 
 const data: Data = new Data(1200, 600);
 
-const socket = io("http://localhost:5001", {
+const socket = io("http://localhost:5000/game", {
     query: {
         data
     }

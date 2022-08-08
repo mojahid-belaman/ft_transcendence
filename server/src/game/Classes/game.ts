@@ -16,7 +16,7 @@ export class Game {
   private _gameService: GameService;
   private _watchers: Socket[] = [];
   private sendGames: Function;
-  private server: { emit: (arg0: string, arg1: { playing: boolean; first: { username: any; avatar: any; }; second: { username: any; avatar: any; }; }) => void; };
+  private server: any;
   private game: Array<Game> = [];
 
   constructor(
@@ -24,7 +24,7 @@ export class Game {
     player_Two: Player,
     gameService: GameService,
     sendGames: Function,
-    server: { emit: (arg0: string, arg1: { playing: boolean; first: { username: any; avatar: any; }; second: { username: any; avatar: any; }; }) => void; },
+    server: any,
     game: Array<Game>,
     ) {
     this._id = uuid();
@@ -52,10 +52,21 @@ export class Game {
     const findGame = this.game.findIndex((g) => {
       return g.getId() === this._id;
     })
+
+    const idUseOne = this.game[findGame]._player_One.getUserId();
+    const idUseTwo = this.game[findGame]._player_Two.getUserId();
+    console.log(idUseOne, idUseTwo);
+    
+    this.server.emit('deleteUsers', {
+      idUserOne: idUseOne,
+      idUserTwo: idUseTwo,
+    });
+    
     this.game.splice(findGame, 1);
     console.log("length game: ", this.game.length);
     this.sendGames(this.server);
     
+
     const gameDta = new AddGameDto();
     gameDta.id = this._id;
     gameDta.firstPlayer = this._player_One.getUserId();

@@ -6,7 +6,7 @@ const token = Cookies.get("access_token")
 
 const data: Data = new Data(1200, 600);
 
-const socket = io("http://localhost:5000", {
+const socket = io("http://localhost:5000/chat", {
     query: {
         token,
         data

@@ -9,10 +9,10 @@ export enum Role {
 export class Users {
     @PrimaryGeneratedColumn('uuid')
     id: string;
-    @Column({ unique: true})
+    @Column({ unique: true, default: ""})
     login: string;
 
-    @Column({ unique: true })
+    @Column({ unique: true, default: "" })
     email: string;
 
     @Column({ unique: true })

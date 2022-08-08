@@ -1,24 +1,20 @@
 import { Inject, Logger } from '@nestjs/common';
-import { Socket ,Server} from 'socket.io';
+import { Socket, Server } from 'socket.io';
 import {
-  SubscribeMessage,
-  WebSocketGateway,
-  WebSocketServer,
-  OnGatewayInit,
-  OnGatewayConnection,
-  OnGatewayDisconnect,
-  MessageBody,
-  ConnectedSocket,
+    SubscribeMessage,
+    WebSocketGateway,
+    WebSocketServer,
+    OnGatewayInit,
+    OnGatewayConnection,
+    OnGatewayDisconnect,
+    MessageBody,
+    ConnectedSocket,
 } from '@nestjs/websockets';
 import { UsersService } from './users/users.service';
 import { JwtService } from '@nestjs/jwt';
 import { FriendshipsService } from './friendships/friendships.service';
 
-@WebSocketGateway({
-    cors: {
-        origin: "http://localhost:3000",
-        },
-})
+@WebSocketGateway({namespace: "chat", cors: { origin: "*" } })
 
 export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
     @WebSocketServer()
@@ -39,9 +35,9 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
         this.logger.log('connection => ' + client.id)
         // "undefined"
         if (client.handshake.query && client.handshake.query.token && client.handshake.query.token !== "undefined") {
-            const user: any = this.jwtService.decode(String(client.handshake.query.token))            
+            const user: any = this.jwtService.decode(String(client.handshake.query.token))
             if (user) {
-                this.friendshipsService.setOnlineStatus(user.userId, client);                
+                this.friendshipsService.setOnlineStatus(user.userId, client);
             }
         }
     }
@@ -55,6 +51,6 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
                 this.friendshipsService.setOffLineStatus(user.userId, client.id);
                 await this.usersService.updateLastTimeConnected(new Date(), user.userId);
             }
-        }        
+        }
     }
 }

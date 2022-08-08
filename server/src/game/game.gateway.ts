@@ -14,9 +14,10 @@ import { gameSate } from './Classes/gameState';
 import { Player } from './Classes/player';
 import { GameService } from './game.service';
 
-@WebSocketGateway( 5001, { cors: { origin: "*" } })
+@WebSocketGateway({namespace: "game", cors: { origin: '*' } })
 export class GameGateway
-  implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
+  implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect
+{
   private logger: Logger = new Logger('GameGateway');
   //NOTE - Declare Objects Of Players
   private playerOne: Player;
@@ -27,7 +28,7 @@ export class GameGateway
   private socketArr: Set<Socket> = new Set<Socket>();
   private userArr: any[] = [];
 
-  @WebSocketServer() server: { emit: (arg0: string, arg1: { playing: boolean; first: { username: any; avatar: any; }; second: { username: any; avatar: any; }; }) => void; };
+  @WebSocketServer() server;
 
   @Inject()
   private jwtService: JwtService;
@@ -105,9 +106,7 @@ export class GameGateway
   hundle_join_match(client: Socket, payload: any) {
     this.logger.log('Join Match ' + `${client.id} `);
     const user: any = payload.user;
-
-
-    console.log('user => ', user);
+    console.log('user => ',payload.user);
 
     //NOTE - Check If the same client not add in Set of socket
     if (this.socketArr.has(client)) {
@@ -119,13 +118,13 @@ export class GameGateway
     })
     if (findUser)
       return;
-
+      
     //NOTE - Add Client Socket In Set
     this.socketArr.add(client);
 
     //NOTE - Add User In Array
     this.userArr.push(user);
-
+    
     //NOTE - Check if Set Of Socket (i means player) to stock is 2
     const itSock = this.socketArr.values();
     const [first, second] = this.userArr;
@@ -135,39 +134,40 @@ export class GameGateway
         this.userArr.splice(this.userArr.indexOf(first), 1);
         return;
       }
-      this.server.emit('Playing', {
-        playing: true,
-        first: { username: first.username, avatar: first.avatar },
-        second: { username: second.username, avatar: second.avatar },
-      });
       this.playerOne = new Player(
         itSock.next().value,
         true,
         first.id,
         first.username,
         first.avatar,
-      );
-      this.playerTwo = new Player(
-        itSock.next().value,
-        false,
-        second.id,
-        second.username,
-        second.avatar,
-      );
-
-      //NOTE - Create new instance of game and game is start in constructor
-      const newGame = new Game(
-        this.playerOne,
-        this.playerTwo,
-        this.gameService,
-        this.sendGames,
-        this.server,
-        GameGateway.game,
-      );
-
-      GameGateway.game.push(newGame);
-      this.sendGames(this.server);
-
+        );
+        this.playerTwo = new Player(
+          itSock.next().value,
+          false,
+          second.id,
+          second.username,
+          second.avatar,
+          );
+          
+          //NOTE - Create new instance of game and game is start in constructor
+          const newGame = new Game(
+            this.playerOne,
+            this.playerTwo,
+            this.gameService,
+            this.sendGames,
+            this.server,
+            GameGateway.game,
+            );
+            
+            this.server.emit('Playing', {
+              playing: true,
+              first: { id: first.id, username: first.username, avatar: first.avatar },
+              second: { id: second.id,  username: second.username, avatar: second.avatar },
+            });
+            
+            GameGateway.game.push(newGame);
+            this.sendGames(this.server);
+            
       this.socketArr.delete(newGame.get_PlayerOne().getSocket());
       this.socketArr.delete(newGame.get_PlayerTwo().getSocket());
       this.userArr.splice(0, this.userArr.length);
