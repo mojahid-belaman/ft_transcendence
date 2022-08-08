@@ -13,7 +13,7 @@ function ChatHeader(props: any) {
     }
     return props.channel ? (<div className={classes.chatWrapper}>
         <button className={classes.chatHeader} onClick={props.toggle} >
-            <img src="https://i.pinimg.com/474x/ec/e2/b0/ece2b0f541d47e4078aef33ffd22777e.jpg"></img>
+            <img src="https://www.nicepng.com/png/detail/791-7911739_icon-for-multi-channel-messaging-multi-channel-icon.png"></img>
             <div className={classes.info}>
                 <div>{props.channel.name}</div>
             </div>

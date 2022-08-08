@@ -234,7 +234,7 @@ export class FriendshipsGateway {
       });
       if (user) {
         const onlineUser = onlineFriends.find(onlineUser => onlineUser.id === body.userId)
-        console.log("onlineUser => ",body);
+        console.log("onlineUser : inviteToGame => ",body);
         onlineUser?.sockets.forEach(socket => socket.emit("InviteToGameSent", { id: user.userId, room: { 
           sender: user.userId,
           receiver: body.userId
@@ -253,10 +253,12 @@ export class FriendshipsGateway {
         console.log("accept =>", body);
         const senderSockets = onlineFriends.find(onlineUser => onlineUser.id === body.sender)
         const receiverSockets = onlineFriends.find(onlineUser => onlineUser.id === body.receiver)
-        setTimeout(() => {
-          senderSockets?.sockets.forEach(socket => socket.emit("startGame", { room: {...body} }))
-        }, 500)
+        senderSockets?.sockets.forEach(socket => socket.emit("startGame", { room: {...body} }))
         receiverSockets?.sockets.forEach(socket => socket.emit("startGame", { room: {...body}}))
+        // setTimeout(() => {
+        //   receiverSockets.sockets[0].emit("startGame", { room: {...body} });
+        // }, 200);
+        // senderSockets.sockets[0].emit("startGame", { room: {...body} });
       }
     }
   }

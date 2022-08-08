@@ -48,7 +48,6 @@ function SettingsComponent() {
   };
   
   const updateUserName = async () => {
-    // try{
       await axios.post(
       'http://localhost:5000/users/username',
       {
@@ -77,7 +76,6 @@ function SettingsComponent() {
         })
         .then((res) => setQrCode(res.data.qrCode));
       };
-      // getQrCode();
       axios.get('http://localhost:5000/users/me',{
         headers: { Authorization: `Bearer ${accessToken}` },
       }).then((res) => {

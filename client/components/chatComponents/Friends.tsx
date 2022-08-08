@@ -13,10 +13,16 @@ function Friends() {
     const dataContextVar = useContext(DataContex);
     const [username, setUsername] = useState(router.query.username !== undefined ? router.query.username : false);
 
-    socket.on("startGame", data => {
-        console.log(data);
-        router.push(`/game?sender=${data?.room.sender}&receiever=${data?.room.receiver}`)
-    })
+    useEffect(()=> {
+        socket.on("startGame", data => {
+            console.log("start game : on startGame");
+            console.log(data);
+            router.push(`/game?room_id=${data?.room.sender}${data?.room.receiver}`)
+        })
+        return(()=> {
+            socket.off('startGame');
+        })
+    }, [])
     useEffect(() => {
         if (username)
             dataContextVar.getConversationByLogin(username);
@@ -29,7 +35,7 @@ function Friends() {
                     router.push(`chat?username=${user.login}`);
                     dataContextVar.getConversationByLogin(user.login);
                 }
-            }><FriendCard key={user.id} user={user} /></div>)}
+            }><FriendCard user={user} /></div>)}
         </div>
         {dataContextVar.selectedConversation && (<Chat user={dataContextVar.selectedConversation} login={username} />)}
     </div>

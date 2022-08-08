@@ -76,7 +76,6 @@ function Profile() {
         Authorization: `Bearer ${accessToken}`
       }
     }).then((res: any) => {
-      console.log(res.data);
      setHistory([...res.data])
     })
   }
@@ -115,7 +114,7 @@ function Profile() {
         <legend className={classes.legend}>
           <h1>History:</h1>
         </legend>
-        {history.map((h: any) => <History {...h} />)}
+        {history.map((h: any,index:any) => <History {...h} key={index}/>)}
       </fieldset>
       <fieldset className={classes.cardsBoard}>
         <legend className={classes.legend}>

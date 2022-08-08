@@ -11,7 +11,7 @@ function ChannelCard(props:any) {
     }
     return (
         <button className={classes.channelButton} onClick={setConversation_}>
-            <img className={classes.channelImg} src="https://i.pinimg.com/474x/ec/e2/b0/ece2b0f541d47e4078aef33ffd22777e.jpg"></img>
+            <img className={classes.channelImg} src="https://www.nicepng.com/png/detail/791-7911739_icon-for-multi-channel-messaging-multi-channel-icon.png"></img>
             <div className={classes.channelInfo}>
                 <div>{props.channel.name}</div>
             </div>

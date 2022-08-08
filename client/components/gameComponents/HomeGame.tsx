@@ -52,13 +52,50 @@ export function HomeGame() {
     setSetting(false);
   };
 
-  const inviteGame = async () => {
-    
-  }
+ async function handleGameInvite(room_id : string)
+ {
+  setCurrentState(StateGame.WAIT);
+  const token = Cookies.get("access_token");
+  await axios
+    .get("http://localhost:5000/users/me", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((res) => {
+      socket.emit("join_match", {
+        user: res.data,
+        room_id : room_id
+      });
 
-  useEffect(() => {
+      socket.on("Playing", (payload: any) => {
+        if (payload.playing) {
+          data.set_userOne(payload.first);
+          data.set_userTwo(payload.second);
 
-  }, []);
+          data.set_State(StateGame.PLAY);
+        }
+        setCurrentState(StateGame.PLAY);
+      });
+    });
+  setIsGame(true);
+  return () => {
+    socket.off("Playing");
+  };
+ }
+
+ useEffect(()=> {
+    if (history.query && history.query.room_id)
+    {
+      console.log("star a game invitation");
+      console.log("roo  id: ",history.query.room_id);
+      handleGameInvite(`${history.query.room_id}`);
+    }
+
+}, [])
+
+
+console.log("render Home game");
 
   return (
     <>

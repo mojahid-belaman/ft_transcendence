@@ -75,11 +75,6 @@ function NewChannel(props:any) {
                         </div>
                     </div>
                     {choice ? <Password setPassword={setPassword} setConfirmedPassword={setConfirmedPassword}  /> : null}
-                    <div className={classes.info}>
-                        <label> Add people <span>(You can skip this step for now) </span></label>
-                        <input type="text" name="name" className={classes.inputs} />
-
-                    </div>
                     <div className={classes.buttons}>
                         <button onClick={props.OpenClose} id={classes.cancel}>Cancel</button>
                         <button id={classes.create}>Create</button>

@@ -6,6 +6,7 @@ import {
   Get,
   HttpException,
   HttpStatus,
+  NotFoundException,
   Param,
   Post,
   Put,
@@ -23,16 +24,17 @@ import { ApiBearerAuth } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/Guards/jwt-auth.guard';
 
 const editfilename = (req, file, callback) => {
-  if (!file.mimetype.match(/\/(jpg|jpeg|png|gif)$/)){
-    callback(
-      new HttpException('Bad file extension!', HttpStatus.BAD_REQUEST),
-      false,
-      );
-  }
-  else
+  if (file.mimetype.match(/\/(jpg|jpeg|png|gif)$/)){
     callback(
       null,
       Date.now() + '-' + req.user.username+ '.' + file.originalname,
+    );
+  }
+  else
+    // return new BadRequestException();
+    callback(
+      new HttpException('Bad file extension!', HttpStatus.BAD_REQUEST),
+      false,
     );
 };
 
@@ -48,7 +50,7 @@ export class UsersController {
     const user = await this.usersService.getUserBylogin(req.user['login']);
     if (user)
       return user;
-    throw new ForbiddenException()
+    return new NotFoundException();
   }
 
   @ApiBearerAuth()

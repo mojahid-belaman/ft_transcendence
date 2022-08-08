@@ -33,6 +33,10 @@ function ProfilePage() {
     	useEffect(() => {
 		authHandler();
 	}, []);
+
+	console.log(
+		"index profile"
+	);
     return (
         <MainApp>
                 <Profile />

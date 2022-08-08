@@ -33,6 +33,9 @@ export function PingPong(props: any) {
 	useEffect(() => {
 		authHandler();
 	}, []);
+	console.log(
+		"index game"
+	);
   return (
     <>
       <ParticleBackground/>

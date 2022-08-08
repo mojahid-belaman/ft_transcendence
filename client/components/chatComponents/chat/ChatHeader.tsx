@@ -6,6 +6,7 @@ import socket from '../../Library/Socket';
 function GameInvitation(props: any) {
 
     const acceptInviteHandler = () => {
+        console.log("game invitaion accept :");
         if (props.roomGame)
             socket.emit("AcceptGameInvite", props?.roomGame)
     }
@@ -82,7 +83,7 @@ function ChatHeader(props: any) {
             {backdrop1 ?
                 <div className={classes.divUser}>
                     <div className={classes.userHandler}>
-                        <button onClick={sendInvitationHandler} className={classes.button}>Game Invitation</button>
+                        <button onClick={ ()=> sendInvitationHandler()} className={classes.button}>Game Invitation</button>
                         <button onClick={unfriendHandler} className={classes.button}>Unfriend</button>
                         <button onClick={blockdHandler} className={classes.button}>Block</button>
                     </div>
