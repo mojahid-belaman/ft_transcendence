@@ -127,12 +127,7 @@ function Profile() {
         </legend>
         {history.map((h: any,index:any) => <History {...h} key={index}/>)}
       </fieldset>
-      <fieldset className={classes.cardsBoard}>
-        <legend className={classes.legend}>
-          <h1>Top 10:</h1>
-        </legend>
-        <TopTen />
-      </fieldset>
+  
     </div>
   );
 }

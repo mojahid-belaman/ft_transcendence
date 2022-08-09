@@ -8,7 +8,12 @@ import { ConnectionsService } from 'src/connections/connections.service';
 import { UsersService } from 'src/users/users.service';
 import { MessagesChannelsService } from './messages-channels.service';
 
-@WebSocketGateway()
+@WebSocketGateway({
+  namespace: "chat",
+  cors: {
+    origin: "*"
+  }
+})
 export class MessagesChannelsGateway {
 
   @Inject()
@@ -54,9 +59,7 @@ export class MessagesChannelsGateway {
         if (channel.length === 1) {
           if (channel[0].status !== channelStatus.PRIVATE) {
             const isConnected = await this.connectionsService.checkConnectionExistance(data, user.userId);
-            //console.log(data);
             if (isConnected) {
-              //console.log("Test Join =>", data);
               client.join(data);
             }
           }

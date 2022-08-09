@@ -25,7 +25,6 @@ const Setting = ({setSetting}: any) => {
             socket.io.opts.query.data.set_borderColor(isBorder);
             socket.io.opts.query.data.set_textColor(isText);
             socket.io.opts.query.data.set_traceColor(isTrace);
-            console.log(socket.io.opts.query.data.get_mapColor());
             
         }
         setSetting(true);

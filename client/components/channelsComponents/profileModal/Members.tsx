@@ -12,7 +12,6 @@ function MemberCard(props: any) {
 
     const getConnection = async () => {
         const token = Cookies.get("access_token");
-        //console.log("CHANNEL => ", props);
 
         return await axios.get(`${process.env.BACKEND_URL}/channels/connections/${props.channelId}/${props.userId}`, {
             headers: {
@@ -20,7 +19,6 @@ function MemberCard(props: any) {
             }
         })
             .then(res => {
-                //console.log(res);
                 if (res.status === 200)
                     setUserStatus(res.data.status)
             })
@@ -105,7 +103,6 @@ function Members(props: any) {
                 Authorization: `Bearer ${token}`
             }
         }).then(res => {
-            //console.log(res);
             setUsers(res.data)
         }).catch(() => { })
     }
@@ -118,7 +115,7 @@ function Members(props: any) {
             <hr />
             <div className={classes.Members}>
                 {users.map((user, index) => (
-                    <div ><MemberCard key={index} {...user} channelId={props.channel.channelId} status={props.status} setUsers={setUsers} users={users} /></div>
+                    <div  key={index}  ><MemberCard {...user} channelId={props.channel.channelId} status={props.status} setUsers={setUsers} users={users} /></div>
                 ))}
             </div>
         </div>) : <></>

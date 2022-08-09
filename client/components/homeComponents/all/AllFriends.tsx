@@ -10,14 +10,19 @@ import socket from '../../Library/Socket';
 const AllFriends = () => {
 
     const [users, setUsers] = useState<any[]>([]);
-    
+
     useEffect(() => {
         socket.emit("allFriends");
         socket.on("getAllFriends", (data: any) => setUsers(data))
         socket.on("addedNewFriendship", (data: any) => setUsers([...users, data]))
         socket.on("RemoveFriend", (data: any) => setUsers(users.filter(user => user.id !== data.id)))
+        return () => {
+            socket.off("getAllFriends")
+            socket.off("addedNewFriendship")
+            socket.off("RemoveFriend")
+        }
     }, [])
-    
+
     return (<div className={classes.list}>
         {users.length !== 0 && users.map((user, index) => (
             <AllCard key={index} {...user} />

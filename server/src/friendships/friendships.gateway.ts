@@ -8,6 +8,7 @@ import { FriendshipStatus } from './entity/friendships.entity';
 import { FriendshipsService, onlineFriends } from './friendships.service';
 
 @WebSocketGateway({
+  namespace: "chat",
   cors: {
     origin: "*"
   }
@@ -66,10 +67,8 @@ export class FriendshipsGateway {
         secret: process.env.JWT_SECRET
       });
       if (user) {
-        //console.log(user.userId);
         this.friendshipsService.getPendingFriendships(user.userId)
           .then(pendingFriends => {
-            //console.log("getting pending friends => ", pendingFriends);
             if (pendingFriends)
               client.emit("pendingFriendsList", pendingFriends);
           })
@@ -90,7 +89,8 @@ export class FriendshipsGateway {
           .then(blockedFriends => {
             if (blockedFriends.length !== 0) {
               const onlineUser = onlineFriends.find(onlineUser => onlineUser.id === user.userId)
-              onlineUser.sockets.forEach(socket => socket.emit("blockedFriendsList", [...blockedFriends]))
+              if (onlineUser)
+                onlineUser.sockets.forEach(socket => socket.emit("blockedFriendsList", [...blockedFriends]))
             }
           })
       }
@@ -102,21 +102,18 @@ export class FriendshipsGateway {
   @SubscribeMessage("addFriend")
   async addFriend(@MessageBody() body: CreateFriendshipsDtoBody, @ConnectedSocket() client) {
     if (client.handshake.query && client.handshake.query.token) {
-      //console.log(client.handshake.query.token);
       const user: any = await this.jwtService.verify(String(client.handshake.query.token), {
         secret: process.env.JWT_SECRET
       });
       if (user) {
-        //console.log("AddFriend => ", user);
         this.friendshipsService.addFriend({ firstId: user.userId, secondId: body.userId, status: FriendshipStatus.PENDING })
           .then(newFriendShip => {
             if (newFriendShip) {
-              //console.log(onlineFriends);
+              
               const clientSockets = onlineFriends.find(online => online.id == body.userId);
               if (clientSockets)
                 clientSockets.sockets.forEach(socket => socket.emit("addedNewPendingFriendship", { ...newFriendShip }));
             }
-            // this.server.emit("addedNewPendingFriendship", newFriendShip); // SHOULD CHAAANGE
           })
       }
     }
@@ -129,12 +126,10 @@ export class FriendshipsGateway {
         secret: process.env.JWT_SECRET
       });
       if (user) {
-        this.friendshipsService.acceptFriend({ firstId: body.userId, secondId: user.userId })
+        await this.friendshipsService.acceptFriend({ firstId: body.userId, secondId: user.userId })
           .then(newFriendShip => {
-            //console.log("newFriendShip => ", newFriendShip);
             if (newFriendShip) {
               const clientSockets = onlineFriends.find(online => online.id == user.userId);
-              //console.log(clientSockets);
               if (clientSockets) {
                 clientSockets.sockets.forEach(socket => socket.emit("RemovependingFriends", { ...newFriendShip }));
                 const newFriend = this.friendshipsService.checkIfUserOnline(body.userId);
@@ -155,8 +150,10 @@ export class FriendshipsGateway {
         secret: process.env.JWT_SECRET
       });
       if (user) {
+        const deletedFriendShip = await this.friendshipsService.removeFriendship(user.userId, body.userId)
         const clientSockets = this.friendshipsService.checkIfUserOnline(user.userId);
-        clientSockets.sockets.forEach(socket => socket.emit("rejectFriendship", { id: body.userId }))
+        if (clientSockets)
+          clientSockets.sockets.forEach(socket => socket.emit("rejectFriendship", { id: body.userId }))
       }
     }
   }
@@ -174,7 +171,6 @@ export class FriendshipsGateway {
           .then(() => {
             const clients = this.friendshipsService.checkIfUserOnline(user.userId);
             if (clients) {
-              //console.log("clients of RemoveFriends => ", clients);
               clients.sockets.forEach(clientSocket => clientSocket.emit("RemoveFriend", { id: body.friendId, removed: false, message: "You removed this friend" }))
               const friend = this.friendshipsService.checkIfUserOnline(body.friendId);
               if (friend)
@@ -221,7 +217,8 @@ export class FriendshipsGateway {
               const onlineUser = onlineFriends.find(onlineUser => onlineUser.id === user.userId)
               onlineUser.sockets.forEach(socket => socket.emit("RemoveBlockedFriend", { id: body.blockedUserId }))
               const blockedFriendAgents = onlineFriends.find(onlineUser => onlineUser.id === body.blockedUserId)
-              blockedFriendAgents.sockets.forEach(socket => socket.emit("RemoveBlockedFriend", { id: user.userId }))
+              if (blockedFriendAgents)
+                blockedFriendAgents.sockets.forEach(socket => socket.emit("RemoveBlockedFriend", { id: user.userId }))
             }
           })
       }
@@ -236,7 +233,6 @@ export class FriendshipsGateway {
       });
       if (user) {
         const onlineUser = onlineFriends.find(onlineUser => onlineUser.id === body.userId)
-        console.log("onlineUser : inviteToGame => ",body);
         onlineUser?.sockets.forEach(socket => socket.emit("InviteToGameSent", { id: user.userId, room: { 
           sender: user.userId,
           receiver: body.userId
@@ -252,7 +248,6 @@ export class FriendshipsGateway {
         secret: process.env.JWT_SECRET
       });
       if (user) {
-        console.log("accept =>", body);
         const senderSockets = onlineFriends.find(onlineUser => onlineUser.id === body.sender)
         const receiverSockets = onlineFriends.find(onlineUser => onlineUser.id === body.receiver)
         senderSockets?.sockets.forEach(socket => socket.emit("startGame", { room: {...body} }))

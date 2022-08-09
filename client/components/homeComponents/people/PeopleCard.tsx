@@ -4,14 +4,7 @@ import classes from './PeopleCard.module.css';
 
 const PeopleCard = (props: any) => {
     const [isSent, setIsSent] = useState(false)
-    useEffect(() => {
-        socket.on("addedNewPendingFriendship", (data: any) => {
-            // console.log("here");
-            
-            console.log(data);
-        });
-    }, [])
-    
+
     const addFriend = () => {
         setIsSent(true)
         socket.emit("addFriend", { userId: props.user.id});

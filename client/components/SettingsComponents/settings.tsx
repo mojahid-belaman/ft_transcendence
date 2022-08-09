@@ -41,7 +41,6 @@ function SettingsComponent() {
       Authorization: `Bearer ${accessToken}` },
     })
     .then((res) => {
-      console.log(res.data);
       setAvatar(res.data['avatar']);
     })
     .catch((e) => toast.error('You need to set a valid Image',{autoClose: 1000}));
@@ -59,7 +58,6 @@ function SettingsComponent() {
         },
       }
       ).then((res) => {
-        console.log(res.data);
         if (res.data.status == 400)
           toast.error('You need to set a valid User name',{autoClose: 1000})
         else

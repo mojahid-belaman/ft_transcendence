@@ -11,8 +11,12 @@ function BlockedList() {
         socket.emit("blockedFriends");
         socket.on("blockedFriendsList", (data: any) => setBlocked(data))
         socket.on("RemoveBlockedFriend", (data: any) => setBlocked(blocked.filter(user => user.id !== data.id)))
+        return () => {
+            socket.off("blockedFriendsList")
+            socket.off("RemoveBlockedFriend")
+        }
     }, [])
-    
+
     return (<div className={classes.list}>
         {
             blocked.length !== 0 && blocked.map((user, index) => {

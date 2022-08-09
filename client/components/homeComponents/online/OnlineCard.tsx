@@ -16,7 +16,7 @@ const OnlineCard =  (props: any) => {
         const token = Cookies.get("access_token");
         const data = {
             secondId: props.id,
-            content: ""
+            content: "Hi..!"
         }
         await axios.post(`${process.env.BACKEND_URL}/conversations/messages/goTo`, data, {
             headers: {

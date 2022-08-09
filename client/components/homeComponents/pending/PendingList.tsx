@@ -9,7 +9,6 @@ const PendingList = () => {
     const [pendingFriendships, setPendingFriendships] = useState<any[]>([])
     
     socket.on("addedNewPendingFriendship", (data: any) => {
-        // console.log("addedNewPendingFriendship");
         setPendingFriendships([...pendingFriendships, data]);
     });
 
@@ -22,7 +21,6 @@ const PendingList = () => {
     });
 
     socket.on("rejectFriendship", (data: any) => {
-        //console.log(data);
         setPendingFriendships(pendingFriendships.filter(user => user.id !== data.id))
     })
 
@@ -30,6 +28,10 @@ const PendingList = () => {
         socket.emit("pendingFriends");
         return () => {
             setPendingFriendships([])
+            socket.off("addedNewPendingFriendship")
+            socket.off("pendingFriendsList")
+            socket.off("RemovependingFriends")
+            socket.off("rejectFriendship")
         }
     }, [])
     

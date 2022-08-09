@@ -31,9 +31,12 @@ export function FriendsContexProvider(props:any) {
             SetUserData(data)
         })
         socket.on("addedNewFriendship", (data: any) => {
-            //console.log(data);
             // SetUserData([...userData, data])
         })
+        return () => {
+        socket.off("getAllFriends")
+        socket.off("addedNewFriendship")
+        }
     }, [])
     
     const context = {

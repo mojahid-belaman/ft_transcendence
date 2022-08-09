@@ -129,7 +129,6 @@ export class UsersService {
       .then(async (user) => {
         return await this.userRepository.save({...user, lastConnected: info})
         .then(res => {
-          //console.log(res);
           return res;
         })
       });
@@ -165,7 +164,6 @@ export class UsersService {
   
   async turnOnTwoFactorAuthentication(login: string) {
     const user = await this.getUserBylogin(login);
-    //console.log('user => ', user);
     user.isTwoFactorAuthEnabled = true;
     return this.userRepository.save(user);
   }

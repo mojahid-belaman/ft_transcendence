@@ -47,7 +47,6 @@ function NewChannel(props:any) {
             await dataChannelVar.getChannels();
             props.setBackdrop(false)
         })
-        .catch(err => console.log(err))
     }
     return (
         <div>

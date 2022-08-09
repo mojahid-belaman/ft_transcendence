@@ -50,7 +50,6 @@ export class MessagesChannelsService {
 
   async findAll(channelId: string, userId: string) {
     const channelObject = await this.channelsService.getchannelById(channelId);
-    console.log("Channel Status => ", channelObject.status);
     const userConnection = await this.connectionService.findConnection(channelId, userId)
     if (userConnection && userConnection.status === connectionStatus.BLOCKED) {
       throw new UnauthorizedException("You are blocked")

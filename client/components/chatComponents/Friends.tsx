@@ -17,8 +17,6 @@ function Friends() {
         socket.on("startGame", data => {
             router.push(`/game?room_id=${data?.room.sender}${data?.room.receiver}`)
         })
-        // socket.on("blockedFiend")
-
         return(()=> {
             socket.off('startGame');
         })

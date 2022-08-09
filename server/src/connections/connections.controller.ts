@@ -65,7 +65,6 @@ export class ConnectionsController {
   @UseGuards(JwtAuthGuard)
   @Post("mute/:channelId/:userId")
   async muteMember(@Req() req, @Body() body, @Param("channelId") channelId, @Param("userId") userId) {
-    //console.log("hello from mute function");
     return await this.connectionsService.muteMember(channelId, userId, body.date, req.user.userId)
   }
 

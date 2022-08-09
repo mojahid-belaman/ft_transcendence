@@ -19,7 +19,6 @@ export class ConnectionsService {
       where: [createConnectionDto]
     })
       .then(async data => {
-        //console.log(createConnectionDto);
 
         if (data)
           throw new ForbiddenException("Already Connected");
@@ -156,7 +155,7 @@ export class ConnectionsService {
     return await this.connectionsRepository.findOne({
       where: [{ userId, channelId }]
     }).then(res => {
-      console.log(res);
+      (res);
       return res
     })
   }
@@ -189,7 +188,6 @@ export class ConnectionsService {
     const mutedConnection = await this.connectionsRepository.findOne({
       where: [{ userId, channelId }]
     })
-    console.log(mutedConnection.status);
     if (!mutedConnection)
       throw new NotFoundException("No connection Found");
     const prevStatus = mutedConnection.status;

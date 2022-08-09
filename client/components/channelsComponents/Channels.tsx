@@ -28,7 +28,6 @@ function PrivateCard(props: any) {
                 Authorization: `Bearer ${token}`,
             }
         }).then(async (data) => {
-            //console.log(data);
             props.setStatus(channelStatus.PUBLIC);
         })
         .catch(err => setError(err.response.data.message))
@@ -61,11 +60,9 @@ function ProtectedCard(props: any) {
                 Authorization: `Bearer ${token}`,
             }
         }).then(async (data) => {
-            //console.log(data);
             props.setStatus(channelStatus.PUBLIC);
         })
         .catch(err => {
-            console.log(err);
             setError(err.response.data.message)
         })
     }
@@ -98,6 +95,9 @@ function ChannelsComponent() {
     socket.on("JoinedOrNot", (data) => setStatus(data.status));
 
     useEffect(() => {
+        return () => {
+            socket.off("JoinedOrNot")
+        }
     }, [])
 
     return <div className={classes.mainCard}>

@@ -27,7 +27,6 @@ function ChannelInfo(props: any) {
                 Authorization: `Bearer ${token}`
             }
         }).then(res => {
-            //console.log("data in debug mode => ", res.data);
 
             setStatus(res.data)
         })

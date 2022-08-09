@@ -33,7 +33,6 @@ function Chat(props: any) {
   });
 
   socket.on("channelConnectionStatusChange", (data) => {
-    //console.log("After one minute => ", data);
     if (data.status === connectionStatus.BLOCKED)
       setError("Error(from Socket): " + data.error);
     else setError("");
@@ -54,10 +53,16 @@ function Chat(props: any) {
         setMessageList([...res.data]);
       })
       .catch((err) => {
-        console.log(err.response.data);
         setError("Error: " + err.response.data.message);
       });
   };
+
+  useEffect(() => {
+    return () => {
+      socket.off("receiveMessageChannel")
+      socket.off("channelConnectionStatusChange")
+    }
+  }, [])
 
   useEffect(() => {
     if (props.channel) getCurrentConv();

@@ -1,4 +1,4 @@
-import { Controller, Get, Req, UseGuards } from "@nestjs/common";
+import { Controller, Get, Param, Req, UseGuards } from "@nestjs/common";
 import { JwtAuthGuard } from "src/auth/Guards/jwt-auth.guard";
 import { GameService } from "./game.service";
 
@@ -14,5 +14,12 @@ export class GameController {
     async getHistory(@Req() req) {
         return await this.gameService.getHistory(req.user.userId);
     }
+
+    @UseGuards(JwtAuthGuard)
+    @Get("profile_history/:userId")
+    async profileHistory(@Param("userId") userId) {
+        return await this.gameService.getHistory(userId);
+    }
+
 
 }

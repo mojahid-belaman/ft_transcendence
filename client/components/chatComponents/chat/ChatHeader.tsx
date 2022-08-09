@@ -6,7 +6,6 @@ import socket from '../../Library/Socket';
 function GameInvitation(props: any) {
 
     const acceptInviteHandler = () => {
-        console.log("game invitaion accept :");
         if (props.roomGame)
             socket.emit("AcceptGameInvite", props?.roomGame)
     }
@@ -92,7 +91,7 @@ function ChatHeader(props: any) {
                 <div>{props.user.isOnline ? "Online" : "Offline"}  </div>
             </div>
         </button>
-        <button onClick={OpenCloseModal1} className={classes.buttonSetting}><BiDotsVertical />
+        <div onClick={OpenCloseModal1} className={classes.buttonSetting}><BiDotsVertical />
             {backdrop1 ?
                 <div className={classes.divUser}>
                     <div className={classes.userHandler}>
@@ -103,7 +102,7 @@ function ChatHeader(props: any) {
                 </div>
                 : null
             }
-        </button>
+        </div>
         {backdrop2 ? <GameInvitation roomGame={roomGame} OpenClose={OpenCloseModal2} {...props.user} /> : null}
         {isWaiting ? <WaitingInvitation OpenClose={OpenCloseModal2} {...props.user} /> : null}
 

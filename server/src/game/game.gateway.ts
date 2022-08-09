@@ -38,7 +38,7 @@ export class GameGateway {
     this.logger.log('Initial');
   }
 
-  /* handleConnection(client: Socket, ...args: any[]) {
+  handleConnection(client: Socket, ...args: any[]) {
     
     // if the user has watcher stat: emit "send_games" with GameGateway.game array to be rendered in the frontend
     
@@ -61,7 +61,7 @@ export class GameGateway {
       }
     }
   }
- */
+
 
   @SubscribeMessage('upPaddle')
   hundle_up_paddle(client: Socket, payload: string) {
@@ -110,7 +110,6 @@ export class GameGateway {
   //   if (tmp !== -1 && this.userArr.length == 1)
   //     return;
   //   this.logger.log('Join Match ' + `${client.id} `);
-  //   console.log('user => ', payload.user);
 
   //   //NOTE - Check If the same client not add in Set of socket
   //   if (this.socketArr.has(client)) {
@@ -132,7 +131,6 @@ export class GameGateway {
   //   //NOTE - Check if Set Of Socket (i means player) to stock is 2
   //   const itSock = this.socketArr.values();
   //   const test = [...itSock]
-  //   // test.forEach(t => console.log("Socket in game => ", t.id))
     
     
 
@@ -143,8 +141,6 @@ export class GameGateway {
   //       this.userArr.splice(this.userArr.indexOf(first), 1);
   //       return;
   //     }
-  //     console.log("Socket before => ", test[0].id);
-  //     console.log("Socket before => ", test[1].id);
   //     this.playerOne = new Player(
   //       test[0],
   //       true,
@@ -183,9 +179,6 @@ export class GameGateway {
   //     this.socketArr.delete(newGame.get_PlayerTwo().getSocket());
   //     this.userArr.splice(0, this.userArr.length);
 
-  //     console.log('Game length: ' + GameGateway.game.length);
-  //     console.log('Socket size: ' + this.socketArr.size);
-  //     console.log('user size: ' + this.userArr.length);
   //   }
   // }
 
@@ -195,7 +188,6 @@ export class GameGateway {
     const user: any = payload.user;
 
     if (!payload.room_id) {
-      console.log('user => ', payload.user);
       //NOTE - Check If the same client not add in Set of socket
       if (this.socketArr.has(client)) {
         return;
@@ -253,22 +245,16 @@ export class GameGateway {
         this.socketArr.delete(newGame.get_PlayerTwo().getSocket());
         this.userArr.splice(0, this.userArr.length);
 
-        console.log('Game length: ' + GameGateway.game.length);
-        console.log('Socket size: ' + this.socketArr.size);
-        console.log('user size: ' + this.userArr.length);
       }
     } else {
-      console.log('user => ', payload.user, ' room : ', payload.room_id);
       //NOTE - Check If the same client not add in Set of socket
       if (this.privateGameUser.has(payload.room_id)) {
         [...this.privateGameUser.get(payload.room_id)]?.forEach((user) => {
           if (user.id == payload.user.id) {
-            console.log('user already exist =>');
             return;
           }
         });
       }
-      console.log(' <= user already exist after return');
       if (this.privateRoomGameSockets.has(payload.room_id)) {
         this.privateRoomGameSockets.set(payload.room_id, [
           ...this.privateRoomGameSockets.get(payload.room_id),
@@ -278,27 +264,19 @@ export class GameGateway {
           ...this.privateGameUser.get(payload.room_id),
           payload.user,
         ]);
-        console.log("second user added : > ",this.privateGameUser.get(payload.room_id))
-        console.log("second socket added : > ",this.privateRoomGameSockets.get(payload.room_id))
       } else {
         this.privateRoomGameSockets.set(payload.room_id, [client]);
         this.privateGameUser.set(payload.room_id, [payload.user]);
       }
-      console.log(
-        'invited game  users : ',
-        this.privateGameUser.get(payload.room_id),
-      );
 
       if (this.privateRoomGameSockets.get(payload.room_id)[0].id === this.privateRoomGameSockets.get(payload.room_id)[1].id )
       {
-        console.log("user doubled  socket :---->");
         this.privateRoomGameSockets.set(payload.room_id, [this.privateRoomGameSockets.get(payload.room_id)[0]]);
         return;
         
       }
       if (this.privateGameUser.get(payload.room_id)[0].id === this.privateGameUser.get(payload.room_id)[1].id )
       {
-        console.log("user doubled user  :---->");
         this.privateGameUser.set(payload.room_id,[this.privateGameUser.get(payload.room_id)[0]]);
         return;
       }
@@ -308,7 +286,6 @@ export class GameGateway {
         [...this.privateGameUser.get(payload.room_id)].length > 1
       ) {
 
-        console.log('start the game      0000000000');
 
         this.server.emit('Playing', {
           playing: true,
@@ -351,9 +328,6 @@ export class GameGateway {
 
         this.privateGameUser.delete(payload.room_id);
         this.privateRoomGameSockets.delete(payload.room_id);
-        console.log('Game length: ' + GameGateway.game.length);
-        console.log('Socket size: ' + this.socketArr.size);
-        console.log('user size: ' + this.userArr.length);
       }
     }
   }
@@ -362,13 +336,11 @@ export class GameGateway {
   hundle_receiveGame(client: Socket, payload: any) {
     if (GameGateway.game.length !== 0) {
       const gameObj = { games: GameGateway.game.map((g) => g.getSubGame()) };
-      // console.log(gameObj);
       client.emit('receive_games', JSON.stringify(gameObj, null, 2));
     }
   }
   @SubscribeMessage('watchers')
   hundel_watchers(client: Socket, payload: any) {
-    // console.log(payload);
     const gameFound = GameGateway.game.find((gm) => {
       return gm.getId() === payload.gameId;
     });

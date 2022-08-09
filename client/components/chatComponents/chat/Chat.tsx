@@ -36,7 +36,6 @@ function Chat(props: any) {
   }
 
   socket.on("receieveMessage", (newMessage: any) => {
-    //console.log("Received message => ", newMessage);
     setMessageList([...messagelist, newMessage]);
     setCurentMessage("");
   });
@@ -50,13 +49,12 @@ function Chat(props: any) {
       })
       .then((res) => {
         console.log(res);
+        
         if (res.data.friendshipStatus == "blocked") {
-          console.log("HEllo");
-          
           setAllowed(false);
           setMessage(res.data.message);
         }
-        else {
+        else if (res.data.friendshipStatus == "accepted") {
           setMessageList([...res.data.messages]);
           setUser(res.data.user);
         }
@@ -66,7 +64,9 @@ function Chat(props: any) {
   useEffect(() => {
     if (props.login)
       getCurrentConv();
-
+    return () => {
+      socket.off("receieveMessage")
+    }
   }, [props.login]);
   const messageEndRef = useRef<HTMLInputElement>(null);
   const scrollToBottom = () => {

@@ -38,6 +38,9 @@ export function DataContexProvider(props: any) {
 
     useEffect(() => {
         getConversations();
+        return () => {
+            socket.off("newConversation")
+        }
     }, []);
 
     return userData.length !== 0 ? (

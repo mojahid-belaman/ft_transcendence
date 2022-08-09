@@ -46,6 +46,7 @@ export class ChannelsService {
   async createChannel(channelObj) {
     if (channelObj.status === channelStatus.PROTECTED && channelObj.password === null)
       throw new ForbiddenException("Password not set for protected channel")
+      // throw new ForbiddenException("Password not set for protected channel")
     else if (channelObj.password !== "")
       channelObj.password = await argon2.hash(channelObj.password)
     return await this.channelRepository.save(channelObj)
@@ -59,9 +60,11 @@ export class ChannelsService {
     if (body.channelId)
       return await this.channelRepository.findOne({
         where: { id: body.channelId }
-      }).then(channel => {
+      }).then(async (channel) => {
         if (channel) {
-          return this.channelRepository.save({ ...channel, ...body })
+          if (channel.status === channelStatus.PROTECTED)
+            body.password = await argon2.hash(channel.password);
+          return await this.channelRepository.save({ ...channel, ...body })
         }
         throw new NotFoundException()
       })
@@ -74,8 +77,6 @@ export class ChannelsService {
         where: { id: body.channelId }
       })
       if (channel) {
-        console.log(body.password);
-        console.log(channel);
         if (channel.status === channelStatus.PROTECTED ) {
           const test = await argon2.verify(channel.password, body.password)
           if (test)

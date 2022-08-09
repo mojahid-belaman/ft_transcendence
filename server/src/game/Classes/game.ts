@@ -55,7 +55,6 @@ export class Game {
 
     const idUseOne = this.game[findGame]._player_One.getUserId();
     const idUseTwo = this.game[findGame]._player_Two.getUserId();
-    console.log(idUseOne, idUseTwo);
     
     this.server.emit('deleteUsers', {
       idUserOne: idUseOne,
@@ -63,7 +62,6 @@ export class Game {
     });
     
     this.game.splice(findGame, 1);
-    console.log("length game: ", this.game.length);
     this.sendGames(this.server);
     
 
@@ -244,6 +242,5 @@ export class Game {
       return w === watcher;
     });
     if (!findWtcher) this._watchers.push(watcher);
-    console.log(this._watchers.length);
   }
 }

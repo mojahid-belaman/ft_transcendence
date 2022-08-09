@@ -128,6 +128,17 @@ export class FriendshipsService {
         })
     }
 
+    async refuseFriend(acceptFriend: AcceptFriendship) {
+        return  await this.friendshipsRepository.findOne({
+            where: {firstId: acceptFriend.firstId, secondId: acceptFriend.secondId, status: FriendshipStatus.PENDING}
+        })
+        .then(friendship => {
+            if (!friendship)
+                return undefined;
+            return this.friendshipsRepository.remove(friendship)
+        })
+    }
+
     
     async setFriendshipStatus(userId: string, blockedUserId: string, friendshipStatus: FriendshipStatus) {
         return await this.friendshipsRepository.findOne({

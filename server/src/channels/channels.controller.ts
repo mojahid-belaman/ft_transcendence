@@ -39,7 +39,6 @@ export class ChannelsController {
 	@UseGuards(JwtAuthGuard)
 	@Post("update")
 	updateChannel(@Body() body, @Req() req) {
-		//console.log("body => ", body);
 		return this.channelsService.updateChannel(body);
 	}
 

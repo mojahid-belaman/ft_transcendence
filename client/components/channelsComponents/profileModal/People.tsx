@@ -10,7 +10,6 @@ function PeopleCard(props: any) {
 
     const AddToChannel = async () => {
         const token = Cookies.get("access_token")
-        //console.log(props);
         const data = {channelId: props.channelId}
         await axios.post(`${process.env.BACKEND_URL}/channels/connections/new/${props.id}`, data,{
             headers: {
@@ -23,7 +22,6 @@ function PeopleCard(props: any) {
     }
 
     useEffect(() => {
-        //console.log(props);
     }, [])
 
     return (<div className={classes.PeopleCard}>
@@ -59,7 +57,6 @@ function People(props: any) {
     }
 
     useEffect(() => {
-        //console.log(props.channel);
         getAllUsers()
     }, []);
 
